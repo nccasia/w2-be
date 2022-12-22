@@ -12,9 +12,28 @@ import config from 'src/common/configs/config';
 import { loggingMiddleware } from 'src/common/middleware/logging.middleware';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { GqlConfigService } from './gql-config.service';
+import { HasuraModule } from '@golevelup/nestjs-hasura';
+import path from 'path';
 
 @Module({
   imports: [
+    HasuraModule.forRoot(HasuraModule, {
+      webhookConfig: {
+        secretFactory: 'secret',
+        secretHeader: 'secretHeader',
+      },
+      managedMetaDataConfig: {
+        dirPath: path.join(process.cwd(), 'hasura/metadata'),
+        secretHeaderEnvName: 'HASURA_NESTJS_WEBHOOK_SECRET_HEADER_VALUE',
+        nestEndpointEnvName: 'NESTJS_EVENT_WEBHOOK_ENDPOINT',
+        defaultEventRetryConfig: {
+          intervalInSeconds: 15,
+          numRetries: 3,
+          timeoutInSeconds: 100,
+          toleranceSeconds: 21600,
+        },
+      },
+    }),
     ConfigModule.forRoot({ isGlobal: true, load: [config] }),
     PrismaModule.forRoot({
       isGlobal: true,
