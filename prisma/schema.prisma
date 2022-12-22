@@ -12,6 +12,66 @@ generator dbml {
   provider = "prisma-dbml-generator"
 }
 
+model Organization {
+  id            String   @id @default(cuid())
+  
+  name          String
+  description   String
+
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  tasks         Task[]
+  users         User[]
+  teams         Team[]
+  settings      Settings[]
+  files         File[]
+  eventLogs     EventLog[]
+  taskDefinitions TaskDefinition[]
+  workflows     Workflow[]
+}
+
+enum FileType {
+  FILE
+  VARIANT
+}
+model File {
+  id            String   @id @default(cuid())
+  filename      String
+  fileType      FileType
+  mimetype      String
+  encoding      String
+  data          String
+  cdnUrl        String
+
+  varantName    String?
+  variantKey  String?
+  variantValue  String?
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  variantOfId   String?  
+  variantOf     File?    @relation("FileVariants", fields: [variantOfId], references: [id]) // Add a relation to the parent file for variants
+
+  variants      File[]   @relation("FileVariants")
+
+  organizationId String
+  organization  Organization  @relation(fields: [organizationId], references: [id])
+}
+
+model Settings {
+  id            String   @id @default(cuid())
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  key           String
+  value         String
+
+  organization  Organization  @relation(fields: [organizationId], references: [id])
+  organizationId String
+}
+
 model User {
   id        String   @id @default(cuid())
   createdAt DateTime @default(now())
@@ -20,7 +80,17 @@ model User {
   password  String
   firstname String?
   lastname  String?
+  
+  organizationId String
+  organization Organization @relation(fields: [organizationId], references: [id])
+
+  managedteams     Team[] @relation("TeamManager")
+  createdteams     Team[] @relation("TeamCreator")
+  
+  memberOnTeams MemberOnTeams[]
   posts     Post[]
+  comments  Comment[]
+  taskEvents EventLog[]
   role      Role
 }
 
@@ -35,7 +105,229 @@ model Post {
   authorId  String?
 }
 
+model Team {
+  id         String    @id @default(cuid())
+  name       String
+  bio       String
+  description String
+
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+
+  creatorId String
+  creator User @relation("TeamCreator", fields: [creatorId], references: [id])
+  
+  managerId String
+  manager User @relation("TeamManager", fields: [managerId], references: [id])
+
+  organizationId String
+  organization Organization @relation(fields: [organizationId], references: [id])
+
+  memberOnTeams MemberOnTeams[]
+  tasks      Task[]
+}
+
+model MemberOnTeams {
+  team       Team     @relation(fields: [teamId], references: [id])
+  teamId     String
+
+  user   User @relation(fields: [userId], references: [id])
+  userId String
+
+  assignedAt DateTime @default(now())
+  assignedBy String
+
+  @@id([teamId, userId])
+}
+
 enum Role {
   ADMIN
   USER
+}
+
+enum TaskPriority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+enum TaskStatus {
+  NEW
+  IN_PROGRESS
+  COMPLETED
+  DEFERRED
+}
+
+model TaskDefinition {
+  id            String   @id @default(cuid())
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  title         String
+  description   String
+  icon          String
+  thumbnail     String
+  config        String
+  
+  organization  Organization  @relation(fields: [organizationId], references: [id])
+  organizationId String
+
+  parentId String?
+  parentTaskDefinition   TaskDefinition? @relation("TaskSubtaskDefinition",fields: [parentId], references: [id])
+
+  subTaskDefinitions  TaskDefinition[]  @relation("TaskSubtaskDefinition")
+
+  workflowId String
+  workflow   Workflow @relation(fields: [workflowId], references: [id])
+
+  actvityId String
+  activity   Activity @relation(fields: [actvityId], references: [id])
+
+  @@index([parentId])
+  @@index([workflowId])
+}
+
+model Task {
+  id         String    @id @default(cuid())
+  title      String
+  description String
+  dueDate    DateTime
+  priority   TaskPriority
+  status     TaskStatus @default(NEW)
+  creatorId  String
+  assigneeId String
+  projectId  String
+  comments   Comment[]
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+
+  events    EventLog[]
+
+  parentId String?
+  parentTask   Task?   @relation("TaskSubtasks", fields: [parentId], references: [id])
+
+  subTasks  Task[]  @relation("TaskSubtasks")
+
+  organizationId String
+  organization Organization @relation(fields: [organizationId], references: [id])
+
+  teamId String
+  team   Team @relation(fields: [teamId], references: [id])
+
+  @@index([projectId, assigneeId, status])
+  @@index([projectId, creatorId, status])
+  @@index([projectId, priority])
+  @@index([parentId])
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  content   String
+  taskId    String
+  creatorId String
+
+  creator   User     @relation(fields: [creatorId], references: [id])
+  task      Task     @relation(fields: [taskId], references: [id])
+}
+
+model EventLog {
+  id        String   @id @default(cuid())
+
+  createdAt DateTime @default(now())
+
+  userId   String?
+  user     User?     @relation(fields: [userId], references: [id])
+
+  taskId String?
+  task   Task?   @relation(fields: [taskId], references: [id])
+
+  actionId  String
+  Action    Action? @relation(fields: [actionId], references: [id])
+
+  organizationId String
+  organization Organization @relation(fields: [organizationId], references: [id])
+
+  @@index([taskId])
+  @@index([userId])
+  @@index([actionId])
+
+}
+
+enum ActionType {
+  CREATE_TASK
+  UPDATE_TASK
+  DELETE_TASK
+}
+
+model Action {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  type      ActionType
+  events    EventLog[]
+
+  action  String
+  intent String
+  domain String
+  content String
+}
+
+
+
+model Workflow {
+  id           String   @id @default(cuid())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  name         String
+  description  String
+  config       Json
+
+  organizationId String
+  organization  Organization  @relation(fields: [organizationId], references: [id])
+
+  activities    Activity[]
+  taskDefinitions TaskDefinition[]
+
+  @@index([organizationId])
+}
+
+model Activity {
+  id           String   @id @default(cuid())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  name         String
+  description  String
+  config       Json
+
+  workflowId   String
+  workflow     Workflow  @relation(fields: [workflowId], references: [id])
+
+  taskDefinitions TaskDefinition[]
+  triggers     Trigger[]
+
+  @@index([workflowId])
+}
+
+
+enum TriggerType {
+  FORM_TRIGGER
+  SYSTEM_TRIGGER
+  WORKFLOW_TRIGGER
+  APP_TRIGGER
+}
+
+model Trigger {
+  id           String   @id @default(cuid())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  type         TriggerType
+  name         String
+  description  String
+  config       Json
+
+  activityId   String
+  activity     Activity  @relation(fields: [activityId], references: [id])
+
+  @@index([activityId])
 }
