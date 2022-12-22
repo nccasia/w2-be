@@ -2,6 +2,52 @@
 //// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 //// ------------------------------------------------------
 
+Table Organization {
+  id String [pk]
+  name String [not null]
+  description String [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  tasks Task [not null]
+  users User [not null]
+  teams Team [not null]
+  settings Settings [not null]
+  files File [not null]
+  eventLogs EventLog [not null]
+  taskDefinitions TaskDefinition [not null]
+  workflows Workflow [not null]
+}
+
+Table File {
+  id String [pk]
+  filename String [not null]
+  fileType FileType [not null]
+  mimetype String [not null]
+  encoding String [not null]
+  data String [not null]
+  cdnUrl String [not null]
+  varantName String
+  variantKey String
+  variantValue String
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  variantOfId String
+  variantOf File
+  variants File [not null]
+  organizationId String [not null]
+  organization Organization [not null]
+}
+
+Table Settings {
+  id String [pk]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  key String [not null]
+  value String [not null]
+  organization Organization [not null]
+  organizationId String [not null]
+}
+
 Table User {
   id String [pk]
   createdAt DateTime [default: `now()`, not null]
@@ -10,7 +56,14 @@ Table User {
   password String [not null]
   firstname String
   lastname String
+  organizationId String [not null]
+  organization Organization [not null]
+  managedteams Team [not null]
+  createdteams Team [not null]
+  memberOnTeams MemberOnTeams [not null]
   posts Post [not null]
+  comments Comment [not null]
+  taskEvents EventLog [not null]
   role Role [not null]
 }
 
@@ -25,9 +78,237 @@ Table Post {
   authorId String
 }
 
+Table Team {
+  id String [pk]
+  name String [not null]
+  bio String [not null]
+  description String [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  creatorId String [not null]
+  creator User [not null]
+  managerId String [not null]
+  manager User [not null]
+  organizationId String [not null]
+  organization Organization [not null]
+  memberOnTeams MemberOnTeams [not null]
+  tasks Task [not null]
+}
+
+Table MemberOnTeams {
+  team Team [not null]
+  teamId String [not null]
+  user User [not null]
+  userId String [not null]
+  assignedAt DateTime [default: `now()`, not null]
+  assignedBy String [not null]
+
+  indexes {
+    (teamId, userId) [pk]
+  }
+}
+
+Table TaskDefinition {
+  id String [pk]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  title String [not null]
+  description String [not null]
+  icon String [not null]
+  thumbnail String [not null]
+  config String [not null]
+  organization Organization [not null]
+  organizationId String [not null]
+  parentId String
+  parentTaskDefinition TaskDefinition
+  subTaskDefinitions TaskDefinition [not null]
+  workflowId String [not null]
+  workflow Workflow [not null]
+  actvityId String [not null]
+  activity Activity [not null]
+}
+
+Table Task {
+  id String [pk]
+  title String [not null]
+  description String [not null]
+  dueDate DateTime [not null]
+  priority TaskPriority [not null]
+  status TaskStatus [not null, default: 'NEW']
+  creatorId String [not null]
+  assigneeId String [not null]
+  projectId String [not null]
+  comments Comment [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  events EventLog [not null]
+  parentId String
+  parentTask Task
+  subTasks Task [not null]
+  organizationId String [not null]
+  organization Organization [not null]
+  teamId String [not null]
+  team Team [not null]
+}
+
+Table Comment {
+  id String [pk]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  content String [not null]
+  taskId String [not null]
+  creatorId String [not null]
+  creator User [not null]
+  task Task [not null]
+}
+
+Table EventLog {
+  id String [pk]
+  createdAt DateTime [default: `now()`, not null]
+  userId String
+  user User
+  taskId String
+  task Task
+  actionId String [not null]
+  Action Action
+  organizationId String [not null]
+  organization Organization [not null]
+}
+
+Table Action {
+  id String [pk]
+  createdAt DateTime [default: `now()`, not null]
+  type ActionType [not null]
+  events EventLog [not null]
+  action String [not null]
+  intent String [not null]
+  domain String [not null]
+  content String [not null]
+}
+
+Table Workflow {
+  id String [pk]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  name String [not null]
+  description String [not null]
+  config Json [not null]
+  organizationId String [not null]
+  organization Organization [not null]
+  activities Activity [not null]
+  taskDefinitions TaskDefinition [not null]
+}
+
+Table Activity {
+  id String [pk]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  name String [not null]
+  description String [not null]
+  config Json [not null]
+  workflowId String [not null]
+  workflow Workflow [not null]
+  taskDefinitions TaskDefinition [not null]
+  triggers Trigger [not null]
+}
+
+Table Trigger {
+  id String [pk]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  type TriggerType [not null]
+  name String [not null]
+  description String [not null]
+  config Json [not null]
+  activityId String [not null]
+  activity Activity [not null]
+}
+
+Enum FileType {
+  FILE
+  VARIANT
+}
+
 Enum Role {
   ADMIN
   USER
 }
 
+Enum TaskPriority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+Enum TaskStatus {
+  NEW
+  IN_PROGRESS
+  COMPLETED
+  DEFERRED
+}
+
+Enum ActionType {
+  CREATE_TASK
+  UPDATE_TASK
+  DELETE_TASK
+}
+
+Enum TriggerType {
+  FORM_TRIGGER
+  SYSTEM_TRIGGER
+  WORKFLOW_TRIGGER
+  APP_TRIGGER
+}
+
+Ref: File.variantOfId - File.id
+
+Ref: File.organizationId > Organization.id
+
+Ref: Settings.organizationId > Organization.id
+
+Ref: User.organizationId > Organization.id
+
 Ref: Post.authorId > User.id
+
+Ref: Team.creatorId > User.id
+
+Ref: Team.managerId > User.id
+
+Ref: Team.organizationId > Organization.id
+
+Ref: MemberOnTeams.teamId > Team.id
+
+Ref: MemberOnTeams.userId > User.id
+
+Ref: TaskDefinition.organizationId > Organization.id
+
+Ref: TaskDefinition.parentId - TaskDefinition.id
+
+Ref: TaskDefinition.workflowId > Workflow.id
+
+Ref: TaskDefinition.actvityId > Activity.id
+
+Ref: Task.parentId - Task.id
+
+Ref: Task.organizationId > Organization.id
+
+Ref: Task.teamId > Team.id
+
+Ref: Comment.creatorId > User.id
+
+Ref: Comment.taskId > Task.id
+
+Ref: EventLog.userId > User.id
+
+Ref: EventLog.taskId > Task.id
+
+Ref: EventLog.actionId > Action.id
+
+Ref: EventLog.organizationId > Organization.id
+
+Ref: Workflow.organizationId > Organization.id
+
+Ref: Activity.workflowId > Workflow.id
+
+Ref: Trigger.activityId > Activity.id
