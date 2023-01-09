@@ -12,7 +12,6 @@ generator dbml {
   provider = "prisma-dbml-generator"
 }
 
-
 generator nestjsDto {
   provider                        = "prisma-generator-nestjs-dto"
   output                          = "../src/generated/dtos"
@@ -28,133 +27,133 @@ generator nestjsDto {
 }
 
 model Organization {
-  id            Int   @id @default(autoincrement())
-  
-  name          String
-  description   String
+  id Int @id @default(autoincrement())
 
+  name        String
+  description String
 
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt @default(now())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 
-  tasks         Task[]
-  users         User[]
-  teams         Team[]
-  settings      Settings[]
-  files         File[]
-  eventLogs     EventLog[]
-  taskDefinitions TaskDefinition[]
-  workflows     Workflow[]
+  tasks            Task[]
+  users            User[]
+  teams            Team[]
+  settings         Settings[]
+  files            File[]
+  eventLogs        EventLog[]
+  taskDefinitions  TaskDefinition[]
+  workflows        Workflow[]
   permissionGroups PermissionGroup[]
-  permissions   Permission[]
-  resources     Resource[]
+  permissions      Permission[]
+  resources        Resource[]
 }
 
 model Resource {
-  id            Int   @id @default(autoincrement())
-  name          String
-  description   String
-  code          String
-  icon          String
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt @default(now())
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String
+  code        String
+  icon        String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now()) @updatedAt
 
-  organization  Organization  @relation(fields: [organizationId], references: [id])
+  organization   Organization @relation(fields: [organizationId], references: [id])
   organizationId Int
 
   resourceItems ResourceItem[]
 }
 
 model ResourceItem {
-  id            Int   @id @default(autoincrement())
-  name          String
-  code          String
-  description   String
-  icon          String
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt @default(now())
+  id          Int      @id @default(autoincrement())
+  name        String
+  code        String
+  description String
+  icon        String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now()) @updatedAt
 
-  resource      Resource  @relation(fields: [resourceId], references: [id])
-  resourceId    Int
+  resource   Resource @relation(fields: [resourceId], references: [id])
+  resourceId Int
 }
 
 enum FileType {
   FILE
   VARIANT
 }
+
 model File {
-  id            Int   @id @default(autoincrement())
-  filename      String
-  fileType      FileType
-  mimetype      String
-  encoding      String
-  data          String
-  cdnUrl        String
+  id       Int      @id @default(autoincrement())
+  filename String
+  fileType FileType
+  mimetype String
+  encoding String
+  data     String
+  cdnUrl   String
 
-  varantName    String?
-  variantKey  String?
-  variantValue  String?
+  varantName   String?
+  variantKey   String?
+  variantValue String?
 
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt @default(now())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 
-  variantOfId   Int?  
-  variantOf     File?    @relation("FileVariants", fields: [variantOfId], references: [id]) // Add a relation to the parent file for variants
+  variantOfId Int?
+  variantOf   File? @relation("FileVariants", fields: [variantOfId], references: [id]) // Add a relation to the parent file for variants
 
-  variants      File[]   @relation("FileVariants")
+  variants File[] @relation("FileVariants")
 
   organizationId Int
-  organization  Organization  @relation(fields: [organizationId], references: [id])
+  organization   Organization @relation(fields: [organizationId], references: [id])
 }
 
 model Settings {
-  id            Int   @id @default(autoincrement())
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt @default(now())
-  key           String
-  value         String
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+  key       String
+  value     String
 
-  organization  Organization  @relation(fields: [organizationId], references: [id])
+  organization   Organization @relation(fields: [organizationId], references: [id])
   organizationId Int
 }
 
 model User {
-  id        Int   @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
   email     String   @unique
   password  String
   firstname String?
   lastname  String?
-  
+
   organizationId Int
-  organization Organization @relation(fields: [organizationId], references: [id])
+  organization   Organization @relation(fields: [organizationId], references: [id])
 
-  managedteams     Team[] @relation("TeamManager")
-  createdteams     Team[] @relation("TeamCreator")
+  managedteams Team[] @relation("TeamManager")
+  createdteams Team[] @relation("TeamCreator")
 
-  createdTasks     Task[] @relation("TaskCreator")
-  assignedTasks    Task[] @relation("TaskAssignee")
-  
+  createdTasks  Task[] @relation("TaskCreator")
+  assignedTasks Task[] @relation("TaskAssignee")
+
   memberOnTeams MemberOnTeams[]
-  posts     Post[]
-  comments  Comment[]
-  taskEvents EventLog[]
-  role      Role
-  
+  posts         Post[]
+  comments      Comment[]
+  taskEvents    EventLog[]
+  role          Role
+
   userPermissions UserPermission[]
 }
 
 model Form {
-  id            Int   @id @default(autoincrement())
-  name          String
-  code          String
-  description   String
-  
-  schema        Json
-  config        Json
-  validationConfig    Json
-  triggerConfig Json
+  id          Int    @id @default(autoincrement())
+  name        String
+  code        String
+  description String
+
+  schema           Json
+  config           Json
+  validationConfig Json
+  triggerConfig    Json
   serializerConfig Json
 
   displayTemplate String
@@ -162,57 +161,56 @@ model Form {
 
   taskDefinitions TaskDefinition[]
 
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt @default(now())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 }
 
 model Permission {
-  id            Int   @id @default(autoincrement())
-  name          String
-  code          String
-  description   String
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt @default(now())
+  id          Int      @id @default(autoincrement())
+  name        String
+  code        String
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now()) @updatedAt
 
-  organization  Organization  @relation(fields: [organizationId], references: [id])
+  organization   Organization @relation(fields: [organizationId], references: [id])
   organizationId Int
 
-  permissionGroup PermissionGroup @relation(fields: [permissionGroupId], references: [id])
+  permissionGroup   PermissionGroup @relation(fields: [permissionGroupId], references: [id])
   permissionGroupId Int
 
   userPermissions UserPermission[]
- 
 }
 
 model PermissionGroup {
-  id            Int   @id @default(autoincrement())
-  name          String
-  description   String
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt @default(now())
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now()) @updatedAt
 
-  organization  Organization  @relation(fields: [organizationId], references: [id])
+  organization   Organization @relation(fields: [organizationId], references: [id])
   organizationId Int
-  
-  permissions   Permission[]
+
+  permissions Permission[]
 }
 
 model UserPermission {
-  id          Int   @id @default(autoincrement())
+  id Int @id @default(autoincrement())
 
-  createdAt   DateTime @default(now())
-  user        User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
 
-  userId      Int
+  userId Int
 
-  permission  Permission @relation(fields: [permissionId], references: [id])
+  permission   Permission @relation(fields: [permissionId], references: [id])
   permissionId Int
 }
 
 model Post {
-  id        Int   @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
   published Boolean
   title     String
   content   String?
@@ -221,30 +219,30 @@ model Post {
 }
 
 model Team {
-  id         Int    @id @default(autoincrement())
-  name       String
-  bio       String
+  id          Int    @id @default(autoincrement())
+  name        String
+  bio         String
   description String
 
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt @default(now())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 
   creatorId Int
-  creator User @relation("TeamCreator", fields: [creatorId], references: [id])
-  
+  creator   User @relation("TeamCreator", fields: [creatorId], references: [id])
+
   managerId Int
-  manager User @relation("TeamManager", fields: [managerId], references: [id])
+  manager   User @relation("TeamManager", fields: [managerId], references: [id])
 
   organizationId Int
-  organization Organization @relation(fields: [organizationId], references: [id])
+  organization   Organization @relation(fields: [organizationId], references: [id])
 
   memberOnTeams MemberOnTeams[]
-  tasks      Task[]
+  tasks         Task[]
 }
 
 model MemberOnTeams {
-  team       Team     @relation(fields: [teamId], references: [id])
-  teamId     Int
+  team   Team @relation(fields: [teamId], references: [id])
+  teamId Int
 
   user   User @relation(fields: [userId], references: [id])
   userId Int
@@ -275,90 +273,90 @@ enum TaskStatus {
 }
 
 model TaskDefinition {
-  id            Int   @id @default(autoincrement())
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt @default(now())
-  
-  title         String
-  description   String
-  
-  icon          String
-  thumbnail     String
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 
-  formId       Int?
-  form         Form? @relation(fields: [formId], references: [id])
+  title       String
+  description String
 
-  descriptionTemplate String?
-  titleTemplate  String?
-  statusTemplate String?
-  stateTemplate  String?
+  icon      String
+  thumbnail String
+
+  formId Int?
+  form   Form? @relation(fields: [formId], references: [id])
+
+  descriptionTemplate  String?
+  titleTemplate        String?
+  statusTemplate       String?
+  stateTemplate        String?
   notificationTemplate String?
-  ctaTemplate    String?
+  ctaTemplate          String?
 
-  stageConfig   Json?
-  statusConfig  Json?
-  notificationConfig  Json?
-  processConfig  Json?
-  triggerConfig  Json?
-  ctaConfig      Json?
-  config        Json?
+  stageConfig        Json?
+  statusConfig       Json?
+  notificationConfig Json?
+  processConfig      Json?
+  triggerConfig      Json?
+  ctaConfig          Json?
+  config             Json?
 
   taskInstances Task[]
-  
-  organization  Organization  @relation(fields: [organizationId], references: [id])
+
+  organization   Organization @relation(fields: [organizationId], references: [id])
   organizationId Int
 
-  parentId Int?
-  parentTaskDefinition   TaskDefinition? @relation("TaskSubtaskDefinition",fields: [parentId], references: [id])
+  parentId             Int?
+  parentTaskDefinition TaskDefinition? @relation("TaskSubtaskDefinition", fields: [parentId], references: [id])
 
-  subTaskDefinitions  TaskDefinition[]  @relation("TaskSubtaskDefinition")
+  subTaskDefinitions TaskDefinition[] @relation("TaskSubtaskDefinition")
 
   workflowId Int?
   workflow   Workflow? @relation(fields: [workflowId], references: [id])
 
   actvityId Int?
-  activity   Activity? @relation(fields: [actvityId], references: [id])
+  activity  Activity? @relation(fields: [actvityId], references: [id])
 
   @@index([parentId])
   @@index([workflowId])
 }
 
 model Task {
-  id         Int    @id @default(autoincrement())
-  title      String
+  id          Int          @id @default(autoincrement())
+  title       String
   description String
-  dueDate    DateTime
-  priority   TaskPriority @default(LOW)
-  status     TaskStatus @default(NEW)
+  dueDate     DateTime?
+  priority    TaskPriority @default(LOW)
+  status      TaskStatus   @default(NEW)
 
-  values     Json?
+  values Json?
 
-  ctaName   String @default("")
-  stateName String @default("")
+  ctaName    String @default("")
+  stateName  String @default("")
   statusName String @default("")
 
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt  @default(now())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 
   definitionId Int
   definition   TaskDefinition @relation(fields: [definitionId], references: [id])
 
-  comments   Comment[]
-  eventLogs    EventLog[]
-  
+  comments  Comment[]
+  eventLogs EventLog[]
+
   assigneeId Int
-  assignee   User     @relation("TaskAssignee", fields: [assigneeId], references: [id])
+  assignee   User @relation("TaskAssignee", fields: [assigneeId], references: [id])
 
-  creatorId  Int
-  creator    User     @relation("TaskCreator", fields: [creatorId], references: [id])
+  creatorId Int
+  creator   User @relation("TaskCreator", fields: [creatorId], references: [id])
 
-  parentId Int?
-  parentTask   Task?   @relation("TaskSubtasks", fields: [parentId], references: [id])
+  parentId   Int?
+  parentTask Task? @relation("TaskSubtasks", fields: [parentId], references: [id])
 
-  subTasks  Task[]  @relation("TaskSubtasks")
+  subTasks Task[] @relation("TaskSubtasks")
 
   organizationId Int
-  organization Organization @relation(fields: [organizationId], references: [id])
+  organization   Organization @relation(fields: [organizationId], references: [id])
 
   teamId Int
   team   Team @relation(fields: [teamId], references: [id])
@@ -370,39 +368,38 @@ model Task {
 }
 
 model Comment {
-  id        Int   @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
   content   String
   creatorId Int
 
-  creator   User     @relation(fields: [creatorId], references: [id])
-  
-  taskId    Int
-  task      Task     @relation(fields: [taskId], references: [id])
+  creator User @relation(fields: [creatorId], references: [id])
+
+  taskId Int
+  task   Task @relation(fields: [taskId], references: [id])
 }
 
 model EventLog {
-  id        Int   @id @default(autoincrement())
+  id Int @id @default(autoincrement())
 
   createdAt DateTime @default(now())
 
-  userId   Int?
-  user     User?     @relation(fields: [userId], references: [id])
+  userId Int?
+  user   User? @relation(fields: [userId], references: [id])
 
   taskId Int?
-  task   Task?   @relation(fields: [taskId], references: [id])
+  task   Task? @relation(fields: [taskId], references: [id])
 
-  actionId  Int
-  Action    Action? @relation(fields: [actionId], references: [id])
+  actionId Int
+  Action   Action? @relation(fields: [actionId], references: [id])
 
   organizationId Int
-  organization Organization @relation(fields: [organizationId], references: [id])
+  organization   Organization @relation(fields: [organizationId], references: [id])
 
   @@index([taskId])
   @@index([userId])
   @@index([actionId])
-
 }
 
 enum ActionType {
@@ -412,53 +409,50 @@ enum ActionType {
 }
 
 model Action {
-  id        Int   @id @default(autoincrement())
-  createdAt DateTime @default(now())
+  id        Int        @id @default(autoincrement())
+  createdAt DateTime   @default(now())
   type      ActionType
   events    EventLog[]
 
   action  String
-  intent String
-  domain String
+  intent  String
+  domain  String
   content String
 }
 
-
-
 model Workflow {
-  id           Int   @id @default(autoincrement())
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt @default(now())
-  name         String
-  description  String
-  config       Json
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now()) @updatedAt
+  name        String
+  description String
+  config      Json
 
   organizationId Int
-  organization  Organization  @relation(fields: [organizationId], references: [id])
+  organization   Organization @relation(fields: [organizationId], references: [id])
 
-  activities    Activity[]
+  activities      Activity[]
   taskDefinitions TaskDefinition[]
 
   @@index([organizationId])
 }
 
 model Activity {
-  id           Int   @id @default(autoincrement())
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt @default(now())
-  name         String
-  description  String
-  config       Json
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now()) @updatedAt
+  name        String
+  description String
+  config      Json
 
-  workflowId   Int
-  workflow     Workflow  @relation(fields: [workflowId], references: [id])
+  workflowId Int
+  workflow   Workflow @relation(fields: [workflowId], references: [id])
 
   taskDefinitions TaskDefinition[]
-  triggers     Trigger[]
+  triggers        Trigger[]
 
   @@index([workflowId])
 }
-
 
 enum TriggerType {
   FORM_TRIGGER
@@ -468,16 +462,16 @@ enum TriggerType {
 }
 
 model Trigger {
-  id           Int   @id @default(autoincrement())
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt @default(now())
-  type         TriggerType
-  name         String
-  description  String
-  config       Json
+  id          Int         @id @default(autoincrement())
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @default(now()) @updatedAt
+  type        TriggerType
+  name        String
+  description String
+  config      Json
 
-  activityId   Int
-  activity     Activity  @relation(fields: [activityId], references: [id])
+  activityId Int
+  activity   Activity @relation(fields: [activityId], references: [id])
 
   @@index([activityId])
 }

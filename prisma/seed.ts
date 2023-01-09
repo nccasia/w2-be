@@ -34,11 +34,57 @@ async function main() {
     },
   });
 
-  const defaultPermission = await prisma.permission.create({
+  const defaultPermissionStaff = await prisma.permission.create({
     data: {
       name: 'permission',
       description: 'Default permission',
       code: 'MANAGE_STAFF',
+      organizationId: defaultOrg.id,
+      permissionGroupId: defaultPermissionGroup.id,
+    },
+  });
+
+  const defaultPermissionSettings = await prisma.permission.create({
+    data: {
+      name: 'permission',
+      description: 'Default permission',
+      code: 'MANAGE_SETTINGS',
+      organizationId: defaultOrg.id,
+      permissionGroupId: defaultPermissionGroup.id,
+    },
+  });
+  const defaultPermissionTranslations = await prisma.permission.create({
+    data: {
+      name: 'permission',
+      description: 'Default permission',
+      code: 'MANAGE_TRANSLATIONS',
+      organizationId: defaultOrg.id,
+      permissionGroupId: defaultPermissionGroup.id,
+    },
+  });
+  const defaultPermissionTasks = await prisma.permission.create({
+    data: {
+      name: 'permission',
+      description: 'Default permission',
+      code: 'MANAGE_TASKS',
+      organizationId: defaultOrg.id,
+      permissionGroupId: defaultPermissionGroup.id,
+    },
+  });
+  const defaultPermissionChannels = await prisma.permission.create({
+    data: {
+      name: 'permission',
+      description: 'Default permission',
+      code: 'MANAGE_CHANNELS',
+      organizationId: defaultOrg.id,
+      permissionGroupId: defaultPermissionGroup.id,
+    },
+  });
+  const defaultPermissionProducts = await prisma.permission.create({
+    data: {
+      name: 'permission',
+      description: 'Default permission',
+      code: 'MANAGE_PRODUCTS',
       organizationId: defaultOrg.id,
       permissionGroupId: defaultPermissionGroup.id,
     },
@@ -53,7 +99,22 @@ async function main() {
       userPermissions: {
         create: [
           {
-            permissionId: defaultPermission.id,
+            permissionId: defaultPermissionSettings.id,
+          },
+          {
+            permissionId: defaultPermissionStaff.id,
+          },
+          {
+            permissionId: defaultPermissionTranslations.id,
+          },
+          {
+            permissionId: defaultPermissionTasks.id,
+          },
+          {
+            permissionId: defaultPermissionChannels.id,
+          },
+          {
+            permissionId: defaultPermissionProducts.id,
           },
         ],
       },
@@ -181,8 +242,8 @@ async function main() {
           currentOffice: {
             type: 'string',
             nullable: true,
-            default: 'HN1',
             uniforms: {
+              index: 1,
               uiComponent: 'SelectResourceField',
               resource: defaultResourceOffices.id,
             },
@@ -190,8 +251,9 @@ async function main() {
           destinationOffice: {
             type: 'string',
             nullable: true,
-            default: 'HN1',
+            default: null,
             uniforms: {
+              index: 2,
               uiComponent: 'SelectResourceField',
               resource: defaultResourceOffices.id,
             },
@@ -199,12 +261,16 @@ async function main() {
           dueDate: {
             type: 'object',
             format: 'date-time',
+            default: null,
             nullable: true,
+            uniforms: {
+              index: 3,
+            },
           },
           content: {
             type: 'string',
             nullable: true,
-            uniforms: { uiComponent: 'QuillEditorField' },
+            uniforms: { uiComponent: 'QuillEditorField', index: 4 },
           },
         },
         required: ['currentOffice', 'destinationOffice', 'dueDate'],
@@ -251,16 +317,23 @@ async function main() {
               required: ['type', 'detail', 'quantity'],
             },
             minItems: 1,
+            uniforms: {
+              index: 1,
+            },
           },
           dueDate: {
             type: 'object',
             format: 'date-time',
+            default: null,
             nullable: true,
+            uniforms: {
+              index: 2,
+            },
           },
           content: {
             type: 'string',
             nullable: true,
-            uniforms: { uiComponent: 'QuillEditorField' },
+            uniforms: { uiComponent: 'QuillEditorField', index: 4 },
           },
         },
         required: ['dueDate'],
@@ -286,17 +359,25 @@ async function main() {
           dueDateStart: {
             type: 'object',
             format: 'date-time',
+            default: null,
             nullable: true,
+            uniforms: {
+              index: 1,
+            },
           },
           dueDateEnd: {
             type: 'object',
             format: 'date-time',
+            default: null,
             nullable: true,
+            uniforms: {
+              index: 2,
+            },
           },
           content: {
             type: 'string',
             nullable: true,
-            uniforms: { uiComponent: 'QuillEditorField' },
+            uniforms: { uiComponent: 'QuillEditorField', index: 3 },
           },
         },
         required: ['dueDateStart', 'dueDateEnd', 'content'],
