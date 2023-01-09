@@ -6,9 +6,9 @@ import {
   Field,
 } from '@nestjs/graphql';
 import { IsEmail } from 'class-validator';
-import { Post } from 'src/posts/models/post.model';
 import { BaseModel } from 'src/common/models/base.model';
 import { Role } from '@prisma/client';
+import { Permission } from './permission.model';
 
 registerEnumType(Role, {
   name: 'Role',
@@ -30,8 +30,8 @@ export class User extends BaseModel {
   @Field(() => Role)
   role: Role;
 
-  @Field(() => [Post], { nullable: true })
-  posts?: [Post] | null;
+  @Field(() => [Permission], { nullable: true })
+  permissions?: [Permission] | null;
 
   @HideField()
   password: string;

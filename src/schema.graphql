@@ -60,6 +60,18 @@ type PageInfo {
   startCursor: String
 }
 
+type Permission {
+  code: String!
+
+  """Identifies the date and time when the object was created."""
+  createdAt: DateTime!
+  id: String!
+  name: String!
+
+  """Identifies the date and time when the object was last updated."""
+  updatedAt: DateTime!
+}
+
 type Post {
   author: User
   content: String
@@ -119,6 +131,7 @@ input SignupInput {
   email: String!
   firstname: String
   lastname: String
+  organizationId: String!
   password: String!
 }
 
@@ -146,6 +159,7 @@ type User {
   firstname: String
   id: ID!
   lastname: String
+  permissions: [Permission!]
   posts: [Post!]
   role: Role!
 

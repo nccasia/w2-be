@@ -28,14 +28,14 @@ generator nestjsDto {
 }
 
 model Organization {
-  id            String   @id @default(cuid())
+  id            Int   @id @default(autoincrement())
   
   name          String
   description   String
 
 
   createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  updatedAt     DateTime @updatedAt @default(now())
 
   tasks         Task[]
   users         User[]
@@ -45,6 +45,37 @@ model Organization {
   eventLogs     EventLog[]
   taskDefinitions TaskDefinition[]
   workflows     Workflow[]
+  permissionGroups PermissionGroup[]
+  permissions   Permission[]
+  resources     Resource[]
+}
+
+model Resource {
+  id            Int   @id @default(autoincrement())
+  name          String
+  description   String
+  code          String
+  icon          String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt @default(now())
+
+  organization  Organization  @relation(fields: [organizationId], references: [id])
+  organizationId Int
+
+  resourceItems ResourceItem[]
+}
+
+model ResourceItem {
+  id            Int   @id @default(autoincrement())
+  name          String
+  code          String
+  description   String
+  icon          String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt @default(now())
+
+  resource      Resource  @relation(fields: [resourceId], references: [id])
+  resourceId    Int
 }
 
 enum FileType {
@@ -52,7 +83,7 @@ enum FileType {
   VARIANT
 }
 model File {
-  id            String   @id @default(cuid())
+  id            Int   @id @default(autoincrement())
   filename      String
   fileType      FileType
   mimetype      String
@@ -65,77 +96,146 @@ model File {
   variantValue  String?
 
   createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  updatedAt     DateTime @updatedAt @default(now())
 
-  variantOfId   String?  
+  variantOfId   Int?  
   variantOf     File?    @relation("FileVariants", fields: [variantOfId], references: [id]) // Add a relation to the parent file for variants
 
   variants      File[]   @relation("FileVariants")
 
-  organizationId String
+  organizationId Int
   organization  Organization  @relation(fields: [organizationId], references: [id])
 }
 
 model Settings {
-  id            String   @id @default(cuid())
+  id            Int   @id @default(autoincrement())
   createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  updatedAt     DateTime @updatedAt @default(now())
   key           String
   value         String
 
   organization  Organization  @relation(fields: [organizationId], references: [id])
-  organizationId String
+  organizationId Int
 }
 
 model User {
-  id        String   @id @default(cuid())
+  id        Int   @id @default(autoincrement())
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime @updatedAt @default(now())
   email     String   @unique
   password  String
   firstname String?
   lastname  String?
   
-  organizationId String
+  organizationId Int
   organization Organization @relation(fields: [organizationId], references: [id])
 
   managedteams     Team[] @relation("TeamManager")
   createdteams     Team[] @relation("TeamCreator")
+
+  createdTasks     Task[] @relation("TaskCreator")
+  assignedTasks    Task[] @relation("TaskAssignee")
   
   memberOnTeams MemberOnTeams[]
   posts     Post[]
   comments  Comment[]
   taskEvents EventLog[]
   role      Role
+  
+  userPermissions UserPermission[]
+}
+
+model Form {
+  id            Int   @id @default(autoincrement())
+  name          String
+  code          String
+  description   String
+  
+  schema        Json
+  config        Json
+  validationConfig    Json
+  triggerConfig Json
+  serializerConfig Json
+
+  displayTemplate String
+  displayConfig   Json
+
+  taskDefinitions TaskDefinition[]
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt @default(now())
+}
+
+model Permission {
+  id            Int   @id @default(autoincrement())
+  name          String
+  code          String
+  description   String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt @default(now())
+
+  organization  Organization  @relation(fields: [organizationId], references: [id])
+  organizationId Int
+
+  permissionGroup PermissionGroup @relation(fields: [permissionGroupId], references: [id])
+  permissionGroupId Int
+
+  userPermissions UserPermission[]
+ 
+}
+
+model PermissionGroup {
+  id            Int   @id @default(autoincrement())
+  name          String
+  description   String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt @default(now())
+
+  organization  Organization  @relation(fields: [organizationId], references: [id])
+  organizationId Int
+  
+  permissions   Permission[]
+}
+
+model UserPermission {
+  id          Int   @id @default(autoincrement())
+
+  createdAt   DateTime @default(now())
+  user        User     @relation(fields: [userId], references: [id])
+
+  userId      Int
+
+  permission  Permission @relation(fields: [permissionId], references: [id])
+  permissionId Int
 }
 
 model Post {
-  id        String   @id @default(cuid())
+  id        Int   @id @default(autoincrement())
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime @updatedAt @default(now())
   published Boolean
   title     String
   content   String?
   author    User?    @relation(fields: [authorId], references: [id])
-  authorId  String?
+  authorId  Int?
 }
 
 model Team {
-  id         String    @id @default(cuid())
+  id         Int    @id @default(autoincrement())
   name       String
   bio       String
   description String
 
   createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
+  updatedAt  DateTime  @updatedAt @default(now())
 
-  creatorId String
+  creatorId Int
   creator User @relation("TeamCreator", fields: [creatorId], references: [id])
   
-  managerId String
+  managerId Int
   manager User @relation("TeamManager", fields: [managerId], references: [id])
 
-  organizationId String
+  organizationId Int
   organization Organization @relation(fields: [organizationId], references: [id])
 
   memberOnTeams MemberOnTeams[]
@@ -144,10 +244,10 @@ model Team {
 
 model MemberOnTeams {
   team       Team     @relation(fields: [teamId], references: [id])
-  teamId     String
+  teamId     Int
 
   user   User @relation(fields: [userId], references: [id])
-  userId String
+  userId Int
 
   assignedAt DateTime @default(now())
   assignedBy String
@@ -175,93 +275,128 @@ enum TaskStatus {
 }
 
 model TaskDefinition {
-  id            String   @id @default(cuid())
+  id            Int   @id @default(autoincrement())
   createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  updatedAt     DateTime @updatedAt @default(now())
+  
   title         String
   description   String
+  
   icon          String
   thumbnail     String
-  config        String
+
+  formId       Int?
+  form         Form? @relation(fields: [formId], references: [id])
+
+  descriptionTemplate String?
+  titleTemplate  String?
+  statusTemplate String?
+  stateTemplate  String?
+  notificationTemplate String?
+  ctaTemplate    String?
+
+  stageConfig   Json?
+  statusConfig  Json?
+  notificationConfig  Json?
+  processConfig  Json?
+  triggerConfig  Json?
+  ctaConfig      Json?
+  config        Json?
+
+  taskInstances Task[]
   
   organization  Organization  @relation(fields: [organizationId], references: [id])
-  organizationId String
+  organizationId Int
 
-  parentId String?
+  parentId Int?
   parentTaskDefinition   TaskDefinition? @relation("TaskSubtaskDefinition",fields: [parentId], references: [id])
 
   subTaskDefinitions  TaskDefinition[]  @relation("TaskSubtaskDefinition")
 
-  workflowId String
-  workflow   Workflow @relation(fields: [workflowId], references: [id])
+  workflowId Int?
+  workflow   Workflow? @relation(fields: [workflowId], references: [id])
 
-  actvityId String
-  activity   Activity @relation(fields: [actvityId], references: [id])
+  actvityId Int?
+  activity   Activity? @relation(fields: [actvityId], references: [id])
 
   @@index([parentId])
   @@index([workflowId])
 }
 
 model Task {
-  id         String    @id @default(cuid())
+  id         Int    @id @default(autoincrement())
   title      String
   description String
   dueDate    DateTime
-  priority   TaskPriority
+  priority   TaskPriority @default(LOW)
   status     TaskStatus @default(NEW)
-  creatorId  String
-  assigneeId String
-  projectId  String
-  comments   Comment[]
+
+  values     Json?
+
+  ctaName   String @default("")
+  stateName String @default("")
+  statusName String @default("")
+
   createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
+  updatedAt  DateTime  @updatedAt  @default(now())
 
-  events    EventLog[]
+  definitionId Int
+  definition   TaskDefinition @relation(fields: [definitionId], references: [id])
 
-  parentId String?
+  comments   Comment[]
+  eventLogs    EventLog[]
+  
+  assigneeId Int
+  assignee   User     @relation("TaskAssignee", fields: [assigneeId], references: [id])
+
+  creatorId  Int
+  creator    User     @relation("TaskCreator", fields: [creatorId], references: [id])
+
+  parentId Int?
   parentTask   Task?   @relation("TaskSubtasks", fields: [parentId], references: [id])
 
   subTasks  Task[]  @relation("TaskSubtasks")
 
-  organizationId String
+  organizationId Int
   organization Organization @relation(fields: [organizationId], references: [id])
 
-  teamId String
+  teamId Int
   team   Team @relation(fields: [teamId], references: [id])
 
-  @@index([projectId, assigneeId, status])
-  @@index([projectId, creatorId, status])
-  @@index([projectId, priority])
+  @@index([assigneeId, status])
+  @@index([creatorId, status])
+  @@index([priority])
   @@index([parentId])
 }
 
 model Comment {
-  id        String   @id @default(cuid())
+  id        Int   @id @default(autoincrement())
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime @updatedAt @default(now())
   content   String
-  taskId    String
-  creatorId String
+  creatorId Int
 
   creator   User     @relation(fields: [creatorId], references: [id])
+  
+  taskId    Int
   task      Task     @relation(fields: [taskId], references: [id])
 }
 
 model EventLog {
-  id        String   @id @default(cuid())
+  id        Int   @id @default(autoincrement())
 
   createdAt DateTime @default(now())
 
-  userId   String?
+  userId   Int?
   user     User?     @relation(fields: [userId], references: [id])
 
-  taskId String?
+  taskId Int?
   task   Task?   @relation(fields: [taskId], references: [id])
 
-  actionId  String
+  actionId  Int
   Action    Action? @relation(fields: [actionId], references: [id])
 
-  organizationId String
+  organizationId Int
   organization Organization @relation(fields: [organizationId], references: [id])
 
   @@index([taskId])
@@ -277,7 +412,7 @@ enum ActionType {
 }
 
 model Action {
-  id        String   @id @default(cuid())
+  id        Int   @id @default(autoincrement())
   createdAt DateTime @default(now())
   type      ActionType
   events    EventLog[]
@@ -291,14 +426,14 @@ model Action {
 
 
 model Workflow {
-  id           String   @id @default(cuid())
+  id           Int   @id @default(autoincrement())
   createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  updatedAt    DateTime @updatedAt @default(now())
   name         String
   description  String
   config       Json
 
-  organizationId String
+  organizationId Int
   organization  Organization  @relation(fields: [organizationId], references: [id])
 
   activities    Activity[]
@@ -308,14 +443,14 @@ model Workflow {
 }
 
 model Activity {
-  id           String   @id @default(cuid())
+  id           Int   @id @default(autoincrement())
   createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  updatedAt    DateTime @updatedAt @default(now())
   name         String
   description  String
   config       Json
 
-  workflowId   String
+  workflowId   Int
   workflow     Workflow  @relation(fields: [workflowId], references: [id])
 
   taskDefinitions TaskDefinition[]
@@ -333,15 +468,15 @@ enum TriggerType {
 }
 
 model Trigger {
-  id           String   @id @default(cuid())
+  id           Int   @id @default(autoincrement())
   createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  updatedAt    DateTime @updatedAt @default(now())
   type         TriggerType
   name         String
   description  String
   config       Json
 
-  activityId   String
+  activityId   Int
   activity     Activity  @relation(fields: [activityId], references: [id])
 
   @@index([activityId])

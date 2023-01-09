@@ -11,7 +11,7 @@ mutation User {
 }
 
 mutation AuthUser {
-  signup(data: { email: "bart@simpson.com", password: "secret42" }) {
+  signup(data: { email: "bart@simpson.com", password: "secret42", organizationId: "ckyjv6kvi0021pwevc49o3a02" }) {
     ...AuthTokens
   }
 }

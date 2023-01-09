@@ -50,8 +50,16 @@ export class UsersResolver {
     );
   }
 
-  @ResolveField('posts')
-  posts(@Parent() author: User) {
-    return this.prisma.user.findUnique({ where: { id: author.id } }).posts();
+  @ResolveField('permissions')
+  permissions(@Parent() author: User) {
+    return this.prisma.permission.findMany({
+      where: {
+        userPermissions: {
+          some: {
+            userId: author.id,
+          },
+        },
+      },
+    });
   }
 }

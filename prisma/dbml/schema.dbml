@@ -3,11 +3,11 @@
 //// ------------------------------------------------------
 
 Table Organization {
-  id String [pk]
+  id Int [pk, increment]
   name String [not null]
   description String [not null]
   createdAt DateTime [default: `now()`, not null]
-  updatedAt DateTime [not null]
+  updatedAt DateTime [default: `now()`, not null]
   tasks Task [not null]
   users User [not null]
   teams Team [not null]
@@ -16,10 +16,38 @@ Table Organization {
   eventLogs EventLog [not null]
   taskDefinitions TaskDefinition [not null]
   workflows Workflow [not null]
+  permissionGroups PermissionGroup [not null]
+  permissions Permission [not null]
+  resources Resource [not null]
+}
+
+Table Resource {
+  id Int [pk, increment]
+  name String [not null]
+  description String [not null]
+  code String [not null]
+  icon String [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [default: `now()`, not null]
+  organization Organization [not null]
+  organizationId Int [not null]
+  resourceItems ResourceItem [not null]
+}
+
+Table ResourceItem {
+  id Int [pk, increment]
+  name String [not null]
+  code String [not null]
+  description String [not null]
+  icon String [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [default: `now()`, not null]
+  resource Resource [not null]
+  resourceId Int [not null]
 }
 
 Table File {
-  id String [pk]
+  id Int [pk, increment]
   filename String [not null]
   fileType FileType [not null]
   mimetype String [not null]
@@ -30,66 +58,120 @@ Table File {
   variantKey String
   variantValue String
   createdAt DateTime [default: `now()`, not null]
-  updatedAt DateTime [not null]
-  variantOfId String
+  updatedAt DateTime [default: `now()`, not null]
+  variantOfId Int
   variantOf File
   variants File [not null]
-  organizationId String [not null]
+  organizationId Int [not null]
   organization Organization [not null]
 }
 
 Table Settings {
-  id String [pk]
+  id Int [pk, increment]
   createdAt DateTime [default: `now()`, not null]
-  updatedAt DateTime [not null]
+  updatedAt DateTime [default: `now()`, not null]
   key String [not null]
   value String [not null]
   organization Organization [not null]
-  organizationId String [not null]
+  organizationId Int [not null]
 }
 
 Table User {
-  id String [pk]
+  id Int [pk, increment]
   createdAt DateTime [default: `now()`, not null]
-  updatedAt DateTime [not null]
+  updatedAt DateTime [default: `now()`, not null]
   email String [unique, not null]
   password String [not null]
   firstname String
   lastname String
-  organizationId String [not null]
+  organizationId Int [not null]
   organization Organization [not null]
   managedteams Team [not null]
   createdteams Team [not null]
+  createdTasks Task [not null]
+  assignedTasks Task [not null]
   memberOnTeams MemberOnTeams [not null]
   posts Post [not null]
   comments Comment [not null]
   taskEvents EventLog [not null]
   role Role [not null]
+  userPermissions UserPermission [not null]
+}
+
+Table Form {
+  id Int [pk, increment]
+  name String [not null]
+  code String [not null]
+  description String [not null]
+  schema Json [not null]
+  config Json [not null]
+  validationConfig Json [not null]
+  triggerConfig Json [not null]
+  serializerConfig Json [not null]
+  displayTemplate String [not null]
+  displayConfig Json [not null]
+  taskDefinitions TaskDefinition [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [default: `now()`, not null]
+}
+
+Table Permission {
+  id Int [pk, increment]
+  name String [not null]
+  code String [not null]
+  description String [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [default: `now()`, not null]
+  organization Organization [not null]
+  organizationId Int [not null]
+  permissionGroup PermissionGroup [not null]
+  permissionGroupId Int [not null]
+  userPermissions UserPermission [not null]
+}
+
+Table PermissionGroup {
+  id Int [pk, increment]
+  name String [not null]
+  description String [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [default: `now()`, not null]
+  organization Organization [not null]
+  organizationId Int [not null]
+  permissions Permission [not null]
+}
+
+Table UserPermission {
+  id Int [pk, increment]
+  createdAt DateTime [default: `now()`, not null]
+  user User [not null]
+  userId Int [not null]
+  permission Permission [not null]
+  permissionId Int [not null]
 }
 
 Table Post {
-  id String [pk]
+  id Int [pk, increment]
   createdAt DateTime [default: `now()`, not null]
-  updatedAt DateTime [not null]
+  updatedAt DateTime [default: `now()`, not null]
   published Boolean [not null]
   title String [not null]
   content String
   author User
-  authorId String
+  authorId Int
 }
 
 Table Team {
-  id String [pk]
+  id Int [pk, increment]
   name String [not null]
   bio String [not null]
   description String [not null]
   createdAt DateTime [default: `now()`, not null]
-  updatedAt DateTime [not null]
-  creatorId String [not null]
+  updatedAt DateTime [default: `now()`, not null]
+  creatorId Int [not null]
   creator User [not null]
-  managerId String [not null]
+  managerId Int [not null]
   manager User [not null]
-  organizationId String [not null]
+  organizationId Int [not null]
   organization Organization [not null]
   memberOnTeams MemberOnTeams [not null]
   tasks Task [not null]
@@ -97,9 +179,9 @@ Table Team {
 
 Table MemberOnTeams {
   team Team [not null]
-  teamId String [not null]
+  teamId Int [not null]
   user User [not null]
-  userId String [not null]
+  userId Int [not null]
   assignedAt DateTime [default: `now()`, not null]
   assignedBy String [not null]
 
@@ -109,74 +191,96 @@ Table MemberOnTeams {
 }
 
 Table TaskDefinition {
-  id String [pk]
+  id Int [pk, increment]
   createdAt DateTime [default: `now()`, not null]
-  updatedAt DateTime [not null]
+  updatedAt DateTime [default: `now()`, not null]
   title String [not null]
   description String [not null]
   icon String [not null]
   thumbnail String [not null]
-  config String [not null]
+  formId Int
+  form Form
+  descriptionTemplate String
+  titleTemplate String
+  statusTemplate String
+  stateTemplate String
+  notificationTemplate String
+  ctaTemplate String
+  stageConfig Json
+  statusConfig Json
+  notificationConfig Json
+  processConfig Json
+  triggerConfig Json
+  ctaConfig Json
+  config Json
+  taskInstances Task [not null]
   organization Organization [not null]
-  organizationId String [not null]
-  parentId String
+  organizationId Int [not null]
+  parentId Int
   parentTaskDefinition TaskDefinition
   subTaskDefinitions TaskDefinition [not null]
-  workflowId String [not null]
-  workflow Workflow [not null]
-  actvityId String [not null]
-  activity Activity [not null]
+  workflowId Int
+  workflow Workflow
+  actvityId Int
+  activity Activity
 }
 
 Table Task {
-  id String [pk]
+  id Int [pk, increment]
   title String [not null]
   description String [not null]
   dueDate DateTime [not null]
-  priority TaskPriority [not null]
+  priority TaskPriority [not null, default: 'LOW']
   status TaskStatus [not null, default: 'NEW']
-  creatorId String [not null]
-  assigneeId String [not null]
-  projectId String [not null]
-  comments Comment [not null]
+  values Json
+  ctaName String [not null, default: '']
+  stateName String [not null, default: '']
+  statusName String [not null, default: '']
   createdAt DateTime [default: `now()`, not null]
-  updatedAt DateTime [not null]
-  events EventLog [not null]
-  parentId String
+  updatedAt DateTime [default: `now()`, not null]
+  definitionId Int [not null]
+  definition TaskDefinition [not null]
+  comments Comment [not null]
+  eventLogs EventLog [not null]
+  assigneeId Int [not null]
+  assignee User [not null]
+  creatorId Int [not null]
+  creator User [not null]
+  parentId Int
   parentTask Task
   subTasks Task [not null]
-  organizationId String [not null]
+  organizationId Int [not null]
   organization Organization [not null]
-  teamId String [not null]
+  teamId Int [not null]
   team Team [not null]
 }
 
 Table Comment {
-  id String [pk]
+  id Int [pk, increment]
   createdAt DateTime [default: `now()`, not null]
-  updatedAt DateTime [not null]
+  updatedAt DateTime [default: `now()`, not null]
   content String [not null]
-  taskId String [not null]
-  creatorId String [not null]
+  creatorId Int [not null]
   creator User [not null]
+  taskId Int [not null]
   task Task [not null]
 }
 
 Table EventLog {
-  id String [pk]
+  id Int [pk, increment]
   createdAt DateTime [default: `now()`, not null]
-  userId String
+  userId Int
   user User
-  taskId String
+  taskId Int
   task Task
-  actionId String [not null]
+  actionId Int [not null]
   Action Action
-  organizationId String [not null]
+  organizationId Int [not null]
   organization Organization [not null]
 }
 
 Table Action {
-  id String [pk]
+  id Int [pk, increment]
   createdAt DateTime [default: `now()`, not null]
   type ActionType [not null]
   events EventLog [not null]
@@ -187,40 +291,40 @@ Table Action {
 }
 
 Table Workflow {
-  id String [pk]
+  id Int [pk, increment]
   createdAt DateTime [default: `now()`, not null]
-  updatedAt DateTime [not null]
+  updatedAt DateTime [default: `now()`, not null]
   name String [not null]
   description String [not null]
   config Json [not null]
-  organizationId String [not null]
+  organizationId Int [not null]
   organization Organization [not null]
   activities Activity [not null]
   taskDefinitions TaskDefinition [not null]
 }
 
 Table Activity {
-  id String [pk]
+  id Int [pk, increment]
   createdAt DateTime [default: `now()`, not null]
-  updatedAt DateTime [not null]
+  updatedAt DateTime [default: `now()`, not null]
   name String [not null]
   description String [not null]
   config Json [not null]
-  workflowId String [not null]
+  workflowId Int [not null]
   workflow Workflow [not null]
   taskDefinitions TaskDefinition [not null]
   triggers Trigger [not null]
 }
 
 Table Trigger {
-  id String [pk]
+  id Int [pk, increment]
   createdAt DateTime [default: `now()`, not null]
-  updatedAt DateTime [not null]
+  updatedAt DateTime [default: `now()`, not null]
   type TriggerType [not null]
   name String [not null]
   description String [not null]
   config Json [not null]
-  activityId String [not null]
+  activityId Int [not null]
   activity Activity [not null]
 }
 
@@ -261,6 +365,10 @@ Enum TriggerType {
   APP_TRIGGER
 }
 
+Ref: Resource.organizationId > Organization.id
+
+Ref: ResourceItem.resourceId > Resource.id
+
 Ref: File.variantOfId - File.id
 
 Ref: File.organizationId > Organization.id
@@ -268,6 +376,16 @@ Ref: File.organizationId > Organization.id
 Ref: Settings.organizationId > Organization.id
 
 Ref: User.organizationId > Organization.id
+
+Ref: Permission.organizationId > Organization.id
+
+Ref: Permission.permissionGroupId > PermissionGroup.id
+
+Ref: PermissionGroup.organizationId > Organization.id
+
+Ref: UserPermission.userId > User.id
+
+Ref: UserPermission.permissionId > Permission.id
 
 Ref: Post.authorId > User.id
 
@@ -281,6 +399,8 @@ Ref: MemberOnTeams.teamId > Team.id
 
 Ref: MemberOnTeams.userId > User.id
 
+Ref: TaskDefinition.formId > Form.id
+
 Ref: TaskDefinition.organizationId > Organization.id
 
 Ref: TaskDefinition.parentId - TaskDefinition.id
@@ -288,6 +408,12 @@ Ref: TaskDefinition.parentId - TaskDefinition.id
 Ref: TaskDefinition.workflowId > Workflow.id
 
 Ref: TaskDefinition.actvityId > Activity.id
+
+Ref: Task.definitionId > TaskDefinition.id
+
+Ref: Task.assigneeId > User.id
+
+Ref: Task.creatorId > User.id
 
 Ref: Task.parentId - Task.id
 

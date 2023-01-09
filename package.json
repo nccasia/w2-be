@@ -83,6 +83,7 @@
     "graphql-subscriptions": "2.0.0",
     "hasura": "^2.0.1",
     "nestjs-prisma": "0.17.0",
+    "nestjs-prisma-graphql-crud-gen": "^1.0.3",
     "passport": "0.6.0",
     "passport-jwt": "4.0.0",
     "reflect-metadata": "0.1.13",
