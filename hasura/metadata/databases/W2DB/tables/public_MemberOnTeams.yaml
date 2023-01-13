@@ -1,0 +1,10 @@
+table:
+  name: MemberOnTeams
+  schema: public
+object_relationships:
+  - name: Team
+    using:
+      foreign_key_constraint_on: teamId
+  - name: User
+    using:
+      foreign_key_constraint_on: userId

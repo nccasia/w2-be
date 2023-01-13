@@ -1,0 +1,81 @@
+table:
+  name: Organization
+  schema: public
+array_relationships:
+  - name: EventLogs
+    using:
+      foreign_key_constraint_on:
+        column: organizationId
+        table:
+          name: EventLog
+          schema: public
+  - name: Files
+    using:
+      foreign_key_constraint_on:
+        column: organizationId
+        table:
+          name: File
+          schema: public
+  - name: PermissionGroups
+    using:
+      foreign_key_constraint_on:
+        column: organizationId
+        table:
+          name: PermissionGroup
+          schema: public
+  - name: Permissions
+    using:
+      foreign_key_constraint_on:
+        column: organizationId
+        table:
+          name: Permission
+          schema: public
+  - name: Resources
+    using:
+      foreign_key_constraint_on:
+        column: organizationId
+        table:
+          name: Resource
+          schema: public
+  - name: Settings
+    using:
+      foreign_key_constraint_on:
+        column: organizationId
+        table:
+          name: Settings
+          schema: public
+  - name: TaskDefinitions
+    using:
+      foreign_key_constraint_on:
+        column: organizationId
+        table:
+          name: TaskDefinition
+          schema: public
+  - name: Tasks
+    using:
+      foreign_key_constraint_on:
+        column: organizationId
+        table:
+          name: Task
+          schema: public
+  - name: Teams
+    using:
+      foreign_key_constraint_on:
+        column: organizationId
+        table:
+          name: Team
+          schema: public
+  - name: Users
+    using:
+      foreign_key_constraint_on:
+        column: organizationId
+        table:
+          name: User
+          schema: public
+  - name: Workflows
+    using:
+      foreign_key_constraint_on:
+        column: organizationId
+        table:
+          name: Workflow
+          schema: public

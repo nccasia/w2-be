@@ -1,0 +1,65 @@
+table:
+  name: Task
+  schema: public
+object_relationships:
+  - name: Organization
+    using:
+      foreign_key_constraint_on: organizationId
+  - name: Task
+    using:
+      foreign_key_constraint_on: parentId
+  - name: TaskDefinition
+    using:
+      foreign_key_constraint_on: definitionId
+  - name: Team
+    using:
+      foreign_key_constraint_on: teamId
+  - name: User
+    using:
+      foreign_key_constraint_on: assigneeId
+  - name: userByCreatorid
+    using:
+      foreign_key_constraint_on: creatorId
+array_relationships:
+  - name: Comments
+    using:
+      foreign_key_constraint_on:
+        column: taskId
+        table:
+          name: Comment
+          schema: public
+  - name: EventLogs
+    using:
+      foreign_key_constraint_on:
+        column: taskId
+        table:
+          name: EventLog
+          schema: public
+  - name: Tasks
+    using:
+      foreign_key_constraint_on:
+        column: parentId
+        table:
+          name: Task
+          schema: public
+event_triggers:
+  - name: task-created
+    definition:
+      enable_manual: false
+      insert:
+        columns: '*'
+    retry_conf:
+      interval_sec: 10
+      num_retries: 0
+      timeout_sec: 60
+    webhook: http://nest-api:3000/hasura/events
+    headers:
+      - name: secretHeader
+        value: secret
+    cleanup_config:
+      batch_size: 10000
+      clean_invocation_logs: false
+      clear_older_than: 168
+      paused: true
+      schedule: 0 0 * * *
+      timeout: 60

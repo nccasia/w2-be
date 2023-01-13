@@ -1,0 +1,10 @@
+table:
+  name: UserPermission
+  schema: public
+object_relationships:
+  - name: Permission
+    using:
+      foreign_key_constraint_on: permissionId
+  - name: User
+    using:
+      foreign_key_constraint_on: userId

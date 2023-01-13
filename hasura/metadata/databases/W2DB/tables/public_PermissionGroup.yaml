@@ -1,0 +1,15 @@
+table:
+  name: PermissionGroup
+  schema: public
+object_relationships:
+  - name: Organization
+    using:
+      foreign_key_constraint_on: organizationId
+array_relationships:
+  - name: Permissions
+    using:
+      foreign_key_constraint_on:
+        column: permissionGroupId
+        table:
+          name: Permission
+          schema: public

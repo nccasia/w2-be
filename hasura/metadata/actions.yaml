@@ -1,6 +1,41 @@
-actions: []
+actions:
+  - name: signin
+    definition:
+      kind: synchronous
+      handler: http://nest-api:3000/graphql
+      request_transform:
+        body:
+          action: transform
+          template: |
+            {
+              "operationName": "login",
+              "variables": {
+                "data": {{$body.input.data}}
+              },
+              "query": "mutation login($data: LoginInput!) {\n  login(data: $data) {\n    accessToken\n    refreshToken\n    user {\n      id\n      email\n      firstname\n      lastname\n    }\n  }\n}\n"
+            }
+        method: POST
+        query_params: {}
+        template_engine: Kriti
+        version: 2
+      response_transform:
+        body:
+          action: transform
+          template: |-
+            {
+                "accessToken": {{$body.data.login.accessToken}},
+                "refreshToken": {{$body.data.login.refreshToken}},
+                "user": {{$body.data.login.user}}
+            }
+        template_engine: Kriti
+        version: 2
 custom_types:
   enums: []
-  input_objects: []
-  objects: []
-  scalars: []
+  input_objects:
+    - name: LoginInput
+  objects:
+    - name: LoginAuth
+    - name: LoginUser
+    - name: LoginAuthData
+  scalars:
+    - name: JWT

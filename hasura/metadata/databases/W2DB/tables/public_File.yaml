@@ -1,0 +1,18 @@
+table:
+  name: File
+  schema: public
+object_relationships:
+  - name: File
+    using:
+      foreign_key_constraint_on: variantOfId
+  - name: Organization
+    using:
+      foreign_key_constraint_on: organizationId
+array_relationships:
+  - name: Files
+    using:
+      foreign_key_constraint_on:
+        column: variantOfId
+        table:
+          name: File
+          schema: public

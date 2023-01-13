@@ -1,0 +1,7 @@
+table:
+  name: ResourceItem
+  schema: public
+object_relationships:
+  - name: Resource
+    using:
+      foreign_key_constraint_on: resourceId

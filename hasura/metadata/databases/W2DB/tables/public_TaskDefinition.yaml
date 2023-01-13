@@ -1,0 +1,34 @@
+table:
+  name: TaskDefinition
+  schema: public
+object_relationships:
+  - name: Activity
+    using:
+      foreign_key_constraint_on: actvityId
+  - name: Form
+    using:
+      foreign_key_constraint_on: formId
+  - name: Organization
+    using:
+      foreign_key_constraint_on: organizationId
+  - name: TaskDefinition
+    using:
+      foreign_key_constraint_on: parentId
+  - name: Workflow
+    using:
+      foreign_key_constraint_on: workflowId
+array_relationships:
+  - name: TaskDefinitions
+    using:
+      foreign_key_constraint_on:
+        column: parentId
+        table:
+          name: TaskDefinition
+          schema: public
+  - name: Tasks
+    using:
+      foreign_key_constraint_on:
+        column: definitionId
+        table:
+          name: Task
+          schema: public

@@ -1,0 +1,16 @@
+table:
+  name: EventLog
+  schema: public
+object_relationships:
+  - name: Action
+    using:
+      foreign_key_constraint_on: actionId
+  - name: Organization
+    using:
+      foreign_key_constraint_on: organizationId
+  - name: Task
+    using:
+      foreign_key_constraint_on: taskId
+  - name: User
+    using:
+      foreign_key_constraint_on: userId

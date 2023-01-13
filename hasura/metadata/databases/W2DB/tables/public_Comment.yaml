@@ -1,0 +1,10 @@
+table:
+  name: Comment
+  schema: public
+object_relationships:
+  - name: Task
+    using:
+      foreign_key_constraint_on: taskId
+  - name: User
+    using:
+      foreign_key_constraint_on: creatorId

@@ -1,0 +1,32 @@
+type Mutation {
+  signin(
+    data: LoginInput!
+  ): LoginAuth!
+}
+
+input LoginInput {
+  email: String!
+  password: String!
+}
+
+type LoginAuth {
+  accessToken: JWT!
+  refreshToken: JWT!
+  user: LoginUser!
+}
+
+type LoginUser {
+  email: String!
+  firstname: String
+  id: ID!
+  lastname: String
+}
+
+type LoginAuthData {
+  accessToken: JWT!
+  refreshToken: JWT!
+  user: LoginUser!
+}
+
+scalar JWT
+

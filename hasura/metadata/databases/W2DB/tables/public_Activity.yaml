@@ -1,0 +1,22 @@
+table:
+  name: Activity
+  schema: public
+object_relationships:
+  - name: Workflow
+    using:
+      foreign_key_constraint_on: workflowId
+array_relationships:
+  - name: TaskDefinitions
+    using:
+      foreign_key_constraint_on:
+        column: actvityId
+        table:
+          name: TaskDefinition
+          schema: public
+  - name: Triggers
+    using:
+      foreign_key_constraint_on:
+        column: activityId
+        table:
+          name: Trigger
+          schema: public

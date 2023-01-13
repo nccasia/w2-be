@@ -1,0 +1,7 @@
+table:
+  name: Trigger
+  schema: public
+object_relationships:
+  - name: Activity
+    using:
+      foreign_key_constraint_on: activityId

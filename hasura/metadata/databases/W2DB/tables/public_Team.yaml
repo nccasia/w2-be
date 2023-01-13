@@ -1,0 +1,28 @@
+table:
+  name: Team
+  schema: public
+object_relationships:
+  - name: Organization
+    using:
+      foreign_key_constraint_on: organizationId
+  - name: User
+    using:
+      foreign_key_constraint_on: creatorId
+  - name: userByManagerid
+    using:
+      foreign_key_constraint_on: managerId
+array_relationships:
+  - name: MemberOnTeams
+    using:
+      foreign_key_constraint_on:
+        column: teamId
+        table:
+          name: MemberOnTeams
+          schema: public
+  - name: Tasks
+    using:
+      foreign_key_constraint_on:
+        column: teamId
+        table:
+          name: Task
+          schema: public

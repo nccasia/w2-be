@@ -1,1 +1,8 @@
-[]
+- name: w2be
+  definition:
+    url_from_env: NEST_API_URL
+    timeout_seconds: 60
+    customization:
+      type_names:
+        mapping: {}
+        suffix: be
