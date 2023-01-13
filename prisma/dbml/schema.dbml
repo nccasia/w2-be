@@ -64,6 +64,7 @@ Table File {
   variants File [not null]
   organizationId Int [not null]
   organization Organization [not null]
+  avatarUsers User [not null]
 }
 
 Table Settings {
@@ -71,7 +72,7 @@ Table Settings {
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [default: `now()`, not null]
   key String [not null]
-  value String [not null]
+  value Json [not null, default: '{}']
   organization Organization [not null]
   organizationId Int [not null]
 }
@@ -84,6 +85,8 @@ Table User {
   password String [not null]
   firstname String
   lastname String
+  avatarId Int
+  avatar File
   organizationId Int [not null]
   organization Organization [not null]
   managedteams Team [not null]
@@ -206,7 +209,7 @@ Table TaskDefinition {
   stateTemplate String
   notificationTemplate String
   ctaTemplate String
-  stageConfig Json
+  stateConfig Json
   statusConfig Json
   notificationConfig Json
   processConfig Json
@@ -229,13 +232,31 @@ Table Task {
   id Int [pk, increment]
   title String [not null]
   description String [not null]
-  dueDate DateTime [not null]
+  dueDate DateTime
   priority TaskPriority [not null, default: 'LOW']
-  status TaskStatus [not null, default: 'NEW']
   values Json
+  type String [not null, default: '']
+  typeName String [not null, default: '']
+  cta String [not null, default: '']
   ctaName String [not null, default: '']
+  state String [not null, default: '']
   stateName String [not null, default: '']
+  status String [not null, default: '']
   statusName String [not null, default: '']
+  stateValues String [not null, default: '']
+  descriptionTemplate String
+  titleTemplate String
+  statusTemplate String
+  stateTemplate String
+  notificationTemplate String
+  ctaTemplate String
+  stateConfig Json
+  statusConfig Json
+  notificationConfig Json
+  processConfig Json
+  triggerConfig Json
+  ctaConfig Json
+  config Json
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [default: `now()`, not null]
   definitionId Int [not null]
@@ -323,7 +344,6 @@ Table Trigger {
   type TriggerType [not null]
   name String [not null]
   description String [not null]
-  config Json [not null]
   activityId Int [not null]
   activity Activity [not null]
 }
@@ -343,13 +363,6 @@ Enum TaskPriority {
   MEDIUM
   HIGH
   URGENT
-}
-
-Enum TaskStatus {
-  NEW
-  IN_PROGRESS
-  COMPLETED
-  DEFERRED
 }
 
 Enum ActionType {
@@ -374,6 +387,8 @@ Ref: File.variantOfId - File.id
 Ref: File.organizationId > Organization.id
 
 Ref: Settings.organizationId > Organization.id
+
+Ref: User.avatarId > File.id
 
 Ref: User.organizationId > Organization.id
 

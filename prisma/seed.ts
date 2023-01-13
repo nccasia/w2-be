@@ -1,11 +1,13 @@
-import { PrismaClient, Role } from '@prisma/client';
+import { Organization, PrismaClient, Resource, Role } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-async function main() {
+async function cleanUp() {
   console.log('Cleaning up...');
-  await prisma.taskDefinition.deleteMany();
+  await prisma.eventLog.deleteMany();
+  await prisma.task.deleteMany();
   await prisma.form.deleteMany();
+  await prisma.taskDefinition.deleteMany();
   await prisma.resourceItem.deleteMany();
   await prisma.resource.deleteMany();
   await prisma.userPermission.deleteMany();
@@ -16,7 +18,265 @@ async function main() {
   await prisma.user.deleteMany();
   await prisma.post.deleteMany();
   await prisma.organization.deleteMany();
+}
 
+async function defineDeviceRequestTask(
+  defaultOrg: Organization,
+  defaultResourceDevices: Resource
+) {
+  const defaultFormDevice = await prisma.form.create({
+    data: {
+      name: 'Device Request',
+      description: 'Create Device request',
+      code: 'DEVICE_REQUEST',
+      config: {},
+      schema: {
+        title: 'Device Request',
+        type: 'object',
+        properties: {
+          device: {
+            type: 'array',
+            items: {
+              type: 'object',
+              properties: {
+                type: {
+                  type: 'string',
+                  uniforms: {
+                    uiComponent: 'SelectResourceField',
+                    resource: defaultResourceDevices.id,
+                  },
+                },
+                quantity: {
+                  type: 'integer',
+                  minimum: 1,
+                  maximum: 100,
+                },
+                detail: {
+                  type: 'string',
+                },
+              },
+              required: ['type', 'detail', 'quantity'],
+            },
+            minItems: 1,
+            uniforms: {
+              index: 1,
+            },
+          },
+          dueDate: {
+            type: 'string',
+            format: 'date',
+            default: null,
+            nullable: true,
+            uniforms: {
+              index: 2,
+            },
+          },
+          content: {
+            type: 'string',
+            nullable: true,
+            uniforms: { uiComponent: 'QuillEditorField', index: 4 },
+          },
+        },
+        required: ['dueDate'],
+      },
+      validationConfig: {},
+      triggerConfig: {},
+      serializerConfig: {},
+      displayConfig: {},
+      displayTemplate: '',
+    },
+  });
+
+  const defaultTaskDefinitionDevicePMAproval =
+    await prisma.taskDefinition.create({
+      data: {
+        title: 'Device request PMAproval',
+        description: 'Create Device request PMAproval',
+        icon: 'icon',
+        form: {
+          create: {
+            name: 'Device Request PM Approval',
+            description: 'Device Request PM Approval',
+            code: 'DEVICE_REQUEST_PM_APPROVAL',
+            config: {},
+            schema: {},
+            validationConfig: {},
+            triggerConfig: {},
+            serializerConfig: {},
+            displayConfig: {},
+            displayTemplate: '',
+          },
+        },
+        thumbnail: 'thumbnail',
+        descriptionTemplate: 'descriptionTemplate',
+        titleTemplate: 'titleTemplate',
+        stateTemplate: 'stateTemplate',
+        statusTemplate: 'statusTemplate',
+        notificationTemplate: 'notificationTemplate',
+        ctaTemplate: 'ctaTemplate',
+        stateConfig: {},
+        statusConfig: {},
+        notificationConfig: {},
+        processConfig: {},
+        triggerConfig: {},
+        ctaConfig: {},
+        organization: {
+          connect: defaultOrg,
+        },
+      },
+    });
+
+  const defaultTaskDefinitionDeviceITApproval =
+    await prisma.taskDefinition.create({
+      data: {
+        title: 'Device request IT Aproval',
+        description: 'Create Device request ITAproval',
+        icon: 'icon',
+        form: {
+          create: {
+            name: 'Device Request IT Approval',
+            description: 'Device Request IT Approval',
+            code: 'DEVICE_REQUEST_IT_APPROVAL',
+            config: {},
+            schema: {},
+            validationConfig: {},
+            triggerConfig: {},
+            serializerConfig: {},
+            displayConfig: {},
+            displayTemplate: '',
+          },
+        },
+        thumbnail: 'thumbnail',
+        descriptionTemplate: 'descriptionTemplate',
+        titleTemplate: 'titleTemplate',
+        stateTemplate: 'stateTemplate',
+        statusTemplate: 'statusTemplate',
+        notificationTemplate: 'notificationTemplate',
+        ctaTemplate: 'ctaTemplate',
+        stateConfig: {},
+        statusConfig: {},
+        notificationConfig: {},
+        processConfig: {},
+        triggerConfig: {},
+        ctaConfig: {},
+        organization: {
+          connect: defaultOrg,
+        },
+      },
+    });
+
+  const defaultTaskDefinitionDeviceSaleApproval =
+    await prisma.taskDefinition.create({
+      data: {
+        title: 'Device request SALE Aproval',
+        description: 'Create Device request SALEAproval',
+        icon: 'icon',
+        form: {
+          create: {
+            name: 'Device Request SALE Approval',
+            description: 'Device Request SALE Approval',
+            code: 'DEVICE_REQUEST_SALE_APPROVAL',
+            config: {},
+            schema: {},
+            validationConfig: {},
+            triggerConfig: {},
+            serializerConfig: {},
+            displayConfig: {},
+            displayTemplate: '',
+          },
+        },
+        thumbnail: 'thumbnail',
+        descriptionTemplate: 'descriptionTemplate',
+        titleTemplate: 'titleTemplate',
+        stateTemplate: 'stateTemplate',
+        statusTemplate: 'statusTemplate',
+        notificationTemplate: 'notificationTemplate',
+        ctaTemplate: 'ctaTemplate',
+        stateConfig: {},
+        statusConfig: {},
+        notificationConfig: {},
+        processConfig: {},
+        triggerConfig: {},
+        ctaConfig: {},
+        organization: {
+          connect: defaultOrg,
+        },
+      },
+    });
+
+  const defaultTaskDefinitionDeviceCustomerApproval =
+    await prisma.taskDefinition.create({
+      data: {
+        title: 'Device request CUSTOMER Aproval',
+        description: 'Create Device request CUSTOMERAproval',
+        icon: 'icon',
+        form: {
+          create: {
+            name: 'Device Request CUSTOMER Approval',
+            description: 'Device Request CUSTOMER Approval',
+            code: 'DEVICE_REQUEST_CUSTOMER_APPROVAL',
+            config: {},
+            schema: {},
+            validationConfig: {},
+            triggerConfig: {},
+            serializerConfig: {},
+            displayConfig: {},
+            displayTemplate: '',
+          },
+        },
+        thumbnail: 'thumbnail',
+        descriptionTemplate: 'descriptionTemplate',
+        titleTemplate: 'titleTemplate',
+        stateTemplate: 'stateTemplate',
+        statusTemplate: 'statusTemplate',
+        notificationTemplate: 'notificationTemplate',
+        ctaTemplate: 'ctaTemplate',
+        stateConfig: {},
+        statusConfig: {},
+        notificationConfig: {},
+        processConfig: {},
+        triggerConfig: {},
+        ctaConfig: {},
+        organization: {
+          connect: defaultOrg,
+        },
+      },
+    });
+
+  const defaultTaskDefinitionDevice = await prisma.taskDefinition.create({
+    data: {
+      title: 'Device request',
+      description: 'Create Device request',
+      icon: 'icon',
+      formId: defaultFormDevice.id,
+      thumbnail: 'thumbnail',
+      descriptionTemplate: 'descriptionTemplate',
+      titleTemplate: 'titleTemplate',
+      stateTemplate: 'stateTemplate',
+      statusTemplate: 'statusTemplate',
+      notificationTemplate: 'notificationTemplate',
+      ctaTemplate: 'ctaTemplate',
+      stateConfig: {},
+      statusConfig: {},
+      notificationConfig: {},
+      processConfig: {},
+      triggerConfig: {},
+      ctaConfig: {},
+      organizationId: defaultOrg.id,
+      subTaskDefinitions: {
+        connect: [
+          defaultTaskDefinitionDevicePMAproval,
+          defaultTaskDefinitionDeviceITApproval,
+          defaultTaskDefinitionDeviceSaleApproval,
+          defaultTaskDefinitionDeviceCustomerApproval,
+        ],
+      },
+    },
+  });
+}
+
+async function main() {
+  await cleanUp();
   console.log('Seeding...');
 
   const defaultOrg = await prisma.organization.create({
@@ -259,8 +519,8 @@ async function main() {
             },
           },
           dueDate: {
-            type: 'object',
-            format: 'date-time',
+            type: 'string',
+            format: 'date',
             default: null,
             nullable: true,
             uniforms: {
@@ -283,69 +543,6 @@ async function main() {
     },
   });
 
-  const defaultFormDevice = await prisma.form.create({
-    data: {
-      name: 'Device Request',
-      description: 'Create Device request',
-      code: 'DEVICE_REQUEST',
-      config: {},
-      schema: {
-        title: 'Device Request',
-        type: 'object',
-        properties: {
-          device: {
-            type: 'array',
-            items: {
-              type: 'object',
-              properties: {
-                type: {
-                  type: 'string',
-                  uniforms: {
-                    uiComponent: 'SelectResourceField',
-                    resource: defaultResourceDevices.id,
-                  },
-                },
-                quantity: {
-                  type: 'integer',
-                  minimum: 1,
-                  maximum: 100,
-                },
-                detail: {
-                  type: 'string',
-                },
-              },
-              required: ['type', 'detail', 'quantity'],
-            },
-            minItems: 1,
-            uniforms: {
-              index: 1,
-            },
-          },
-          dueDate: {
-            type: 'object',
-            format: 'date-time',
-            default: null,
-            nullable: true,
-            uniforms: {
-              index: 2,
-            },
-          },
-          content: {
-            type: 'string',
-            nullable: true,
-            uniforms: { uiComponent: 'QuillEditorField', index: 4 },
-          },
-        },
-        required: ['dueDate'],
-      },
-      validationConfig: {},
-      triggerConfig: {},
-      serializerConfig: {},
-      displayConfig: {},
-      displayTemplate: '',
-    },
-  });
-
   const defaultFormWFH = await prisma.form.create({
     data: {
       name: 'WFH Request',
@@ -357,8 +554,8 @@ async function main() {
         type: 'object',
         properties: {
           dueDateStart: {
-            type: 'object',
-            format: 'date-time',
+            type: 'string',
+            format: 'date',
             default: null,
             nullable: true,
             uniforms: {
@@ -366,8 +563,8 @@ async function main() {
             },
           },
           dueDateEnd: {
-            type: 'object',
-            format: 'date-time',
+            type: 'string',
+            format: 'date',
             default: null,
             nullable: true,
             uniforms: {
@@ -401,12 +598,106 @@ async function main() {
     },
   });
 
+  await prisma.memberOnTeams.create({
+    data: {
+      teamId: defaultTeam.id,
+      userId: user1.id,
+      assignedBy: 'SYSTEM',
+    },
+  });
+
+  await defineDeviceRequestTask(defaultOrg, defaultResourceDevices);
+
+  const defaultTaskDefinitionChangeOfficeStartApproval =
+    await prisma.taskDefinition.create({
+      data: {
+        title: 'Change office request Start approval',
+        description: 'Create Change office request Start approval',
+        icon: 'icon',
+        thumbnail: 'thumbnail',
+        descriptionTemplate: 'descriptionTemplate',
+        titleTemplate: 'titleTemplate',
+        stateTemplate: 'stateTemplate',
+        statusTemplate: 'statusTemplate',
+        notificationTemplate: 'notificationTemplate',
+        ctaTemplate: 'ctaTemplate',
+        stateConfig: {},
+        statusConfig: {},
+        notificationConfig: {},
+        processConfig: {},
+        triggerConfig: {},
+        ctaConfig: {},
+        form: {
+          create: {
+            name: 'Change Office Request Start Approval',
+            description: 'Create Change office request Start approval',
+            code: 'CHANGE_OFFICE_REQUEST_START_APPROVAL',
+            config: {},
+            schema: {},
+            validationConfig: {},
+            triggerConfig: {},
+            serializerConfig: {},
+            displayConfig: {},
+            displayTemplate: '',
+          },
+        },
+        organization: {
+          connect: {
+            id: defaultOrg.id,
+          },
+        },
+      },
+    });
+
+  const defaultTaskDefinitionChangeOfficeEndApproval =
+    await prisma.taskDefinition.create({
+      data: {
+        title: 'Change office request end approval',
+        description: 'Create Change office request end approval',
+        icon: 'icon',
+        thumbnail: 'thumbnail',
+        descriptionTemplate: 'descriptionTemplate',
+        titleTemplate: 'titleTemplate',
+        stateTemplate: 'stateTemplate',
+        statusTemplate: 'statusTemplate',
+        notificationTemplate: 'notificationTemplate',
+        ctaTemplate: 'ctaTemplate',
+        stateConfig: {},
+        statusConfig: {},
+        notificationConfig: {},
+        processConfig: {},
+        triggerConfig: {},
+        ctaConfig: {},
+        form: {
+          create: {
+            name: 'Change Office Request end Approval',
+            description: 'Create Change office request end approval',
+            code: 'CHANGE_OFFICE_REQUEST_END_APPROVAL',
+            config: {},
+            schema: {},
+            validationConfig: {},
+            triggerConfig: {},
+            serializerConfig: {},
+            displayConfig: {},
+            displayTemplate: '',
+          },
+        },
+        organization: {
+          connect: {
+            id: defaultOrg.id,
+          },
+        },
+      },
+    });
+
   const defaultTaskDefinitionChangeOffice = await prisma.taskDefinition.create({
     data: {
       title: 'Change office request',
       description: 'Create Change office request',
       icon: 'icon',
-      formId: defaultFormChangeOffice.id,
+      form: {
+        connect: defaultFormChangeOffice,
+      },
       thumbnail: 'thumbnail',
       descriptionTemplate: 'descriptionTemplate',
       titleTemplate: 'titleTemplate',
@@ -414,24 +705,43 @@ async function main() {
       statusTemplate: 'statusTemplate',
       notificationTemplate: 'notificationTemplate',
       ctaTemplate: 'ctaTemplate',
-      stageConfig: {},
+      stateConfig: {},
       statusConfig: {},
       notificationConfig: {},
       processConfig: {},
       triggerConfig: {},
       ctaConfig: {},
-      organizationId: defaultOrg.id,
-      parentId: null,
-      workflowId: null,
-      actvityId: null,
+      organization: {
+        connect: defaultOrg,
+      },
+      subTaskDefinitions: {
+        connect: [
+          defaultTaskDefinitionChangeOfficeStartApproval,
+          defaultTaskDefinitionChangeOfficeEndApproval,
+        ],
+      },
     },
   });
-  const defaultTaskDefinitionDevice = await prisma.taskDefinition.create({
+
+  const defaultTaskDefinitionWFHPMAproval = await prisma.taskDefinition.create({
     data: {
-      title: 'Device request',
-      description: 'Create Device request',
+      title: 'WFH request PM approval',
+      description: 'Create WFH request PM approval',
       icon: 'icon',
-      formId: defaultFormDevice.id,
+      form: {
+        create: {
+          name: 'WFH Request PM Approval',
+          description: 'Create WFH request PM approval',
+          code: 'WFH_REQUEST_PM_APPROVAL',
+          config: {},
+          schema: {},
+          validationConfig: {},
+          triggerConfig: {},
+          serializerConfig: {},
+          displayConfig: {},
+          displayTemplate: '',
+        },
+      },
       thumbnail: 'thumbnail',
       descriptionTemplate: 'descriptionTemplate',
       titleTemplate: 'titleTemplate',
@@ -439,18 +749,58 @@ async function main() {
       statusTemplate: 'statusTemplate',
       notificationTemplate: 'notificationTemplate',
       ctaTemplate: 'ctaTemplate',
-      stageConfig: {},
+      stateConfig: {},
       statusConfig: {},
       notificationConfig: {},
       processConfig: {},
       triggerConfig: {},
       ctaConfig: {},
-      organizationId: defaultOrg.id,
-      parentId: null,
-      workflowId: null,
-      actvityId: null,
+      organization: {
+        connect: defaultOrg,
+      },
     },
   });
+
+  const defaultTaskDefinitionWFHCEOAproval = await prisma.taskDefinition.create(
+    {
+      data: {
+        title: 'WFH request CEO approval',
+        description: 'Create WFH request CEO approval',
+        icon: 'icon',
+        form: {
+          create: {
+            name: 'WFH Request CEO Approval',
+            description: 'Create WFH request CEO approval',
+            code: 'WFH_REQUEST_CEO_APPROVAL',
+            config: {},
+            schema: {},
+            validationConfig: {},
+            triggerConfig: {},
+            serializerConfig: {},
+            displayConfig: {},
+            displayTemplate: '',
+          },
+        },
+        thumbnail: 'thumbnail',
+        descriptionTemplate: 'descriptionTemplate',
+        titleTemplate: 'titleTemplate',
+        stateTemplate: 'stateTemplate',
+        statusTemplate: 'statusTemplate',
+        notificationTemplate: 'notificationTemplate',
+        ctaTemplate: 'ctaTemplate',
+        stateConfig: {},
+        statusConfig: {},
+        notificationConfig: {},
+        processConfig: {},
+        triggerConfig: {},
+        ctaConfig: {},
+        organization: {
+          connect: defaultOrg,
+        },
+      },
+    }
+  );
+
   const defaultTaskDefinitionWFH = await prisma.taskDefinition.create({
     data: {
       title: 'WFH request',
@@ -464,7 +814,7 @@ async function main() {
       statusTemplate: 'statusTemplate',
       notificationTemplate: 'notificationTemplate',
       ctaTemplate: 'ctaTemplate',
-      stageConfig: {},
+      stateConfig: {},
       statusConfig: {},
       notificationConfig: {},
       processConfig: {},
@@ -474,6 +824,12 @@ async function main() {
       parentId: null,
       workflowId: null,
       actvityId: null,
+      subTaskDefinitions: {
+        connect: [
+          defaultTaskDefinitionWFHPMAproval,
+          defaultTaskDefinitionWFHCEOAproval,
+        ],
+      },
     },
   });
 }

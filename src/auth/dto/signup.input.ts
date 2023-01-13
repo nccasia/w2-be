@@ -1,9 +1,9 @@
 import { IsEmail, IsNotEmpty, MinLength } from 'class-validator';
 import { InputType, Field } from '@nestjs/graphql';
-import { CreateUserDto } from 'src/generated/dtos/create-user.dto';
+import { CreateOneUserArgs } from 'src/@generated/user/create-one-user.args';
 
 @InputType()
-export class SignupInput extends CreateUserDto {
+export class SignupInput extends CreateOneUserArgs {
   @Field()
   @IsEmail()
   email: string;

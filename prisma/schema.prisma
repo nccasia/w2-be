@@ -12,18 +12,11 @@ generator dbml {
   provider = "prisma-dbml-generator"
 }
 
-generator nestjsDto {
-  provider                        = "prisma-generator-nestjs-dto"
-  output                          = "../src/generated/dtos"
-  outputToNestJsResourceStructure = "false"
-  exportRelationModifierClasses   = "true"
-  reExport                        = "false"
-  createDtoPrefix                 = "Create"
-  updateDtoPrefix                 = "Update"
-  dtoSuffix                       = "Dto"
-  entityPrefix                    = ""
-  entitySuffix                    = ""
-  fileNamingStyle                 = "camel"
+generator nestgraphql {
+    provider = "node node_modules/prisma-nestjs-graphql"
+    // for yarn monorepos
+    // provider = "prisma-nestjs-graphql"
+    output = "../src/@generated"
 }
 
 model Organization {
@@ -104,6 +97,8 @@ model File {
 
   organizationId Int
   organization   Organization @relation(fields: [organizationId], references: [id])
+
+  avatarUsers User[]
 }
 
 model Settings {
@@ -111,7 +106,7 @@ model Settings {
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
   key       String
-  value     String
+  value     Json @default("{}")
 
   organization   Organization @relation(fields: [organizationId], references: [id])
   organizationId Int
@@ -125,6 +120,9 @@ model User {
   password  String
   firstname String?
   lastname  String?
+
+  avatarId Int?
+  avatar   File? @relation(fields: [avatarId], references: [id])
 
   organizationId Int
   organization   Organization @relation(fields: [organizationId], references: [id])
@@ -265,13 +263,6 @@ enum TaskPriority {
   URGENT
 }
 
-enum TaskStatus {
-  NEW
-  IN_PROGRESS
-  COMPLETED
-  DEFERRED
-}
-
 model TaskDefinition {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
@@ -293,7 +284,7 @@ model TaskDefinition {
   notificationTemplate String?
   ctaTemplate          String?
 
-  stageConfig        Json?
+  stateConfig        Json?
   statusConfig       Json?
   notificationConfig Json?
   processConfig      Json?
@@ -327,13 +318,40 @@ model Task {
   description String
   dueDate     DateTime?
   priority    TaskPriority @default(LOW)
-  status      TaskStatus   @default(NEW)
+  isAccepted  Boolean      @default(false)
 
+  properties Json?
   values Json?
 
+  type       String @default("")
+  typeName  String @default("")
+
+  cta       String @default("")
   ctaName    String @default("")
+
+  state       String @default("")
   stateName  String @default("")
+
+  status       String @default("")
   statusName String @default("")
+
+  stateValues    String @default("")
+
+  descriptionTemplate  String?
+  titleTemplate        String?
+  statusTemplate       String?
+  stateTemplate        String?
+  notificationTemplate String?
+  ctaTemplate          String?
+
+  stateConfig        Json?
+  statusConfig       Json?
+  notificationConfig Json?
+  processConfig      Json?
+  triggerConfig      Json?
+  ctaConfig          Json?
+  config             Json?
+
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
@@ -420,7 +438,7 @@ model Action {
   content String
 }
 
-model Workflow {
+model Workflow {  
   id          Int      @id @default(autoincrement())
   createdAt   DateTime @default(now())
   updatedAt   DateTime @default(now()) @updatedAt
@@ -468,7 +486,6 @@ model Trigger {
   type        TriggerType
   name        String
   description String
-  config      Json
 
   activityId Int
   activity   Activity @relation(fields: [activityId], references: [id])
