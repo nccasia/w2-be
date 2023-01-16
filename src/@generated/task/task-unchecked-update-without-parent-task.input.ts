@@ -4,11 +4,13 @@ import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operat
 import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
 import { NullableDateTimeFieldUpdateOperationsInput } from '../prisma/nullable-date-time-field-update-operations.input';
 import { EnumTaskPriorityFieldUpdateOperationsInput } from '../prisma/enum-task-priority-field-update-operations.input';
+import { BoolFieldUpdateOperationsInput } from '../prisma/bool-field-update-operations.input';
 import { GraphQLJSON } from 'graphql-type-json';
 import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-string-field-update-operations.input';
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
 import { CommentUncheckedUpdateManyWithoutTaskNestedInput } from '../comment/comment-unchecked-update-many-without-task-nested.input';
 import { EventLogUncheckedUpdateManyWithoutTaskNestedInput } from '../event-log/event-log-unchecked-update-many-without-task-nested.input';
+import { NullableIntFieldUpdateOperationsInput } from '../prisma/nullable-int-field-update-operations.input';
 import { TaskUncheckedUpdateManyWithoutParentTaskNestedInput } from './task-unchecked-update-many-without-parent-task-nested.input';
 
 @InputType()
@@ -28,6 +30,12 @@ export class TaskUncheckedUpdateWithoutParentTaskInput {
 
     @Field(() => EnumTaskPriorityFieldUpdateOperationsInput, {nullable:true})
     priority?: EnumTaskPriorityFieldUpdateOperationsInput;
+
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    isActve?: BoolFieldUpdateOperationsInput;
+
+    @Field(() => GraphQLJSON, {nullable:true})
+    properties?: any;
 
     @Field(() => GraphQLJSON, {nullable:true})
     values?: any;
@@ -113,8 +121,8 @@ export class TaskUncheckedUpdateWithoutParentTaskInput {
     @Field(() => EventLogUncheckedUpdateManyWithoutTaskNestedInput, {nullable:true})
     eventLogs?: EventLogUncheckedUpdateManyWithoutTaskNestedInput;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    assigneeId?: IntFieldUpdateOperationsInput;
+    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
+    assigneeId?: NullableIntFieldUpdateOperationsInput;
 
     @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
     creatorId?: IntFieldUpdateOperationsInput;

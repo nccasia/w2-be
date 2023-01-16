@@ -28,6 +28,12 @@ export class TaskOrderByWithRelationInput {
     priority?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
+    isActve?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    properties?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
     values?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})

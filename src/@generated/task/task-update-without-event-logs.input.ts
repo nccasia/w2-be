@@ -3,12 +3,13 @@ import { InputType } from '@nestjs/graphql';
 import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
 import { NullableDateTimeFieldUpdateOperationsInput } from '../prisma/nullable-date-time-field-update-operations.input';
 import { EnumTaskPriorityFieldUpdateOperationsInput } from '../prisma/enum-task-priority-field-update-operations.input';
+import { BoolFieldUpdateOperationsInput } from '../prisma/bool-field-update-operations.input';
 import { GraphQLJSON } from 'graphql-type-json';
 import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-string-field-update-operations.input';
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
 import { TaskDefinitionUpdateOneRequiredWithoutTaskInstancesNestedInput } from '../task-definition/task-definition-update-one-required-without-task-instances-nested.input';
 import { CommentUpdateManyWithoutTaskNestedInput } from '../comment/comment-update-many-without-task-nested.input';
-import { UserUpdateOneRequiredWithoutAssignedTasksNestedInput } from '../user/user-update-one-required-without-assigned-tasks-nested.input';
+import { UserUpdateOneWithoutAssignedTasksNestedInput } from '../user/user-update-one-without-assigned-tasks-nested.input';
 import { UserUpdateOneRequiredWithoutCreatedTasksNestedInput } from '../user/user-update-one-required-without-created-tasks-nested.input';
 import { TaskUpdateOneWithoutSubTasksNestedInput } from './task-update-one-without-sub-tasks-nested.input';
 import { TaskUpdateManyWithoutParentTaskNestedInput } from './task-update-many-without-parent-task-nested.input';
@@ -29,6 +30,12 @@ export class TaskUpdateWithoutEventLogsInput {
 
     @Field(() => EnumTaskPriorityFieldUpdateOperationsInput, {nullable:true})
     priority?: EnumTaskPriorityFieldUpdateOperationsInput;
+
+    @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
+    isActve?: BoolFieldUpdateOperationsInput;
+
+    @Field(() => GraphQLJSON, {nullable:true})
+    properties?: any;
 
     @Field(() => GraphQLJSON, {nullable:true})
     values?: any;
@@ -111,8 +118,8 @@ export class TaskUpdateWithoutEventLogsInput {
     @Field(() => CommentUpdateManyWithoutTaskNestedInput, {nullable:true})
     comments?: CommentUpdateManyWithoutTaskNestedInput;
 
-    @Field(() => UserUpdateOneRequiredWithoutAssignedTasksNestedInput, {nullable:true})
-    assignee?: UserUpdateOneRequiredWithoutAssignedTasksNestedInput;
+    @Field(() => UserUpdateOneWithoutAssignedTasksNestedInput, {nullable:true})
+    assignee?: UserUpdateOneWithoutAssignedTasksNestedInput;
 
     @Field(() => UserUpdateOneRequiredWithoutCreatedTasksNestedInput, {nullable:true})
     creator?: UserUpdateOneRequiredWithoutCreatedTasksNestedInput;

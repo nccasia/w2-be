@@ -318,7 +318,7 @@ model Task {
   description String
   dueDate     DateTime?
   priority    TaskPriority @default(LOW)
-  isAccepted  Boolean      @default(false)
+  isActve     Boolean      @default(false)
 
   properties Json?
   values Json?
@@ -362,8 +362,8 @@ model Task {
   comments  Comment[]
   eventLogs EventLog[]
 
-  assigneeId Int
-  assignee   User @relation("TaskAssignee", fields: [assigneeId], references: [id])
+  assigneeId Int?
+  assignee   User? @relation("TaskAssignee", fields: [assigneeId], references: [id])
 
   creatorId Int
   creator   User @relation("TaskCreator", fields: [creatorId], references: [id])

@@ -21,6 +21,9 @@ export class TaskMaxAggregate {
     @Field(() => TaskPriority, {nullable:true})
     priority?: keyof typeof TaskPriority;
 
+    @Field(() => Boolean, {nullable:true})
+    isActve?: boolean;
+
     @Field(() => String, {nullable:true})
     type?: string;
 

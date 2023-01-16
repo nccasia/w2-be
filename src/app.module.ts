@@ -12,18 +12,21 @@ import { loggingMiddleware } from 'src/common/middleware/logging.middleware';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { GqlConfigService } from './gql-config.service';
 import { HasuraModule } from '@golevelup/nestjs-hasura';
+import { TasksModule } from './tasks/tasks.module';
+import * as path from 'path';
 
 @Module({
   imports: [
     HasuraModule.forRoot(HasuraModule, {
       webhookConfig: {
-        secretFactory: 'secret',
-        secretHeader: 'secretHeader',
+        secretFactory: 'topsecret',
+        secretHeader: 'x-hasura-secret',
       },
       managedMetaDataConfig: {
-        dirPath: './hasura/metadata',
+        dirPath: path.join(__dirname, '..', './hasura/metadata'),
         secretHeaderEnvName: 'HASURA_NESTJS_WEBHOOK_SECRET_HEADER_VALUE',
         nestEndpointEnvName: 'NESTJS_EVENT_WEBHOOK_ENDPOINT',
+        metadataVersion: 'v3',
         defaultEventRetryConfig: {
           intervalInSeconds: 15,
           numRetries: 3,
@@ -46,6 +49,7 @@ import { HasuraModule } from '@golevelup/nestjs-hasura';
     }),
     AuthModule,
     UsersModule,
+    TasksModule,
   ],
   controllers: [AppController],
   providers: [AppService, AppResolver],

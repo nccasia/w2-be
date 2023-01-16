@@ -26,6 +26,12 @@ export class TaskCreateWithoutCommentsInput {
     @Field(() => TaskPriority, {nullable:true})
     priority?: keyof typeof TaskPriority;
 
+    @Field(() => Boolean, {nullable:true})
+    isActve?: boolean;
+
+    @Field(() => GraphQLJSON, {nullable:true})
+    properties?: any;
+
     @Field(() => GraphQLJSON, {nullable:true})
     values?: any;
 
@@ -107,8 +113,8 @@ export class TaskCreateWithoutCommentsInput {
     @Field(() => EventLogCreateNestedManyWithoutTaskInput, {nullable:true})
     eventLogs?: EventLogCreateNestedManyWithoutTaskInput;
 
-    @Field(() => UserCreateNestedOneWithoutAssignedTasksInput, {nullable:false})
-    assignee!: UserCreateNestedOneWithoutAssignedTasksInput;
+    @Field(() => UserCreateNestedOneWithoutAssignedTasksInput, {nullable:true})
+    assignee?: UserCreateNestedOneWithoutAssignedTasksInput;
 
     @Field(() => UserCreateNestedOneWithoutCreatedTasksInput, {nullable:false})
     creator!: UserCreateNestedOneWithoutCreatedTasksInput;

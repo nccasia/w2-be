@@ -4,14 +4,15 @@ import { IntFilter } from '../prisma/int-filter.input';
 import { StringFilter } from '../prisma/string-filter.input';
 import { DateTimeNullableFilter } from '../prisma/date-time-nullable-filter.input';
 import { EnumTaskPriorityFilter } from '../prisma/enum-task-priority-filter.input';
+import { BoolFilter } from '../prisma/bool-filter.input';
 import { JsonNullableFilter } from '../prisma/json-nullable-filter.input';
 import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
 import { DateTimeFilter } from '../prisma/date-time-filter.input';
 import { TaskDefinitionRelationFilter } from '../task-definition/task-definition-relation-filter.input';
 import { CommentListRelationFilter } from '../comment/comment-list-relation-filter.input';
 import { EventLogListRelationFilter } from '../event-log/event-log-list-relation-filter.input';
-import { UserRelationFilter } from '../user/user-relation-filter.input';
 import { IntNullableFilter } from '../prisma/int-nullable-filter.input';
+import { UserRelationFilter } from '../user/user-relation-filter.input';
 import { TaskRelationFilter } from './task-relation-filter.input';
 import { TaskListRelationFilter } from './task-list-relation-filter.input';
 import { OrganizationRelationFilter } from '../organization/organization-relation-filter.input';
@@ -43,6 +44,12 @@ export class TaskWhereInput {
 
     @Field(() => EnumTaskPriorityFilter, {nullable:true})
     priority?: EnumTaskPriorityFilter;
+
+    @Field(() => BoolFilter, {nullable:true})
+    isActve?: BoolFilter;
+
+    @Field(() => JsonNullableFilter, {nullable:true})
+    properties?: JsonNullableFilter;
 
     @Field(() => JsonNullableFilter, {nullable:true})
     values?: JsonNullableFilter;
@@ -131,8 +138,8 @@ export class TaskWhereInput {
     @Field(() => EventLogListRelationFilter, {nullable:true})
     eventLogs?: EventLogListRelationFilter;
 
-    @Field(() => IntFilter, {nullable:true})
-    assigneeId?: IntFilter;
+    @Field(() => IntNullableFilter, {nullable:true})
+    assigneeId?: IntNullableFilter;
 
     @Field(() => UserRelationFilter, {nullable:true})
     assignee?: UserRelationFilter;

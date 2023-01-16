@@ -1,0 +1,246 @@
+import { PrismaClient, Task, Prisma, TaskDefinition } from '@prisma/client';
+import Handlebars from 'handlebars';
+
+export class TaskBuilder {
+  task: Task;
+  definetionId: number;
+  parentId: number;
+  parentTask: Task;
+  args: Prisma.XOR<Prisma.TaskUpdateInput, Prisma.TaskUncheckedUpdateInput> =
+    {};
+
+  static async fromExistingTask(
+    task: Task,
+    prisma: PrismaClient
+  ): Promise<TaskBuilder> {
+    const builder = new TaskBuilder(prisma);
+    return builder.loadExistingTask(task.id);
+  }
+
+  static async fromParentTask(
+    parent: Task,
+    def: TaskDefinition,
+    prisma: PrismaClient
+  ): Promise<TaskBuilder> {
+    const builder = new TaskBuilder(prisma);
+    await builder.loadDefinetion(def.id);
+    await builder.loadParentTask(parent.id);
+    await builder.configureTaskFromParent();
+    await builder.configureTask();
+    return builder;
+  }
+
+  private subTasks: Task[] = [];
+  private definetion: Prisma.TaskDefinitionGetPayload<{
+    include: {
+      subTaskDefinitions: true;
+      form: true;
+    };
+  }>;
+
+  constructor(private readonly prisma: PrismaClient) {}
+
+  async loadExistingTask(taskId: number): Promise<this> {
+    this.task = await this.prisma.task.findUnique({
+      where: { id: taskId },
+    });
+    if (this.task.parentId) {
+      await this.loadParentTask(this.task.parentId);
+    }
+    if (this.task.definitionId) {
+      await this.loadDefinetion(this.task.definitionId);
+    }
+    return this;
+  }
+
+  async configureTaskFromParent(): Promise<this> {
+    if (!this.parentTask || !this.definetion) {
+      throw new Error('Parent task or definition not loaded');
+    }
+    this.task = await this.prisma.task.create({
+      data: {
+        definition: {
+          connect: {
+            id: this.definetion.id,
+          },
+        },
+        parentTask: {
+          connect: {
+            id: this.parentTask.id,
+          },
+        },
+        description: '',
+        title: '',
+        status: '',
+        state: '',
+        typeName: '',
+        config: {},
+        isActve: false,
+        creator: {
+          connect: {
+            id: this.parentTask.creatorId,
+          },
+        },
+        team: {
+          connect: {
+            id: this.parentTask.teamId,
+          },
+        },
+        organization: {
+          connect: {
+            id: this.parentTask.organizationId,
+          },
+        },
+      },
+    });
+
+    return this;
+  }
+
+  async loadDefinetion(definitionId?: number): Promise<this> {
+    const defId = definitionId || this.definetionId;
+    if (!defId) throw new Error('No definition id provided');
+
+    const definetion = await this.prisma.taskDefinition.findUnique({
+      where: { id: defId },
+      include: {
+        subTaskDefinitions: true,
+        form: true,
+      },
+    });
+    this.definetion = definetion;
+    return this;
+  }
+
+  async loadParentTask(parentId: number): Promise<this> {
+    this.parentId = parentId;
+    const parent = await this.prisma.task.findUnique({
+      where: { id: parentId },
+    });
+    this.parentTask = parent;
+    return this;
+  }
+
+  configureTask() {
+    this.configureTaskDef();
+    this.configureTaskTitle();
+    this.configureTaskDescription();
+    this.configureSubtasks();
+    return this;
+  }
+
+  configureTaskDef(): this {
+    this.args.type = this.definetion.title;
+    this.args.typeName = this.definetion.title;
+    this.args.cta = '';
+    this.args.ctaName = '';
+    this.definetion.config = {
+      initialState: '',
+      initialStateName: '',
+      initialStatus: '',
+      initialStatusName: '',
+      intialStateValues: '',
+      descriptionTemplate: '',
+      titleTemplate: '',
+      statusTemplate: '',
+      ...(this.definetion.config as object),
+    };
+    this.args.state = this.definetion.config.initialState as string;
+    this.args.stateName = this.definetion.config.initialStateName as string;
+    this.args.status = this.definetion.config.initialStatus as string;
+    this.args.statusName = this.definetion.config.initialStatusName as string;
+    this.args.stateValues = this.definetion.config.intialStateValues as string;
+    this.args.descriptionTemplate = this.definetion.descriptionTemplate;
+    this.args.titleTemplate = this.definetion.titleTemplate;
+    this.args.statusTemplate = this.definetion.statusTemplate;
+    this.args.stateTemplate = this.definetion.stateTemplate;
+    this.args.notificationTemplate = this.definetion.notificationTemplate;
+    this.args.ctaTemplate = this.definetion.ctaTemplate;
+    this.args.stateConfig = this.definetion.config.stateConfig;
+    this.args.statusConfig = this.definetion.config.statusConfig;
+    this.args.notificationConfig = this.definetion.config.notificationConfig;
+    this.args.processConfig = this.definetion.config.processConfig;
+    this.args.triggerConfig = this.definetion.config.triggerConfig;
+    this.args.ctaConfig = this.definetion.config.ctaConfig;
+    this.args.config = this.definetion.config;
+    return this;
+  }
+
+  configureTaskTitle(): this {
+    if (typeof this.args.titleTemplate !== 'string') {
+      throw new Error('No title template provided');
+    }
+    const context = this.getTemplateContext();
+    this.args.title = this.renderTemplate(
+      this.args.titleTemplate || this.task.titleTemplate,
+      context,
+      this.task.config
+    );
+    return this;
+  }
+
+  configureTaskDescription(): this {
+    if (typeof this.args.descriptionTemplate !== 'string') {
+      throw new Error('No description template provided');
+    }
+    const context = this.getTemplateContext();
+    this.args.description = this.renderTemplate(
+      this.args.descriptionTemplate || this.task.descriptionTemplate,
+      context,
+      this.task.config
+    );
+
+    return this;
+  }
+
+  private renderTemplate(template = '', context: any, config: any): string {
+    const templateFn = Handlebars.compile(template);
+    const rendered = templateFn(context);
+    return rendered;
+  }
+
+  async configureSubtasks(): Promise<this> {
+    const subTaskDefs = this.definetion.subTaskDefinitions;
+    for (const subTaskDef of subTaskDefs) {
+      const newSubtaskBuilder = await TaskBuilder.fromParentTask(
+        this.task,
+        subTaskDef,
+        this.prisma
+      );
+      await newSubtaskBuilder.save();
+    }
+    return this;
+  }
+
+  private getTemplateContext(): any {
+    return {
+      task: this.task,
+      definetion: this.definetion,
+    };
+  }
+
+  getTaskArgs(): Prisma.XOR<
+    Prisma.TaskUpdateInput,
+    Prisma.TaskUncheckedUpdateInput
+  > {
+    return this.args;
+  }
+
+  save() {
+    const data = this.getTaskArgs();
+    return this.prisma.task.update({
+      where: { id: this.task.id },
+      data: {
+        ...data,
+      },
+    });
+  }
+
+  getTask(): Task {
+    return this.task;
+  }
+
+  getSubTasks(): Task[] {
+    return this.subTasks;
+  }
+}

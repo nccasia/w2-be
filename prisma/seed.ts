@@ -109,7 +109,7 @@ async function defineDeviceRequestTask(
         },
         thumbnail: 'thumbnail',
         descriptionTemplate: 'descriptionTemplate',
-        titleTemplate: 'titleTemplate',
+        titleTemplate: '[DEV#{{task.id}}] PM Approval',
         stateTemplate: 'stateTemplate',
         statusTemplate: 'statusTemplate',
         notificationTemplate: 'notificationTemplate',
@@ -121,7 +121,9 @@ async function defineDeviceRequestTask(
         triggerConfig: {},
         ctaConfig: {},
         organization: {
-          connect: defaultOrg,
+          connect: {
+            id: defaultOrg.id,
+          },
         },
       },
     });
@@ -148,7 +150,7 @@ async function defineDeviceRequestTask(
         },
         thumbnail: 'thumbnail',
         descriptionTemplate: 'descriptionTemplate',
-        titleTemplate: 'titleTemplate',
+        titleTemplate: '[DEV#{{task.id}}] IT Approval',
         stateTemplate: 'stateTemplate',
         statusTemplate: 'statusTemplate',
         notificationTemplate: 'notificationTemplate',
@@ -160,7 +162,9 @@ async function defineDeviceRequestTask(
         triggerConfig: {},
         ctaConfig: {},
         organization: {
-          connect: defaultOrg,
+          connect: {
+            id: defaultOrg.id,
+          },
         },
       },
     });
@@ -187,7 +191,7 @@ async function defineDeviceRequestTask(
         },
         thumbnail: 'thumbnail',
         descriptionTemplate: 'descriptionTemplate',
-        titleTemplate: 'titleTemplate',
+        titleTemplate: '[DEV#{{task.id}}] Sale Approval',
         stateTemplate: 'stateTemplate',
         statusTemplate: 'statusTemplate',
         notificationTemplate: 'notificationTemplate',
@@ -199,7 +203,9 @@ async function defineDeviceRequestTask(
         triggerConfig: {},
         ctaConfig: {},
         organization: {
-          connect: defaultOrg,
+          connect: {
+            id: defaultOrg.id,
+          },
         },
       },
     });
@@ -226,7 +232,7 @@ async function defineDeviceRequestTask(
         },
         thumbnail: 'thumbnail',
         descriptionTemplate: 'descriptionTemplate',
-        titleTemplate: 'titleTemplate',
+        titleTemplate: '[DEV3#{{task.id}}}}] Customer approval',
         stateTemplate: 'stateTemplate',
         statusTemplate: 'statusTemplate',
         notificationTemplate: 'notificationTemplate',
@@ -238,7 +244,9 @@ async function defineDeviceRequestTask(
         triggerConfig: {},
         ctaConfig: {},
         organization: {
-          connect: defaultOrg,
+          connect: {
+            id: defaultOrg.id,
+          },
         },
       },
     });
@@ -251,7 +259,7 @@ async function defineDeviceRequestTask(
       formId: defaultFormDevice.id,
       thumbnail: 'thumbnail',
       descriptionTemplate: 'descriptionTemplate',
-      titleTemplate: 'titleTemplate',
+      titleTemplate: '[DEV#{{task.id}}}}] Device request',
       stateTemplate: 'stateTemplate',
       statusTemplate: 'statusTemplate',
       notificationTemplate: 'notificationTemplate',
@@ -265,10 +273,18 @@ async function defineDeviceRequestTask(
       organizationId: defaultOrg.id,
       subTaskDefinitions: {
         connect: [
-          defaultTaskDefinitionDevicePMAproval,
-          defaultTaskDefinitionDeviceITApproval,
-          defaultTaskDefinitionDeviceSaleApproval,
-          defaultTaskDefinitionDeviceCustomerApproval,
+          {
+            id: defaultTaskDefinitionDeviceITApproval.id,
+          },
+          {
+            id: defaultTaskDefinitionDeviceITApproval.id,
+          },
+          {
+            id: defaultTaskDefinitionDeviceSaleApproval.id,
+          },
+          {
+            id: defaultTaskDefinitionDeviceCustomerApproval.id,
+          },
         ],
       },
     },
@@ -616,7 +632,7 @@ async function main() {
         icon: 'icon',
         thumbnail: 'thumbnail',
         descriptionTemplate: 'descriptionTemplate',
-        titleTemplate: 'titleTemplate',
+        titleTemplate: '[COR#{{task.id}}] Source Office Approval',
         stateTemplate: 'stateTemplate',
         statusTemplate: 'statusTemplate',
         notificationTemplate: 'notificationTemplate',
@@ -657,7 +673,7 @@ async function main() {
         icon: 'icon',
         thumbnail: 'thumbnail',
         descriptionTemplate: 'descriptionTemplate',
-        titleTemplate: 'titleTemplate',
+        titleTemplate: '[COR]#{{task.id}}] Target Office Approval',
         stateTemplate: 'stateTemplate',
         statusTemplate: 'statusTemplate',
         notificationTemplate: 'notificationTemplate',
@@ -696,11 +712,13 @@ async function main() {
       description: 'Create Change office request',
       icon: 'icon',
       form: {
-        connect: defaultFormChangeOffice,
+        connect: {
+          id: defaultFormChangeOffice.id,
+        },
       },
       thumbnail: 'thumbnail',
       descriptionTemplate: 'descriptionTemplate',
-      titleTemplate: 'titleTemplate',
+      titleTemplate: '[COR#{{task.id}}] Change office request',
       stateTemplate: 'stateTemplate',
       statusTemplate: 'statusTemplate',
       notificationTemplate: 'notificationTemplate',
@@ -712,12 +730,18 @@ async function main() {
       triggerConfig: {},
       ctaConfig: {},
       organization: {
-        connect: defaultOrg,
+        connect: {
+          id: defaultOrg.id,
+        },
       },
       subTaskDefinitions: {
         connect: [
-          defaultTaskDefinitionChangeOfficeStartApproval,
-          defaultTaskDefinitionChangeOfficeEndApproval,
+          {
+            id: defaultTaskDefinitionChangeOfficeStartApproval.id,
+          },
+          {
+            id: defaultTaskDefinitionChangeOfficeEndApproval.id,
+          },
         ],
       },
     },
@@ -744,7 +768,7 @@ async function main() {
       },
       thumbnail: 'thumbnail',
       descriptionTemplate: 'descriptionTemplate',
-      titleTemplate: 'titleTemplate',
+      titleTemplate: '[WFH#{{task.id}}] PM Approval',
       stateTemplate: 'stateTemplate',
       statusTemplate: 'statusTemplate',
       notificationTemplate: 'notificationTemplate',
@@ -756,7 +780,9 @@ async function main() {
       triggerConfig: {},
       ctaConfig: {},
       organization: {
-        connect: defaultOrg,
+        connect: {
+          id: defaultOrg.id,
+        },
       },
     },
   });
@@ -783,7 +809,7 @@ async function main() {
         },
         thumbnail: 'thumbnail',
         descriptionTemplate: 'descriptionTemplate',
-        titleTemplate: 'titleTemplate',
+        titleTemplate: '[WFH#{{task.id}}] CEO approval',
         stateTemplate: 'stateTemplate',
         statusTemplate: 'statusTemplate',
         notificationTemplate: 'notificationTemplate',
@@ -795,7 +821,9 @@ async function main() {
         triggerConfig: {},
         ctaConfig: {},
         organization: {
-          connect: defaultOrg,
+          connect: {
+            id: defaultOrg.id,
+          },
         },
       },
     }
@@ -809,7 +837,7 @@ async function main() {
       formId: defaultFormWFH.id,
       thumbnail: 'thumbnail',
       descriptionTemplate: 'descriptionTemplate',
-      titleTemplate: 'titleTemplate',
+      titleTemplate: '[WFH#{{task.id}}] WFH request',
       stateTemplate: 'stateTemplate',
       statusTemplate: 'statusTemplate',
       notificationTemplate: 'notificationTemplate',
@@ -826,10 +854,73 @@ async function main() {
       actvityId: null,
       subTaskDefinitions: {
         connect: [
-          defaultTaskDefinitionWFHPMAproval,
-          defaultTaskDefinitionWFHCEOAproval,
+          {
+            id: defaultTaskDefinitionWFHPMAproval.id,
+          },
+          {
+            id: defaultTaskDefinitionWFHCEOAproval.id,
+          },
         ],
       },
+    },
+  });
+
+  const defaultTask = await prisma.task.create({
+    data: {
+      isActve: true,
+      assignee: {
+        connect: {
+          id: user1.id,
+        },
+      },
+      creator: {
+        connect: {
+          id: user1.id,
+        },
+      },
+      definition: {
+        connect: {
+          id: defaultTaskDefinitionChangeOffice.id,
+        },
+      },
+      organization: {
+        connect: {
+          id: defaultOrg.id,
+        },
+      },
+      team: {
+        connect: {
+          id: defaultTeam.id,
+        },
+      },
+      config: {},
+      ctaConfig: {},
+      notificationConfig: {},
+      processConfig: {},
+      properties: {},
+      stateConfig: {},
+      statusConfig: {},
+      triggerConfig: {},
+      values: {},
+      cta: '{}',
+      ctaName: 'a',
+      ctaTemplate: '""',
+      description: 'aaaa',
+      descriptionTemplate: '""',
+      notificationTemplate: '""',
+      state: 'aa',
+      stateName: 'a',
+      stateTemplate: '""',
+      stateValues: '{}',
+      status: '__NEW__',
+      statusName: 'a',
+      statusTemplate: '""',
+      title: 'aaa',
+      titleTemplate: '""',
+      type: 'a',
+      typeName: 'abc',
+      dueDate: null,
+      priority: 'LOW',
     },
   });
 }

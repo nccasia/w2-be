@@ -20,6 +20,9 @@ export class TaskMaxAggregateInput {
     priority?: true;
 
     @Field(() => Boolean, {nullable:true})
+    isActve?: true;
+
+    @Field(() => Boolean, {nullable:true})
     type?: true;
 
     @Field(() => Boolean, {nullable:true})

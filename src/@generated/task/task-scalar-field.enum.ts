@@ -6,6 +6,8 @@ export enum TaskScalarFieldEnum {
     description = "description",
     dueDate = "dueDate",
     priority = "priority",
+    isActve = "isActve",
+    properties = "properties",
     values = "values",
     type = "type",
     typeName = "typeName",

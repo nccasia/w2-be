@@ -27,6 +27,12 @@ export class TaskGroupBy {
     @Field(() => TaskPriority, {nullable:false})
     priority!: keyof typeof TaskPriority;
 
+    @Field(() => Boolean, {nullable:false})
+    isActve!: boolean;
+
+    @Field(() => GraphQLJSON, {nullable:true})
+    properties?: any;
+
     @Field(() => GraphQLJSON, {nullable:true})
     values?: any;
 
@@ -105,8 +111,8 @@ export class TaskGroupBy {
     @Field(() => Int, {nullable:false})
     definitionId!: number;
 
-    @Field(() => Int, {nullable:false})
-    assigneeId!: number;
+    @Field(() => Int, {nullable:true})
+    assigneeId?: number;
 
     @Field(() => Int, {nullable:false})
     creatorId!: number;

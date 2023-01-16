@@ -20,6 +20,12 @@ export class TaskCountAggregateInput {
     priority?: true;
 
     @Field(() => Boolean, {nullable:true})
+    isActve?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    properties?: true;
+
+    @Field(() => Boolean, {nullable:true})
     values?: true;
 
     @Field(() => Boolean, {nullable:true})

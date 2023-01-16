@@ -24,6 +24,12 @@ export class TaskUncheckedCreateWithoutCommentsInput {
     @Field(() => TaskPriority, {nullable:true})
     priority?: keyof typeof TaskPriority;
 
+    @Field(() => Boolean, {nullable:true})
+    isActve?: boolean;
+
+    @Field(() => GraphQLJSON, {nullable:true})
+    properties?: any;
+
     @Field(() => GraphQLJSON, {nullable:true})
     values?: any;
 
@@ -105,8 +111,8 @@ export class TaskUncheckedCreateWithoutCommentsInput {
     @Field(() => EventLogUncheckedCreateNestedManyWithoutTaskInput, {nullable:true})
     eventLogs?: EventLogUncheckedCreateNestedManyWithoutTaskInput;
 
-    @Field(() => Int, {nullable:false})
-    assigneeId!: number;
+    @Field(() => Int, {nullable:true})
+    assigneeId?: number;
 
     @Field(() => Int, {nullable:false})
     creatorId!: number;

@@ -26,6 +26,12 @@ export class TaskCreateWithoutAssigneeInput {
     @Field(() => TaskPriority, {nullable:true})
     priority?: keyof typeof TaskPriority;
 
+    @Field(() => Boolean, {nullable:true})
+    isActve?: boolean;
+
+    @Field(() => GraphQLJSON, {nullable:true})
+    properties?: any;
+
     @Field(() => GraphQLJSON, {nullable:true})
     values?: any;
 

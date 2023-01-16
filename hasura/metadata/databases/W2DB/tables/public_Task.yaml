@@ -45,17 +45,17 @@ array_relationships:
 event_triggers:
   - name: task-created
     definition:
-      enable_manual: false
+      enable_manual: true
       insert:
         columns: '*'
     retry_conf:
-      interval_sec: 10
-      num_retries: 0
-      timeout_sec: 60
-    webhook: http://nest-api:3000/hasura/events
+      interval_sec: 15
+      num_retries: 3
+      timeout_sec: 100
+    webhook_from_env: NESTJS_EVENT_WEBHOOK_ENDPOINT
     headers:
-      - name: secretHeader
-        value: secret
+      - name: x-hasura-secret
+        value_from_env: HASURA_NESTJS_WEBHOOK_SECRET_HEADER_VALUE
     cleanup_config:
       batch_size: 10000
       clean_invocation_logs: false

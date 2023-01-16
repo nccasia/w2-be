@@ -4,6 +4,7 @@ import { IntWithAggregatesFilter } from '../prisma/int-with-aggregates-filter.in
 import { StringWithAggregatesFilter } from '../prisma/string-with-aggregates-filter.input';
 import { DateTimeNullableWithAggregatesFilter } from '../prisma/date-time-nullable-with-aggregates-filter.input';
 import { EnumTaskPriorityWithAggregatesFilter } from '../prisma/enum-task-priority-with-aggregates-filter.input';
+import { BoolWithAggregatesFilter } from '../prisma/bool-with-aggregates-filter.input';
 import { JsonNullableWithAggregatesFilter } from '../prisma/json-nullable-with-aggregates-filter.input';
 import { StringNullableWithAggregatesFilter } from '../prisma/string-nullable-with-aggregates-filter.input';
 import { DateTimeWithAggregatesFilter } from '../prisma/date-time-with-aggregates-filter.input';
@@ -35,6 +36,12 @@ export class TaskScalarWhereWithAggregatesInput {
 
     @Field(() => EnumTaskPriorityWithAggregatesFilter, {nullable:true})
     priority?: EnumTaskPriorityWithAggregatesFilter;
+
+    @Field(() => BoolWithAggregatesFilter, {nullable:true})
+    isActve?: BoolWithAggregatesFilter;
+
+    @Field(() => JsonNullableWithAggregatesFilter, {nullable:true})
+    properties?: JsonNullableWithAggregatesFilter;
 
     @Field(() => JsonNullableWithAggregatesFilter, {nullable:true})
     values?: JsonNullableWithAggregatesFilter;
@@ -114,8 +121,8 @@ export class TaskScalarWhereWithAggregatesInput {
     @Field(() => IntWithAggregatesFilter, {nullable:true})
     definitionId?: IntWithAggregatesFilter;
 
-    @Field(() => IntWithAggregatesFilter, {nullable:true})
-    assigneeId?: IntWithAggregatesFilter;
+    @Field(() => IntNullableWithAggregatesFilter, {nullable:true})
+    assigneeId?: IntNullableWithAggregatesFilter;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
     creatorId?: IntWithAggregatesFilter;

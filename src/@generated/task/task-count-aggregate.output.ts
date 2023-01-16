@@ -21,6 +21,12 @@ export class TaskCountAggregate {
     priority!: number;
 
     @Field(() => Int, {nullable:false})
+    isActve!: number;
+
+    @Field(() => Int, {nullable:false})
+    properties!: number;
+
+    @Field(() => Int, {nullable:false})
     values!: number;
 
     @Field(() => Int, {nullable:false})

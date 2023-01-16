@@ -21,6 +21,9 @@ export class TaskMaxOrderByAggregateInput {
     priority?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
+    isActve?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
     type?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})

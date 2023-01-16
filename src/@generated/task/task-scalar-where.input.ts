@@ -4,6 +4,7 @@ import { IntFilter } from '../prisma/int-filter.input';
 import { StringFilter } from '../prisma/string-filter.input';
 import { DateTimeNullableFilter } from '../prisma/date-time-nullable-filter.input';
 import { EnumTaskPriorityFilter } from '../prisma/enum-task-priority-filter.input';
+import { BoolFilter } from '../prisma/bool-filter.input';
 import { JsonNullableFilter } from '../prisma/json-nullable-filter.input';
 import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
 import { DateTimeFilter } from '../prisma/date-time-filter.input';
@@ -35,6 +36,12 @@ export class TaskScalarWhereInput {
 
     @Field(() => EnumTaskPriorityFilter, {nullable:true})
     priority?: EnumTaskPriorityFilter;
+
+    @Field(() => BoolFilter, {nullable:true})
+    isActve?: BoolFilter;
+
+    @Field(() => JsonNullableFilter, {nullable:true})
+    properties?: JsonNullableFilter;
 
     @Field(() => JsonNullableFilter, {nullable:true})
     values?: JsonNullableFilter;
@@ -114,8 +121,8 @@ export class TaskScalarWhereInput {
     @Field(() => IntFilter, {nullable:true})
     definitionId?: IntFilter;
 
-    @Field(() => IntFilter, {nullable:true})
-    assigneeId?: IntFilter;
+    @Field(() => IntNullableFilter, {nullable:true})
+    assigneeId?: IntNullableFilter;
 
     @Field(() => IntFilter, {nullable:true})
     creatorId?: IntFilter;

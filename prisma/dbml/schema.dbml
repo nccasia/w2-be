@@ -234,6 +234,8 @@ Table Task {
   description String [not null]
   dueDate DateTime
   priority TaskPriority [not null, default: 'LOW']
+  isActve Boolean [not null, default: false]
+  properties Json
   values Json
   type String [not null, default: '']
   typeName String [not null, default: '']
@@ -263,8 +265,8 @@ Table Task {
   definition TaskDefinition [not null]
   comments Comment [not null]
   eventLogs EventLog [not null]
-  assigneeId Int [not null]
-  assignee User [not null]
+  assigneeId Int
+  assignee User
   creatorId Int [not null]
   creator User [not null]
   parentId Int

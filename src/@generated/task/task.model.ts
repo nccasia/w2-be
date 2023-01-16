@@ -30,6 +30,12 @@ export class Task {
     @Field(() => TaskPriority, {nullable:false,defaultValue:'LOW'})
     priority!: keyof typeof TaskPriority;
 
+    @Field(() => Boolean, {nullable:false,defaultValue:false})
+    isActve!: boolean;
+
+    @Field(() => GraphQLJSON, {nullable:true})
+    properties!: any | null;
+
     @Field(() => GraphQLJSON, {nullable:true})
     values!: any | null;
 
@@ -117,11 +123,11 @@ export class Task {
     @Field(() => [EventLog], {nullable:true})
     eventLogs?: Array<EventLog>;
 
-    @Field(() => Int, {nullable:false})
-    assigneeId!: number;
+    @Field(() => Int, {nullable:true})
+    assigneeId!: number | null;
 
-    @Field(() => User, {nullable:false})
-    assignee?: User;
+    @Field(() => User, {nullable:true})
+    assignee?: User | null;
 
     @Field(() => Int, {nullable:false})
     creatorId!: number;
