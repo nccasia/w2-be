@@ -2,6 +2,6 @@ table:
   name: Trigger
   schema: public
 object_relationships:
-  - name: Activity
+  - name: Task
     using:
-      foreign_key_constraint_on: activityId
+      foreign_key_constraint_on: taskId

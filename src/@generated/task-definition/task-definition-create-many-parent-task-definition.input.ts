@@ -15,6 +15,9 @@ export class TaskDefinitionCreateManyParentTaskDefinitionInput {
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
 
+    @Field(() => String, {nullable:true})
+    keyTemplate?: string;
+
     @Field(() => String, {nullable:false})
     title!: string;
 
@@ -71,10 +74,4 @@ export class TaskDefinitionCreateManyParentTaskDefinitionInput {
 
     @Field(() => Int, {nullable:false})
     organizationId!: number;
-
-    @Field(() => Int, {nullable:true})
-    workflowId?: number;
-
-    @Field(() => Int, {nullable:true})
-    actvityId?: number;
 }

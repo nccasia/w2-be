@@ -10,4 +10,7 @@ export class TaskDefinitionCount {
 
     @Field(() => Int, {nullable:false})
     subTaskDefinitions?: number;
+
+    @Field(() => Int, {nullable:false})
+    taskDefinitionActivityDefinitions?: number;
 }

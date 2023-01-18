@@ -20,6 +20,9 @@ export class TaskDefinitionUncheckedUpdateManyInput {
     updatedAt?: DateTimeFieldUpdateOperationsInput;
 
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    keyTemplate?: StringFieldUpdateOperationsInput;
+
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
     title?: StringFieldUpdateOperationsInput;
 
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
@@ -78,10 +81,4 @@ export class TaskDefinitionUncheckedUpdateManyInput {
 
     @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
     parentId?: NullableIntFieldUpdateOperationsInput;
-
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    workflowId?: NullableIntFieldUpdateOperationsInput;
-
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    actvityId?: NullableIntFieldUpdateOperationsInput;
 }

@@ -8,8 +8,7 @@ import { TaskUpdateManyWithoutDefinitionNestedInput } from '../task/task-update-
 import { OrganizationUpdateOneRequiredWithoutTaskDefinitionsNestedInput } from '../organization/organization-update-one-required-without-task-definitions-nested.input';
 import { TaskDefinitionUpdateOneWithoutSubTaskDefinitionsNestedInput } from './task-definition-update-one-without-sub-task-definitions-nested.input';
 import { TaskDefinitionUpdateManyWithoutParentTaskDefinitionNestedInput } from './task-definition-update-many-without-parent-task-definition-nested.input';
-import { WorkflowUpdateOneWithoutTaskDefinitionsNestedInput } from '../workflow/workflow-update-one-without-task-definitions-nested.input';
-import { ActivityUpdateOneWithoutTaskDefinitionsNestedInput } from '../activity/activity-update-one-without-task-definitions-nested.input';
+import { TaskDefinitionActivityDefinitionUpdateManyWithoutTaskDefinitionNestedInput } from '../task-definition-activity-definition/task-definition-activity-definition-update-many-without-task-definition-nested.input';
 
 @InputType()
 export class TaskDefinitionUpdateWithoutFormInput {
@@ -19,6 +18,9 @@ export class TaskDefinitionUpdateWithoutFormInput {
 
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     updatedAt?: DateTimeFieldUpdateOperationsInput;
+
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    keyTemplate?: StringFieldUpdateOperationsInput;
 
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
     title?: StringFieldUpdateOperationsInput;
@@ -83,9 +85,6 @@ export class TaskDefinitionUpdateWithoutFormInput {
     @Field(() => TaskDefinitionUpdateManyWithoutParentTaskDefinitionNestedInput, {nullable:true})
     subTaskDefinitions?: TaskDefinitionUpdateManyWithoutParentTaskDefinitionNestedInput;
 
-    @Field(() => WorkflowUpdateOneWithoutTaskDefinitionsNestedInput, {nullable:true})
-    workflow?: WorkflowUpdateOneWithoutTaskDefinitionsNestedInput;
-
-    @Field(() => ActivityUpdateOneWithoutTaskDefinitionsNestedInput, {nullable:true})
-    activity?: ActivityUpdateOneWithoutTaskDefinitionsNestedInput;
+    @Field(() => TaskDefinitionActivityDefinitionUpdateManyWithoutTaskDefinitionNestedInput, {nullable:true})
+    taskDefinitionActivityDefinitions?: TaskDefinitionActivityDefinitionUpdateManyWithoutTaskDefinitionNestedInput;
 }

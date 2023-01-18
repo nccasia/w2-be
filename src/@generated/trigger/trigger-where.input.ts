@@ -3,8 +3,12 @@ import { InputType } from '@nestjs/graphql';
 import { IntFilter } from '../prisma/int-filter.input';
 import { DateTimeFilter } from '../prisma/date-time-filter.input';
 import { EnumTriggerTypeFilter } from '../prisma/enum-trigger-type-filter.input';
+import { EnumTriggerStatusFilter } from '../prisma/enum-trigger-status-filter.input';
 import { StringFilter } from '../prisma/string-filter.input';
-import { ActivityRelationFilter } from '../activity/activity-relation-filter.input';
+import { JsonNullableFilter } from '../prisma/json-nullable-filter.input';
+import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
+import { IntNullableFilter } from '../prisma/int-nullable-filter.input';
+import { TaskRelationFilter } from '../task/task-relation-filter.input';
 
 @InputType()
 export class TriggerWhereInput {
@@ -30,15 +34,24 @@ export class TriggerWhereInput {
     @Field(() => EnumTriggerTypeFilter, {nullable:true})
     type?: EnumTriggerTypeFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    name?: StringFilter;
+    @Field(() => EnumTriggerStatusFilter, {nullable:true})
+    status?: EnumTriggerStatusFilter;
 
     @Field(() => StringFilter, {nullable:true})
-    description?: StringFilter;
+    key?: StringFilter;
 
-    @Field(() => IntFilter, {nullable:true})
-    activityId?: IntFilter;
+    @Field(() => JsonNullableFilter, {nullable:true})
+    value?: JsonNullableFilter;
 
-    @Field(() => ActivityRelationFilter, {nullable:true})
-    activity?: ActivityRelationFilter;
+    @Field(() => StringNullableFilter, {nullable:true})
+    name?: StringNullableFilter;
+
+    @Field(() => StringNullableFilter, {nullable:true})
+    description?: StringNullableFilter;
+
+    @Field(() => IntNullableFilter, {nullable:true})
+    taskId?: IntNullableFilter;
+
+    @Field(() => TaskRelationFilter, {nullable:true})
+    task?: TaskRelationFilter;
 }

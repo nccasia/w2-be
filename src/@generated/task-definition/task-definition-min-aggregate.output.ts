@@ -15,6 +15,9 @@ export class TaskDefinitionMinAggregate {
     updatedAt?: Date | string;
 
     @Field(() => String, {nullable:true})
+    keyTemplate?: string;
+
+    @Field(() => String, {nullable:true})
     title?: string;
 
     @Field(() => String, {nullable:true})
@@ -52,10 +55,4 @@ export class TaskDefinitionMinAggregate {
 
     @Field(() => Int, {nullable:true})
     parentId?: number;
-
-    @Field(() => Int, {nullable:true})
-    workflowId?: number;
-
-    @Field(() => Int, {nullable:true})
-    actvityId?: number;
 }

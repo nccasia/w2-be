@@ -8,7 +8,6 @@ import { SettingsUncheckedCreateNestedManyWithoutOrganizationInput } from '../se
 import { FileUncheckedCreateNestedManyWithoutOrganizationInput } from '../file/file-unchecked-create-nested-many-without-organization.input';
 import { EventLogUncheckedCreateNestedManyWithoutOrganizationInput } from '../event-log/event-log-unchecked-create-nested-many-without-organization.input';
 import { TaskDefinitionUncheckedCreateNestedManyWithoutOrganizationInput } from '../task-definition/task-definition-unchecked-create-nested-many-without-organization.input';
-import { WorkflowUncheckedCreateNestedManyWithoutOrganizationInput } from '../workflow/workflow-unchecked-create-nested-many-without-organization.input';
 import { PermissionUncheckedCreateNestedManyWithoutOrganizationInput } from '../permission/permission-unchecked-create-nested-many-without-organization.input';
 import { ResourceUncheckedCreateNestedManyWithoutOrganizationInput } from '../resource/resource-unchecked-create-nested-many-without-organization.input';
 
@@ -50,9 +49,6 @@ export class OrganizationUncheckedCreateWithoutPermissionGroupsInput {
 
     @Field(() => TaskDefinitionUncheckedCreateNestedManyWithoutOrganizationInput, {nullable:true})
     taskDefinitions?: TaskDefinitionUncheckedCreateNestedManyWithoutOrganizationInput;
-
-    @Field(() => WorkflowUncheckedCreateNestedManyWithoutOrganizationInput, {nullable:true})
-    workflows?: WorkflowUncheckedCreateNestedManyWithoutOrganizationInput;
 
     @Field(() => PermissionUncheckedCreateNestedManyWithoutOrganizationInput, {nullable:true})
     permissions?: PermissionUncheckedCreateNestedManyWithoutOrganizationInput;

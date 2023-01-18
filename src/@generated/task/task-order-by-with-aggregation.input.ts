@@ -29,6 +29,9 @@ export class TaskOrderByWithAggregationInput {
     isActve?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
+    key?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
     properties?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
@@ -96,6 +99,9 @@ export class TaskOrderByWithAggregationInput {
 
     @Field(() => SortOrder, {nullable:true})
     ctaConfig?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    formConfig?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
     config?: keyof typeof SortOrder;

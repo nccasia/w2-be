@@ -1,7 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { TriggerType } from '../prisma/trigger-type.enum';
-import { ActivityCreateNestedOneWithoutTriggersInput } from '../activity/activity-create-nested-one-without-triggers.input';
+import { TriggerStatus } from '../prisma/trigger-status.enum';
+import { GraphQLJSON } from 'graphql-type-json';
+import { TaskCreateNestedOneWithoutTriggerInput } from '../task/task-create-nested-one-without-trigger.input';
 
 @InputType()
 export class TriggerCreateInput {
@@ -15,12 +17,21 @@ export class TriggerCreateInput {
     @Field(() => TriggerType, {nullable:false})
     type!: keyof typeof TriggerType;
 
-    @Field(() => String, {nullable:false})
-    name!: string;
+    @Field(() => TriggerStatus, {nullable:false})
+    status!: keyof typeof TriggerStatus;
 
     @Field(() => String, {nullable:false})
-    description!: string;
+    key!: string;
 
-    @Field(() => ActivityCreateNestedOneWithoutTriggersInput, {nullable:false})
-    activity!: ActivityCreateNestedOneWithoutTriggersInput;
+    @Field(() => GraphQLJSON, {nullable:true})
+    value?: any;
+
+    @Field(() => String, {nullable:true})
+    name?: string;
+
+    @Field(() => String, {nullable:true})
+    description?: string;
+
+    @Field(() => TaskCreateNestedOneWithoutTriggerInput, {nullable:true})
+    task?: TaskCreateNestedOneWithoutTriggerInput;
 }

@@ -1,7 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
-import { ActivityOrderByWithRelationInput } from '../activity/activity-order-by-with-relation.input';
+import { TaskOrderByWithRelationInput } from '../task/task-order-by-with-relation.input';
 
 @InputType()
 export class TriggerOrderByWithRelationInput {
@@ -19,14 +19,23 @@ export class TriggerOrderByWithRelationInput {
     type?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
+    status?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    key?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    value?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
     name?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
     description?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
-    activityId?: keyof typeof SortOrder;
+    taskId?: keyof typeof SortOrder;
 
-    @Field(() => ActivityOrderByWithRelationInput, {nullable:true})
-    activity?: ActivityOrderByWithRelationInput;
+    @Field(() => TaskOrderByWithRelationInput, {nullable:true})
+    task?: TaskOrderByWithRelationInput;
 }

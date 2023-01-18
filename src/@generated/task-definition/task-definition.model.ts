@@ -6,8 +6,7 @@ import { Form } from '../form/form.model';
 import { GraphQLJSON } from 'graphql-type-json';
 import { Task } from '../task/task.model';
 import { Organization } from '../organization/organization.model';
-import { Workflow } from '../workflow/workflow.model';
-import { Activity } from '../activity/activity.model';
+import { TaskDefinitionActivityDefinition } from '../task-definition-activity-definition/task-definition-activity-definition.model';
 import { TaskDefinitionCount } from './task-definition-count.output';
 
 @ObjectType()
@@ -21,6 +20,9 @@ export class TaskDefinition {
 
     @Field(() => Date, {nullable:false})
     updatedAt!: Date;
+
+    @Field(() => String, {nullable:false,defaultValue:'task-{{id}}'})
+    keyTemplate!: string;
 
     @Field(() => String, {nullable:false})
     title!: string;
@@ -97,17 +99,8 @@ export class TaskDefinition {
     @Field(() => [TaskDefinition], {nullable:true})
     subTaskDefinitions?: Array<TaskDefinition>;
 
-    @Field(() => Int, {nullable:true})
-    workflowId!: number | null;
-
-    @Field(() => Workflow, {nullable:true})
-    workflow?: Workflow | null;
-
-    @Field(() => Int, {nullable:true})
-    actvityId!: number | null;
-
-    @Field(() => Activity, {nullable:true})
-    activity?: Activity | null;
+    @Field(() => [TaskDefinitionActivityDefinition], {nullable:true})
+    taskDefinitionActivityDefinitions?: Array<TaskDefinitionActivityDefinition>;
 
     @Field(() => TaskDefinitionCount, {nullable:false})
     _count?: TaskDefinitionCount;

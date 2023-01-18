@@ -7,7 +7,7 @@ import { TaskBuilder } from './task.builder';
 export class TaskDefinetionService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async getTaskBuilderFromExisting(task: Task): Promise<TaskBuilder> {
-    return TaskBuilder.fromExistingTask(task, this.prisma);
+  async getTaskBuilderFromExisting(id: number): Promise<TaskBuilder> {
+    return TaskBuilder.fromExistingTask(id, this.prisma);
   }
 }

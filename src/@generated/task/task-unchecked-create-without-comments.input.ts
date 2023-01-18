@@ -5,6 +5,7 @@ import { TaskPriority } from '../prisma/task-priority.enum';
 import { GraphQLJSON } from 'graphql-type-json';
 import { EventLogUncheckedCreateNestedManyWithoutTaskInput } from '../event-log/event-log-unchecked-create-nested-many-without-task.input';
 import { TaskUncheckedCreateNestedManyWithoutParentTaskInput } from './task-unchecked-create-nested-many-without-parent-task.input';
+import { TriggerUncheckedCreateNestedManyWithoutTaskInput } from '../trigger/trigger-unchecked-create-nested-many-without-task.input';
 
 @InputType()
 export class TaskUncheckedCreateWithoutCommentsInput {
@@ -26,6 +27,9 @@ export class TaskUncheckedCreateWithoutCommentsInput {
 
     @Field(() => Boolean, {nullable:true})
     isActve?: boolean;
+
+    @Field(() => String, {nullable:false})
+    key!: string;
 
     @Field(() => GraphQLJSON, {nullable:true})
     properties?: any;
@@ -97,6 +101,9 @@ export class TaskUncheckedCreateWithoutCommentsInput {
     ctaConfig?: any;
 
     @Field(() => GraphQLJSON, {nullable:true})
+    formConfig?: any;
+
+    @Field(() => GraphQLJSON, {nullable:true})
     config?: any;
 
     @Field(() => Date, {nullable:true})
@@ -126,6 +133,9 @@ export class TaskUncheckedCreateWithoutCommentsInput {
     @Field(() => Int, {nullable:false})
     organizationId!: number;
 
-    @Field(() => Int, {nullable:false})
-    teamId!: number;
+    @Field(() => Int, {nullable:true})
+    teamId?: number;
+
+    @Field(() => TriggerUncheckedCreateNestedManyWithoutTaskInput, {nullable:true})
+    Trigger?: TriggerUncheckedCreateNestedManyWithoutTaskInput;
 }

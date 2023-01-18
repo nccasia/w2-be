@@ -30,6 +30,9 @@ export class TaskGroupBy {
     @Field(() => Boolean, {nullable:false})
     isActve!: boolean;
 
+    @Field(() => String, {nullable:false})
+    key!: string;
+
     @Field(() => GraphQLJSON, {nullable:true})
     properties?: any;
 
@@ -100,6 +103,9 @@ export class TaskGroupBy {
     ctaConfig?: any;
 
     @Field(() => GraphQLJSON, {nullable:true})
+    formConfig?: any;
+
+    @Field(() => GraphQLJSON, {nullable:true})
     config?: any;
 
     @Field(() => Date, {nullable:false})
@@ -123,8 +129,8 @@ export class TaskGroupBy {
     @Field(() => Int, {nullable:false})
     organizationId!: number;
 
-    @Field(() => Int, {nullable:false})
-    teamId!: number;
+    @Field(() => Int, {nullable:true})
+    teamId?: number;
 
     @Field(() => TaskCountAggregate, {nullable:true})
     _count?: TaskCountAggregate;

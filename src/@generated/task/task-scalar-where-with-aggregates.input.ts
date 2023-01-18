@@ -40,6 +40,9 @@ export class TaskScalarWhereWithAggregatesInput {
     @Field(() => BoolWithAggregatesFilter, {nullable:true})
     isActve?: BoolWithAggregatesFilter;
 
+    @Field(() => StringWithAggregatesFilter, {nullable:true})
+    key?: StringWithAggregatesFilter;
+
     @Field(() => JsonNullableWithAggregatesFilter, {nullable:true})
     properties?: JsonNullableWithAggregatesFilter;
 
@@ -110,6 +113,9 @@ export class TaskScalarWhereWithAggregatesInput {
     ctaConfig?: JsonNullableWithAggregatesFilter;
 
     @Field(() => JsonNullableWithAggregatesFilter, {nullable:true})
+    formConfig?: JsonNullableWithAggregatesFilter;
+
+    @Field(() => JsonNullableWithAggregatesFilter, {nullable:true})
     config?: JsonNullableWithAggregatesFilter;
 
     @Field(() => DateTimeWithAggregatesFilter, {nullable:true})
@@ -133,6 +139,6 @@ export class TaskScalarWhereWithAggregatesInput {
     @Field(() => IntWithAggregatesFilter, {nullable:true})
     organizationId?: IntWithAggregatesFilter;
 
-    @Field(() => IntWithAggregatesFilter, {nullable:true})
-    teamId?: IntWithAggregatesFilter;
+    @Field(() => IntNullableWithAggregatesFilter, {nullable:true})
+    teamId?: IntNullableWithAggregatesFilter;
 }

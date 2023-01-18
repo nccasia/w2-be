@@ -25,6 +25,9 @@ export class TaskMinAggregate {
     isActve?: boolean;
 
     @Field(() => String, {nullable:true})
+    key?: string;
+
+    @Field(() => String, {nullable:true})
     type?: string;
 
     @Field(() => String, {nullable:true})

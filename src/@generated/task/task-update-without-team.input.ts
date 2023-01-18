@@ -15,6 +15,7 @@ import { UserUpdateOneRequiredWithoutCreatedTasksNestedInput } from '../user/use
 import { TaskUpdateOneWithoutSubTasksNestedInput } from './task-update-one-without-sub-tasks-nested.input';
 import { TaskUpdateManyWithoutParentTaskNestedInput } from './task-update-many-without-parent-task-nested.input';
 import { OrganizationUpdateOneRequiredWithoutTasksNestedInput } from '../organization/organization-update-one-required-without-tasks-nested.input';
+import { TriggerUpdateManyWithoutTaskNestedInput } from '../trigger/trigger-update-many-without-task-nested.input';
 
 @InputType()
 export class TaskUpdateWithoutTeamInput {
@@ -33,6 +34,9 @@ export class TaskUpdateWithoutTeamInput {
 
     @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
     isActve?: BoolFieldUpdateOperationsInput;
+
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    key?: StringFieldUpdateOperationsInput;
 
     @Field(() => GraphQLJSON, {nullable:true})
     properties?: any;
@@ -104,6 +108,9 @@ export class TaskUpdateWithoutTeamInput {
     ctaConfig?: any;
 
     @Field(() => GraphQLJSON, {nullable:true})
+    formConfig?: any;
+
+    @Field(() => GraphQLJSON, {nullable:true})
     config?: any;
 
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
@@ -135,4 +142,7 @@ export class TaskUpdateWithoutTeamInput {
 
     @Field(() => OrganizationUpdateOneRequiredWithoutTasksNestedInput, {nullable:true})
     organization?: OrganizationUpdateOneRequiredWithoutTasksNestedInput;
+
+    @Field(() => TriggerUpdateManyWithoutTaskNestedInput, {nullable:true})
+    Trigger?: TriggerUpdateManyWithoutTaskNestedInput;
 }

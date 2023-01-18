@@ -24,6 +24,9 @@ export class TaskCountAggregate {
     isActve!: number;
 
     @Field(() => Int, {nullable:false})
+    key!: number;
+
+    @Field(() => Int, {nullable:false})
     properties!: number;
 
     @Field(() => Int, {nullable:false})
@@ -91,6 +94,9 @@ export class TaskCountAggregate {
 
     @Field(() => Int, {nullable:false})
     ctaConfig!: number;
+
+    @Field(() => Int, {nullable:false})
+    formConfig!: number;
 
     @Field(() => Int, {nullable:false})
     config!: number;

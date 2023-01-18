@@ -16,10 +16,4 @@ export class TaskDefinitionAvgAggregate {
 
     @Field(() => Float, {nullable:true})
     parentId?: number;
-
-    @Field(() => Float, {nullable:true})
-    workflowId?: number;
-
-    @Field(() => Float, {nullable:true})
-    actvityId?: number;
 }

@@ -2,7 +2,7 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
 import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
-import { FormUpdateOneWithoutTaskDefinitionsNestedInput } from '../form/form-update-one-without-task-definitions-nested.input';
+import { FormDefinetionUpdateOneWithoutTaskDefinitionsNestedInput } from '../form-definetion/form-definetion-update-one-without-task-definitions-nested.input';
 import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-string-field-update-operations.input';
 import { GraphQLJSON } from 'graphql-type-json';
 import { TaskUpdateManyWithoutDefinitionNestedInput } from '../task/task-update-many-without-definition-nested.input';
@@ -32,8 +32,8 @@ export class TaskDefinitionUpdateWithoutWorkflowInput {
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
     thumbnail?: StringFieldUpdateOperationsInput;
 
-    @Field(() => FormUpdateOneWithoutTaskDefinitionsNestedInput, {nullable:true})
-    form?: FormUpdateOneWithoutTaskDefinitionsNestedInput;
+    @Field(() => FormDefinetionUpdateOneWithoutTaskDefinitionsNestedInput, {nullable:true})
+    form?: FormDefinetionUpdateOneWithoutTaskDefinitionsNestedInput;
 
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     descriptionTemplate?: NullableStringFieldUpdateOperationsInput;

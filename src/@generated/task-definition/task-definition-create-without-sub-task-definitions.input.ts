@@ -5,8 +5,7 @@ import { GraphQLJSON } from 'graphql-type-json';
 import { TaskCreateNestedManyWithoutDefinitionInput } from '../task/task-create-nested-many-without-definition.input';
 import { OrganizationCreateNestedOneWithoutTaskDefinitionsInput } from '../organization/organization-create-nested-one-without-task-definitions.input';
 import { TaskDefinitionCreateNestedOneWithoutSubTaskDefinitionsInput } from './task-definition-create-nested-one-without-sub-task-definitions.input';
-import { WorkflowCreateNestedOneWithoutTaskDefinitionsInput } from '../workflow/workflow-create-nested-one-without-task-definitions.input';
-import { ActivityCreateNestedOneWithoutTaskDefinitionsInput } from '../activity/activity-create-nested-one-without-task-definitions.input';
+import { TaskDefinitionActivityDefinitionCreateNestedManyWithoutTaskDefinitionInput } from '../task-definition-activity-definition/task-definition-activity-definition-create-nested-many-without-task-definition.input';
 
 @InputType()
 export class TaskDefinitionCreateWithoutSubTaskDefinitionsInput {
@@ -16,6 +15,9 @@ export class TaskDefinitionCreateWithoutSubTaskDefinitionsInput {
 
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
+
+    @Field(() => String, {nullable:true})
+    keyTemplate?: string;
 
     @Field(() => String, {nullable:false})
     title!: string;
@@ -80,9 +82,6 @@ export class TaskDefinitionCreateWithoutSubTaskDefinitionsInput {
     @Field(() => TaskDefinitionCreateNestedOneWithoutSubTaskDefinitionsInput, {nullable:true})
     parentTaskDefinition?: TaskDefinitionCreateNestedOneWithoutSubTaskDefinitionsInput;
 
-    @Field(() => WorkflowCreateNestedOneWithoutTaskDefinitionsInput, {nullable:true})
-    workflow?: WorkflowCreateNestedOneWithoutTaskDefinitionsInput;
-
-    @Field(() => ActivityCreateNestedOneWithoutTaskDefinitionsInput, {nullable:true})
-    activity?: ActivityCreateNestedOneWithoutTaskDefinitionsInput;
+    @Field(() => TaskDefinitionActivityDefinitionCreateNestedManyWithoutTaskDefinitionInput, {nullable:true})
+    taskDefinitionActivityDefinitions?: TaskDefinitionActivityDefinitionCreateNestedManyWithoutTaskDefinitionInput;
 }

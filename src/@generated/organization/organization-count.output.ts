@@ -27,9 +27,6 @@ export class OrganizationCount {
     taskDefinitions?: number;
 
     @Field(() => Int, {nullable:false})
-    workflows?: number;
-
-    @Field(() => Int, {nullable:false})
     permissionGroups?: number;
 
     @Field(() => Int, {nullable:false})

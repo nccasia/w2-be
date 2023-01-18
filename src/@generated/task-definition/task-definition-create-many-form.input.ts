@@ -15,6 +15,9 @@ export class TaskDefinitionCreateManyFormInput {
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
 
+    @Field(() => String, {nullable:true})
+    keyTemplate?: string;
+
     @Field(() => String, {nullable:false})
     title!: string;
 
@@ -71,10 +74,4 @@ export class TaskDefinitionCreateManyFormInput {
 
     @Field(() => Int, {nullable:true})
     parentId?: number;
-
-    @Field(() => Int, {nullable:true})
-    workflowId?: number;
-
-    @Field(() => Int, {nullable:true})
-    actvityId?: number;
 }

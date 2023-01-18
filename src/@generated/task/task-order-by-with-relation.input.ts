@@ -8,6 +8,7 @@ import { UserOrderByWithRelationInput } from '../user/user-order-by-with-relatio
 import { TaskOrderByRelationAggregateInput } from './task-order-by-relation-aggregate.input';
 import { OrganizationOrderByWithRelationInput } from '../organization/organization-order-by-with-relation.input';
 import { TeamOrderByWithRelationInput } from '../team/team-order-by-with-relation.input';
+import { TriggerOrderByRelationAggregateInput } from '../trigger/trigger-order-by-relation-aggregate.input';
 
 @InputType()
 export class TaskOrderByWithRelationInput {
@@ -29,6 +30,9 @@ export class TaskOrderByWithRelationInput {
 
     @Field(() => SortOrder, {nullable:true})
     isActve?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    key?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
     properties?: keyof typeof SortOrder;
@@ -100,6 +104,9 @@ export class TaskOrderByWithRelationInput {
     ctaConfig?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
+    formConfig?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
     config?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
@@ -152,4 +159,7 @@ export class TaskOrderByWithRelationInput {
 
     @Field(() => TeamOrderByWithRelationInput, {nullable:true})
     team?: TeamOrderByWithRelationInput;
+
+    @Field(() => TriggerOrderByRelationAggregateInput, {nullable:true})
+    Trigger?: TriggerOrderByRelationAggregateInput;
 }

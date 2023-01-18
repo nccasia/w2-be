@@ -24,82 +24,36 @@ async function defineDeviceRequestTask(
   defaultOrg: Organization,
   defaultResourceDevices: Resource
 ) {
-  const defaultFormDevice = await prisma.form.create({
-    data: {
-      name: 'Device Request',
-      description: 'Create Device request',
-      code: 'DEVICE_REQUEST',
-      config: {},
-      schema: {
-        title: 'Device Request',
-        type: 'object',
-        properties: {
-          device: {
-            type: 'array',
-            items: {
-              type: 'object',
-              properties: {
-                type: {
-                  type: 'string',
-                  uniforms: {
-                    uiComponent: 'SelectResourceField',
-                    resource: defaultResourceDevices.id,
-                  },
-                },
-                quantity: {
-                  type: 'integer',
-                  minimum: 1,
-                  maximum: 100,
-                },
-                detail: {
-                  type: 'string',
-                },
-              },
-              required: ['type', 'detail', 'quantity'],
-            },
-            minItems: 1,
-            uniforms: {
-              index: 1,
-            },
-          },
-          dueDate: {
-            type: 'string',
-            format: 'date',
-            default: null,
-            nullable: true,
-            uniforms: {
-              index: 2,
-            },
-          },
-          content: {
-            type: 'string',
-            nullable: true,
-            uniforms: { uiComponent: 'QuillEditorField', index: 4 },
-          },
-        },
-        required: ['dueDate'],
-      },
-      validationConfig: {},
-      triggerConfig: {},
-      serializerConfig: {},
-      displayConfig: {},
-      displayTemplate: '',
-    },
-  });
-
   const defaultTaskDefinitionDevicePMAproval =
     await prisma.taskDefinition.create({
       data: {
         title: 'Device request PMAproval',
         description: 'Create Device request PMAproval',
         icon: 'icon',
+        keyTemplate: 'PM_APPROVAL',
         form: {
           create: {
             name: 'Device Request PM Approval',
             description: 'Device Request PM Approval',
             code: 'DEVICE_REQUEST_PM_APPROVAL',
             config: {},
-            schema: {},
+            schema: {
+              title: 'Singlechoice',
+              type: 'object',
+              properties: {
+                singlechoice: {
+                  type: 'string',
+                  nullable: true,
+                  uniforms: { uiComponent: 'SinglechoiceField', index: 1 },
+                },
+                reason: {
+                  type: 'string',
+                  nullable: true,
+                  uniforms: { index: 2 },
+                },
+              },
+              required: ['singlechoice', 'reason'],
+            },
             validationConfig: {},
             triggerConfig: {},
             serializerConfig: {},
@@ -134,13 +88,30 @@ async function defineDeviceRequestTask(
         title: 'Device request IT Aproval',
         description: 'Create Device request ITAproval',
         icon: 'icon',
+        keyTemplate: 'IT_APPROVAL',
         form: {
           create: {
             name: 'Device Request IT Approval',
             description: 'Device Request IT Approval',
             code: 'DEVICE_REQUEST_IT_APPROVAL',
             config: {},
-            schema: {},
+            schema: {
+              title: 'Singlechoice',
+              type: 'object',
+              properties: {
+                singlechoice: {
+                  type: 'string',
+                  nullable: true,
+                  uniforms: { uiComponent: 'SinglechoiceField', index: 1 },
+                },
+                reason: {
+                  type: 'string',
+                  nullable: true,
+                  uniforms: { index: 2 },
+                },
+              },
+              required: ['singlechoice', 'reason'],
+            },
             validationConfig: {},
             triggerConfig: {},
             serializerConfig: {},
@@ -175,13 +146,30 @@ async function defineDeviceRequestTask(
         title: 'Device request SALE Aproval',
         description: 'Create Device request SALEAproval',
         icon: 'icon',
+        keyTemplate: 'SALE_APPROVAL',
         form: {
           create: {
             name: 'Device Request SALE Approval',
             description: 'Device Request SALE Approval',
             code: 'DEVICE_REQUEST_SALE_APPROVAL',
             config: {},
-            schema: {},
+            schema: {
+              title: 'Singlechoice',
+              type: 'object',
+              properties: {
+                singlechoice: {
+                  type: 'string',
+                  nullable: true,
+                  uniforms: { uiComponent: 'SinglechoiceField', index: 1 },
+                },
+                reason: {
+                  type: 'string',
+                  nullable: true,
+                  uniforms: { index: 2 },
+                },
+              },
+              required: ['singlechoice', 'reason'],
+            },
             validationConfig: {},
             triggerConfig: {},
             serializerConfig: {},
@@ -216,13 +204,30 @@ async function defineDeviceRequestTask(
         title: 'Device request CUSTOMER Aproval',
         description: 'Create Device request CUSTOMERAproval',
         icon: 'icon',
+        keyTemplate: 'CUSTOMER_APPROVAL',
         form: {
           create: {
             name: 'Device Request CUSTOMER Approval',
             description: 'Device Request CUSTOMER Approval',
             code: 'DEVICE_REQUEST_CUSTOMER_APPROVAL',
             config: {},
-            schema: {},
+            schema: {
+              title: 'Singlechoice',
+              type: 'object',
+              properties: {
+                singlechoice: {
+                  type: 'string',
+                  nullable: true,
+                  uniforms: { uiComponent: 'SinglechoiceField', index: 1 },
+                },
+                reason: {
+                  type: 'string',
+                  nullable: true,
+                  uniforms: { index: 2 },
+                },
+              },
+              required: ['singlechoice', 'reason'],
+            },
             validationConfig: {},
             triggerConfig: {},
             serializerConfig: {},
@@ -232,7 +237,7 @@ async function defineDeviceRequestTask(
         },
         thumbnail: 'thumbnail',
         descriptionTemplate: 'descriptionTemplate',
-        titleTemplate: '[DEV3#{{task.id}}}}] Customer approval',
+        titleTemplate: '[DEV3#{{task.id}}] Customer approval',
         stateTemplate: 'stateTemplate',
         statusTemplate: 'statusTemplate',
         notificationTemplate: 'notificationTemplate',
@@ -256,10 +261,10 @@ async function defineDeviceRequestTask(
       title: 'Device request',
       description: 'Create Device request',
       icon: 'icon',
-      formId: defaultFormDevice.id,
+      keyTemplate: 'DEVICE_REQUEST',
       thumbnail: 'thumbnail',
       descriptionTemplate: 'descriptionTemplate',
-      titleTemplate: '[DEV#{{task.id}}}}] Device request',
+      titleTemplate: '[DEV#{{task.id}}] Device request',
       stateTemplate: 'stateTemplate',
       statusTemplate: 'statusTemplate',
       notificationTemplate: 'notificationTemplate',
@@ -270,11 +275,77 @@ async function defineDeviceRequestTask(
       processConfig: {},
       triggerConfig: {},
       ctaConfig: {},
-      organizationId: defaultOrg.id,
+      form: {
+        create: {
+          name: 'Device Request',
+          description: 'Create Device request',
+          code: 'DEVICE_REQUEST',
+          config: {},
+          schema: {
+            title: 'Device Request',
+            type: 'object',
+            properties: {
+              device: {
+                type: 'array',
+                items: {
+                  type: 'object',
+                  properties: {
+                    type: {
+                      type: 'string',
+                      uniforms: {
+                        uiComponent: 'SelectResourceField',
+                        resource: defaultResourceDevices.id,
+                      },
+                    },
+                    quantity: {
+                      type: 'integer',
+                      minimum: 1,
+                      maximum: 100,
+                    },
+                    detail: {
+                      type: 'string',
+                    },
+                  },
+                  required: ['type', 'detail', 'quantity'],
+                },
+                minItems: 1,
+                uniforms: {
+                  index: 1,
+                },
+              },
+              dueDate: {
+                type: 'string',
+                format: 'date',
+                default: null,
+                nullable: true,
+                uniforms: {
+                  index: 2,
+                },
+              },
+              content: {
+                type: 'string',
+                nullable: true,
+                uniforms: { uiComponent: 'QuillEditorField', index: 4 },
+              },
+            },
+            required: ['dueDate'],
+          },
+          validationConfig: {},
+          triggerConfig: {},
+          serializerConfig: {},
+          displayConfig: {},
+          displayTemplate: '',
+        },
+      },
+      organization: {
+        connect: {
+          id: defaultOrg.id,
+        },
+      },
       subTaskDefinitions: {
         connect: [
           {
-            id: defaultTaskDefinitionDeviceITApproval.id,
+            id: defaultTaskDefinitionDevicePMAproval.id,
           },
           {
             id: defaultTaskDefinitionDeviceITApproval.id,
@@ -649,7 +720,23 @@ async function main() {
             description: 'Create Change office request Start approval',
             code: 'CHANGE_OFFICE_REQUEST_START_APPROVAL',
             config: {},
-            schema: {},
+            schema: {
+              title: 'Singlechoice',
+              type: 'object',
+              properties: {
+                singlechoice: {
+                  type: 'string',
+                  nullable: true,
+                  uniforms: { uiComponent: 'SinglechoiceField', index: 1 },
+                },
+                reason: {
+                  type: 'string',
+                  nullable: true,
+                  uniforms: { index: 2 },
+                },
+              },
+              required: ['singlechoice', 'reason'],
+            },
             validationConfig: {},
             triggerConfig: {},
             serializerConfig: {},
@@ -690,7 +777,23 @@ async function main() {
             description: 'Create Change office request end approval',
             code: 'CHANGE_OFFICE_REQUEST_END_APPROVAL',
             config: {},
-            schema: {},
+            schema: {
+              title: 'Singlechoice',
+              type: 'object',
+              properties: {
+                singlechoice: {
+                  type: 'string',
+                  nullable: true,
+                  uniforms: { uiComponent: 'SinglechoiceField', index: 1 },
+                },
+                reason: {
+                  type: 'string',
+                  nullable: true,
+                  uniforms: { index: 2 },
+                },
+              },
+              required: ['singlechoice', 'reason'],
+            },
             validationConfig: {},
             triggerConfig: {},
             serializerConfig: {},
@@ -758,7 +861,23 @@ async function main() {
           description: 'Create WFH request PM approval',
           code: 'WFH_REQUEST_PM_APPROVAL',
           config: {},
-          schema: {},
+          schema: {
+            title: 'Singlechoice',
+            type: 'object',
+            properties: {
+              singlechoice: {
+                type: 'string',
+                nullable: true,
+                uniforms: { uiComponent: 'SinglechoiceField', index: 1 },
+              },
+              reason: {
+                type: 'string',
+                nullable: true,
+                uniforms: { index: 2 },
+              },
+            },
+            required: ['singlechoice', 'reason'],
+          },
           validationConfig: {},
           triggerConfig: {},
           serializerConfig: {},
@@ -799,7 +918,23 @@ async function main() {
             description: 'Create WFH request CEO approval',
             code: 'WFH_REQUEST_CEO_APPROVAL',
             config: {},
-            schema: {},
+            schema: {
+              title: 'Singlechoice',
+              type: 'object',
+              properties: {
+                singlechoice: {
+                  type: 'string',
+                  nullable: true,
+                  uniforms: { uiComponent: 'SinglechoiceField', index: 1 },
+                },
+                reason: {
+                  type: 'string',
+                  nullable: true,
+                  uniforms: { index: 2 },
+                },
+              },
+              required: ['singlechoice', 'reason'],
+            },
             validationConfig: {},
             triggerConfig: {},
             serializerConfig: {},
@@ -834,7 +969,11 @@ async function main() {
       title: 'WFH request',
       description: 'Create WFH request',
       icon: 'icon',
-      formId: defaultFormWFH.id,
+      form: {
+        connect: {
+          id: defaultFormWFH.id,
+        },
+      },
       thumbnail: 'thumbnail',
       descriptionTemplate: 'descriptionTemplate',
       titleTemplate: '[WFH#{{task.id}}] WFH request',
@@ -848,10 +987,11 @@ async function main() {
       processConfig: {},
       triggerConfig: {},
       ctaConfig: {},
-      organizationId: defaultOrg.id,
-      parentId: null,
-      workflowId: null,
-      actvityId: null,
+      organization: {
+        connect: {
+          id: defaultOrg.id,
+        },
+      },
       subTaskDefinitions: {
         connect: [
           {
@@ -862,65 +1002,6 @@ async function main() {
           },
         ],
       },
-    },
-  });
-
-  const defaultTask = await prisma.task.create({
-    data: {
-      isActve: true,
-      assignee: {
-        connect: {
-          id: user1.id,
-        },
-      },
-      creator: {
-        connect: {
-          id: user1.id,
-        },
-      },
-      definition: {
-        connect: {
-          id: defaultTaskDefinitionChangeOffice.id,
-        },
-      },
-      organization: {
-        connect: {
-          id: defaultOrg.id,
-        },
-      },
-      team: {
-        connect: {
-          id: defaultTeam.id,
-        },
-      },
-      config: {},
-      ctaConfig: {},
-      notificationConfig: {},
-      processConfig: {},
-      properties: {},
-      stateConfig: {},
-      statusConfig: {},
-      triggerConfig: {},
-      values: {},
-      cta: '{}',
-      ctaName: 'a',
-      ctaTemplate: '""',
-      description: 'aaaa',
-      descriptionTemplate: '""',
-      notificationTemplate: '""',
-      state: 'aa',
-      stateName: 'a',
-      stateTemplate: '""',
-      stateValues: '{}',
-      status: '__NEW__',
-      statusName: 'a',
-      statusTemplate: '""',
-      title: 'aaa',
-      titleTemplate: '""',
-      type: 'a',
-      typeName: 'abc',
-      dueDate: null,
-      priority: 'LOW',
     },
   });
 }

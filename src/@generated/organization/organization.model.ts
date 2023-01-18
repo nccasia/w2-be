@@ -8,7 +8,6 @@ import { Settings } from '../settings/settings.model';
 import { File } from '../file/file.model';
 import { EventLog } from '../event-log/event-log.model';
 import { TaskDefinition } from '../task-definition/task-definition.model';
-import { Workflow } from '../workflow/workflow.model';
 import { PermissionGroup } from '../permission-group/permission-group.model';
 import { Permission } from '../permission/permission.model';
 import { Resource } from '../resource/resource.model';
@@ -52,9 +51,6 @@ export class Organization {
 
     @Field(() => [TaskDefinition], {nullable:true})
     taskDefinitions?: Array<TaskDefinition>;
-
-    @Field(() => [Workflow], {nullable:true})
-    workflows?: Array<Workflow>;
 
     @Field(() => [PermissionGroup], {nullable:true})
     permissionGroups?: Array<PermissionGroup>;

@@ -4,6 +4,7 @@ import { Int } from '@nestjs/graphql';
 import { GraphQLJSON } from 'graphql-type-json';
 import { TaskUncheckedCreateNestedManyWithoutDefinitionInput } from '../task/task-unchecked-create-nested-many-without-definition.input';
 import { TaskDefinitionUncheckedCreateNestedManyWithoutParentTaskDefinitionInput } from './task-definition-unchecked-create-nested-many-without-parent-task-definition.input';
+import { TaskDefinitionActivityDefinitionUncheckedCreateNestedManyWithoutTaskDefinitionInput } from '../task-definition-activity-definition/task-definition-activity-definition-unchecked-create-nested-many-without-task-definition.input';
 
 @InputType()
 export class TaskDefinitionUncheckedCreateWithoutParentTaskDefinitionInput {
@@ -16,6 +17,9 @@ export class TaskDefinitionUncheckedCreateWithoutParentTaskDefinitionInput {
 
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
+
+    @Field(() => String, {nullable:true})
+    keyTemplate?: string;
 
     @Field(() => String, {nullable:false})
     title!: string;
@@ -80,9 +84,6 @@ export class TaskDefinitionUncheckedCreateWithoutParentTaskDefinitionInput {
     @Field(() => TaskDefinitionUncheckedCreateNestedManyWithoutParentTaskDefinitionInput, {nullable:true})
     subTaskDefinitions?: TaskDefinitionUncheckedCreateNestedManyWithoutParentTaskDefinitionInput;
 
-    @Field(() => Int, {nullable:true})
-    workflowId?: number;
-
-    @Field(() => Int, {nullable:true})
-    actvityId?: number;
+    @Field(() => TaskDefinitionActivityDefinitionUncheckedCreateNestedManyWithoutTaskDefinitionInput, {nullable:true})
+    taskDefinitionActivityDefinitions?: TaskDefinitionActivityDefinitionUncheckedCreateNestedManyWithoutTaskDefinitionInput;
 }

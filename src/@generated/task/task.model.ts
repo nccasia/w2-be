@@ -10,6 +10,7 @@ import { EventLog } from '../event-log/event-log.model';
 import { User } from '../user/user.model';
 import { Organization } from '../organization/organization.model';
 import { Team } from '../team/team.model';
+import { Trigger } from '../trigger/trigger.model';
 import { TaskCount } from './task-count.output';
 
 @ObjectType()
@@ -32,6 +33,9 @@ export class Task {
 
     @Field(() => Boolean, {nullable:false,defaultValue:false})
     isActve!: boolean;
+
+    @Field(() => String, {nullable:false})
+    key!: string;
 
     @Field(() => GraphQLJSON, {nullable:true})
     properties!: any | null;
@@ -103,6 +107,9 @@ export class Task {
     ctaConfig!: any | null;
 
     @Field(() => GraphQLJSON, {nullable:true})
+    formConfig!: any | null;
+
+    @Field(() => GraphQLJSON, {nullable:true})
     config!: any | null;
 
     @Field(() => Date, {nullable:false})
@@ -150,11 +157,14 @@ export class Task {
     @Field(() => Organization, {nullable:false})
     organization?: Organization;
 
-    @Field(() => Int, {nullable:false})
-    teamId!: number;
+    @Field(() => Int, {nullable:true})
+    teamId!: number | null;
 
-    @Field(() => Team, {nullable:false})
-    team?: Team;
+    @Field(() => Team, {nullable:true})
+    team?: Team | null;
+
+    @Field(() => [Trigger], {nullable:true})
+    Trigger?: Array<Trigger>;
 
     @Field(() => TaskCount, {nullable:false})
     _count?: TaskCount;

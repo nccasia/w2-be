@@ -31,6 +31,9 @@ export class TaskUncheckedUpdateManyWithoutTasksInput {
     @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
     isActve?: BoolFieldUpdateOperationsInput;
 
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    key?: StringFieldUpdateOperationsInput;
+
     @Field(() => GraphQLJSON, {nullable:true})
     properties?: any;
 
@@ -101,6 +104,9 @@ export class TaskUncheckedUpdateManyWithoutTasksInput {
     ctaConfig?: any;
 
     @Field(() => GraphQLJSON, {nullable:true})
+    formConfig?: any;
+
+    @Field(() => GraphQLJSON, {nullable:true})
     config?: any;
 
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
@@ -121,6 +127,6 @@ export class TaskUncheckedUpdateManyWithoutTasksInput {
     @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
     parentId?: NullableIntFieldUpdateOperationsInput;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    teamId?: IntFieldUpdateOperationsInput;
+    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
+    teamId?: NullableIntFieldUpdateOperationsInput;
 }

@@ -8,7 +8,6 @@ import { TeamUpdateManyWithoutOrganizationNestedInput } from '../team/team-updat
 import { SettingsUpdateManyWithoutOrganizationNestedInput } from '../settings/settings-update-many-without-organization-nested.input';
 import { FileUpdateManyWithoutOrganizationNestedInput } from '../file/file-update-many-without-organization-nested.input';
 import { EventLogUpdateManyWithoutOrganizationNestedInput } from '../event-log/event-log-update-many-without-organization-nested.input';
-import { WorkflowUpdateManyWithoutOrganizationNestedInput } from '../workflow/workflow-update-many-without-organization-nested.input';
 import { PermissionGroupUpdateManyWithoutOrganizationNestedInput } from '../permission-group/permission-group-update-many-without-organization-nested.input';
 import { PermissionUpdateManyWithoutOrganizationNestedInput } from '../permission/permission-update-many-without-organization-nested.input';
 import { ResourceUpdateManyWithoutOrganizationNestedInput } from '../resource/resource-update-many-without-organization-nested.input';
@@ -45,9 +44,6 @@ export class OrganizationUpdateWithoutTaskDefinitionsInput {
 
     @Field(() => EventLogUpdateManyWithoutOrganizationNestedInput, {nullable:true})
     eventLogs?: EventLogUpdateManyWithoutOrganizationNestedInput;
-
-    @Field(() => WorkflowUpdateManyWithoutOrganizationNestedInput, {nullable:true})
-    workflows?: WorkflowUpdateManyWithoutOrganizationNestedInput;
 
     @Field(() => PermissionGroupUpdateManyWithoutOrganizationNestedInput, {nullable:true})
     permissionGroups?: PermissionGroupUpdateManyWithoutOrganizationNestedInput;

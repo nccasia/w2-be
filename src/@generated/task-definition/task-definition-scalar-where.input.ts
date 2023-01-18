@@ -29,6 +29,9 @@ export class TaskDefinitionScalarWhereInput {
     updatedAt?: DateTimeFilter;
 
     @Field(() => StringFilter, {nullable:true})
+    keyTemplate?: StringFilter;
+
+    @Field(() => StringFilter, {nullable:true})
     title?: StringFilter;
 
     @Field(() => StringFilter, {nullable:true})
@@ -87,10 +90,4 @@ export class TaskDefinitionScalarWhereInput {
 
     @Field(() => IntNullableFilter, {nullable:true})
     parentId?: IntNullableFilter;
-
-    @Field(() => IntNullableFilter, {nullable:true})
-    workflowId?: IntNullableFilter;
-
-    @Field(() => IntNullableFilter, {nullable:true})
-    actvityId?: IntNullableFilter;
 }

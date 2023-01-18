@@ -2,6 +2,7 @@ import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { TriggerType } from '../prisma/trigger-type.enum';
+import { TriggerStatus } from '../prisma/trigger-status.enum';
 
 @ObjectType()
 export class TriggerMinAggregate {
@@ -18,6 +19,12 @@ export class TriggerMinAggregate {
     @Field(() => TriggerType, {nullable:true})
     type?: keyof typeof TriggerType;
 
+    @Field(() => TriggerStatus, {nullable:true})
+    status?: keyof typeof TriggerStatus;
+
+    @Field(() => String, {nullable:true})
+    key?: string;
+
     @Field(() => String, {nullable:true})
     name?: string;
 
@@ -25,5 +32,5 @@ export class TriggerMinAggregate {
     description?: string;
 
     @Field(() => Int, {nullable:true})
-    activityId?: number;
+    taskId?: number;
 }

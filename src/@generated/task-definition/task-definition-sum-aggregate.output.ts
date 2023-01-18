@@ -16,10 +16,4 @@ export class TaskDefinitionSumAggregate {
 
     @Field(() => Int, {nullable:true})
     parentId?: number;
-
-    @Field(() => Int, {nullable:true})
-    workflowId?: number;
-
-    @Field(() => Int, {nullable:true})
-    actvityId?: number;
 }

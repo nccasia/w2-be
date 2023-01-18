@@ -26,6 +26,9 @@ export class TaskUpdateManyMutationInput {
     @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
     isActve?: BoolFieldUpdateOperationsInput;
 
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    key?: StringFieldUpdateOperationsInput;
+
     @Field(() => GraphQLJSON, {nullable:true})
     properties?: any;
 
@@ -94,6 +97,9 @@ export class TaskUpdateManyMutationInput {
 
     @Field(() => GraphQLJSON, {nullable:true})
     ctaConfig?: any;
+
+    @Field(() => GraphQLJSON, {nullable:true})
+    formConfig?: any;
 
     @Field(() => GraphQLJSON, {nullable:true})
     config?: any;

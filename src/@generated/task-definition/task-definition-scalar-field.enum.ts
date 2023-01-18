@@ -4,6 +4,7 @@ export enum TaskDefinitionScalarFieldEnum {
     id = "id",
     createdAt = "createdAt",
     updatedAt = "updatedAt",
+    keyTemplate = "keyTemplate",
     title = "title",
     description = "description",
     icon = "icon",
@@ -23,9 +24,7 @@ export enum TaskDefinitionScalarFieldEnum {
     ctaConfig = "ctaConfig",
     config = "config",
     organizationId = "organizationId",
-    parentId = "parentId",
-    workflowId = "workflowId",
-    actvityId = "actvityId"
+    parentId = "parentId"
 }
 
 

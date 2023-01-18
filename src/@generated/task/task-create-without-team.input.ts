@@ -10,6 +10,7 @@ import { UserCreateNestedOneWithoutCreatedTasksInput } from '../user/user-create
 import { TaskCreateNestedOneWithoutSubTasksInput } from './task-create-nested-one-without-sub-tasks.input';
 import { TaskCreateNestedManyWithoutParentTaskInput } from './task-create-nested-many-without-parent-task.input';
 import { OrganizationCreateNestedOneWithoutTasksInput } from '../organization/organization-create-nested-one-without-tasks.input';
+import { TriggerCreateNestedManyWithoutTaskInput } from '../trigger/trigger-create-nested-many-without-task.input';
 
 @InputType()
 export class TaskCreateWithoutTeamInput {
@@ -28,6 +29,9 @@ export class TaskCreateWithoutTeamInput {
 
     @Field(() => Boolean, {nullable:true})
     isActve?: boolean;
+
+    @Field(() => String, {nullable:false})
+    key!: string;
 
     @Field(() => GraphQLJSON, {nullable:true})
     properties?: any;
@@ -99,6 +103,9 @@ export class TaskCreateWithoutTeamInput {
     ctaConfig?: any;
 
     @Field(() => GraphQLJSON, {nullable:true})
+    formConfig?: any;
+
+    @Field(() => GraphQLJSON, {nullable:true})
     config?: any;
 
     @Field(() => Date, {nullable:true})
@@ -130,4 +137,7 @@ export class TaskCreateWithoutTeamInput {
 
     @Field(() => OrganizationCreateNestedOneWithoutTasksInput, {nullable:false})
     organization!: OrganizationCreateNestedOneWithoutTasksInput;
+
+    @Field(() => TriggerCreateNestedManyWithoutTaskInput, {nullable:true})
+    Trigger?: TriggerCreateNestedManyWithoutTaskInput;
 }

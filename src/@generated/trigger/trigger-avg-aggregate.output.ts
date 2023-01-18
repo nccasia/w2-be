@@ -9,5 +9,5 @@ export class TriggerAvgAggregate {
     id?: number;
 
     @Field(() => Float, {nullable:true})
-    activityId?: number;
+    taskId?: number;
 }

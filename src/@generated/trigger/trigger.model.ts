@@ -2,8 +2,10 @@ import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
 import { TriggerType } from '../prisma/trigger-type.enum';
+import { TriggerStatus } from '../prisma/trigger-status.enum';
+import { GraphQLJSON } from 'graphql-type-json';
 import { Int } from '@nestjs/graphql';
-import { Activity } from '../activity/activity.model';
+import { Task } from '../task/task.model';
 
 @ObjectType()
 export class Trigger {
@@ -20,15 +22,24 @@ export class Trigger {
     @Field(() => TriggerType, {nullable:false})
     type!: keyof typeof TriggerType;
 
-    @Field(() => String, {nullable:false})
-    name!: string;
+    @Field(() => TriggerStatus, {nullable:false})
+    status!: keyof typeof TriggerStatus;
 
     @Field(() => String, {nullable:false})
-    description!: string;
+    key!: string;
 
-    @Field(() => Int, {nullable:false})
-    activityId!: number;
+    @Field(() => GraphQLJSON, {nullable:true})
+    value!: any | null;
 
-    @Field(() => Activity, {nullable:false})
-    activity?: Activity;
+    @Field(() => String, {nullable:true})
+    name!: string | null;
+
+    @Field(() => String, {nullable:true})
+    description!: string | null;
+
+    @Field(() => Int, {nullable:true})
+    taskId!: number | null;
+
+    @Field(() => Task, {nullable:true})
+    task?: Task | null;
 }

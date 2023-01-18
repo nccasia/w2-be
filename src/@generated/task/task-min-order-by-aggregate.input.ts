@@ -24,6 +24,9 @@ export class TaskMinOrderByAggregateInput {
     isActve?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
+    key?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
     type?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})

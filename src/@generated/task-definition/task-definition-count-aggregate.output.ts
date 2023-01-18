@@ -15,6 +15,9 @@ export class TaskDefinitionCountAggregate {
     updatedAt!: number;
 
     @Field(() => Int, {nullable:false})
+    keyTemplate!: number;
+
+    @Field(() => Int, {nullable:false})
     title!: number;
 
     @Field(() => Int, {nullable:false})
@@ -73,12 +76,6 @@ export class TaskDefinitionCountAggregate {
 
     @Field(() => Int, {nullable:false})
     parentId!: number;
-
-    @Field(() => Int, {nullable:false})
-    workflowId!: number;
-
-    @Field(() => Int, {nullable:false})
-    actvityId!: number;
 
     @Field(() => Int, {nullable:false})
     _all!: number;

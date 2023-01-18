@@ -10,7 +10,6 @@ import { SettingsListRelationFilter } from '../settings/settings-list-relation-f
 import { FileListRelationFilter } from '../file/file-list-relation-filter.input';
 import { EventLogListRelationFilter } from '../event-log/event-log-list-relation-filter.input';
 import { TaskDefinitionListRelationFilter } from '../task-definition/task-definition-list-relation-filter.input';
-import { WorkflowListRelationFilter } from '../workflow/workflow-list-relation-filter.input';
 import { PermissionGroupListRelationFilter } from '../permission-group/permission-group-list-relation-filter.input';
 import { PermissionListRelationFilter } from '../permission/permission-list-relation-filter.input';
 import { ResourceListRelationFilter } from '../resource/resource-list-relation-filter.input';
@@ -62,9 +61,6 @@ export class OrganizationWhereInput {
 
     @Field(() => TaskDefinitionListRelationFilter, {nullable:true})
     taskDefinitions?: TaskDefinitionListRelationFilter;
-
-    @Field(() => WorkflowListRelationFilter, {nullable:true})
-    workflows?: WorkflowListRelationFilter;
 
     @Field(() => PermissionGroupListRelationFilter, {nullable:true})
     permissionGroups?: PermissionGroupListRelationFilter;

@@ -40,6 +40,9 @@ export class TaskScalarWhereInput {
     @Field(() => BoolFilter, {nullable:true})
     isActve?: BoolFilter;
 
+    @Field(() => StringFilter, {nullable:true})
+    key?: StringFilter;
+
     @Field(() => JsonNullableFilter, {nullable:true})
     properties?: JsonNullableFilter;
 
@@ -110,6 +113,9 @@ export class TaskScalarWhereInput {
     ctaConfig?: JsonNullableFilter;
 
     @Field(() => JsonNullableFilter, {nullable:true})
+    formConfig?: JsonNullableFilter;
+
+    @Field(() => JsonNullableFilter, {nullable:true})
     config?: JsonNullableFilter;
 
     @Field(() => DateTimeFilter, {nullable:true})
@@ -133,6 +139,6 @@ export class TaskScalarWhereInput {
     @Field(() => IntFilter, {nullable:true})
     organizationId?: IntFilter;
 
-    @Field(() => IntFilter, {nullable:true})
-    teamId?: IntFilter;
+    @Field(() => IntNullableFilter, {nullable:true})
+    teamId?: IntNullableFilter;
 }

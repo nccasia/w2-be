@@ -17,13 +17,22 @@ export class TriggerCountAggregateInput {
     type?: true;
 
     @Field(() => Boolean, {nullable:true})
+    status?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    key?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    value?: true;
+
+    @Field(() => Boolean, {nullable:true})
     name?: true;
 
     @Field(() => Boolean, {nullable:true})
     description?: true;
 
     @Field(() => Boolean, {nullable:true})
-    activityId?: true;
+    taskId?: true;
 
     @Field(() => Boolean, {nullable:true})
     _all?: true;

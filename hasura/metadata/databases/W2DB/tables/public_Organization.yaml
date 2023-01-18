@@ -72,10 +72,3 @@ array_relationships:
         table:
           name: User
           schema: public
-  - name: Workflows
-    using:
-      foreign_key_constraint_on:
-        column: organizationId
-        table:
-          name: Workflow
-          schema: public

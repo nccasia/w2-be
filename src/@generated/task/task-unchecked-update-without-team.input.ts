@@ -12,6 +12,7 @@ import { CommentUncheckedUpdateManyWithoutTaskNestedInput } from '../comment/com
 import { EventLogUncheckedUpdateManyWithoutTaskNestedInput } from '../event-log/event-log-unchecked-update-many-without-task-nested.input';
 import { NullableIntFieldUpdateOperationsInput } from '../prisma/nullable-int-field-update-operations.input';
 import { TaskUncheckedUpdateManyWithoutParentTaskNestedInput } from './task-unchecked-update-many-without-parent-task-nested.input';
+import { TriggerUncheckedUpdateManyWithoutTaskNestedInput } from '../trigger/trigger-unchecked-update-many-without-task-nested.input';
 
 @InputType()
 export class TaskUncheckedUpdateWithoutTeamInput {
@@ -33,6 +34,9 @@ export class TaskUncheckedUpdateWithoutTeamInput {
 
     @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
     isActve?: BoolFieldUpdateOperationsInput;
+
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    key?: StringFieldUpdateOperationsInput;
 
     @Field(() => GraphQLJSON, {nullable:true})
     properties?: any;
@@ -104,6 +108,9 @@ export class TaskUncheckedUpdateWithoutTeamInput {
     ctaConfig?: any;
 
     @Field(() => GraphQLJSON, {nullable:true})
+    formConfig?: any;
+
+    @Field(() => GraphQLJSON, {nullable:true})
     config?: any;
 
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
@@ -135,4 +142,7 @@ export class TaskUncheckedUpdateWithoutTeamInput {
 
     @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
     organizationId?: IntFieldUpdateOperationsInput;
+
+    @Field(() => TriggerUncheckedUpdateManyWithoutTaskNestedInput, {nullable:true})
+    Trigger?: TriggerUncheckedUpdateManyWithoutTaskNestedInput;
 }

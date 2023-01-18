@@ -21,6 +21,9 @@ export class TaskDefinitionGroupBy {
     updatedAt!: Date | string;
 
     @Field(() => String, {nullable:false})
+    keyTemplate!: string;
+
+    @Field(() => String, {nullable:false})
     title!: string;
 
     @Field(() => String, {nullable:false})
@@ -79,12 +82,6 @@ export class TaskDefinitionGroupBy {
 
     @Field(() => Int, {nullable:true})
     parentId?: number;
-
-    @Field(() => Int, {nullable:true})
-    workflowId?: number;
-
-    @Field(() => Int, {nullable:true})
-    actvityId?: number;
 
     @Field(() => TaskDefinitionCountAggregate, {nullable:true})
     _count?: TaskDefinitionCountAggregate;

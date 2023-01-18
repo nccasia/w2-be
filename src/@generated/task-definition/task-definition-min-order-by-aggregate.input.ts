@@ -15,6 +15,9 @@ export class TaskDefinitionMinOrderByAggregateInput {
     updatedAt?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
+    keyTemplate?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
     title?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
@@ -52,10 +55,4 @@ export class TaskDefinitionMinOrderByAggregateInput {
 
     @Field(() => SortOrder, {nullable:true})
     parentId?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
-    workflowId?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
-    actvityId?: keyof typeof SortOrder;
 }

@@ -1,6 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { FormCreateNestedOneWithoutTaskDefinitionsInput } from '../form/form-create-nested-one-without-task-definitions.input';
+import { FormDefinetionCreateNestedOneWithoutTaskDefinitionsInput } from '../form-definetion/form-definetion-create-nested-one-without-task-definitions.input';
 import { GraphQLJSON } from 'graphql-type-json';
 import { TaskCreateNestedManyWithoutDefinitionInput } from '../task/task-create-nested-many-without-definition.input';
 import { OrganizationCreateNestedOneWithoutTaskDefinitionsInput } from '../organization/organization-create-nested-one-without-task-definitions.input';
@@ -29,8 +29,8 @@ export class TaskDefinitionCreateWithoutWorkflowInput {
     @Field(() => String, {nullable:false})
     thumbnail!: string;
 
-    @Field(() => FormCreateNestedOneWithoutTaskDefinitionsInput, {nullable:true})
-    form?: FormCreateNestedOneWithoutTaskDefinitionsInput;
+    @Field(() => FormDefinetionCreateNestedOneWithoutTaskDefinitionsInput, {nullable:true})
+    form?: FormDefinetionCreateNestedOneWithoutTaskDefinitionsInput;
 
     @Field(() => String, {nullable:true})
     descriptionTemplate?: string;

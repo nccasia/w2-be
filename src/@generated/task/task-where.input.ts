@@ -17,6 +17,7 @@ import { TaskRelationFilter } from './task-relation-filter.input';
 import { TaskListRelationFilter } from './task-list-relation-filter.input';
 import { OrganizationRelationFilter } from '../organization/organization-relation-filter.input';
 import { TeamRelationFilter } from '../team/team-relation-filter.input';
+import { TriggerListRelationFilter } from '../trigger/trigger-list-relation-filter.input';
 
 @InputType()
 export class TaskWhereInput {
@@ -47,6 +48,9 @@ export class TaskWhereInput {
 
     @Field(() => BoolFilter, {nullable:true})
     isActve?: BoolFilter;
+
+    @Field(() => StringFilter, {nullable:true})
+    key?: StringFilter;
 
     @Field(() => JsonNullableFilter, {nullable:true})
     properties?: JsonNullableFilter;
@@ -118,6 +122,9 @@ export class TaskWhereInput {
     ctaConfig?: JsonNullableFilter;
 
     @Field(() => JsonNullableFilter, {nullable:true})
+    formConfig?: JsonNullableFilter;
+
+    @Field(() => JsonNullableFilter, {nullable:true})
     config?: JsonNullableFilter;
 
     @Field(() => DateTimeFilter, {nullable:true})
@@ -165,9 +172,12 @@ export class TaskWhereInput {
     @Field(() => OrganizationRelationFilter, {nullable:true})
     organization?: OrganizationRelationFilter;
 
-    @Field(() => IntFilter, {nullable:true})
-    teamId?: IntFilter;
+    @Field(() => IntNullableFilter, {nullable:true})
+    teamId?: IntNullableFilter;
 
     @Field(() => TeamRelationFilter, {nullable:true})
     team?: TeamRelationFilter;
+
+    @Field(() => TriggerListRelationFilter, {nullable:true})
+    Trigger?: TriggerListRelationFilter;
 }

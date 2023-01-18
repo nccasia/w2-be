@@ -14,6 +14,9 @@ export class TaskDefinitionMaxAggregateInput {
     updatedAt?: true;
 
     @Field(() => Boolean, {nullable:true})
+    keyTemplate?: true;
+
+    @Field(() => Boolean, {nullable:true})
     title?: true;
 
     @Field(() => Boolean, {nullable:true})
@@ -51,10 +54,4 @@ export class TaskDefinitionMaxAggregateInput {
 
     @Field(() => Boolean, {nullable:true})
     parentId?: true;
-
-    @Field(() => Boolean, {nullable:true})
-    workflowId?: true;
-
-    @Field(() => Boolean, {nullable:true})
-    actvityId?: true;
 }

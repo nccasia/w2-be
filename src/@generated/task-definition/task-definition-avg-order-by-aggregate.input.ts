@@ -16,10 +16,4 @@ export class TaskDefinitionAvgOrderByAggregateInput {
 
     @Field(() => SortOrder, {nullable:true})
     parentId?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
-    workflowId?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
-    actvityId?: keyof typeof SortOrder;
 }

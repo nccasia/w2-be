@@ -1,0 +1,10 @@
+table:
+  name: TaskDefinitionActivityDefinition
+  schema: public
+object_relationships:
+  - name: ActivityDefinition
+    using:
+      foreign_key_constraint_on: activityDefinitionId
+  - name: TaskDefinition
+    using:
+      foreign_key_constraint_on: taskDefinitionId

@@ -29,6 +29,9 @@ export class TaskDefinitionScalarWhereWithAggregatesInput {
     updatedAt?: DateTimeWithAggregatesFilter;
 
     @Field(() => StringWithAggregatesFilter, {nullable:true})
+    keyTemplate?: StringWithAggregatesFilter;
+
+    @Field(() => StringWithAggregatesFilter, {nullable:true})
     title?: StringWithAggregatesFilter;
 
     @Field(() => StringWithAggregatesFilter, {nullable:true})
@@ -87,10 +90,4 @@ export class TaskDefinitionScalarWhereWithAggregatesInput {
 
     @Field(() => IntNullableWithAggregatesFilter, {nullable:true})
     parentId?: IntNullableWithAggregatesFilter;
-
-    @Field(() => IntNullableWithAggregatesFilter, {nullable:true})
-    workflowId?: IntNullableWithAggregatesFilter;
-
-    @Field(() => IntNullableWithAggregatesFilter, {nullable:true})
-    actvityId?: IntNullableWithAggregatesFilter;
 }

@@ -6,6 +6,7 @@ import { GraphQLJSON } from 'graphql-type-json';
 import { CommentUncheckedCreateNestedManyWithoutTaskInput } from '../comment/comment-unchecked-create-nested-many-without-task.input';
 import { EventLogUncheckedCreateNestedManyWithoutTaskInput } from '../event-log/event-log-unchecked-create-nested-many-without-task.input';
 import { TaskUncheckedCreateNestedManyWithoutParentTaskInput } from './task-unchecked-create-nested-many-without-parent-task.input';
+import { TriggerUncheckedCreateNestedManyWithoutTaskInput } from '../trigger/trigger-unchecked-create-nested-many-without-task.input';
 
 @InputType()
 export class TaskUncheckedCreateWithoutTeamInput {
@@ -27,6 +28,9 @@ export class TaskUncheckedCreateWithoutTeamInput {
 
     @Field(() => Boolean, {nullable:true})
     isActve?: boolean;
+
+    @Field(() => String, {nullable:false})
+    key!: string;
 
     @Field(() => GraphQLJSON, {nullable:true})
     properties?: any;
@@ -98,6 +102,9 @@ export class TaskUncheckedCreateWithoutTeamInput {
     ctaConfig?: any;
 
     @Field(() => GraphQLJSON, {nullable:true})
+    formConfig?: any;
+
+    @Field(() => GraphQLJSON, {nullable:true})
     config?: any;
 
     @Field(() => Date, {nullable:true})
@@ -129,4 +136,7 @@ export class TaskUncheckedCreateWithoutTeamInput {
 
     @Field(() => Int, {nullable:false})
     organizationId!: number;
+
+    @Field(() => TriggerUncheckedCreateNestedManyWithoutTaskInput, {nullable:true})
+    Trigger?: TriggerUncheckedCreateNestedManyWithoutTaskInput;
 }

@@ -9,5 +9,5 @@ export class TriggerSumAggregate {
     id?: number;
 
     @Field(() => Int, {nullable:true})
-    activityId?: number;
+    taskId?: number;
 }

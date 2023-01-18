@@ -18,6 +18,9 @@ export class TasksHasuraService {
     definition: { type: 'insert' },
   })
   handleUserCreated(evt: HasuraInsertEvent<Task>) {
+    if (evt.event?.data?.new?.status !== '') {
+      return;
+    }
     this.taskFactoryService.setupNewTask(evt.event.data.new);
   }
 }

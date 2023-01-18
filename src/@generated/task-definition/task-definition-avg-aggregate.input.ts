@@ -15,10 +15,4 @@ export class TaskDefinitionAvgAggregateInput {
 
     @Field(() => Boolean, {nullable:true})
     parentId?: true;
-
-    @Field(() => Boolean, {nullable:true})
-    workflowId?: true;
-
-    @Field(() => Boolean, {nullable:true})
-    actvityId?: true;
 }

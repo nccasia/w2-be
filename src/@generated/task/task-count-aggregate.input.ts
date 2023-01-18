@@ -23,6 +23,9 @@ export class TaskCountAggregateInput {
     isActve?: true;
 
     @Field(() => Boolean, {nullable:true})
+    key?: true;
+
+    @Field(() => Boolean, {nullable:true})
     properties?: true;
 
     @Field(() => Boolean, {nullable:true})
@@ -90,6 +93,9 @@ export class TaskCountAggregateInput {
 
     @Field(() => Boolean, {nullable:true})
     ctaConfig?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    formConfig?: true;
 
     @Field(() => Boolean, {nullable:true})
     config?: true;

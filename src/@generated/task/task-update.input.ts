@@ -15,7 +15,8 @@ import { UserUpdateOneRequiredWithoutCreatedTasksNestedInput } from '../user/use
 import { TaskUpdateOneWithoutSubTasksNestedInput } from './task-update-one-without-sub-tasks-nested.input';
 import { TaskUpdateManyWithoutParentTaskNestedInput } from './task-update-many-without-parent-task-nested.input';
 import { OrganizationUpdateOneRequiredWithoutTasksNestedInput } from '../organization/organization-update-one-required-without-tasks-nested.input';
-import { TeamUpdateOneRequiredWithoutTasksNestedInput } from '../team/team-update-one-required-without-tasks-nested.input';
+import { TeamUpdateOneWithoutTasksNestedInput } from '../team/team-update-one-without-tasks-nested.input';
+import { TriggerUpdateManyWithoutTaskNestedInput } from '../trigger/trigger-update-many-without-task-nested.input';
 
 @InputType()
 export class TaskUpdateInput {
@@ -34,6 +35,9 @@ export class TaskUpdateInput {
 
     @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
     isActve?: BoolFieldUpdateOperationsInput;
+
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    key?: StringFieldUpdateOperationsInput;
 
     @Field(() => GraphQLJSON, {nullable:true})
     properties?: any;
@@ -105,6 +109,9 @@ export class TaskUpdateInput {
     ctaConfig?: any;
 
     @Field(() => GraphQLJSON, {nullable:true})
+    formConfig?: any;
+
+    @Field(() => GraphQLJSON, {nullable:true})
     config?: any;
 
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
@@ -137,6 +144,9 @@ export class TaskUpdateInput {
     @Field(() => OrganizationUpdateOneRequiredWithoutTasksNestedInput, {nullable:true})
     organization?: OrganizationUpdateOneRequiredWithoutTasksNestedInput;
 
-    @Field(() => TeamUpdateOneRequiredWithoutTasksNestedInput, {nullable:true})
-    team?: TeamUpdateOneRequiredWithoutTasksNestedInput;
+    @Field(() => TeamUpdateOneWithoutTasksNestedInput, {nullable:true})
+    team?: TeamUpdateOneWithoutTasksNestedInput;
+
+    @Field(() => TriggerUpdateManyWithoutTaskNestedInput, {nullable:true})
+    Trigger?: TriggerUpdateManyWithoutTaskNestedInput;
 }

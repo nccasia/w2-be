@@ -8,7 +8,6 @@ import { SettingsOrderByRelationAggregateInput } from '../settings/settings-orde
 import { FileOrderByRelationAggregateInput } from '../file/file-order-by-relation-aggregate.input';
 import { EventLogOrderByRelationAggregateInput } from '../event-log/event-log-order-by-relation-aggregate.input';
 import { TaskDefinitionOrderByRelationAggregateInput } from '../task-definition/task-definition-order-by-relation-aggregate.input';
-import { WorkflowOrderByRelationAggregateInput } from '../workflow/workflow-order-by-relation-aggregate.input';
 import { PermissionGroupOrderByRelationAggregateInput } from '../permission-group/permission-group-order-by-relation-aggregate.input';
 import { PermissionOrderByRelationAggregateInput } from '../permission/permission-order-by-relation-aggregate.input';
 import { ResourceOrderByRelationAggregateInput } from '../resource/resource-order-by-relation-aggregate.input';
@@ -51,9 +50,6 @@ export class OrganizationOrderByWithRelationInput {
 
     @Field(() => TaskDefinitionOrderByRelationAggregateInput, {nullable:true})
     taskDefinitions?: TaskDefinitionOrderByRelationAggregateInput;
-
-    @Field(() => WorkflowOrderByRelationAggregateInput, {nullable:true})
-    workflows?: WorkflowOrderByRelationAggregateInput;
 
     @Field(() => PermissionGroupOrderByRelationAggregateInput, {nullable:true})
     permissionGroups?: PermissionGroupOrderByRelationAggregateInput;

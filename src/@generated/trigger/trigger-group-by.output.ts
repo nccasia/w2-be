@@ -2,6 +2,8 @@ import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { TriggerType } from '../prisma/trigger-type.enum';
+import { TriggerStatus } from '../prisma/trigger-status.enum';
+import { GraphQLJSON } from 'graphql-type-json';
 import { TriggerCountAggregate } from './trigger-count-aggregate.output';
 import { TriggerAvgAggregate } from './trigger-avg-aggregate.output';
 import { TriggerSumAggregate } from './trigger-sum-aggregate.output';
@@ -23,14 +25,23 @@ export class TriggerGroupBy {
     @Field(() => TriggerType, {nullable:false})
     type!: keyof typeof TriggerType;
 
-    @Field(() => String, {nullable:false})
-    name!: string;
+    @Field(() => TriggerStatus, {nullable:false})
+    status!: keyof typeof TriggerStatus;
 
     @Field(() => String, {nullable:false})
-    description!: string;
+    key!: string;
 
-    @Field(() => Int, {nullable:false})
-    activityId!: number;
+    @Field(() => GraphQLJSON, {nullable:true})
+    value?: any;
+
+    @Field(() => String, {nullable:true})
+    name?: string;
+
+    @Field(() => String, {nullable:true})
+    description?: string;
+
+    @Field(() => Int, {nullable:true})
+    taskId?: number;
 
     @Field(() => TriggerCountAggregate, {nullable:true})
     _count?: TriggerCountAggregate;

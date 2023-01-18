@@ -8,6 +8,7 @@ import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-str
 import { GraphQLJSON } from 'graphql-type-json';
 import { TaskUncheckedUpdateManyWithoutDefinitionNestedInput } from '../task/task-unchecked-update-many-without-definition-nested.input';
 import { TaskDefinitionUncheckedUpdateManyWithoutParentTaskDefinitionNestedInput } from './task-definition-unchecked-update-many-without-parent-task-definition-nested.input';
+import { TaskDefinitionActivityDefinitionUncheckedUpdateManyWithoutTaskDefinitionNestedInput } from '../task-definition-activity-definition/task-definition-activity-definition-unchecked-update-many-without-task-definition-nested.input';
 
 @InputType()
 export class TaskDefinitionUncheckedUpdateInput {
@@ -20,6 +21,9 @@ export class TaskDefinitionUncheckedUpdateInput {
 
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     updatedAt?: DateTimeFieldUpdateOperationsInput;
+
+    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
+    keyTemplate?: StringFieldUpdateOperationsInput;
 
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
     title?: StringFieldUpdateOperationsInput;
@@ -87,9 +91,6 @@ export class TaskDefinitionUncheckedUpdateInput {
     @Field(() => TaskDefinitionUncheckedUpdateManyWithoutParentTaskDefinitionNestedInput, {nullable:true})
     subTaskDefinitions?: TaskDefinitionUncheckedUpdateManyWithoutParentTaskDefinitionNestedInput;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    workflowId?: NullableIntFieldUpdateOperationsInput;
-
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    actvityId?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => TaskDefinitionActivityDefinitionUncheckedUpdateManyWithoutTaskDefinitionNestedInput, {nullable:true})
+    taskDefinitionActivityDefinitions?: TaskDefinitionActivityDefinitionUncheckedUpdateManyWithoutTaskDefinitionNestedInput;
 }

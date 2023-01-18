@@ -9,18 +9,25 @@ export class TaskFactoryService {
     private readonly prisma: PrismaService,
     private readonly taskDefinetionService: TaskDefinetionService
   ) {}
-
   async setupNewTask(data: Task): Promise<Task> {
     const existingTask = await this.prisma.task.findUnique({
       where: { id: data.id },
     });
 
     const builder = await this.taskDefinetionService.getTaskBuilderFromExisting(
-      existingTask
+      existingTask.id
     );
-    builder.configureTask();
-    await builder.save();
+    await builder.configureTask();
+    if (existingTask.parentId) {
+      await builder.configureParentTask();
+    } else {
+      await builder.configureSubtasks();
+    }
 
-    return builder.getTask();
+    await builder.configureTaskSchema();
+
+    const task = builder.getTask();
+
+    return task;
   }
 }

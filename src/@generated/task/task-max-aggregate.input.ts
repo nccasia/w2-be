@@ -23,6 +23,9 @@ export class TaskMaxAggregateInput {
     isActve?: true;
 
     @Field(() => Boolean, {nullable:true})
+    key?: true;
+
+    @Field(() => Boolean, {nullable:true})
     type?: true;
 
     @Field(() => Boolean, {nullable:true})

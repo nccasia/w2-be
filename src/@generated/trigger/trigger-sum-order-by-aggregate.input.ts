@@ -9,5 +9,5 @@ export class TriggerSumOrderByAggregateInput {
     id?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
-    activityId?: keyof typeof SortOrder;
+    taskId?: keyof typeof SortOrder;
 }

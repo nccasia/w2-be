@@ -25,6 +25,9 @@ export class TaskCreateManyAssigneeInput {
     @Field(() => Boolean, {nullable:true})
     isActve?: boolean;
 
+    @Field(() => String, {nullable:false})
+    key!: string;
+
     @Field(() => GraphQLJSON, {nullable:true})
     properties?: any;
 
@@ -95,6 +98,9 @@ export class TaskCreateManyAssigneeInput {
     ctaConfig?: any;
 
     @Field(() => GraphQLJSON, {nullable:true})
+    formConfig?: any;
+
+    @Field(() => GraphQLJSON, {nullable:true})
     config?: any;
 
     @Field(() => Date, {nullable:true})
@@ -115,6 +121,6 @@ export class TaskCreateManyAssigneeInput {
     @Field(() => Int, {nullable:false})
     organizationId!: number;
 
-    @Field(() => Int, {nullable:false})
-    teamId!: number;
+    @Field(() => Int, {nullable:true})
+    teamId?: number;
 }

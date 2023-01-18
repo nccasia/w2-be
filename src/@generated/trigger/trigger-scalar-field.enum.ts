@@ -5,9 +5,12 @@ export enum TriggerScalarFieldEnum {
     createdAt = "createdAt",
     updatedAt = "updatedAt",
     type = "type",
+    status = "status",
+    key = "key",
+    value = "value",
     name = "name",
     description = "description",
-    activityId = "activityId"
+    taskId = "taskId"
 }
 
 

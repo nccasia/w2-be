@@ -10,6 +10,9 @@ services:
     depends_on:
       - postgres
       - graphql-engine
+    links:
+      - postgres
+      - graphql-engine
     env_file:
       - .env
 

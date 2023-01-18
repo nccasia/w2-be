@@ -6,7 +6,6 @@ import { TeamCreateNestedManyWithoutOrganizationInput } from '../team/team-creat
 import { FileCreateNestedManyWithoutOrganizationInput } from '../file/file-create-nested-many-without-organization.input';
 import { EventLogCreateNestedManyWithoutOrganizationInput } from '../event-log/event-log-create-nested-many-without-organization.input';
 import { TaskDefinitionCreateNestedManyWithoutOrganizationInput } from '../task-definition/task-definition-create-nested-many-without-organization.input';
-import { WorkflowCreateNestedManyWithoutOrganizationInput } from '../workflow/workflow-create-nested-many-without-organization.input';
 import { PermissionGroupCreateNestedManyWithoutOrganizationInput } from '../permission-group/permission-group-create-nested-many-without-organization.input';
 import { PermissionCreateNestedManyWithoutOrganizationInput } from '../permission/permission-create-nested-many-without-organization.input';
 import { ResourceCreateNestedManyWithoutOrganizationInput } from '../resource/resource-create-nested-many-without-organization.input';
@@ -43,9 +42,6 @@ export class OrganizationCreateWithoutSettingsInput {
 
     @Field(() => TaskDefinitionCreateNestedManyWithoutOrganizationInput, {nullable:true})
     taskDefinitions?: TaskDefinitionCreateNestedManyWithoutOrganizationInput;
-
-    @Field(() => WorkflowCreateNestedManyWithoutOrganizationInput, {nullable:true})
-    workflows?: WorkflowCreateNestedManyWithoutOrganizationInput;
 
     @Field(() => PermissionGroupCreateNestedManyWithoutOrganizationInput, {nullable:true})
     permissionGroups?: PermissionGroupCreateNestedManyWithoutOrganizationInput;

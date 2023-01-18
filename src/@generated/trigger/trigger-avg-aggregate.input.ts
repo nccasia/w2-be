@@ -8,5 +8,5 @@ export class TriggerAvgAggregateInput {
     id?: true;
 
     @Field(() => Boolean, {nullable:true})
-    activityId?: true;
+    taskId?: true;
 }

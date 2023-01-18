@@ -13,4 +13,7 @@ export class TaskCount {
 
     @Field(() => Int, {nullable:false})
     subTasks?: number;
+
+    @Field(() => Int, {nullable:false})
+    Trigger?: number;
 }

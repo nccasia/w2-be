@@ -5,8 +5,7 @@ import { FormOrderByWithRelationInput } from '../form/form-order-by-with-relatio
 import { TaskOrderByRelationAggregateInput } from '../task/task-order-by-relation-aggregate.input';
 import { OrganizationOrderByWithRelationInput } from '../organization/organization-order-by-with-relation.input';
 import { TaskDefinitionOrderByRelationAggregateInput } from './task-definition-order-by-relation-aggregate.input';
-import { WorkflowOrderByWithRelationInput } from '../workflow/workflow-order-by-with-relation.input';
-import { ActivityOrderByWithRelationInput } from '../activity/activity-order-by-with-relation.input';
+import { TaskDefinitionActivityDefinitionOrderByRelationAggregateInput } from '../task-definition-activity-definition/task-definition-activity-definition-order-by-relation-aggregate.input';
 
 @InputType()
 export class TaskDefinitionOrderByWithRelationInput {
@@ -19,6 +18,9 @@ export class TaskDefinitionOrderByWithRelationInput {
 
     @Field(() => SortOrder, {nullable:true})
     updatedAt?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    keyTemplate?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
     title?: keyof typeof SortOrder;
@@ -95,15 +97,6 @@ export class TaskDefinitionOrderByWithRelationInput {
     @Field(() => TaskDefinitionOrderByRelationAggregateInput, {nullable:true})
     subTaskDefinitions?: TaskDefinitionOrderByRelationAggregateInput;
 
-    @Field(() => SortOrder, {nullable:true})
-    workflowId?: keyof typeof SortOrder;
-
-    @Field(() => WorkflowOrderByWithRelationInput, {nullable:true})
-    workflow?: WorkflowOrderByWithRelationInput;
-
-    @Field(() => SortOrder, {nullable:true})
-    actvityId?: keyof typeof SortOrder;
-
-    @Field(() => ActivityOrderByWithRelationInput, {nullable:true})
-    activity?: ActivityOrderByWithRelationInput;
+    @Field(() => TaskDefinitionActivityDefinitionOrderByRelationAggregateInput, {nullable:true})
+    taskDefinitionActivityDefinitions?: TaskDefinitionActivityDefinitionOrderByRelationAggregateInput;
 }

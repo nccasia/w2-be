@@ -11,8 +11,7 @@ import { TaskListRelationFilter } from '../task/task-list-relation-filter.input'
 import { OrganizationRelationFilter } from '../organization/organization-relation-filter.input';
 import { TaskDefinitionRelationFilter } from './task-definition-relation-filter.input';
 import { TaskDefinitionListRelationFilter } from './task-definition-list-relation-filter.input';
-import { WorkflowRelationFilter } from '../workflow/workflow-relation-filter.input';
-import { ActivityRelationFilter } from '../activity/activity-relation-filter.input';
+import { TaskDefinitionActivityDefinitionListRelationFilter } from '../task-definition-activity-definition/task-definition-activity-definition-list-relation-filter.input';
 
 @InputType()
 export class TaskDefinitionWhereInput {
@@ -34,6 +33,9 @@ export class TaskDefinitionWhereInput {
 
     @Field(() => DateTimeFilter, {nullable:true})
     updatedAt?: DateTimeFilter;
+
+    @Field(() => StringFilter, {nullable:true})
+    keyTemplate?: StringFilter;
 
     @Field(() => StringFilter, {nullable:true})
     title?: StringFilter;
@@ -110,15 +112,6 @@ export class TaskDefinitionWhereInput {
     @Field(() => TaskDefinitionListRelationFilter, {nullable:true})
     subTaskDefinitions?: TaskDefinitionListRelationFilter;
 
-    @Field(() => IntNullableFilter, {nullable:true})
-    workflowId?: IntNullableFilter;
-
-    @Field(() => WorkflowRelationFilter, {nullable:true})
-    workflow?: WorkflowRelationFilter;
-
-    @Field(() => IntNullableFilter, {nullable:true})
-    actvityId?: IntNullableFilter;
-
-    @Field(() => ActivityRelationFilter, {nullable:true})
-    activity?: ActivityRelationFilter;
+    @Field(() => TaskDefinitionActivityDefinitionListRelationFilter, {nullable:true})
+    taskDefinitionActivityDefinitions?: TaskDefinitionActivityDefinitionListRelationFilter;
 }

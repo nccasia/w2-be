@@ -10,7 +10,6 @@ import { SettingsUncheckedUpdateManyWithoutOrganizationNestedInput } from '../se
 import { FileUncheckedUpdateManyWithoutOrganizationNestedInput } from '../file/file-unchecked-update-many-without-organization-nested.input';
 import { EventLogUncheckedUpdateManyWithoutOrganizationNestedInput } from '../event-log/event-log-unchecked-update-many-without-organization-nested.input';
 import { TaskDefinitionUncheckedUpdateManyWithoutOrganizationNestedInput } from '../task-definition/task-definition-unchecked-update-many-without-organization-nested.input';
-import { WorkflowUncheckedUpdateManyWithoutOrganizationNestedInput } from '../workflow/workflow-unchecked-update-many-without-organization-nested.input';
 import { PermissionUncheckedUpdateManyWithoutOrganizationNestedInput } from '../permission/permission-unchecked-update-many-without-organization-nested.input';
 import { ResourceUncheckedUpdateManyWithoutOrganizationNestedInput } from '../resource/resource-unchecked-update-many-without-organization-nested.input';
 
@@ -52,9 +51,6 @@ export class OrganizationUncheckedUpdateWithoutPermissionGroupsInput {
 
     @Field(() => TaskDefinitionUncheckedUpdateManyWithoutOrganizationNestedInput, {nullable:true})
     taskDefinitions?: TaskDefinitionUncheckedUpdateManyWithoutOrganizationNestedInput;
-
-    @Field(() => WorkflowUncheckedUpdateManyWithoutOrganizationNestedInput, {nullable:true})
-    workflows?: WorkflowUncheckedUpdateManyWithoutOrganizationNestedInput;
 
     @Field(() => PermissionUncheckedUpdateManyWithoutOrganizationNestedInput, {nullable:true})
     permissions?: PermissionUncheckedUpdateManyWithoutOrganizationNestedInput;
