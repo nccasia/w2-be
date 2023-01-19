@@ -46,32 +46,32 @@ const DEFAULT_TASK_SCHEMA = {
       type: 'atomic',
       id: 'DOING',
     },
-    on: {
-      changeStatus: [
-        {
-          cond: 'isTodo',
-          target: '#TODO',
+    DONE: {
+      id: 'DONE',
+      type: 'final',
+      invoke: {
+        src: 'checkDone',
+        onErr: {
+          target: 'DOING',
         },
-        {
-          cond: 'isDiscarded',
-          target: '#DISCARDED',
-        },
-      ],
-    },
-  },
-  DONE: {
-    id: 'DONE',
-    type: 'final',
-    invoke: {
-      src: 'checkDone',
-      onErr: {
-        target: 'DOING',
       },
     },
+    DISCARDED: {
+      id: 'DISCARDED',
+      type: 'final',
+    },
   },
-  DISCARDED: {
-    id: 'DISCARDED',
-    type: 'final',
+  on: {
+    changeStatus: [
+      {
+        cond: 'isTodo',
+        target: '#TODO',
+      },
+      {
+        cond: 'isDiscarded',
+        target: '#DISCARDED',
+      },
+    ],
   },
 };
 
