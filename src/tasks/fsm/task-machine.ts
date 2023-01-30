@@ -72,7 +72,7 @@ export class TaskMachine {
     for (const subTask of this.task.subTasks) {
       const isActive = activeStates.includes(`DOING.${subTask.key}`);
       await this.prisma.task.update({
-        where: { id: subTask.taskId },
+        where: { id: subTask.id },
         data: { isActive },
       });
     }

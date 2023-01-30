@@ -5,6 +5,7 @@ const prisma = new PrismaClient();
 async function cleanUp() {
   console.log('Cleaning up...');
   await prisma.eventLog.deleteMany();
+  await prisma.comment.deleteMany();
   await prisma.task.deleteMany();
   await prisma.form.deleteMany();
   await prisma.taskDefinition.deleteMany();

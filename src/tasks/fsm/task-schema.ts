@@ -168,6 +168,13 @@ export class TaskSchema {
         },
         DOING: {
           type: 'atomic',
+          on: {
+            [`FORM_SUMBIT_${stateName}`]: [
+              {
+                target: 'DONE',
+              },
+            ],
+          },
         },
         PEDING: {
           type: 'atomic',
@@ -175,13 +182,6 @@ export class TaskSchema {
         DONE: {
           type: 'final',
         },
-      },
-      on: {
-        [`FORM_SUMBIT_${stateName}`]: [
-          {
-            target: 'DONE',
-          },
-        ],
       },
     });
     return this;

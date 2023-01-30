@@ -154,10 +154,12 @@ export class TaskBuilder {
 
   async configureTaskForm() {
     if (this.definetion.formId) {
-      const form = this.prisma.form.findUnique({
+      const form = await this.prisma.form.findUnique({
         where: { id: this.definetion.formId },
       });
       const payload = JSON.parse(JSON.stringify(form));
+      payload.id = undefined;
+
       const newForm = await this.prisma.form.create({
         data: payload,
       });
