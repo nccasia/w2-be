@@ -22,7 +22,7 @@ export class TaskMaxAggregate {
     priority?: keyof typeof TaskPriority;
 
     @Field(() => Boolean, {nullable:true})
-    isActve?: boolean;
+    isActive?: boolean;
 
     @Field(() => String, {nullable:true})
     key?: string;
@@ -82,6 +82,12 @@ export class TaskMaxAggregate {
     definitionId?: number;
 
     @Field(() => Int, {nullable:true})
+    formId?: number;
+
+    @Field(() => Int, {nullable:true})
+    projectId?: number;
+
+    @Field(() => Int, {nullable:true})
     assigneeId?: number;
 
     @Field(() => Int, {nullable:true})
@@ -92,6 +98,9 @@ export class TaskMaxAggregate {
 
     @Field(() => Int, {nullable:true})
     organizationId?: number;
+
+    @Field(() => Int, {nullable:true})
+    reporterId?: number;
 
     @Field(() => Int, {nullable:true})
     teamId?: number;

@@ -27,7 +27,7 @@ export class TaskUncheckedCreateWithoutOrganizationInput {
     priority?: keyof typeof TaskPriority;
 
     @Field(() => Boolean, {nullable:true})
-    isActve?: boolean;
+    isActive?: boolean;
 
     @Field(() => String, {nullable:false})
     key!: string;
@@ -84,6 +84,9 @@ export class TaskUncheckedCreateWithoutOrganizationInput {
     ctaTemplate?: string;
 
     @Field(() => GraphQLJSON, {nullable:true})
+    machineConfig?: any;
+
+    @Field(() => GraphQLJSON, {nullable:true})
     stateConfig?: any;
 
     @Field(() => GraphQLJSON, {nullable:true})
@@ -123,6 +126,12 @@ export class TaskUncheckedCreateWithoutOrganizationInput {
     eventLogs?: EventLogUncheckedCreateNestedManyWithoutTaskInput;
 
     @Field(() => Int, {nullable:true})
+    formId?: number;
+
+    @Field(() => Int, {nullable:true})
+    projectId?: number;
+
+    @Field(() => Int, {nullable:true})
     assigneeId?: number;
 
     @Field(() => Int, {nullable:false})
@@ -133,6 +142,9 @@ export class TaskUncheckedCreateWithoutOrganizationInput {
 
     @Field(() => TaskUncheckedCreateNestedManyWithoutParentTaskInput, {nullable:true})
     subTasks?: TaskUncheckedCreateNestedManyWithoutParentTaskInput;
+
+    @Field(() => Int, {nullable:true})
+    reporterId?: number;
 
     @Field(() => Int, {nullable:true})
     teamId?: number;

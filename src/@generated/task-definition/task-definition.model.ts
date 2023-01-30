@@ -7,6 +7,8 @@ import { GraphQLJSON } from 'graphql-type-json';
 import { Task } from '../task/task.model';
 import { Organization } from '../organization/organization.model';
 import { TaskDefinitionActivityDefinition } from '../task-definition-activity-definition/task-definition-activity-definition.model';
+import { Project } from '../project/project.model';
+import { TaskBoard } from '../task-board/task-board.model';
 import { TaskDefinitionCount } from './task-definition-count.output';
 
 @ObjectType()
@@ -21,8 +23,8 @@ export class TaskDefinition {
     @Field(() => Date, {nullable:false})
     updatedAt!: Date;
 
-    @Field(() => String, {nullable:false,defaultValue:'task-{{id}}'})
-    keyTemplate!: string;
+    @Field(() => String, {nullable:true})
+    keyTemplate!: string | null;
 
     @Field(() => String, {nullable:false})
     title!: string;
@@ -59,6 +61,9 @@ export class TaskDefinition {
 
     @Field(() => String, {nullable:true})
     ctaTemplate!: string | null;
+
+    @Field(() => GraphQLJSON, {nullable:true})
+    machineConfig!: any | null;
 
     @Field(() => GraphQLJSON, {nullable:true})
     stateConfig!: any | null;
@@ -101,6 +106,12 @@ export class TaskDefinition {
 
     @Field(() => [TaskDefinitionActivityDefinition], {nullable:true})
     taskDefinitionActivityDefinitions?: Array<TaskDefinitionActivityDefinition>;
+
+    @Field(() => [Project], {nullable:true})
+    projects?: Array<Project>;
+
+    @Field(() => [TaskBoard], {nullable:true})
+    taskBoards?: Array<TaskBoard>;
 
     @Field(() => TaskDefinitionCount, {nullable:false})
     _count?: TaskDefinitionCount;

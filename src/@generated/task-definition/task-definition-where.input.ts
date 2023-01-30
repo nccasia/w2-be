@@ -2,16 +2,18 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { IntFilter } from '../prisma/int-filter.input';
 import { DateTimeFilter } from '../prisma/date-time-filter.input';
+import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
 import { StringFilter } from '../prisma/string-filter.input';
 import { IntNullableFilter } from '../prisma/int-nullable-filter.input';
 import { FormRelationFilter } from '../form/form-relation-filter.input';
-import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
 import { JsonNullableFilter } from '../prisma/json-nullable-filter.input';
 import { TaskListRelationFilter } from '../task/task-list-relation-filter.input';
 import { OrganizationRelationFilter } from '../organization/organization-relation-filter.input';
 import { TaskDefinitionRelationFilter } from './task-definition-relation-filter.input';
 import { TaskDefinitionListRelationFilter } from './task-definition-list-relation-filter.input';
 import { TaskDefinitionActivityDefinitionListRelationFilter } from '../task-definition-activity-definition/task-definition-activity-definition-list-relation-filter.input';
+import { ProjectListRelationFilter } from '../project/project-list-relation-filter.input';
+import { TaskBoardListRelationFilter } from '../task-board/task-board-list-relation-filter.input';
 
 @InputType()
 export class TaskDefinitionWhereInput {
@@ -34,8 +36,8 @@ export class TaskDefinitionWhereInput {
     @Field(() => DateTimeFilter, {nullable:true})
     updatedAt?: DateTimeFilter;
 
-    @Field(() => StringFilter, {nullable:true})
-    keyTemplate?: StringFilter;
+    @Field(() => StringNullableFilter, {nullable:true})
+    keyTemplate?: StringNullableFilter;
 
     @Field(() => StringFilter, {nullable:true})
     title?: StringFilter;
@@ -72,6 +74,9 @@ export class TaskDefinitionWhereInput {
 
     @Field(() => StringNullableFilter, {nullable:true})
     ctaTemplate?: StringNullableFilter;
+
+    @Field(() => JsonNullableFilter, {nullable:true})
+    machineConfig?: JsonNullableFilter;
 
     @Field(() => JsonNullableFilter, {nullable:true})
     stateConfig?: JsonNullableFilter;
@@ -114,4 +119,10 @@ export class TaskDefinitionWhereInput {
 
     @Field(() => TaskDefinitionActivityDefinitionListRelationFilter, {nullable:true})
     taskDefinitionActivityDefinitions?: TaskDefinitionActivityDefinitionListRelationFilter;
+
+    @Field(() => ProjectListRelationFilter, {nullable:true})
+    projects?: ProjectListRelationFilter;
+
+    @Field(() => TaskBoardListRelationFilter, {nullable:true})
+    taskBoards?: TaskBoardListRelationFilter;
 }

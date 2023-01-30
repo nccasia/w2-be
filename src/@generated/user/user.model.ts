@@ -12,6 +12,9 @@ import { Comment } from '../comment/comment.model';
 import { EventLog } from '../event-log/event-log.model';
 import { Role } from '../prisma/role.enum';
 import { UserPermission } from '../user-permission/user-permission.model';
+import { UserSetting } from '../user-setting/user-setting.model';
+import { MemberOnProjects } from '../member-on-projects/member-on-projects.model';
+import { Project } from '../project/project.model';
 import { UserCount } from './user-count.output';
 
 @ObjectType()
@@ -79,6 +82,24 @@ export class User {
 
     @Field(() => [UserPermission], {nullable:true})
     userPermissions?: Array<UserPermission>;
+
+    @Field(() => [UserSetting], {nullable:true})
+    userSettings?: Array<UserSetting>;
+
+    @Field(() => [MemberOnProjects], {nullable:true})
+    memberOnProjects?: Array<MemberOnProjects>;
+
+    @Field(() => [Project], {nullable:true})
+    managedProjects?: Array<Project>;
+
+    @Field(() => [Project], {nullable:true})
+    createdProjects?: Array<Project>;
+
+    @Field(() => [Task], {nullable:true})
+    reportedTasks?: Array<Task>;
+
+    @Field(() => [Project], {nullable:true})
+    repotedProjects?: Array<Project>;
 
     @Field(() => UserCount, {nullable:false})
     _count?: UserCount;

@@ -24,7 +24,7 @@ export class TaskUpdateManyMutationInput {
     priority?: EnumTaskPriorityFieldUpdateOperationsInput;
 
     @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
-    isActve?: BoolFieldUpdateOperationsInput;
+    isActive?: BoolFieldUpdateOperationsInput;
 
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
     key?: StringFieldUpdateOperationsInput;
@@ -79,6 +79,9 @@ export class TaskUpdateManyMutationInput {
 
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     ctaTemplate?: NullableStringFieldUpdateOperationsInput;
+
+    @Field(() => GraphQLJSON, {nullable:true})
+    machineConfig?: any;
 
     @Field(() => GraphQLJSON, {nullable:true})
     stateConfig?: any;

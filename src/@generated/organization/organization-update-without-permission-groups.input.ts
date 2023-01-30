@@ -11,6 +11,8 @@ import { EventLogUpdateManyWithoutOrganizationNestedInput } from '../event-log/e
 import { TaskDefinitionUpdateManyWithoutOrganizationNestedInput } from '../task-definition/task-definition-update-many-without-organization-nested.input';
 import { PermissionUpdateManyWithoutOrganizationNestedInput } from '../permission/permission-update-many-without-organization-nested.input';
 import { ResourceUpdateManyWithoutOrganizationNestedInput } from '../resource/resource-update-many-without-organization-nested.input';
+import { ProjectUpdateManyWithoutOrganizationNestedInput } from '../project/project-update-many-without-organization-nested.input';
+import { TaskBoardUpdateManyWithoutOrganizationNestedInput } from '../task-board/task-board-update-many-without-organization-nested.input';
 
 @InputType()
 export class OrganizationUpdateWithoutPermissionGroupsInput {
@@ -53,4 +55,10 @@ export class OrganizationUpdateWithoutPermissionGroupsInput {
 
     @Field(() => ResourceUpdateManyWithoutOrganizationNestedInput, {nullable:true})
     resources?: ResourceUpdateManyWithoutOrganizationNestedInput;
+
+    @Field(() => ProjectUpdateManyWithoutOrganizationNestedInput, {nullable:true})
+    projects?: ProjectUpdateManyWithoutOrganizationNestedInput;
+
+    @Field(() => TaskBoardUpdateManyWithoutOrganizationNestedInput, {nullable:true})
+    taskBoards?: TaskBoardUpdateManyWithoutOrganizationNestedInput;
 }

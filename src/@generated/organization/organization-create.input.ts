@@ -10,6 +10,8 @@ import { TaskDefinitionCreateNestedManyWithoutOrganizationInput } from '../task-
 import { PermissionGroupCreateNestedManyWithoutOrganizationInput } from '../permission-group/permission-group-create-nested-many-without-organization.input';
 import { PermissionCreateNestedManyWithoutOrganizationInput } from '../permission/permission-create-nested-many-without-organization.input';
 import { ResourceCreateNestedManyWithoutOrganizationInput } from '../resource/resource-create-nested-many-without-organization.input';
+import { ProjectCreateNestedManyWithoutOrganizationInput } from '../project/project-create-nested-many-without-organization.input';
+import { TaskBoardCreateNestedManyWithoutOrganizationInput } from '../task-board/task-board-create-nested-many-without-organization.input';
 
 @InputType()
 export class OrganizationCreateInput {
@@ -55,4 +57,10 @@ export class OrganizationCreateInput {
 
     @Field(() => ResourceCreateNestedManyWithoutOrganizationInput, {nullable:true})
     resources?: ResourceCreateNestedManyWithoutOrganizationInput;
+
+    @Field(() => ProjectCreateNestedManyWithoutOrganizationInput, {nullable:true})
+    projects?: ProjectCreateNestedManyWithoutOrganizationInput;
+
+    @Field(() => TaskBoardCreateNestedManyWithoutOrganizationInput, {nullable:true})
+    taskBoards?: TaskBoardCreateNestedManyWithoutOrganizationInput;
 }

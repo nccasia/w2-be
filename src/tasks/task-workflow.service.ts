@@ -1,14 +1,32 @@
 import { Injectable } from '@nestjs/common';
-import { Task } from '@prisma/client';
+import { ModuleRef } from '@nestjs/core';
 import { PrismaService } from 'nestjs-prisma';
-import { interpret, createMachine } from 'xstate';
 import { TaskMachine } from './fsm/task-machine';
+import { TaskService } from './tasks.service';
+import { TriggerService } from './triggers/trigger.service';
 
 @Injectable()
-export class TaskFsmService {
-  constructor(private prisma: PrismaService) {}
+export class TaskWorkflowService {
+  constructor(
+    private readonly taskService: TaskService,
+    private readonly prisma: PrismaService,
+    private readonly moduleRef: ModuleRef,
+    private readonly triggerService: TriggerService
+  ) {}
 
-  async updateTask(taskId: number, newState: string) {
-    const machine = new TaskMachine(taskId, this.prisma);
+  async executeTaskMachine(taskId: number) {
+    const taskMachine = new TaskMachine(taskId, this.prisma);
+    await taskMachine.init();
+    await taskMachine.run();
+  }
+
+  async executeTaskTrigger(taskId: number, triggerId: number) {
+    const taskMachine = new TaskMachine(taskId, this.prisma);
+    await taskMachine.init();
+
+    const trigger = await this.triggerService.getTrigger(triggerId);
+    taskMachine.triggerEvent(trigger.key, trigger.value);
+
+    await taskMachine.run();
   }
 }

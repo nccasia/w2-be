@@ -38,7 +38,7 @@ export class TaskScalarWhereWithAggregatesInput {
     priority?: EnumTaskPriorityWithAggregatesFilter;
 
     @Field(() => BoolWithAggregatesFilter, {nullable:true})
-    isActve?: BoolWithAggregatesFilter;
+    isActive?: BoolWithAggregatesFilter;
 
     @Field(() => StringWithAggregatesFilter, {nullable:true})
     key?: StringWithAggregatesFilter;
@@ -95,6 +95,9 @@ export class TaskScalarWhereWithAggregatesInput {
     ctaTemplate?: StringNullableWithAggregatesFilter;
 
     @Field(() => JsonNullableWithAggregatesFilter, {nullable:true})
+    machineConfig?: JsonNullableWithAggregatesFilter;
+
+    @Field(() => JsonNullableWithAggregatesFilter, {nullable:true})
     stateConfig?: JsonNullableWithAggregatesFilter;
 
     @Field(() => JsonNullableWithAggregatesFilter, {nullable:true})
@@ -128,6 +131,12 @@ export class TaskScalarWhereWithAggregatesInput {
     definitionId?: IntWithAggregatesFilter;
 
     @Field(() => IntNullableWithAggregatesFilter, {nullable:true})
+    formId?: IntNullableWithAggregatesFilter;
+
+    @Field(() => IntNullableWithAggregatesFilter, {nullable:true})
+    projectId?: IntNullableWithAggregatesFilter;
+
+    @Field(() => IntNullableWithAggregatesFilter, {nullable:true})
     assigneeId?: IntNullableWithAggregatesFilter;
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
@@ -138,6 +147,9 @@ export class TaskScalarWhereWithAggregatesInput {
 
     @Field(() => IntWithAggregatesFilter, {nullable:true})
     organizationId?: IntWithAggregatesFilter;
+
+    @Field(() => IntNullableWithAggregatesFilter, {nullable:true})
+    reporterId?: IntNullableWithAggregatesFilter;
 
     @Field(() => IntNullableWithAggregatesFilter, {nullable:true})
     teamId?: IntNullableWithAggregatesFilter;

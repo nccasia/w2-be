@@ -14,6 +14,12 @@ import { PostUpdateManyWithoutAuthorNestedInput } from '../post/post-update-many
 import { EventLogUpdateManyWithoutUserNestedInput } from '../event-log/event-log-update-many-without-user-nested.input';
 import { EnumRoleFieldUpdateOperationsInput } from '../prisma/enum-role-field-update-operations.input';
 import { UserPermissionUpdateManyWithoutUserNestedInput } from '../user-permission/user-permission-update-many-without-user-nested.input';
+import { UserSettingUpdateManyWithoutUserNestedInput } from '../user-setting/user-setting-update-many-without-user-nested.input';
+import { MemberOnProjectsUpdateManyWithoutUserNestedInput } from '../member-on-projects/member-on-projects-update-many-without-user-nested.input';
+import { ProjectUpdateManyWithoutManagerNestedInput } from '../project/project-update-many-without-manager-nested.input';
+import { ProjectUpdateManyWithoutCreatorNestedInput } from '../project/project-update-many-without-creator-nested.input';
+import { TaskUpdateManyWithoutReporterNestedInput } from '../task/task-update-many-without-reporter-nested.input';
+import { ProjectUpdateManyWithoutReporterNestedInput } from '../project/project-update-many-without-reporter-nested.input';
 
 @InputType()
 export class UserUpdateWithoutCommentsInput {
@@ -68,4 +74,22 @@ export class UserUpdateWithoutCommentsInput {
 
     @Field(() => UserPermissionUpdateManyWithoutUserNestedInput, {nullable:true})
     userPermissions?: UserPermissionUpdateManyWithoutUserNestedInput;
+
+    @Field(() => UserSettingUpdateManyWithoutUserNestedInput, {nullable:true})
+    userSettings?: UserSettingUpdateManyWithoutUserNestedInput;
+
+    @Field(() => MemberOnProjectsUpdateManyWithoutUserNestedInput, {nullable:true})
+    memberOnProjects?: MemberOnProjectsUpdateManyWithoutUserNestedInput;
+
+    @Field(() => ProjectUpdateManyWithoutManagerNestedInput, {nullable:true})
+    managedProjects?: ProjectUpdateManyWithoutManagerNestedInput;
+
+    @Field(() => ProjectUpdateManyWithoutCreatorNestedInput, {nullable:true})
+    createdProjects?: ProjectUpdateManyWithoutCreatorNestedInput;
+
+    @Field(() => TaskUpdateManyWithoutReporterNestedInput, {nullable:true})
+    reportedTasks?: TaskUpdateManyWithoutReporterNestedInput;
+
+    @Field(() => ProjectUpdateManyWithoutReporterNestedInput, {nullable:true})
+    repotedProjects?: ProjectUpdateManyWithoutReporterNestedInput;
 }

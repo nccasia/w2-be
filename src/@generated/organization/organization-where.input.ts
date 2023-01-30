@@ -13,6 +13,8 @@ import { TaskDefinitionListRelationFilter } from '../task-definition/task-defini
 import { PermissionGroupListRelationFilter } from '../permission-group/permission-group-list-relation-filter.input';
 import { PermissionListRelationFilter } from '../permission/permission-list-relation-filter.input';
 import { ResourceListRelationFilter } from '../resource/resource-list-relation-filter.input';
+import { ProjectListRelationFilter } from '../project/project-list-relation-filter.input';
+import { TaskBoardListRelationFilter } from '../task-board/task-board-list-relation-filter.input';
 
 @InputType()
 export class OrganizationWhereInput {
@@ -70,4 +72,10 @@ export class OrganizationWhereInput {
 
     @Field(() => ResourceListRelationFilter, {nullable:true})
     resources?: ResourceListRelationFilter;
+
+    @Field(() => ProjectListRelationFilter, {nullable:true})
+    projects?: ProjectListRelationFilter;
+
+    @Field(() => TaskBoardListRelationFilter, {nullable:true})
+    taskBoards?: TaskBoardListRelationFilter;
 }

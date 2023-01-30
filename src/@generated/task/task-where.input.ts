@@ -12,6 +12,8 @@ import { TaskDefinitionRelationFilter } from '../task-definition/task-definition
 import { CommentListRelationFilter } from '../comment/comment-list-relation-filter.input';
 import { EventLogListRelationFilter } from '../event-log/event-log-list-relation-filter.input';
 import { IntNullableFilter } from '../prisma/int-nullable-filter.input';
+import { FormRelationFilter } from '../form/form-relation-filter.input';
+import { ProjectRelationFilter } from '../project/project-relation-filter.input';
 import { UserRelationFilter } from '../user/user-relation-filter.input';
 import { TaskRelationFilter } from './task-relation-filter.input';
 import { TaskListRelationFilter } from './task-list-relation-filter.input';
@@ -47,7 +49,7 @@ export class TaskWhereInput {
     priority?: EnumTaskPriorityFilter;
 
     @Field(() => BoolFilter, {nullable:true})
-    isActve?: BoolFilter;
+    isActive?: BoolFilter;
 
     @Field(() => StringFilter, {nullable:true})
     key?: StringFilter;
@@ -104,6 +106,9 @@ export class TaskWhereInput {
     ctaTemplate?: StringNullableFilter;
 
     @Field(() => JsonNullableFilter, {nullable:true})
+    machineConfig?: JsonNullableFilter;
+
+    @Field(() => JsonNullableFilter, {nullable:true})
     stateConfig?: JsonNullableFilter;
 
     @Field(() => JsonNullableFilter, {nullable:true})
@@ -146,6 +151,18 @@ export class TaskWhereInput {
     eventLogs?: EventLogListRelationFilter;
 
     @Field(() => IntNullableFilter, {nullable:true})
+    formId?: IntNullableFilter;
+
+    @Field(() => FormRelationFilter, {nullable:true})
+    form?: FormRelationFilter;
+
+    @Field(() => IntNullableFilter, {nullable:true})
+    projectId?: IntNullableFilter;
+
+    @Field(() => ProjectRelationFilter, {nullable:true})
+    project?: ProjectRelationFilter;
+
+    @Field(() => IntNullableFilter, {nullable:true})
     assigneeId?: IntNullableFilter;
 
     @Field(() => UserRelationFilter, {nullable:true})
@@ -171,6 +188,12 @@ export class TaskWhereInput {
 
     @Field(() => OrganizationRelationFilter, {nullable:true})
     organization?: OrganizationRelationFilter;
+
+    @Field(() => IntNullableFilter, {nullable:true})
+    reporterId?: IntNullableFilter;
+
+    @Field(() => UserRelationFilter, {nullable:true})
+    reporter?: UserRelationFilter;
 
     @Field(() => IntNullableFilter, {nullable:true})
     teamId?: IntNullableFilter;

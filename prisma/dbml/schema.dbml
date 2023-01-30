@@ -18,6 +18,8 @@ Table Organization {
   permissionGroups PermissionGroup [not null]
   permissions Permission [not null]
   resources Resource [not null]
+  projects Project [not null]
+  taskBoards TaskBoard [not null]
 }
 
 Table Resource {
@@ -98,6 +100,22 @@ Table User {
   taskEvents EventLog [not null]
   role Role [not null]
   userPermissions UserPermission [not null]
+  userSettings UserSetting [not null]
+  memberOnProjects MemberOnProjects [not null]
+  managedProjects Project [not null]
+  createdProjects Project [not null]
+  reportedTasks Task [not null]
+  repotedProjects Project [not null]
+}
+
+Table UserSetting {
+  id Int [pk, increment]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [default: `now()`, not null]
+  key String [not null]
+  value Json [not null, default: '{}']
+  user User [not null]
+  userId Int [not null]
 }
 
 Table Form {
@@ -113,6 +131,7 @@ Table Form {
   displayTemplate String [not null]
   displayConfig Json [not null]
   taskDefinitions TaskDefinition [not null]
+  tasks Task [not null]
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [default: `now()`, not null]
 }
@@ -162,6 +181,84 @@ Table Post {
   authorId Int
 }
 
+Table Project {
+  id Int [pk, increment]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [default: `now()`, not null]
+  name String [not null]
+  description String [not null]
+  code String [not null]
+  icon String [not null]
+  organization Organization [not null]
+  organizationId Int [not null]
+  taskDefinition TaskDefinition [not null]
+  taskDefinitionId Int [not null]
+  tasks Task [not null]
+  creator User [not null]
+  creatorId Int [not null]
+  manager User [not null]
+  managerId Int [not null]
+  reporter User [not null]
+  reporterId Int [not null]
+  members MemberOnProjects [not null]
+  taskBoards TaskBoard [not null]
+  settings ProjectSettings [not null]
+}
+
+Table TaskBoard {
+  id Int [pk, increment]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [default: `now()`, not null]
+  name String [not null]
+  description String [not null]
+  code String [not null]
+  icon String [not null]
+  type TaskBoardType [not null, default: 'Organization']
+  viewType TaskBoardViewType [not null, default: 'Todos']
+  viewConfig Json [not null, default: '{}']
+  visibility Visibility [not null, default: 'Public']
+  settings TaskBoardSettings [not null]
+  organization Organization [not null]
+  organizationId Int [not null]
+  project Project
+  projectId Int
+  taskDefinition TaskDefinition [not null]
+  taskDefinitionId Int [not null]
+}
+
+Table TaskBoardSettings {
+  id Int [pk, increment]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [default: `now()`, not null]
+  key String [not null]
+  value Json [not null, default: '{}']
+  taskBoard TaskBoard [not null]
+  taskBoardId Int [not null]
+}
+
+Table MemberOnProjects {
+  project Project [not null]
+  projectId Int [not null]
+  user User [not null]
+  userId Int [not null]
+  assignedAt DateTime [default: `now()`, not null]
+  assignedBy String [not null]
+
+  indexes {
+    (projectId, userId) [pk]
+  }
+}
+
+Table ProjectSettings {
+  id Int [pk, increment]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [default: `now()`, not null]
+  key String [not null]
+  value Json [not null, default: '{}']
+  project Project [not null]
+  projectId Int [not null]
+}
+
 Table Team {
   id Int [pk, increment]
   name String [not null]
@@ -196,7 +293,7 @@ Table TaskDefinition {
   id Int [pk, increment]
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [default: `now()`, not null]
-  keyTemplate String [not null, default: 'task-{{id}}']
+  keyTemplate String
   title String [not null]
   description String [not null]
   icon String [not null]
@@ -209,6 +306,7 @@ Table TaskDefinition {
   stateTemplate String
   notificationTemplate String
   ctaTemplate String
+  machineConfig Json
   stateConfig Json
   statusConfig Json
   notificationConfig Json
@@ -223,6 +321,8 @@ Table TaskDefinition {
   parentTaskDefinition TaskDefinition
   subTaskDefinitions TaskDefinition [not null]
   taskDefinitionActivityDefinitions TaskDefinitionActivityDefinition [not null]
+  projects Project [not null]
+  taskBoards TaskBoard [not null]
 }
 
 Table TaskDefinitionActivityDefinition {
@@ -243,7 +343,7 @@ Table Task {
   description String [not null]
   dueDate DateTime
   priority TaskPriority [not null, default: 'LOW']
-  isActve Boolean [not null, default: false]
+  isActive Boolean [not null, default: false]
   key String [not null]
   properties Json
   values Json
@@ -262,6 +362,7 @@ Table Task {
   stateTemplate String
   notificationTemplate String
   ctaTemplate String
+  machineConfig Json
   stateConfig Json
   statusConfig Json
   notificationConfig Json
@@ -276,6 +377,10 @@ Table Task {
   definition TaskDefinition [not null]
   comments Comment [not null]
   eventLogs EventLog [not null]
+  formId Int
+  form Form
+  projectId Int
+  project Project
   assigneeId Int
   assignee User
   creatorId Int [not null]
@@ -285,6 +390,8 @@ Table Task {
   subTasks Task [not null]
   organizationId Int [not null]
   organization Organization [not null]
+  reporterId Int
+  reporter User
   teamId Int
   team Team
   Trigger Trigger [not null]
@@ -358,6 +465,25 @@ Enum FileType {
   VARIANT
 }
 
+Enum TaskBoardViewType {
+  Todos
+  Kanban
+  Calendar
+  Matrix
+}
+
+Enum TaskBoardType {
+  Organization
+  Personal
+  Project
+  Team
+}
+
+Enum Visibility {
+  Public
+  Private
+}
+
 Enum Role {
   ADMIN
   USER
@@ -415,6 +541,8 @@ Ref: User.avatarId > File.id
 
 Ref: User.organizationId > Organization.id
 
+Ref: UserSetting.userId > User.id
+
 Ref: Permission.organizationId > Organization.id
 
 Ref: Permission.permissionGroupId > PermissionGroup.id
@@ -426,6 +554,30 @@ Ref: UserPermission.userId > User.id
 Ref: UserPermission.permissionId > Permission.id
 
 Ref: Post.authorId > User.id
+
+Ref: Project.organizationId > Organization.id
+
+Ref: Project.taskDefinitionId > TaskDefinition.id
+
+Ref: Project.creatorId > User.id
+
+Ref: Project.managerId > User.id
+
+Ref: Project.reporterId > User.id
+
+Ref: TaskBoard.organizationId > Organization.id
+
+Ref: TaskBoard.projectId > Project.id
+
+Ref: TaskBoard.taskDefinitionId > TaskDefinition.id
+
+Ref: TaskBoardSettings.taskBoardId > TaskBoard.id
+
+Ref: MemberOnProjects.projectId > Project.id
+
+Ref: MemberOnProjects.userId > User.id
+
+Ref: ProjectSettings.projectId > Project.id
 
 Ref: Team.creatorId > User.id
 
@@ -449,6 +601,10 @@ Ref: TaskDefinitionActivityDefinition.activityDefinitionId > ActivityDefinition.
 
 Ref: Task.definitionId > TaskDefinition.id
 
+Ref: Task.formId > Form.id
+
+Ref: Task.projectId > Project.id
+
 Ref: Task.assigneeId > User.id
 
 Ref: Task.creatorId > User.id
@@ -456,6 +612,8 @@ Ref: Task.creatorId > User.id
 Ref: Task.parentId - Task.id
 
 Ref: Task.organizationId > Organization.id
+
+Ref: Task.reporterId > User.id
 
 Ref: Task.teamId > Team.id
 

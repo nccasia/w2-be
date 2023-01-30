@@ -51,6 +51,9 @@ export class TaskDefinitionCountAggregate {
     ctaTemplate!: number;
 
     @Field(() => Int, {nullable:false})
+    machineConfig!: number;
+
+    @Field(() => Int, {nullable:false})
     stateConfig!: number;
 
     @Field(() => Int, {nullable:false})

@@ -6,7 +6,7 @@ export enum TaskScalarFieldEnum {
     description = "description",
     dueDate = "dueDate",
     priority = "priority",
-    isActve = "isActve",
+    isActive = "isActive",
     key = "key",
     properties = "properties",
     values = "values",
@@ -25,6 +25,7 @@ export enum TaskScalarFieldEnum {
     stateTemplate = "stateTemplate",
     notificationTemplate = "notificationTemplate",
     ctaTemplate = "ctaTemplate",
+    machineConfig = "machineConfig",
     stateConfig = "stateConfig",
     statusConfig = "statusConfig",
     notificationConfig = "notificationConfig",
@@ -36,10 +37,13 @@ export enum TaskScalarFieldEnum {
     createdAt = "createdAt",
     updatedAt = "updatedAt",
     definitionId = "definitionId",
+    formId = "formId",
+    projectId = "projectId",
     assigneeId = "assigneeId",
     creatorId = "creatorId",
     parentId = "parentId",
     organizationId = "organizationId",
+    reporterId = "reporterId",
     teamId = "teamId"
 }
 

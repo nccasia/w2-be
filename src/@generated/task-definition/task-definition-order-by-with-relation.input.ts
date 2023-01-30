@@ -6,6 +6,8 @@ import { TaskOrderByRelationAggregateInput } from '../task/task-order-by-relatio
 import { OrganizationOrderByWithRelationInput } from '../organization/organization-order-by-with-relation.input';
 import { TaskDefinitionOrderByRelationAggregateInput } from './task-definition-order-by-relation-aggregate.input';
 import { TaskDefinitionActivityDefinitionOrderByRelationAggregateInput } from '../task-definition-activity-definition/task-definition-activity-definition-order-by-relation-aggregate.input';
+import { ProjectOrderByRelationAggregateInput } from '../project/project-order-by-relation-aggregate.input';
+import { TaskBoardOrderByRelationAggregateInput } from '../task-board/task-board-order-by-relation-aggregate.input';
 
 @InputType()
 export class TaskDefinitionOrderByWithRelationInput {
@@ -59,6 +61,9 @@ export class TaskDefinitionOrderByWithRelationInput {
     ctaTemplate?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
+    machineConfig?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
     stateConfig?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
@@ -99,4 +104,10 @@ export class TaskDefinitionOrderByWithRelationInput {
 
     @Field(() => TaskDefinitionActivityDefinitionOrderByRelationAggregateInput, {nullable:true})
     taskDefinitionActivityDefinitions?: TaskDefinitionActivityDefinitionOrderByRelationAggregateInput;
+
+    @Field(() => ProjectOrderByRelationAggregateInput, {nullable:true})
+    projects?: ProjectOrderByRelationAggregateInput;
+
+    @Field(() => TaskBoardOrderByRelationAggregateInput, {nullable:true})
+    taskBoards?: TaskBoardOrderByRelationAggregateInput;
 }

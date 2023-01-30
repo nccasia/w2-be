@@ -15,6 +15,9 @@ import { CommentListRelationFilter } from '../comment/comment-list-relation-filt
 import { EventLogListRelationFilter } from '../event-log/event-log-list-relation-filter.input';
 import { EnumRoleFilter } from '../prisma/enum-role-filter.input';
 import { UserPermissionListRelationFilter } from '../user-permission/user-permission-list-relation-filter.input';
+import { UserSettingListRelationFilter } from '../user-setting/user-setting-list-relation-filter.input';
+import { MemberOnProjectsListRelationFilter } from '../member-on-projects/member-on-projects-list-relation-filter.input';
+import { ProjectListRelationFilter } from '../project/project-list-relation-filter.input';
 
 @InputType()
 export class UserWhereInput {
@@ -90,4 +93,22 @@ export class UserWhereInput {
 
     @Field(() => UserPermissionListRelationFilter, {nullable:true})
     userPermissions?: UserPermissionListRelationFilter;
+
+    @Field(() => UserSettingListRelationFilter, {nullable:true})
+    userSettings?: UserSettingListRelationFilter;
+
+    @Field(() => MemberOnProjectsListRelationFilter, {nullable:true})
+    memberOnProjects?: MemberOnProjectsListRelationFilter;
+
+    @Field(() => ProjectListRelationFilter, {nullable:true})
+    managedProjects?: ProjectListRelationFilter;
+
+    @Field(() => ProjectListRelationFilter, {nullable:true})
+    createdProjects?: ProjectListRelationFilter;
+
+    @Field(() => TaskListRelationFilter, {nullable:true})
+    reportedTasks?: TaskListRelationFilter;
+
+    @Field(() => ProjectListRelationFilter, {nullable:true})
+    repotedProjects?: ProjectListRelationFilter;
 }

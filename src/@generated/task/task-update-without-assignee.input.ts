@@ -10,10 +10,13 @@ import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-up
 import { TaskDefinitionUpdateOneRequiredWithoutTaskInstancesNestedInput } from '../task-definition/task-definition-update-one-required-without-task-instances-nested.input';
 import { CommentUpdateManyWithoutTaskNestedInput } from '../comment/comment-update-many-without-task-nested.input';
 import { EventLogUpdateManyWithoutTaskNestedInput } from '../event-log/event-log-update-many-without-task-nested.input';
+import { FormUpdateOneWithoutTasksNestedInput } from '../form/form-update-one-without-tasks-nested.input';
+import { ProjectUpdateOneWithoutTasksNestedInput } from '../project/project-update-one-without-tasks-nested.input';
 import { UserUpdateOneRequiredWithoutCreatedTasksNestedInput } from '../user/user-update-one-required-without-created-tasks-nested.input';
 import { TaskUpdateOneWithoutSubTasksNestedInput } from './task-update-one-without-sub-tasks-nested.input';
 import { TaskUpdateManyWithoutParentTaskNestedInput } from './task-update-many-without-parent-task-nested.input';
 import { OrganizationUpdateOneRequiredWithoutTasksNestedInput } from '../organization/organization-update-one-required-without-tasks-nested.input';
+import { UserUpdateOneWithoutReportedTasksNestedInput } from '../user/user-update-one-without-reported-tasks-nested.input';
 import { TeamUpdateOneWithoutTasksNestedInput } from '../team/team-update-one-without-tasks-nested.input';
 import { TriggerUpdateManyWithoutTaskNestedInput } from '../trigger/trigger-update-many-without-task-nested.input';
 
@@ -33,7 +36,7 @@ export class TaskUpdateWithoutAssigneeInput {
     priority?: EnumTaskPriorityFieldUpdateOperationsInput;
 
     @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
-    isActve?: BoolFieldUpdateOperationsInput;
+    isActive?: BoolFieldUpdateOperationsInput;
 
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
     key?: StringFieldUpdateOperationsInput;
@@ -90,6 +93,9 @@ export class TaskUpdateWithoutAssigneeInput {
     ctaTemplate?: NullableStringFieldUpdateOperationsInput;
 
     @Field(() => GraphQLJSON, {nullable:true})
+    machineConfig?: any;
+
+    @Field(() => GraphQLJSON, {nullable:true})
     stateConfig?: any;
 
     @Field(() => GraphQLJSON, {nullable:true})
@@ -128,6 +134,12 @@ export class TaskUpdateWithoutAssigneeInput {
     @Field(() => EventLogUpdateManyWithoutTaskNestedInput, {nullable:true})
     eventLogs?: EventLogUpdateManyWithoutTaskNestedInput;
 
+    @Field(() => FormUpdateOneWithoutTasksNestedInput, {nullable:true})
+    form?: FormUpdateOneWithoutTasksNestedInput;
+
+    @Field(() => ProjectUpdateOneWithoutTasksNestedInput, {nullable:true})
+    project?: ProjectUpdateOneWithoutTasksNestedInput;
+
     @Field(() => UserUpdateOneRequiredWithoutCreatedTasksNestedInput, {nullable:true})
     creator?: UserUpdateOneRequiredWithoutCreatedTasksNestedInput;
 
@@ -139,6 +151,9 @@ export class TaskUpdateWithoutAssigneeInput {
 
     @Field(() => OrganizationUpdateOneRequiredWithoutTasksNestedInput, {nullable:true})
     organization?: OrganizationUpdateOneRequiredWithoutTasksNestedInput;
+
+    @Field(() => UserUpdateOneWithoutReportedTasksNestedInput, {nullable:true})
+    reporter?: UserUpdateOneWithoutReportedTasksNestedInput;
 
     @Field(() => TeamUpdateOneWithoutTasksNestedInput, {nullable:true})
     team?: TeamUpdateOneWithoutTasksNestedInput;

@@ -11,6 +11,8 @@ import { TaskDefinitionUncheckedCreateNestedManyWithoutOrganizationInput } from 
 import { PermissionGroupUncheckedCreateNestedManyWithoutOrganizationInput } from '../permission-group/permission-group-unchecked-create-nested-many-without-organization.input';
 import { PermissionUncheckedCreateNestedManyWithoutOrganizationInput } from '../permission/permission-unchecked-create-nested-many-without-organization.input';
 import { ResourceUncheckedCreateNestedManyWithoutOrganizationInput } from '../resource/resource-unchecked-create-nested-many-without-organization.input';
+import { ProjectUncheckedCreateNestedManyWithoutOrganizationInput } from '../project/project-unchecked-create-nested-many-without-organization.input';
+import { TaskBoardUncheckedCreateNestedManyWithoutOrganizationInput } from '../task-board/task-board-unchecked-create-nested-many-without-organization.input';
 
 @InputType()
 export class OrganizationUncheckedCreateInput {
@@ -59,4 +61,10 @@ export class OrganizationUncheckedCreateInput {
 
     @Field(() => ResourceUncheckedCreateNestedManyWithoutOrganizationInput, {nullable:true})
     resources?: ResourceUncheckedCreateNestedManyWithoutOrganizationInput;
+
+    @Field(() => ProjectUncheckedCreateNestedManyWithoutOrganizationInput, {nullable:true})
+    projects?: ProjectUncheckedCreateNestedManyWithoutOrganizationInput;
+
+    @Field(() => TaskBoardUncheckedCreateNestedManyWithoutOrganizationInput, {nullable:true})
+    taskBoards?: TaskBoardUncheckedCreateNestedManyWithoutOrganizationInput;
 }

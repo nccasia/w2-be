@@ -3,6 +3,7 @@ import { InputType } from '@nestjs/graphql';
 import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
 import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
 import { GraphQLJSON } from 'graphql-type-json';
+import { TaskUncheckedUpdateManyWithoutFormNestedInput } from '../task/task-unchecked-update-many-without-form-nested.input';
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
 
 @InputType()
@@ -40,6 +41,9 @@ export class FormUncheckedUpdateWithoutTaskDefinitionsInput {
 
     @Field(() => GraphQLJSON, {nullable:true})
     displayConfig?: any;
+
+    @Field(() => TaskUncheckedUpdateManyWithoutFormNestedInput, {nullable:true})
+    tasks?: TaskUncheckedUpdateManyWithoutFormNestedInput;
 
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: DateTimeFieldUpdateOperationsInput;

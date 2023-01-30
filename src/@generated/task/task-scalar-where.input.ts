@@ -38,7 +38,7 @@ export class TaskScalarWhereInput {
     priority?: EnumTaskPriorityFilter;
 
     @Field(() => BoolFilter, {nullable:true})
-    isActve?: BoolFilter;
+    isActive?: BoolFilter;
 
     @Field(() => StringFilter, {nullable:true})
     key?: StringFilter;
@@ -95,6 +95,9 @@ export class TaskScalarWhereInput {
     ctaTemplate?: StringNullableFilter;
 
     @Field(() => JsonNullableFilter, {nullable:true})
+    machineConfig?: JsonNullableFilter;
+
+    @Field(() => JsonNullableFilter, {nullable:true})
     stateConfig?: JsonNullableFilter;
 
     @Field(() => JsonNullableFilter, {nullable:true})
@@ -128,6 +131,12 @@ export class TaskScalarWhereInput {
     definitionId?: IntFilter;
 
     @Field(() => IntNullableFilter, {nullable:true})
+    formId?: IntNullableFilter;
+
+    @Field(() => IntNullableFilter, {nullable:true})
+    projectId?: IntNullableFilter;
+
+    @Field(() => IntNullableFilter, {nullable:true})
     assigneeId?: IntNullableFilter;
 
     @Field(() => IntFilter, {nullable:true})
@@ -138,6 +147,9 @@ export class TaskScalarWhereInput {
 
     @Field(() => IntFilter, {nullable:true})
     organizationId?: IntFilter;
+
+    @Field(() => IntNullableFilter, {nullable:true})
+    reporterId?: IntNullableFilter;
 
     @Field(() => IntNullableFilter, {nullable:true})
     teamId?: IntNullableFilter;

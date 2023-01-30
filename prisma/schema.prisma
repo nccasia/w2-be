@@ -38,6 +38,8 @@ model Organization {
   permissionGroups PermissionGroup[]
   permissions      Permission[]
   resources        Resource[]
+  projects         Project[]
+  taskBoards       TaskBoard[]
 }
 
 model Resource {
@@ -139,6 +141,24 @@ model User {
   role          Role
 
   userPermissions UserPermission[]
+  userSettings UserSetting[]
+
+  memberOnProjects MemberOnProjects[]
+  managedProjects  Project[]          @relation("ProjectManager")
+  createdProjects  Project[]          @relation("ProjectCreator")
+  reportedTasks    Task[]             @relation("TaskReporter")
+  repotedProjects  Project[]          @relation("ProjectReporter")
+}
+
+model UserSetting {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+  key       String
+  value     Json     @default("{}")
+
+  user   User @relation(fields: [userId], references: [id])
+  userId Int
 }
 
 model Form {
@@ -157,6 +177,7 @@ model Form {
   displayConfig   Json
 
   taskDefinitions TaskDefinition[]
+  tasks           Task[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
@@ -215,6 +236,117 @@ model Post {
   authorId  Int?
 }
 
+model Project {
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now()) @updatedAt
+  name        String
+  description String
+  code        String
+  icon        String
+
+  organization   Organization @relation(fields: [organizationId], references: [id])
+  organizationId Int
+
+  taskDefinition   TaskDefinition @relation(fields: [taskDefinitionId], references: [id])
+  taskDefinitionId Int
+
+  tasks Task[]
+
+  creator   User @relation("ProjectCreator", fields: [creatorId], references: [id])
+  creatorId Int
+
+  manager   User @relation("ProjectManager", fields: [managerId], references: [id])
+  managerId Int
+
+  reporter   User @relation("ProjectReporter", fields: [reporterId], references: [id])
+  reporterId Int
+
+  members    MemberOnProjects[]
+  taskBoards TaskBoard[]
+  settings   ProjectSettings[]
+}
+
+enum TaskBoardViewType {
+  Todos
+  Kanban
+  Calendar
+  Matrix
+}
+
+enum TaskBoardType {
+  Organization
+  Personal
+  Project
+  Team
+}
+
+enum Visibility {
+  Public
+  Private
+}
+
+model TaskBoard {
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now()) @updatedAt
+  name        String
+  description String
+  code        String
+  icon        String
+
+  type       TaskBoardType     @default(Organization)
+  viewType   TaskBoardViewType @default(Todos)
+  viewConfig Json              @default("{}")
+
+  visibility Visibility          @default(Public)
+  settings   TaskBoardSettings[]
+
+  organization   Organization @relation(fields: [organizationId], references: [id])
+  organizationId Int
+
+  project   Project? @relation(fields: [projectId], references: [id])
+  projectId Int?
+
+  taskDefinition   TaskDefinition @relation(fields: [taskDefinitionId], references: [id])
+  taskDefinitionId Int
+}
+
+model TaskBoardSettings {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+  key       String
+  value     Json     @default("{}")
+
+  taskBoard   TaskBoard @relation(fields: [taskBoardId], references: [id])
+  taskBoardId Int
+}
+
+model MemberOnProjects {
+  project   Project @relation(fields: [projectId], references: [id])
+  projectId Int
+
+  user   User @relation(fields: [userId], references: [id])
+  userId Int
+
+  assignedAt DateTime @default(now())
+  assignedBy String
+
+  @@id([projectId, userId])
+}
+
+model ProjectSettings {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+  key       String
+  value     Json     @default("{}")
+
+  project   Project @relation(fields: [projectId], references: [id])
+  projectId Int
+}
+
 model Team {
   id          Int    @id @default(autoincrement())
   name        String
@@ -263,10 +395,10 @@ enum TaskPriority {
 }
 
 model TaskDefinition {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt
-  keyTemplate String @default("task-{{id}}")
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now()) @updatedAt
+  keyTemplate String?
 
   title       String
   description String
@@ -284,6 +416,7 @@ model TaskDefinition {
   notificationTemplate String?
   ctaTemplate          String?
 
+  machineConfig      Json?
   stateConfig        Json?
   statusConfig       Json?
   notificationConfig Json?
@@ -303,6 +436,9 @@ model TaskDefinition {
   subTaskDefinitions TaskDefinition[] @relation("TaskSubtaskDefinition")
 
   taskDefinitionActivityDefinitions TaskDefinitionActivityDefinition[]
+
+  projects Project[]
+  taskBoards TaskBoard[]
 
   @@index([parentId])
 }
@@ -332,7 +468,7 @@ model Task {
   description String
   dueDate     DateTime?
   priority    TaskPriority @default(LOW)
-  isActve     Boolean      @default(false)
+  isActive    Boolean      @default(false)
   key         String
 
   properties Json?
@@ -359,6 +495,7 @@ model Task {
   notificationTemplate String?
   ctaTemplate          String?
 
+  machineConfig      Json?
   stateConfig        Json?
   statusConfig       Json?
   notificationConfig Json?
@@ -377,6 +514,12 @@ model Task {
   comments  Comment[]
   eventLogs EventLog[]
 
+  formId Int?
+  form   Form? @relation(fields: [formId], references: [id])
+
+  projectId Int?
+  project   Project? @relation(fields: [projectId], references: [id])
+
   assigneeId Int?
   assignee   User? @relation("TaskAssignee", fields: [assigneeId], references: [id])
 
@@ -390,6 +533,9 @@ model Task {
 
   organizationId Int
   organization   Organization @relation(fields: [organizationId], references: [id])
+
+  reporterId Int?
+  reporter   User? @relation("TaskReporter", fields: [reporterId], references: [id])
 
   teamId  Int?
   team    Team?     @relation(fields: [teamId], references: [id])

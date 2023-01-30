@@ -12,6 +12,12 @@ export class TaskSumAggregate {
     definitionId?: number;
 
     @Field(() => Int, {nullable:true})
+    formId?: number;
+
+    @Field(() => Int, {nullable:true})
+    projectId?: number;
+
+    @Field(() => Int, {nullable:true})
     assigneeId?: number;
 
     @Field(() => Int, {nullable:true})
@@ -22,6 +28,9 @@ export class TaskSumAggregate {
 
     @Field(() => Int, {nullable:true})
     organizationId?: number;
+
+    @Field(() => Int, {nullable:true})
+    reporterId?: number;
 
     @Field(() => Int, {nullable:true})
     teamId?: number;

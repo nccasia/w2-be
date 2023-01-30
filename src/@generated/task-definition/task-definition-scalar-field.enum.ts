@@ -16,6 +16,7 @@ export enum TaskDefinitionScalarFieldEnum {
     stateTemplate = "stateTemplate",
     notificationTemplate = "notificationTemplate",
     ctaTemplate = "ctaTemplate",
+    machineConfig = "machineConfig",
     stateConfig = "stateConfig",
     statusConfig = "statusConfig",
     notificationConfig = "notificationConfig",

@@ -11,6 +11,12 @@ export class TaskSumAggregateInput {
     definitionId?: true;
 
     @Field(() => Boolean, {nullable:true})
+    formId?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    projectId?: true;
+
+    @Field(() => Boolean, {nullable:true})
     assigneeId?: true;
 
     @Field(() => Boolean, {nullable:true})
@@ -21,6 +27,9 @@ export class TaskSumAggregateInput {
 
     @Field(() => Boolean, {nullable:true})
     organizationId?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    reporterId?: true;
 
     @Field(() => Boolean, {nullable:true})
     teamId?: true;

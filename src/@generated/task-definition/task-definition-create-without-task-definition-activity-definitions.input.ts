@@ -6,6 +6,8 @@ import { TaskCreateNestedManyWithoutDefinitionInput } from '../task/task-create-
 import { OrganizationCreateNestedOneWithoutTaskDefinitionsInput } from '../organization/organization-create-nested-one-without-task-definitions.input';
 import { TaskDefinitionCreateNestedOneWithoutSubTaskDefinitionsInput } from './task-definition-create-nested-one-without-sub-task-definitions.input';
 import { TaskDefinitionCreateNestedManyWithoutParentTaskDefinitionInput } from './task-definition-create-nested-many-without-parent-task-definition.input';
+import { ProjectCreateNestedManyWithoutTaskDefinitionInput } from '../project/project-create-nested-many-without-task-definition.input';
+import { TaskBoardCreateNestedManyWithoutTaskDefinitionInput } from '../task-board/task-board-create-nested-many-without-task-definition.input';
 
 @InputType()
 export class TaskDefinitionCreateWithoutTaskDefinitionActivityDefinitionsInput {
@@ -53,6 +55,9 @@ export class TaskDefinitionCreateWithoutTaskDefinitionActivityDefinitionsInput {
     ctaTemplate?: string;
 
     @Field(() => GraphQLJSON, {nullable:true})
+    machineConfig?: any;
+
+    @Field(() => GraphQLJSON, {nullable:true})
     stateConfig?: any;
 
     @Field(() => GraphQLJSON, {nullable:true})
@@ -84,4 +89,10 @@ export class TaskDefinitionCreateWithoutTaskDefinitionActivityDefinitionsInput {
 
     @Field(() => TaskDefinitionCreateNestedManyWithoutParentTaskDefinitionInput, {nullable:true})
     subTaskDefinitions?: TaskDefinitionCreateNestedManyWithoutParentTaskDefinitionInput;
+
+    @Field(() => ProjectCreateNestedManyWithoutTaskDefinitionInput, {nullable:true})
+    projects?: ProjectCreateNestedManyWithoutTaskDefinitionInput;
+
+    @Field(() => TaskBoardCreateNestedManyWithoutTaskDefinitionInput, {nullable:true})
+    taskBoards?: TaskBoardCreateNestedManyWithoutTaskDefinitionInput;
 }

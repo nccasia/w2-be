@@ -13,4 +13,10 @@ export class TaskDefinitionCount {
 
     @Field(() => Int, {nullable:false})
     taskDefinitionActivityDefinitions?: number;
+
+    @Field(() => Int, {nullable:false})
+    projects?: number;
+
+    @Field(() => Int, {nullable:false})
+    taskBoards?: number;
 }

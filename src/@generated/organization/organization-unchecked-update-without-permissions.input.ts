@@ -12,6 +12,8 @@ import { EventLogUncheckedUpdateManyWithoutOrganizationNestedInput } from '../ev
 import { TaskDefinitionUncheckedUpdateManyWithoutOrganizationNestedInput } from '../task-definition/task-definition-unchecked-update-many-without-organization-nested.input';
 import { PermissionGroupUncheckedUpdateManyWithoutOrganizationNestedInput } from '../permission-group/permission-group-unchecked-update-many-without-organization-nested.input';
 import { ResourceUncheckedUpdateManyWithoutOrganizationNestedInput } from '../resource/resource-unchecked-update-many-without-organization-nested.input';
+import { ProjectUncheckedUpdateManyWithoutOrganizationNestedInput } from '../project/project-unchecked-update-many-without-organization-nested.input';
+import { TaskBoardUncheckedUpdateManyWithoutOrganizationNestedInput } from '../task-board/task-board-unchecked-update-many-without-organization-nested.input';
 
 @InputType()
 export class OrganizationUncheckedUpdateWithoutPermissionsInput {
@@ -57,4 +59,10 @@ export class OrganizationUncheckedUpdateWithoutPermissionsInput {
 
     @Field(() => ResourceUncheckedUpdateManyWithoutOrganizationNestedInput, {nullable:true})
     resources?: ResourceUncheckedUpdateManyWithoutOrganizationNestedInput;
+
+    @Field(() => ProjectUncheckedUpdateManyWithoutOrganizationNestedInput, {nullable:true})
+    projects?: ProjectUncheckedUpdateManyWithoutOrganizationNestedInput;
+
+    @Field(() => TaskBoardUncheckedUpdateManyWithoutOrganizationNestedInput, {nullable:true})
+    taskBoards?: TaskBoardUncheckedUpdateManyWithoutOrganizationNestedInput;
 }

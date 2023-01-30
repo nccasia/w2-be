@@ -1,15 +1,23 @@
 import { createModel } from 'xstate/lib/model';
 
-import { interpret } from 'xstate';
+import { createMachine, interpret, assign, spawn } from 'xstate';
 import { TaskSchema } from './task-schema';
 import { PrismaClient } from '@prisma/client';
+import { Injector } from '@nestjs/core/injector/injector';
+import { ModuleRef } from '@nestjs/core';
+import { TaskService } from '../tasks.service';
+import { TaskState } from './task-state';
 
 export class TaskMachine {
-  model: any;
   engine: any;
   task: any;
+  service: any;
+  schema: TaskSchema;
+  state: any;
+  config: any;
+  key: any;
 
-  constructor(public taskId: number, private prisma: PrismaClient) {}
+  constructor(public taskId: number, private readonly prisma: PrismaClient) {}
 
   async loadTask() {
     // fetch the task and its subtasks from the database
@@ -19,11 +27,67 @@ export class TaskMachine {
     });
   }
 
-  configure() {
-    const schema = new TaskSchema();
-    const machineSchema = schema.getSchema();
-    this.engine = this.model.createMachine(machineSchema, {
+  async init() {
+    await this.loadTask();
+    this.key = this.task.key;
+    this.config = this.task.machineConfig;
+    this.schema = new TaskSchema(this.config);
+
+    this.createTaskMachine();
+    await this.createInterpretor();
+    console.log('init task', this.taskId, this.key);
+    this.state = this.task.stateConfig || this.engine.initialState;
+  }
+
+  createInterpretor() {
+    this.service = interpret(this.engine, { execute: false });
+    this.service.onTransition(async (state) => {
+      if (state.changed) {
+        console.log('state changed', this.taskId, state.value);
+        this.state = new TaskState(state);
+        await this.saveState(state);
+      }
+      this.service.execute(state);
+    });
+  }
+
+  async saveState(taskState: TaskState<any, any, any, any>) {
+    const states = taskState.toStrings();
+    console.log('saveState', this.taskId, states);
+    const state = JSON.parse(JSON.stringify(taskState));
+    await this.prisma.task.update({
+      where: { id: this.task.id },
+      data: {
+        isActive: taskState.context.isActive,
+        status: states[0],
+        stateConfig: state,
+      },
+    });
+    this.updateTaskState(this.taskId, taskState);
+  }
+
+  async updateTaskState(taskId: number, state: TaskState<any, any, any, any>) {
+    const activeStates = state.toStrings();
+    console.log('updateTaskState', taskId, activeStates);
+    for (const subTask of this.task.subTasks) {
+      const isActive = activeStates.includes(`DOING.${subTask.key}`);
+      await this.prisma.task.update({
+        where: { id: subTask.taskId },
+        data: { isActive },
+      });
+    }
+  }
+
+  createTaskMachine() {
+    const machineSchema = this.schema.getSchema();
+
+    const machine = createMachine(machineSchema, {
       actions: {
+        setActive: assign({
+          isActive: (context, event) => {
+            return (event as any).value;
+          },
+        }),
         summitTask: (context, event) => {
           // update the task properties based on the event
         },
@@ -32,7 +96,13 @@ export class TaskMachine {
         },
       },
       services: {
-        setupTask: () => {
+        setupTask: (context, event) => {
+          // update the task properties based on the event
+          return Promise.resolve(true);
+        },
+        checkTodo: (context, event) => {
+          // update the task properties based on the event
+          // update the task properties based on the event
           return Promise.resolve(true);
         },
       },
@@ -45,29 +115,22 @@ export class TaskMachine {
         },
       },
     });
+    this.engine = machine;
   }
 
-  excute() {
-    const machine = this.engine;
+  triggerEvent(event: any, value: any) {
+    console.log('triggerEvent', this.taskId, event, value);
+    this.service.send(event, value);
+  }
 
-    // Interpret the machine, and add a listener for whenever a transition occurs.
-    const service = interpret(machine);
-
-    // service.onTransition((ctx) => setTimeout(() => service.execute(ctx), 3000));
-
-    // call db to get the initial state
-    const prevState = machine.initialState;
-
+  run() {
+    console.log('run', this.taskId);
     // Start the service
-    service.start(prevState);
+    this.service.start(this.state);
+  }
 
-    // Send events
-    service.send('submitForm', { value: 'David' });
-
-    // persist the state to the db
-    const persistedState = service.getSnapshot();
-
-    // Stop the service when you are no longer using it.
-    service.stop();
+  async sendSetActive(isActive: boolean) {
+    console.log('sendSetActive', this.taskId, isActive);
+    await this.service.send({ type: 'SET_ACTIVE', value: isActive });
   }
 }

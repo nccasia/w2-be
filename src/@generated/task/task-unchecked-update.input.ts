@@ -33,7 +33,7 @@ export class TaskUncheckedUpdateInput {
     priority?: EnumTaskPriorityFieldUpdateOperationsInput;
 
     @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
-    isActve?: BoolFieldUpdateOperationsInput;
+    isActive?: BoolFieldUpdateOperationsInput;
 
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
     key?: StringFieldUpdateOperationsInput;
@@ -90,6 +90,9 @@ export class TaskUncheckedUpdateInput {
     ctaTemplate?: NullableStringFieldUpdateOperationsInput;
 
     @Field(() => GraphQLJSON, {nullable:true})
+    machineConfig?: any;
+
+    @Field(() => GraphQLJSON, {nullable:true})
     stateConfig?: any;
 
     @Field(() => GraphQLJSON, {nullable:true})
@@ -129,6 +132,12 @@ export class TaskUncheckedUpdateInput {
     eventLogs?: EventLogUncheckedUpdateManyWithoutTaskNestedInput;
 
     @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
+    formId?: NullableIntFieldUpdateOperationsInput;
+
+    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
+    projectId?: NullableIntFieldUpdateOperationsInput;
+
+    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
     assigneeId?: NullableIntFieldUpdateOperationsInput;
 
     @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
@@ -142,6 +151,9 @@ export class TaskUncheckedUpdateInput {
 
     @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
     organizationId?: IntFieldUpdateOperationsInput;
+
+    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
+    reporterId?: NullableIntFieldUpdateOperationsInput;
 
     @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
     teamId?: NullableIntFieldUpdateOperationsInput;

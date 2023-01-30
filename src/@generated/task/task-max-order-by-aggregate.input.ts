@@ -21,7 +21,7 @@ export class TaskMaxOrderByAggregateInput {
     priority?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
-    isActve?: keyof typeof SortOrder;
+    isActive?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
     key?: keyof typeof SortOrder;
@@ -81,6 +81,12 @@ export class TaskMaxOrderByAggregateInput {
     definitionId?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
+    formId?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    projectId?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
     assigneeId?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
@@ -91,6 +97,9 @@ export class TaskMaxOrderByAggregateInput {
 
     @Field(() => SortOrder, {nullable:true})
     organizationId?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    reporterId?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
     teamId?: keyof typeof SortOrder;

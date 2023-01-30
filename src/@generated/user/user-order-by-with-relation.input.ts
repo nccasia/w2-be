@@ -10,6 +10,9 @@ import { PostOrderByRelationAggregateInput } from '../post/post-order-by-relatio
 import { CommentOrderByRelationAggregateInput } from '../comment/comment-order-by-relation-aggregate.input';
 import { EventLogOrderByRelationAggregateInput } from '../event-log/event-log-order-by-relation-aggregate.input';
 import { UserPermissionOrderByRelationAggregateInput } from '../user-permission/user-permission-order-by-relation-aggregate.input';
+import { UserSettingOrderByRelationAggregateInput } from '../user-setting/user-setting-order-by-relation-aggregate.input';
+import { MemberOnProjectsOrderByRelationAggregateInput } from '../member-on-projects/member-on-projects-order-by-relation-aggregate.input';
+import { ProjectOrderByRelationAggregateInput } from '../project/project-order-by-relation-aggregate.input';
 
 @InputType()
 export class UserOrderByWithRelationInput {
@@ -76,4 +79,22 @@ export class UserOrderByWithRelationInput {
 
     @Field(() => UserPermissionOrderByRelationAggregateInput, {nullable:true})
     userPermissions?: UserPermissionOrderByRelationAggregateInput;
+
+    @Field(() => UserSettingOrderByRelationAggregateInput, {nullable:true})
+    userSettings?: UserSettingOrderByRelationAggregateInput;
+
+    @Field(() => MemberOnProjectsOrderByRelationAggregateInput, {nullable:true})
+    memberOnProjects?: MemberOnProjectsOrderByRelationAggregateInput;
+
+    @Field(() => ProjectOrderByRelationAggregateInput, {nullable:true})
+    managedProjects?: ProjectOrderByRelationAggregateInput;
+
+    @Field(() => ProjectOrderByRelationAggregateInput, {nullable:true})
+    createdProjects?: ProjectOrderByRelationAggregateInput;
+
+    @Field(() => TaskOrderByRelationAggregateInput, {nullable:true})
+    reportedTasks?: TaskOrderByRelationAggregateInput;
+
+    @Field(() => ProjectOrderByRelationAggregateInput, {nullable:true})
+    repotedProjects?: ProjectOrderByRelationAggregateInput;
 }

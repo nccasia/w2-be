@@ -23,7 +23,7 @@ export class TaskCreateManyAssigneeInput {
     priority?: keyof typeof TaskPriority;
 
     @Field(() => Boolean, {nullable:true})
-    isActve?: boolean;
+    isActive?: boolean;
 
     @Field(() => String, {nullable:false})
     key!: string;
@@ -80,6 +80,9 @@ export class TaskCreateManyAssigneeInput {
     ctaTemplate?: string;
 
     @Field(() => GraphQLJSON, {nullable:true})
+    machineConfig?: any;
+
+    @Field(() => GraphQLJSON, {nullable:true})
     stateConfig?: any;
 
     @Field(() => GraphQLJSON, {nullable:true})
@@ -112,6 +115,12 @@ export class TaskCreateManyAssigneeInput {
     @Field(() => Int, {nullable:false})
     definitionId!: number;
 
+    @Field(() => Int, {nullable:true})
+    formId?: number;
+
+    @Field(() => Int, {nullable:true})
+    projectId?: number;
+
     @Field(() => Int, {nullable:false})
     creatorId!: number;
 
@@ -120,6 +129,9 @@ export class TaskCreateManyAssigneeInput {
 
     @Field(() => Int, {nullable:false})
     organizationId!: number;
+
+    @Field(() => Int, {nullable:true})
+    reporterId?: number;
 
     @Field(() => Int, {nullable:true})
     teamId?: number;

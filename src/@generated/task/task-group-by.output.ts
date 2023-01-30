@@ -28,7 +28,7 @@ export class TaskGroupBy {
     priority!: keyof typeof TaskPriority;
 
     @Field(() => Boolean, {nullable:false})
-    isActve!: boolean;
+    isActive!: boolean;
 
     @Field(() => String, {nullable:false})
     key!: string;
@@ -85,6 +85,9 @@ export class TaskGroupBy {
     ctaTemplate?: string;
 
     @Field(() => GraphQLJSON, {nullable:true})
+    machineConfig?: any;
+
+    @Field(() => GraphQLJSON, {nullable:true})
     stateConfig?: any;
 
     @Field(() => GraphQLJSON, {nullable:true})
@@ -118,6 +121,12 @@ export class TaskGroupBy {
     definitionId!: number;
 
     @Field(() => Int, {nullable:true})
+    formId?: number;
+
+    @Field(() => Int, {nullable:true})
+    projectId?: number;
+
+    @Field(() => Int, {nullable:true})
     assigneeId?: number;
 
     @Field(() => Int, {nullable:false})
@@ -128,6 +137,9 @@ export class TaskGroupBy {
 
     @Field(() => Int, {nullable:false})
     organizationId!: number;
+
+    @Field(() => Int, {nullable:true})
+    reporterId?: number;
 
     @Field(() => Int, {nullable:true})
     teamId?: number;

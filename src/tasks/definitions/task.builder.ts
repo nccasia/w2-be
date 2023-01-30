@@ -28,7 +28,6 @@ export class TaskBuilder {
     await builder.markAsConfigured();
     await builder.loadDefinetion(def.id);
     await builder.loadParentTask(parent.id);
-    await builder.loadTaskSchema();
     return builder;
   }
 
@@ -45,6 +44,7 @@ export class TaskBuilder {
   markAsConfigured() {
     this.args.status = 'NONE';
   }
+
   async loadExistingTask(taskId: number): Promise<this> {
     this.task = await this.prisma.task.findUnique({
       where: { id: taskId },
@@ -90,7 +90,7 @@ export class TaskBuilder {
         state: '',
         typeName: '',
         config: {},
-        isActve: false,
+        isActive: false,
         creator: {
           connect: {
             id: this.parentTask.creatorId,
@@ -129,6 +129,7 @@ export class TaskBuilder {
 
   async loadTaskSchema(): Promise<this> {
     this.taskSchema = new TaskSchema();
+    this.taskSchema.init(this.task.machineConfig);
     return this;
   }
 
@@ -145,13 +146,28 @@ export class TaskBuilder {
     this.configureTaskDef();
     this.configureTaskKey();
     this.configureTaskTitle();
+    await this.configureTaskForm();
     this.configureTaskDescription();
     await this.save();
     return this;
   }
 
+  async configureTaskForm() {
+    if (this.definetion.formId) {
+      const form = this.prisma.form.findUnique({
+        where: { id: this.definetion.formId },
+      });
+      const payload = JSON.parse(JSON.stringify(form));
+      const newForm = await this.prisma.form.create({
+        data: payload,
+      });
+
+      this.args.formId = newForm.id;
+    }
+  }
+
   async configureTaskSchema() {
-    if (this.task.stateConfig && (this.task.stateConfig as any).states) {
+    if (this.task.machineConfig && (this.task.machineConfig as any).states) {
       this.updateTaskSchema();
     } else {
       this.createTaskSchema();
@@ -162,21 +178,27 @@ export class TaskBuilder {
 
   updateTaskSchema() {
     this.taskSchema = new TaskSchema();
-    this.taskSchema.init(this.task.stateConfig);
-    this.args.stateConfig = this.taskSchema.getSchema();
+    this.taskSchema.init(this.task.machineConfig);
+    this.args.machineConfig = this.taskSchema.getSchema();
     return this;
   }
 
   createTaskSchema() {
     this.taskSchema = new TaskSchema();
+
     if (
-      this.definetion.stateConfig &&
-      (this.definetion.stateConfig as any).states
+      this.definetion.machineConfig &&
+      (this.definetion.machineConfig as any).states
     ) {
-      this.taskSchema.init(this.definetion.stateConfig);
+      this.taskSchema.init(this.definetion.machineConfig);
     } else {
       this.taskSchema.init();
     }
+    this.taskSchema.name(
+      `${this.args.title}` ||
+        `${this.task.title}` ||
+        `Task Machine ${this.task.id}`
+    );
     if (this.subTasks.length > 0) {
       this.taskSchema.parallel();
 
@@ -184,7 +206,7 @@ export class TaskBuilder {
         this.taskSchema.addSubTask(subTask);
       }
     }
-    this.args.stateConfig = this.taskSchema.getSchema();
+    this.args.machineConfig = this.taskSchema.getSchema();
     return this;
   }
 
@@ -204,6 +226,7 @@ export class TaskBuilder {
       statusTemplate: '',
       ...(this.definetion.config as object),
     };
+
     this.args.state = this.definetion.config.initialState as string;
     this.args.stateName = this.definetion.config.initialStateName as string;
     this.args.status =
@@ -216,7 +239,7 @@ export class TaskBuilder {
     this.args.stateTemplate = this.definetion.stateTemplate;
     this.args.notificationTemplate = this.definetion.notificationTemplate;
     this.args.ctaTemplate = this.definetion.ctaTemplate;
-    this.args.stateConfig = this.definetion.config.stateConfig;
+    this.args.machineConfig = this.definetion.config.machineConfig;
     this.args.statusConfig = this.definetion.config.statusConfig;
     this.args.notificationConfig = this.definetion.config.notificationConfig;
     this.args.processConfig = this.definetion.config.processConfig;
@@ -258,8 +281,8 @@ export class TaskBuilder {
 
   async configureTaskKey() {
     const context = this.getTemplateContext();
-    this.args.title = this.renderTemplate(
-      this.definetion.keyTemplate,
+    this.args.key = this.renderTemplate(
+      this.definetion.keyTemplate || '',
       context,
       this.task.config
     );
@@ -296,7 +319,9 @@ export class TaskBuilder {
       );
       await newSubtaskBuilder.configureTaskFromParent();
       await newSubtaskBuilder.configureTask();
+      await newSubtaskBuilder.configureTaskSchema();
     }
+    await this.loadSubTasks();
     return this;
   }
 

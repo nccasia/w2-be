@@ -20,8 +20,8 @@ export class TaskDefinitionGroupBy {
     @Field(() => Date, {nullable:false})
     updatedAt!: Date | string;
 
-    @Field(() => String, {nullable:false})
-    keyTemplate!: string;
+    @Field(() => String, {nullable:true})
+    keyTemplate?: string;
 
     @Field(() => String, {nullable:false})
     title!: string;
@@ -55,6 +55,9 @@ export class TaskDefinitionGroupBy {
 
     @Field(() => String, {nullable:true})
     ctaTemplate?: string;
+
+    @Field(() => GraphQLJSON, {nullable:true})
+    machineConfig?: any;
 
     @Field(() => GraphQLJSON, {nullable:true})
     stateConfig?: any;

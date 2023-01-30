@@ -4,6 +4,8 @@ import { SortOrder } from '../prisma/sort-order.enum';
 import { TaskDefinitionOrderByWithRelationInput } from '../task-definition/task-definition-order-by-with-relation.input';
 import { CommentOrderByRelationAggregateInput } from '../comment/comment-order-by-relation-aggregate.input';
 import { EventLogOrderByRelationAggregateInput } from '../event-log/event-log-order-by-relation-aggregate.input';
+import { FormOrderByWithRelationInput } from '../form/form-order-by-with-relation.input';
+import { ProjectOrderByWithRelationInput } from '../project/project-order-by-with-relation.input';
 import { UserOrderByWithRelationInput } from '../user/user-order-by-with-relation.input';
 import { TaskOrderByRelationAggregateInput } from './task-order-by-relation-aggregate.input';
 import { OrganizationOrderByWithRelationInput } from '../organization/organization-order-by-with-relation.input';
@@ -29,7 +31,7 @@ export class TaskOrderByWithRelationInput {
     priority?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
-    isActve?: keyof typeof SortOrder;
+    isActive?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
     key?: keyof typeof SortOrder;
@@ -86,6 +88,9 @@ export class TaskOrderByWithRelationInput {
     ctaTemplate?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
+    machineConfig?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
     stateConfig?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
@@ -128,6 +133,18 @@ export class TaskOrderByWithRelationInput {
     eventLogs?: EventLogOrderByRelationAggregateInput;
 
     @Field(() => SortOrder, {nullable:true})
+    formId?: keyof typeof SortOrder;
+
+    @Field(() => FormOrderByWithRelationInput, {nullable:true})
+    form?: FormOrderByWithRelationInput;
+
+    @Field(() => SortOrder, {nullable:true})
+    projectId?: keyof typeof SortOrder;
+
+    @Field(() => ProjectOrderByWithRelationInput, {nullable:true})
+    project?: ProjectOrderByWithRelationInput;
+
+    @Field(() => SortOrder, {nullable:true})
     assigneeId?: keyof typeof SortOrder;
 
     @Field(() => UserOrderByWithRelationInput, {nullable:true})
@@ -153,6 +170,12 @@ export class TaskOrderByWithRelationInput {
 
     @Field(() => OrganizationOrderByWithRelationInput, {nullable:true})
     organization?: OrganizationOrderByWithRelationInput;
+
+    @Field(() => SortOrder, {nullable:true})
+    reporterId?: keyof typeof SortOrder;
+
+    @Field(() => UserOrderByWithRelationInput, {nullable:true})
+    reporter?: UserOrderByWithRelationInput;
 
     @Field(() => SortOrder, {nullable:true})
     teamId?: keyof typeof SortOrder;

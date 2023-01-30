@@ -11,6 +11,8 @@ import { TaskDefinition } from '../task-definition/task-definition.model';
 import { PermissionGroup } from '../permission-group/permission-group.model';
 import { Permission } from '../permission/permission.model';
 import { Resource } from '../resource/resource.model';
+import { Project } from '../project/project.model';
+import { TaskBoard } from '../task-board/task-board.model';
 import { OrganizationCount } from './organization-count.output';
 
 @ObjectType()
@@ -60,6 +62,12 @@ export class Organization {
 
     @Field(() => [Resource], {nullable:true})
     resources?: Array<Resource>;
+
+    @Field(() => [Project], {nullable:true})
+    projects?: Array<Project>;
+
+    @Field(() => [TaskBoard], {nullable:true})
+    taskBoards?: Array<TaskBoard>;
 
     @Field(() => OrganizationCount, {nullable:false})
     _count?: OrganizationCount;

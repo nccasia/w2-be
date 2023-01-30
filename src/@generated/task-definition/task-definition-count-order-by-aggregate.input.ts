@@ -51,6 +51,9 @@ export class TaskDefinitionCountOrderByAggregateInput {
     ctaTemplate?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
+    machineConfig?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
     stateConfig?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})

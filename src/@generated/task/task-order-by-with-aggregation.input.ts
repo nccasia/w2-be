@@ -26,7 +26,7 @@ export class TaskOrderByWithAggregationInput {
     priority?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
-    isActve?: keyof typeof SortOrder;
+    isActive?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
     key?: keyof typeof SortOrder;
@@ -83,6 +83,9 @@ export class TaskOrderByWithAggregationInput {
     ctaTemplate?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
+    machineConfig?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
     stateConfig?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
@@ -116,6 +119,12 @@ export class TaskOrderByWithAggregationInput {
     definitionId?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
+    formId?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    projectId?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
     assigneeId?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
@@ -126,6 +135,9 @@ export class TaskOrderByWithAggregationInput {
 
     @Field(() => SortOrder, {nullable:true})
     organizationId?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    reporterId?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
     teamId?: keyof typeof SortOrder;

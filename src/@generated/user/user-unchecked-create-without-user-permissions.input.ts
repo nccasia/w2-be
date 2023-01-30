@@ -10,6 +10,12 @@ import { PostUncheckedCreateNestedManyWithoutAuthorInput } from '../post/post-un
 import { CommentUncheckedCreateNestedManyWithoutCreatorInput } from '../comment/comment-unchecked-create-nested-many-without-creator.input';
 import { EventLogUncheckedCreateNestedManyWithoutUserInput } from '../event-log/event-log-unchecked-create-nested-many-without-user.input';
 import { Role } from '../prisma/role.enum';
+import { UserSettingUncheckedCreateNestedManyWithoutUserInput } from '../user-setting/user-setting-unchecked-create-nested-many-without-user.input';
+import { MemberOnProjectsUncheckedCreateNestedManyWithoutUserInput } from '../member-on-projects/member-on-projects-unchecked-create-nested-many-without-user.input';
+import { ProjectUncheckedCreateNestedManyWithoutManagerInput } from '../project/project-unchecked-create-nested-many-without-manager.input';
+import { ProjectUncheckedCreateNestedManyWithoutCreatorInput } from '../project/project-unchecked-create-nested-many-without-creator.input';
+import { TaskUncheckedCreateNestedManyWithoutReporterInput } from '../task/task-unchecked-create-nested-many-without-reporter.input';
+import { ProjectUncheckedCreateNestedManyWithoutReporterInput } from '../project/project-unchecked-create-nested-many-without-reporter.input';
 
 @InputType()
 export class UserUncheckedCreateWithoutUserPermissionsInput {
@@ -67,4 +73,22 @@ export class UserUncheckedCreateWithoutUserPermissionsInput {
 
     @Field(() => Role, {nullable:false})
     role!: keyof typeof Role;
+
+    @Field(() => UserSettingUncheckedCreateNestedManyWithoutUserInput, {nullable:true})
+    userSettings?: UserSettingUncheckedCreateNestedManyWithoutUserInput;
+
+    @Field(() => MemberOnProjectsUncheckedCreateNestedManyWithoutUserInput, {nullable:true})
+    memberOnProjects?: MemberOnProjectsUncheckedCreateNestedManyWithoutUserInput;
+
+    @Field(() => ProjectUncheckedCreateNestedManyWithoutManagerInput, {nullable:true})
+    managedProjects?: ProjectUncheckedCreateNestedManyWithoutManagerInput;
+
+    @Field(() => ProjectUncheckedCreateNestedManyWithoutCreatorInput, {nullable:true})
+    createdProjects?: ProjectUncheckedCreateNestedManyWithoutCreatorInput;
+
+    @Field(() => TaskUncheckedCreateNestedManyWithoutReporterInput, {nullable:true})
+    reportedTasks?: TaskUncheckedCreateNestedManyWithoutReporterInput;
+
+    @Field(() => ProjectUncheckedCreateNestedManyWithoutReporterInput, {nullable:true})
+    repotedProjects?: ProjectUncheckedCreateNestedManyWithoutReporterInput;
 }

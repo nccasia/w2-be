@@ -31,4 +31,22 @@ export class UserCount {
 
     @Field(() => Int, {nullable:false})
     userPermissions?: number;
+
+    @Field(() => Int, {nullable:false})
+    userSettings?: number;
+
+    @Field(() => Int, {nullable:false})
+    memberOnProjects?: number;
+
+    @Field(() => Int, {nullable:false})
+    managedProjects?: number;
+
+    @Field(() => Int, {nullable:false})
+    createdProjects?: number;
+
+    @Field(() => Int, {nullable:false})
+    reportedTasks?: number;
+
+    @Field(() => Int, {nullable:false})
+    repotedProjects?: number;
 }

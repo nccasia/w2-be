@@ -14,6 +14,12 @@ import { CommentUncheckedUpdateManyWithoutCreatorNestedInput } from '../comment/
 import { EventLogUncheckedUpdateManyWithoutUserNestedInput } from '../event-log/event-log-unchecked-update-many-without-user-nested.input';
 import { EnumRoleFieldUpdateOperationsInput } from '../prisma/enum-role-field-update-operations.input';
 import { UserPermissionUncheckedUpdateManyWithoutUserNestedInput } from '../user-permission/user-permission-unchecked-update-many-without-user-nested.input';
+import { UserSettingUncheckedUpdateManyWithoutUserNestedInput } from '../user-setting/user-setting-unchecked-update-many-without-user-nested.input';
+import { MemberOnProjectsUncheckedUpdateManyWithoutUserNestedInput } from '../member-on-projects/member-on-projects-unchecked-update-many-without-user-nested.input';
+import { ProjectUncheckedUpdateManyWithoutManagerNestedInput } from '../project/project-unchecked-update-many-without-manager-nested.input';
+import { ProjectUncheckedUpdateManyWithoutCreatorNestedInput } from '../project/project-unchecked-update-many-without-creator-nested.input';
+import { TaskUncheckedUpdateManyWithoutReporterNestedInput } from '../task/task-unchecked-update-many-without-reporter-nested.input';
+import { ProjectUncheckedUpdateManyWithoutReporterNestedInput } from '../project/project-unchecked-update-many-without-reporter-nested.input';
 
 @InputType()
 export class UserUncheckedUpdateWithoutCreatedteamsInput {
@@ -71,4 +77,22 @@ export class UserUncheckedUpdateWithoutCreatedteamsInput {
 
     @Field(() => UserPermissionUncheckedUpdateManyWithoutUserNestedInput, {nullable:true})
     userPermissions?: UserPermissionUncheckedUpdateManyWithoutUserNestedInput;
+
+    @Field(() => UserSettingUncheckedUpdateManyWithoutUserNestedInput, {nullable:true})
+    userSettings?: UserSettingUncheckedUpdateManyWithoutUserNestedInput;
+
+    @Field(() => MemberOnProjectsUncheckedUpdateManyWithoutUserNestedInput, {nullable:true})
+    memberOnProjects?: MemberOnProjectsUncheckedUpdateManyWithoutUserNestedInput;
+
+    @Field(() => ProjectUncheckedUpdateManyWithoutManagerNestedInput, {nullable:true})
+    managedProjects?: ProjectUncheckedUpdateManyWithoutManagerNestedInput;
+
+    @Field(() => ProjectUncheckedUpdateManyWithoutCreatorNestedInput, {nullable:true})
+    createdProjects?: ProjectUncheckedUpdateManyWithoutCreatorNestedInput;
+
+    @Field(() => TaskUncheckedUpdateManyWithoutReporterNestedInput, {nullable:true})
+    reportedTasks?: TaskUncheckedUpdateManyWithoutReporterNestedInput;
+
+    @Field(() => ProjectUncheckedUpdateManyWithoutReporterNestedInput, {nullable:true})
+    repotedProjects?: ProjectUncheckedUpdateManyWithoutReporterNestedInput;
 }

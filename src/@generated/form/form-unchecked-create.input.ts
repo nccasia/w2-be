@@ -3,6 +3,7 @@ import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { GraphQLJSON } from 'graphql-type-json';
 import { TaskDefinitionUncheckedCreateNestedManyWithoutFormInput } from '../task-definition/task-definition-unchecked-create-nested-many-without-form.input';
+import { TaskUncheckedCreateNestedManyWithoutFormInput } from '../task/task-unchecked-create-nested-many-without-form.input';
 
 @InputType()
 export class FormUncheckedCreateInput {
@@ -42,6 +43,9 @@ export class FormUncheckedCreateInput {
 
     @Field(() => TaskDefinitionUncheckedCreateNestedManyWithoutFormInput, {nullable:true})
     taskDefinitions?: TaskDefinitionUncheckedCreateNestedManyWithoutFormInput;
+
+    @Field(() => TaskUncheckedCreateNestedManyWithoutFormInput, {nullable:true})
+    tasks?: TaskUncheckedCreateNestedManyWithoutFormInput;
 
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;

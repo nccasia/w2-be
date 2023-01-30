@@ -7,6 +7,8 @@ import { Int } from '@nestjs/graphql';
 import { TaskDefinition } from '../task-definition/task-definition.model';
 import { Comment } from '../comment/comment.model';
 import { EventLog } from '../event-log/event-log.model';
+import { Form } from '../form/form.model';
+import { Project } from '../project/project.model';
 import { User } from '../user/user.model';
 import { Organization } from '../organization/organization.model';
 import { Team } from '../team/team.model';
@@ -32,7 +34,7 @@ export class Task {
     priority!: keyof typeof TaskPriority;
 
     @Field(() => Boolean, {nullable:false,defaultValue:false})
-    isActve!: boolean;
+    isActive!: boolean;
 
     @Field(() => String, {nullable:false})
     key!: string;
@@ -89,6 +91,9 @@ export class Task {
     ctaTemplate!: string | null;
 
     @Field(() => GraphQLJSON, {nullable:true})
+    machineConfig!: any | null;
+
+    @Field(() => GraphQLJSON, {nullable:true})
     stateConfig!: any | null;
 
     @Field(() => GraphQLJSON, {nullable:true})
@@ -131,6 +136,18 @@ export class Task {
     eventLogs?: Array<EventLog>;
 
     @Field(() => Int, {nullable:true})
+    formId!: number | null;
+
+    @Field(() => Form, {nullable:true})
+    form?: Form | null;
+
+    @Field(() => Int, {nullable:true})
+    projectId!: number | null;
+
+    @Field(() => Project, {nullable:true})
+    project?: Project | null;
+
+    @Field(() => Int, {nullable:true})
     assigneeId!: number | null;
 
     @Field(() => User, {nullable:true})
@@ -156,6 +173,12 @@ export class Task {
 
     @Field(() => Organization, {nullable:false})
     organization?: Organization;
+
+    @Field(() => Int, {nullable:true})
+    reporterId!: number | null;
+
+    @Field(() => User, {nullable:true})
+    reporter?: User | null;
 
     @Field(() => Int, {nullable:true})
     teamId!: number | null;

@@ -5,11 +5,14 @@ import { GraphQLJSON } from 'graphql-type-json';
 import { TaskDefinitionCreateNestedOneWithoutTaskInstancesInput } from '../task-definition/task-definition-create-nested-one-without-task-instances.input';
 import { CommentCreateNestedManyWithoutTaskInput } from '../comment/comment-create-nested-many-without-task.input';
 import { EventLogCreateNestedManyWithoutTaskInput } from '../event-log/event-log-create-nested-many-without-task.input';
+import { FormCreateNestedOneWithoutTasksInput } from '../form/form-create-nested-one-without-tasks.input';
+import { ProjectCreateNestedOneWithoutTasksInput } from '../project/project-create-nested-one-without-tasks.input';
 import { UserCreateNestedOneWithoutAssignedTasksInput } from '../user/user-create-nested-one-without-assigned-tasks.input';
 import { UserCreateNestedOneWithoutCreatedTasksInput } from '../user/user-create-nested-one-without-created-tasks.input';
 import { TaskCreateNestedOneWithoutSubTasksInput } from './task-create-nested-one-without-sub-tasks.input';
 import { TaskCreateNestedManyWithoutParentTaskInput } from './task-create-nested-many-without-parent-task.input';
 import { OrganizationCreateNestedOneWithoutTasksInput } from '../organization/organization-create-nested-one-without-tasks.input';
+import { UserCreateNestedOneWithoutReportedTasksInput } from '../user/user-create-nested-one-without-reported-tasks.input';
 import { TeamCreateNestedOneWithoutTasksInput } from '../team/team-create-nested-one-without-tasks.input';
 import { TriggerCreateNestedManyWithoutTaskInput } from '../trigger/trigger-create-nested-many-without-task.input';
 
@@ -29,7 +32,7 @@ export class TaskCreateInput {
     priority?: keyof typeof TaskPriority;
 
     @Field(() => Boolean, {nullable:true})
-    isActve?: boolean;
+    isActive?: boolean;
 
     @Field(() => String, {nullable:false})
     key!: string;
@@ -86,6 +89,9 @@ export class TaskCreateInput {
     ctaTemplate?: string;
 
     @Field(() => GraphQLJSON, {nullable:true})
+    machineConfig?: any;
+
+    @Field(() => GraphQLJSON, {nullable:true})
     stateConfig?: any;
 
     @Field(() => GraphQLJSON, {nullable:true})
@@ -124,6 +130,12 @@ export class TaskCreateInput {
     @Field(() => EventLogCreateNestedManyWithoutTaskInput, {nullable:true})
     eventLogs?: EventLogCreateNestedManyWithoutTaskInput;
 
+    @Field(() => FormCreateNestedOneWithoutTasksInput, {nullable:true})
+    form?: FormCreateNestedOneWithoutTasksInput;
+
+    @Field(() => ProjectCreateNestedOneWithoutTasksInput, {nullable:true})
+    project?: ProjectCreateNestedOneWithoutTasksInput;
+
     @Field(() => UserCreateNestedOneWithoutAssignedTasksInput, {nullable:true})
     assignee?: UserCreateNestedOneWithoutAssignedTasksInput;
 
@@ -138,6 +150,9 @@ export class TaskCreateInput {
 
     @Field(() => OrganizationCreateNestedOneWithoutTasksInput, {nullable:false})
     organization!: OrganizationCreateNestedOneWithoutTasksInput;
+
+    @Field(() => UserCreateNestedOneWithoutReportedTasksInput, {nullable:true})
+    reporter?: UserCreateNestedOneWithoutReportedTasksInput;
 
     @Field(() => TeamCreateNestedOneWithoutTasksInput, {nullable:true})
     team?: TeamCreateNestedOneWithoutTasksInput;

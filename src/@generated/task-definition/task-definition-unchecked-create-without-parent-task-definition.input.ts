@@ -5,6 +5,8 @@ import { GraphQLJSON } from 'graphql-type-json';
 import { TaskUncheckedCreateNestedManyWithoutDefinitionInput } from '../task/task-unchecked-create-nested-many-without-definition.input';
 import { TaskDefinitionUncheckedCreateNestedManyWithoutParentTaskDefinitionInput } from './task-definition-unchecked-create-nested-many-without-parent-task-definition.input';
 import { TaskDefinitionActivityDefinitionUncheckedCreateNestedManyWithoutTaskDefinitionInput } from '../task-definition-activity-definition/task-definition-activity-definition-unchecked-create-nested-many-without-task-definition.input';
+import { ProjectUncheckedCreateNestedManyWithoutTaskDefinitionInput } from '../project/project-unchecked-create-nested-many-without-task-definition.input';
+import { TaskBoardUncheckedCreateNestedManyWithoutTaskDefinitionInput } from '../task-board/task-board-unchecked-create-nested-many-without-task-definition.input';
 
 @InputType()
 export class TaskDefinitionUncheckedCreateWithoutParentTaskDefinitionInput {
@@ -55,6 +57,9 @@ export class TaskDefinitionUncheckedCreateWithoutParentTaskDefinitionInput {
     ctaTemplate?: string;
 
     @Field(() => GraphQLJSON, {nullable:true})
+    machineConfig?: any;
+
+    @Field(() => GraphQLJSON, {nullable:true})
     stateConfig?: any;
 
     @Field(() => GraphQLJSON, {nullable:true})
@@ -86,4 +91,10 @@ export class TaskDefinitionUncheckedCreateWithoutParentTaskDefinitionInput {
 
     @Field(() => TaskDefinitionActivityDefinitionUncheckedCreateNestedManyWithoutTaskDefinitionInput, {nullable:true})
     taskDefinitionActivityDefinitions?: TaskDefinitionActivityDefinitionUncheckedCreateNestedManyWithoutTaskDefinitionInput;
+
+    @Field(() => ProjectUncheckedCreateNestedManyWithoutTaskDefinitionInput, {nullable:true})
+    projects?: ProjectUncheckedCreateNestedManyWithoutTaskDefinitionInput;
+
+    @Field(() => TaskBoardUncheckedCreateNestedManyWithoutTaskDefinitionInput, {nullable:true})
+    taskBoards?: TaskBoardUncheckedCreateNestedManyWithoutTaskDefinitionInput;
 }

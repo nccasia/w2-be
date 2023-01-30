@@ -701,6 +701,7 @@ async function main() {
         title: 'Change office request Start approval',
         description: 'Create Change office request Start approval',
         icon: 'icon',
+        keyTemplate: 'START_OFFICE_APPROVAL',
         thumbnail: 'thumbnail',
         descriptionTemplate: 'descriptionTemplate',
         titleTemplate: '[COR#{{task.id}}] Source Office Approval',
@@ -758,6 +759,7 @@ async function main() {
         title: 'Change office request end approval',
         description: 'Create Change office request end approval',
         icon: 'icon',
+        keyTemplate: 'END_OFFICE_APPROVAL',
         thumbnail: 'thumbnail',
         descriptionTemplate: 'descriptionTemplate',
         titleTemplate: '[COR]#{{task.id}}] Target Office Approval',
@@ -814,6 +816,7 @@ async function main() {
       title: 'Change office request',
       description: 'Create Change office request',
       icon: 'icon',
+      keyTemplate: 'CHANGE_OFFICE_REQUEST',
       form: {
         connect: {
           id: defaultFormChangeOffice.id,
@@ -855,6 +858,7 @@ async function main() {
       title: 'WFH request PM approval',
       description: 'Create WFH request PM approval',
       icon: 'icon',
+      keyTemplate: 'PM_APPROVAL',
       form: {
         create: {
           name: 'WFH Request PM Approval',
@@ -912,6 +916,7 @@ async function main() {
         title: 'WFH request CEO approval',
         description: 'Create WFH request CEO approval',
         icon: 'icon',
+        keyTemplate: 'CEO_APPROVAL',
         form: {
           create: {
             name: 'WFH Request CEO Approval',
@@ -969,6 +974,7 @@ async function main() {
       title: 'WFH request',
       description: 'Create WFH request',
       icon: 'icon',
+      keyTemplate: 'WFH_REQUEST',
       form: {
         connect: {
           id: defaultFormWFH.id,

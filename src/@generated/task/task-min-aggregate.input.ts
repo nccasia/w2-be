@@ -20,7 +20,7 @@ export class TaskMinAggregateInput {
     priority?: true;
 
     @Field(() => Boolean, {nullable:true})
-    isActve?: true;
+    isActive?: true;
 
     @Field(() => Boolean, {nullable:true})
     key?: true;
@@ -80,6 +80,12 @@ export class TaskMinAggregateInput {
     definitionId?: true;
 
     @Field(() => Boolean, {nullable:true})
+    formId?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    projectId?: true;
+
+    @Field(() => Boolean, {nullable:true})
     assigneeId?: true;
 
     @Field(() => Boolean, {nullable:true})
@@ -90,6 +96,9 @@ export class TaskMinAggregateInput {
 
     @Field(() => Boolean, {nullable:true})
     organizationId?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    reporterId?: true;
 
     @Field(() => Boolean, {nullable:true})
     teamId?: true;

@@ -11,6 +11,8 @@ import { TaskDefinitionOrderByRelationAggregateInput } from '../task-definition/
 import { PermissionGroupOrderByRelationAggregateInput } from '../permission-group/permission-group-order-by-relation-aggregate.input';
 import { PermissionOrderByRelationAggregateInput } from '../permission/permission-order-by-relation-aggregate.input';
 import { ResourceOrderByRelationAggregateInput } from '../resource/resource-order-by-relation-aggregate.input';
+import { ProjectOrderByRelationAggregateInput } from '../project/project-order-by-relation-aggregate.input';
+import { TaskBoardOrderByRelationAggregateInput } from '../task-board/task-board-order-by-relation-aggregate.input';
 
 @InputType()
 export class OrganizationOrderByWithRelationInput {
@@ -59,4 +61,10 @@ export class OrganizationOrderByWithRelationInput {
 
     @Field(() => ResourceOrderByRelationAggregateInput, {nullable:true})
     resources?: ResourceOrderByRelationAggregateInput;
+
+    @Field(() => ProjectOrderByRelationAggregateInput, {nullable:true})
+    projects?: ProjectOrderByRelationAggregateInput;
+
+    @Field(() => TaskBoardOrderByRelationAggregateInput, {nullable:true})
+    taskBoards?: TaskBoardOrderByRelationAggregateInput;
 }

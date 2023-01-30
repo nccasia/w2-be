@@ -11,6 +11,12 @@ import { PostCreateNestedManyWithoutAuthorInput } from '../post/post-create-nest
 import { CommentCreateNestedManyWithoutCreatorInput } from '../comment/comment-create-nested-many-without-creator.input';
 import { EventLogCreateNestedManyWithoutUserInput } from '../event-log/event-log-create-nested-many-without-user.input';
 import { Role } from '../prisma/role.enum';
+import { UserSettingCreateNestedManyWithoutUserInput } from '../user-setting/user-setting-create-nested-many-without-user.input';
+import { MemberOnProjectsCreateNestedManyWithoutUserInput } from '../member-on-projects/member-on-projects-create-nested-many-without-user.input';
+import { ProjectCreateNestedManyWithoutManagerInput } from '../project/project-create-nested-many-without-manager.input';
+import { ProjectCreateNestedManyWithoutCreatorInput } from '../project/project-create-nested-many-without-creator.input';
+import { TaskCreateNestedManyWithoutReporterInput } from '../task/task-create-nested-many-without-reporter.input';
+import { ProjectCreateNestedManyWithoutReporterInput } from '../project/project-create-nested-many-without-reporter.input';
 
 @InputType()
 export class UserCreateWithoutUserPermissionsInput {
@@ -65,4 +71,22 @@ export class UserCreateWithoutUserPermissionsInput {
 
     @Field(() => Role, {nullable:false})
     role!: keyof typeof Role;
+
+    @Field(() => UserSettingCreateNestedManyWithoutUserInput, {nullable:true})
+    userSettings?: UserSettingCreateNestedManyWithoutUserInput;
+
+    @Field(() => MemberOnProjectsCreateNestedManyWithoutUserInput, {nullable:true})
+    memberOnProjects?: MemberOnProjectsCreateNestedManyWithoutUserInput;
+
+    @Field(() => ProjectCreateNestedManyWithoutManagerInput, {nullable:true})
+    managedProjects?: ProjectCreateNestedManyWithoutManagerInput;
+
+    @Field(() => ProjectCreateNestedManyWithoutCreatorInput, {nullable:true})
+    createdProjects?: ProjectCreateNestedManyWithoutCreatorInput;
+
+    @Field(() => TaskCreateNestedManyWithoutReporterInput, {nullable:true})
+    reportedTasks?: TaskCreateNestedManyWithoutReporterInput;
+
+    @Field(() => ProjectCreateNestedManyWithoutReporterInput, {nullable:true})
+    repotedProjects?: ProjectCreateNestedManyWithoutReporterInput;
 }

@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { GraphQLJSON } from 'graphql-type-json';
+import { TaskCreateNestedManyWithoutFormInput } from '../task/task-create-nested-many-without-form.input';
 
 @InputType()
 export class FormCreateWithoutTaskDefinitionsInput {
@@ -34,6 +35,9 @@ export class FormCreateWithoutTaskDefinitionsInput {
 
     @Field(() => GraphQLJSON, {nullable:false})
     displayConfig!: any;
+
+    @Field(() => TaskCreateNestedManyWithoutFormInput, {nullable:true})
+    tasks?: TaskCreateNestedManyWithoutFormInput;
 
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;

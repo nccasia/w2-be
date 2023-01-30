@@ -34,4 +34,10 @@ export class OrganizationCount {
 
     @Field(() => Int, {nullable:false})
     resources?: number;
+
+    @Field(() => Int, {nullable:false})
+    projects?: number;
+
+    @Field(() => Int, {nullable:false})
+    taskBoards?: number;
 }

@@ -3,6 +3,7 @@ import { InputType } from '@nestjs/graphql';
 import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
 import { GraphQLJSON } from 'graphql-type-json';
 import { TaskDefinitionUpdateManyWithoutFormNestedInput } from '../task-definition/task-definition-update-many-without-form-nested.input';
+import { TaskUpdateManyWithoutFormNestedInput } from '../task/task-update-many-without-form-nested.input';
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
 
 @InputType()
@@ -40,6 +41,9 @@ export class FormUpdateInput {
 
     @Field(() => TaskDefinitionUpdateManyWithoutFormNestedInput, {nullable:true})
     taskDefinitions?: TaskDefinitionUpdateManyWithoutFormNestedInput;
+
+    @Field(() => TaskUpdateManyWithoutFormNestedInput, {nullable:true})
+    tasks?: TaskUpdateManyWithoutFormNestedInput;
 
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: DateTimeFieldUpdateOperationsInput;

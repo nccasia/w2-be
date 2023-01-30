@@ -21,7 +21,7 @@ export class TaskCountAggregate {
     priority!: number;
 
     @Field(() => Int, {nullable:false})
-    isActve!: number;
+    isActive!: number;
 
     @Field(() => Int, {nullable:false})
     key!: number;
@@ -78,6 +78,9 @@ export class TaskCountAggregate {
     ctaTemplate!: number;
 
     @Field(() => Int, {nullable:false})
+    machineConfig!: number;
+
+    @Field(() => Int, {nullable:false})
     stateConfig!: number;
 
     @Field(() => Int, {nullable:false})
@@ -111,6 +114,12 @@ export class TaskCountAggregate {
     definitionId!: number;
 
     @Field(() => Int, {nullable:false})
+    formId!: number;
+
+    @Field(() => Int, {nullable:false})
+    projectId!: number;
+
+    @Field(() => Int, {nullable:false})
     assigneeId!: number;
 
     @Field(() => Int, {nullable:false})
@@ -121,6 +130,9 @@ export class TaskCountAggregate {
 
     @Field(() => Int, {nullable:false})
     organizationId!: number;
+
+    @Field(() => Int, {nullable:false})
+    reporterId!: number;
 
     @Field(() => Int, {nullable:false})
     teamId!: number;

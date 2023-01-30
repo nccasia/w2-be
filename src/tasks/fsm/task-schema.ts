@@ -7,7 +7,7 @@ import { Task } from '@prisma/client';
 const initialContext = {};
 
 const DEFAULT_TASK_SCHEMA = {
-  key: 'Task machine',
+  id: 'Task machine',
   context: initialContext,
   initial: 'NEW',
   states: {
@@ -45,6 +45,30 @@ const DEFAULT_TASK_SCHEMA = {
     DOING: {
       type: 'atomic',
       id: 'DOING',
+      on: {
+        changeStatus: [
+          {
+            cond: 'isTodo',
+            target: '#TODO',
+          },
+          {
+            cond: 'isDiscarded',
+            target: '#DISCARDED',
+          },
+        ],
+        FORM_SUBMITTED: [
+          {
+            cond: 'inValid',
+            target: '#DONE',
+          },
+        ],
+        TASK_SUBMITTED: [
+          {
+            cond: 'isCompleted',
+            target: '#DONE',
+          },
+        ],
+      },
     },
     DONE: {
       id: 'DONE',
@@ -62,7 +86,10 @@ const DEFAULT_TASK_SCHEMA = {
     },
   },
   on: {
-    changeStatus: [
+    SET_ACTIVE: {
+      actions: 'setActive',
+    },
+    CHANGE_STATUS: [
       {
         cond: 'isTodo',
         target: '#TODO',
@@ -82,8 +109,22 @@ export class TaskSchema {
   schema = null;
   validateFn = ajv.compile(machineSchema);
 
+  constructor(initSchema: any = DEFAULT_TASK_SCHEMA) {
+    const validation = initSchema && initSchema.states;
+    if (!validation) {
+      console.log(initSchema);
+      throw new Error('Invalid schema');
+    }
+    this.init(initSchema);
+  }
+
   init(initSchema: any = DEFAULT_TASK_SCHEMA) {
-    this.schema = { ...initSchema };
+    this.schema = JSON.parse(JSON.stringify(initSchema));
+    return this;
+  }
+
+  name(name: string) {
+    jsonPointer.set(this.schema, '/id', name);
     return this;
   }
 
@@ -117,7 +158,31 @@ export class TaskSchema {
   addSubTask(task: Task) {
     const stateName = task.key;
     jsonPointer.set(this.schema, `/states/DOING/states/${stateName}`, {
-      type: 'atomic',
+      type: 'compound',
+      states: {
+        NEW: {
+          type: 'atomic',
+        },
+        TODO: {
+          type: 'atomic',
+        },
+        DOING: {
+          type: 'atomic',
+        },
+        PEDING: {
+          type: 'atomic',
+        },
+        DONE: {
+          type: 'final',
+        },
+      },
+      on: {
+        [`FORM_SUMBIT_${stateName}`]: [
+          {
+            target: 'DONE',
+          },
+        ],
+      },
     });
     return this;
   }

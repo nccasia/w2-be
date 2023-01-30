@@ -50,6 +50,9 @@ export class TaskDefinitionCountAggregateInput {
     ctaTemplate?: true;
 
     @Field(() => Boolean, {nullable:true})
+    machineConfig?: true;
+
+    @Field(() => Boolean, {nullable:true})
     stateConfig?: true;
 
     @Field(() => Boolean, {nullable:true})

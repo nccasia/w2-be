@@ -52,7 +52,7 @@ array_relationships:
 event_triggers:
   - name: task-created
     definition:
-      enable_manual: false
+      enable_manual: true
       insert:
         columns: '*'
     retry_conf:
@@ -63,3 +63,10 @@ event_triggers:
     headers:
       - name: x-hasura-secret
         value_from_env: HASURA_NESTJS_WEBHOOK_SECRET_HEADER_VALUE
+    cleanup_config:
+      batch_size: 10000
+      clean_invocation_logs: false
+      clear_older_than: 168
+      paused: true
+      schedule: 0 0 * * *
+      timeout: 60

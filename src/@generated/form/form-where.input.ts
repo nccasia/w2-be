@@ -4,6 +4,7 @@ import { IntFilter } from '../prisma/int-filter.input';
 import { StringFilter } from '../prisma/string-filter.input';
 import { JsonFilter } from '../prisma/json-filter.input';
 import { TaskDefinitionListRelationFilter } from '../task-definition/task-definition-list-relation-filter.input';
+import { TaskListRelationFilter } from '../task/task-list-relation-filter.input';
 import { DateTimeFilter } from '../prisma/date-time-filter.input';
 
 @InputType()
@@ -53,6 +54,9 @@ export class FormWhereInput {
 
     @Field(() => TaskDefinitionListRelationFilter, {nullable:true})
     taskDefinitions?: TaskDefinitionListRelationFilter;
+
+    @Field(() => TaskListRelationFilter, {nullable:true})
+    tasks?: TaskListRelationFilter;
 
     @Field(() => DateTimeFilter, {nullable:true})
     createdAt?: DateTimeFilter;

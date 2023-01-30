@@ -20,7 +20,7 @@ export class TaskCountAggregateInput {
     priority?: true;
 
     @Field(() => Boolean, {nullable:true})
-    isActve?: true;
+    isActive?: true;
 
     @Field(() => Boolean, {nullable:true})
     key?: true;
@@ -77,6 +77,9 @@ export class TaskCountAggregateInput {
     ctaTemplate?: true;
 
     @Field(() => Boolean, {nullable:true})
+    machineConfig?: true;
+
+    @Field(() => Boolean, {nullable:true})
     stateConfig?: true;
 
     @Field(() => Boolean, {nullable:true})
@@ -110,6 +113,12 @@ export class TaskCountAggregateInput {
     definitionId?: true;
 
     @Field(() => Boolean, {nullable:true})
+    formId?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    projectId?: true;
+
+    @Field(() => Boolean, {nullable:true})
     assigneeId?: true;
 
     @Field(() => Boolean, {nullable:true})
@@ -120,6 +129,9 @@ export class TaskCountAggregateInput {
 
     @Field(() => Boolean, {nullable:true})
     organizationId?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    reporterId?: true;
 
     @Field(() => Boolean, {nullable:true})
     teamId?: true;
