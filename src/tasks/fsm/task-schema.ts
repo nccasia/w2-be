@@ -165,6 +165,7 @@ export class TaskSchema {
     const stateName = task.key;
     jsonPointer.set(this.schema, `/states/DOING/states/${stateName}`, {
       type: 'compound',
+      initial: 'TODO',
       states: {
         TODO: {
           type: 'atomic',
