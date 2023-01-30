@@ -2,9 +2,15 @@ table:
   name: Task
   schema: public
 object_relationships:
+  - name: Form
+    using:
+      foreign_key_constraint_on: formId
   - name: Organization
     using:
       foreign_key_constraint_on: organizationId
+  - name: Project
+    using:
+      foreign_key_constraint_on: projectId
   - name: Task
     using:
       foreign_key_constraint_on: parentId
@@ -20,6 +26,9 @@ object_relationships:
   - name: userByCreatorid
     using:
       foreign_key_constraint_on: creatorId
+  - name: userByReporterid
+    using:
+      foreign_key_constraint_on: reporterId
 array_relationships:
   - name: Comments
     using:

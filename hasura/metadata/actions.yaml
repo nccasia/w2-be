@@ -29,13 +29,33 @@ actions:
             }
         template_engine: Kriti
         version: 2
+  - name: submitTask
+    definition:
+      kind: synchronous
+      handler: http://nest-api:3000/graphql
+      forward_client_headers: true
+      request_transform:
+        body:
+          action: transform
+          template: |
+            {
+              "operationName": "submitTask",
+              "variables": {{$body.input}},
+              "query": "mutation submitTask($input: FormTriggerInput!) {\n  submitTask(input: $input) {\n    id\n    name\n    schema\n    description\n    code\n  }\n}\n"
+            }
+        method: POST
+        query_params: {}
+        template_engine: Kriti
+        version: 2
 custom_types:
   enums: []
   input_objects:
     - name: LoginInput
+    - name: FormTriggerInput
   objects:
     - name: LoginAuth
     - name: LoginUser
     - name: LoginAuthData
+    - name: FormOutput
   scalars:
     - name: JWT

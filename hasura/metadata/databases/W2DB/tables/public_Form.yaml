@@ -9,3 +9,10 @@ array_relationships:
         table:
           name: TaskDefinition
           schema: public
+  - name: Tasks
+    using:
+      foreign_key_constraint_on:
+        column: formId
+        table:
+          name: Task
+          schema: public

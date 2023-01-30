@@ -30,6 +30,13 @@ array_relationships:
         table:
           name: Permission
           schema: public
+  - name: Projects
+    using:
+      foreign_key_constraint_on:
+        column: organizationId
+        table:
+          name: Project
+          schema: public
   - name: Resources
     using:
       foreign_key_constraint_on:
@@ -43,6 +50,13 @@ array_relationships:
         column: organizationId
         table:
           name: Settings
+          schema: public
+  - name: TaskBoards
+    using:
+      foreign_key_constraint_on:
+        column: organizationId
+        table:
+          name: TaskBoard
           schema: public
   - name: TaskDefinitions
     using:

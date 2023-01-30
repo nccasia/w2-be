@@ -1,19 +1,12 @@
 import { PrismaService } from 'nestjs-prisma';
-import {
-  Resolver,
-  Query,
-  Parent,
-  Mutation,
-  Args,
-  ResolveField,
-} from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
 import { UserEntity } from 'src/common/decorators/user.decorator';
 import { GqlAuthGuard } from 'src/auth/gql-auth.guard';
 import { UsersService } from './users.service';
-import { User } from './models/user.model';
 import { ChangePasswordInput } from './dto/change-password.input';
 import { UpdateUserInput } from './dto/update-user.input';
+import { User } from 'src/@generated/user/user.model';
 
 @Resolver(() => User)
 @UseGuards(GqlAuthGuard)
@@ -48,18 +41,5 @@ export class UsersResolver {
       user.password,
       changePassword
     );
-  }
-
-  @ResolveField('permissions')
-  permissions(@Parent() author: User) {
-    return this.prisma.permission.findMany({
-      where: {
-        userPermissions: {
-          some: {
-            userId: author.id,
-          },
-        },
-      },
-    });
   }
 }

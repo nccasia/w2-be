@@ -1,7 +1,6 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
-import { TriggerStatus, TriggerType } from '@prisma/client';
 import { PrismaService } from 'nestjs-prisma';
-import { Task } from '../@generated/task/task.model';
+import { Form } from '../@generated/form/form.model';
 import { FormTriggerInput } from './dto/form-trigger.input';
 import { FormService } from './forms/form.service';
 import { TaskWorkflowService } from './task-workflow.service';
@@ -16,14 +15,16 @@ export class TaskResolver {
     private readonly formService: FormService
   ) {}
 
-  @Mutation('submitTask')
-  async submitTask(@Args() input: FormTriggerInput): Promise<any> {
+  @Mutation(() => Form)
+  async submitTask(@Args('input') input: FormTriggerInput): Promise<Form> {
     const formValue = this.formService.serializeForm(input.formId, input.value);
     const trigger = await this.trigger.createFormTrigger(
       input.taskId,
       formValue
     );
     await this.taskWorkflowService.executeTaskTrigger(input.taskId, trigger.id);
-    return {};
+    return this.prisma.form.findUnique({
+      where: { id: input.formId },
+    });
   }
 }

@@ -4,9 +4,21 @@ type Mutation {
   ): LoginAuth!
 }
 
+type Mutation {
+  submitTask(
+    input: FormTriggerInput!
+  ): FormOutput!
+}
+
 input LoginInput {
   email: String!
   password: String!
+}
+
+input FormTriggerInput {
+  formId: Int
+  taskId: Int
+  value: String!
 }
 
 type LoginAuth {
@@ -26,6 +38,15 @@ type LoginAuthData {
   accessToken: JWT!
   refreshToken: JWT!
   user: LoginUser!
+}
+
+type FormOutput {
+  code: String!
+  config: String!
+  description: String!
+  displayTemplate: String!
+  id: ID!
+  name: String!
 }
 
 scalar JWT

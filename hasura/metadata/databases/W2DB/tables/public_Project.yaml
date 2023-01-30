@@ -1,0 +1,48 @@
+table:
+  name: Project
+  schema: public
+object_relationships:
+  - name: Organization
+    using:
+      foreign_key_constraint_on: organizationId
+  - name: TaskDefinition
+    using:
+      foreign_key_constraint_on: taskDefinitionId
+  - name: User
+    using:
+      foreign_key_constraint_on: creatorId
+  - name: userByManagerid
+    using:
+      foreign_key_constraint_on: managerId
+  - name: userByReporterid
+    using:
+      foreign_key_constraint_on: reporterId
+array_relationships:
+  - name: MemberOnProjects
+    using:
+      foreign_key_constraint_on:
+        column: projectId
+        table:
+          name: MemberOnProjects
+          schema: public
+  - name: ProjectSettings
+    using:
+      foreign_key_constraint_on:
+        column: projectId
+        table:
+          name: ProjectSettings
+          schema: public
+  - name: TaskBoards
+    using:
+      foreign_key_constraint_on:
+        column: projectId
+        table:
+          name: TaskBoard
+          schema: public
+  - name: Tasks
+    using:
+      foreign_key_constraint_on:
+        column: projectId
+        table:
+          name: Task
+          schema: public

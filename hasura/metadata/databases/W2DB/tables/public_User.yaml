@@ -23,6 +23,13 @@ array_relationships:
         table:
           name: EventLog
           schema: public
+  - name: MemberOnProjects
+    using:
+      foreign_key_constraint_on:
+        column: userId
+        table:
+          name: MemberOnProjects
+          schema: public
   - name: MemberOnTeams
     using:
       foreign_key_constraint_on:
@@ -36,6 +43,13 @@ array_relationships:
         column: authorId
         table:
           name: Post
+          schema: public
+  - name: Projects
+    using:
+      foreign_key_constraint_on:
+        column: creatorId
+        table:
+          name: Project
           schema: public
   - name: Tasks
     using:
@@ -58,10 +72,38 @@ array_relationships:
         table:
           name: UserPermission
           schema: public
+  - name: UserSettings
+    using:
+      foreign_key_constraint_on:
+        column: userId
+        table:
+          name: UserSetting
+          schema: public
+  - name: projectsByManagerid
+    using:
+      foreign_key_constraint_on:
+        column: managerId
+        table:
+          name: Project
+          schema: public
+  - name: projectsByReporterid
+    using:
+      foreign_key_constraint_on:
+        column: reporterId
+        table:
+          name: Project
+          schema: public
   - name: tasksByCreatorid
     using:
       foreign_key_constraint_on:
         column: creatorId
+        table:
+          name: Task
+          schema: public
+  - name: tasksByReporterid
+    using:
+      foreign_key_constraint_on:
+        column: reporterId
         table:
           name: Task
           schema: public

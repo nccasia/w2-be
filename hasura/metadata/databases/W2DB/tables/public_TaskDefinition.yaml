@@ -12,6 +12,20 @@ object_relationships:
     using:
       foreign_key_constraint_on: parentId
 array_relationships:
+  - name: Projects
+    using:
+      foreign_key_constraint_on:
+        column: taskDefinitionId
+        table:
+          name: Project
+          schema: public
+  - name: TaskBoards
+    using:
+      foreign_key_constraint_on:
+        column: taskDefinitionId
+        table:
+          name: TaskBoard
+          schema: public
   - name: TaskDefinitionActivityDefinitions
     using:
       foreign_key_constraint_on:

@@ -1,0 +1,21 @@
+table:
+  name: TaskBoard
+  schema: public
+object_relationships:
+  - name: Organization
+    using:
+      foreign_key_constraint_on: organizationId
+  - name: Project
+    using:
+      foreign_key_constraint_on: projectId
+  - name: TaskDefinition
+    using:
+      foreign_key_constraint_on: taskDefinitionId
+array_relationships:
+  - name: TaskBoardSettings
+    using:
+      foreign_key_constraint_on:
+        column: taskBoardId
+        table:
+          name: TaskBoardSettings
+          schema: public

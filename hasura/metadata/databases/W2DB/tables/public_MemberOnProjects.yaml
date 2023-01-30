@@ -1,0 +1,10 @@
+table:
+  name: MemberOnProjects
+  schema: public
+object_relationships:
+  - name: Project
+    using:
+      foreign_key_constraint_on: projectId
+  - name: User
+    using:
+      foreign_key_constraint_on: userId
