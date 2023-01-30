@@ -177,7 +177,7 @@ export class TaskSchema {
         DOING: {
           type: 'atomic',
           on: {
-            [`FORM_SUMBIT_${stateName}`]: [
+            [`FORM_SUBMIT_${stateName}`]: [
               {
                 target: 'COMPLETED',
               },
