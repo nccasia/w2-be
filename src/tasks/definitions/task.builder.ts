@@ -202,7 +202,7 @@ export class TaskBuilder {
         `Task Machine ${this.task.id}`
     );
     if (this.subTasks.length > 0) {
-      this.taskSchema.parallel();
+      this.taskSchema.enableParallelSubTasks();
 
       for (const subTask of this.subTasks) {
         this.taskSchema.addSubTask(subTask);

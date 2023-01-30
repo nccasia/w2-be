@@ -140,8 +140,14 @@ export class TaskSchema {
     return this;
   }
 
-  parallel() {
+  enableParallelSubTasks() {
     jsonPointer.set(this.schema, `/states/DOING/type`, 'parallel');
+    jsonPointer.set(this.schema, `/states/DOING/on`, {
+      '': {
+        target: '#DONE',
+        cond: 'allTasksDone',
+      },
+    });
 
     this.ensureSubState();
 
@@ -160,26 +166,25 @@ export class TaskSchema {
     jsonPointer.set(this.schema, `/states/DOING/states/${stateName}`, {
       type: 'compound',
       states: {
-        NEW: {
-          type: 'atomic',
-        },
         TODO: {
           type: 'atomic',
+          on: {
+            [`START_${stateName}`]: {
+              target: 'DOING',
+            },
+          },
         },
         DOING: {
           type: 'atomic',
           on: {
             [`FORM_SUMBIT_${stateName}`]: [
               {
-                target: 'DONE',
+                target: 'COMPLETED',
               },
             ],
           },
         },
-        PEDING: {
-          type: 'atomic',
-        },
-        DONE: {
+        COMPLETED: {
           type: 'final',
         },
       },
