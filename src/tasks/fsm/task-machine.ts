@@ -113,6 +113,9 @@ export class TaskMachine {
           }
           return (event as any)?.value?.approval === 'APPROVED';
         },
+        allTasksCompleted: (context, event) => {
+          return false;
+        },
       },
     });
     this.engine = machine;

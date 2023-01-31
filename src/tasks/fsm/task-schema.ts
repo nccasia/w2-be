@@ -145,7 +145,7 @@ export class TaskSchema {
     jsonPointer.set(this.schema, `/states/DOING/on`, {
       '': {
         target: '#DONE',
-        cond: 'allTasksDone',
+        cond: 'allTasksCompleted',
       },
     });
 
