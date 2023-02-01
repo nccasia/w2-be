@@ -43,6 +43,9 @@ export class FormUncheckedCreateWithoutTasksInput {
     @Field(() => TaskDefinitionUncheckedCreateNestedManyWithoutFormInput, {nullable:true})
     taskDefinitions?: TaskDefinitionUncheckedCreateNestedManyWithoutFormInput;
 
+    @Field(() => GraphQLJSON, {nullable:true})
+    values?: any;
+
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
 

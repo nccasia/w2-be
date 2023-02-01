@@ -44,6 +44,9 @@ export class FormGroupBy {
     @Field(() => GraphQLJSON, {nullable:false})
     displayConfig!: any;
 
+    @Field(() => GraphQLJSON, {nullable:true})
+    values?: any;
+
     @Field(() => Date, {nullable:false})
     createdAt!: Date | string;
 

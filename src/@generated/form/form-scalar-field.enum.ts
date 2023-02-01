@@ -12,6 +12,7 @@ export enum FormScalarFieldEnum {
     serializerConfig = "serializerConfig",
     displayTemplate = "displayTemplate",
     displayConfig = "displayConfig",
+    values = "values",
     createdAt = "createdAt",
     updatedAt = "updatedAt"
 }

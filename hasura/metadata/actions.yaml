@@ -47,6 +47,15 @@ actions:
         query_params: {}
         template_engine: Kriti
         version: 2
+      response_transform:
+        body:
+          action: transform
+          template: |-
+            {
+              "submitTask": {{$body.data.submitTask}}
+            }
+        template_engine: Kriti
+        version: 2
 custom_types:
   enums: []
   input_objects:
@@ -57,5 +66,8 @@ custom_types:
     - name: LoginUser
     - name: LoginAuthData
     - name: FormOutput
+    - name: FormSubmitResponse
+    - name: SubmitTaskOutput
+    - name: SubmitTask
   scalars:
     - name: JWT

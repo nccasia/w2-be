@@ -7,7 +7,7 @@ type Mutation {
 type Mutation {
   submitTask(
     input: FormTriggerInput!
-  ): FormOutput!
+  ): SubmitTaskOutput!
 }
 
 input LoginInput {
@@ -18,7 +18,7 @@ input LoginInput {
 input FormTriggerInput {
   formId: Int
   taskId: Int
-  value: String!
+  value: json!
 }
 
 type LoginAuth {
@@ -47,6 +47,21 @@ type FormOutput {
   displayTemplate: String!
   id: ID!
   name: String!
+}
+
+type FormSubmitResponse {
+  submitTask: FormOutput!
+}
+
+type SubmitTaskOutput {
+  submitTask: SubmitTask
+}
+
+type SubmitTask {
+  code: String
+  description: String
+  id: String
+  name: String
 }
 
 scalar JWT

@@ -5,8 +5,9 @@ import { DateTimeFilter } from '../prisma/date-time-filter.input';
 import { IntNullableFilter } from '../prisma/int-nullable-filter.input';
 import { UserRelationFilter } from '../user/user-relation-filter.input';
 import { TaskRelationFilter } from '../task/task-relation-filter.input';
-import { ActionRelationFilter } from '../action/action-relation-filter.input';
 import { OrganizationRelationFilter } from '../organization/organization-relation-filter.input';
+import { JsonNullableFilter } from '../prisma/json-nullable-filter.input';
+import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
 
 @InputType()
 export class EventLogWhereInput {
@@ -39,14 +40,23 @@ export class EventLogWhereInput {
     task?: TaskRelationFilter;
 
     @Field(() => IntFilter, {nullable:true})
-    actionId?: IntFilter;
-
-    @Field(() => ActionRelationFilter, {nullable:true})
-    Action?: ActionRelationFilter;
-
-    @Field(() => IntFilter, {nullable:true})
     organizationId?: IntFilter;
 
     @Field(() => OrganizationRelationFilter, {nullable:true})
     organization?: OrganizationRelationFilter;
+
+    @Field(() => JsonNullableFilter, {nullable:true})
+    context?: JsonNullableFilter;
+
+    @Field(() => StringNullableFilter, {nullable:true})
+    action?: StringNullableFilter;
+
+    @Field(() => StringNullableFilter, {nullable:true})
+    intent?: StringNullableFilter;
+
+    @Field(() => StringNullableFilter, {nullable:true})
+    domain?: StringNullableFilter;
+
+    @Field(() => StringNullableFilter, {nullable:true})
+    content?: StringNullableFilter;
 }

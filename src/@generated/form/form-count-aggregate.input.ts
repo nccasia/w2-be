@@ -38,6 +38,9 @@ export class FormCountAggregateInput {
     displayConfig?: true;
 
     @Field(() => Boolean, {nullable:true})
+    values?: true;
+
+    @Field(() => Boolean, {nullable:true})
     createdAt?: true;
 
     @Field(() => Boolean, {nullable:true})

@@ -18,8 +18,17 @@ export class EventLogMaxAggregate {
     taskId?: number;
 
     @Field(() => Int, {nullable:true})
-    actionId?: number;
-
-    @Field(() => Int, {nullable:true})
     organizationId?: number;
+
+    @Field(() => String, {nullable:true})
+    action?: string;
+
+    @Field(() => String, {nullable:true})
+    intent?: string;
+
+    @Field(() => String, {nullable:true})
+    domain?: string;
+
+    @Field(() => String, {nullable:true})
+    content?: string;
 }

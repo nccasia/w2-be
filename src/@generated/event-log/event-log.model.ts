@@ -4,8 +4,8 @@ import { ID } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { User } from '../user/user.model';
 import { Task } from '../task/task.model';
-import { Action } from '../action/action.model';
 import { Organization } from '../organization/organization.model';
+import { GraphQLJSON } from 'graphql-type-json';
 
 @ObjectType()
 export class EventLog {
@@ -29,14 +29,23 @@ export class EventLog {
     task?: Task | null;
 
     @Field(() => Int, {nullable:false})
-    actionId!: number;
-
-    @Field(() => Action, {nullable:true})
-    Action?: Action | null;
-
-    @Field(() => Int, {nullable:false})
     organizationId!: number;
 
     @Field(() => Organization, {nullable:false})
     organization?: Organization;
+
+    @Field(() => GraphQLJSON, {nullable:true})
+    context!: any | null;
+
+    @Field(() => String, {nullable:true})
+    action!: string | null;
+
+    @Field(() => String, {nullable:true})
+    intent!: string | null;
+
+    @Field(() => String, {nullable:true})
+    domain!: string | null;
+
+    @Field(() => String, {nullable:true})
+    content!: string | null;
 }

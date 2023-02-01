@@ -2,9 +2,6 @@ table:
   name: EventLog
   schema: public
 object_relationships:
-  - name: Action
-    using:
-      foreign_key_constraint_on: actionId
   - name: Organization
     using:
       foreign_key_constraint_on: organizationId

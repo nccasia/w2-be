@@ -1,4 +1,3 @@
-- "!include public_Action.yaml"
 - "!include public_ActivityDefinition.yaml"
 - "!include public_Comment.yaml"
 - "!include public_EventLog.yaml"

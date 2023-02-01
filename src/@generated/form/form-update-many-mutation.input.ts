@@ -37,6 +37,9 @@ export class FormUpdateManyMutationInput {
     @Field(() => GraphQLJSON, {nullable:true})
     displayConfig?: any;
 
+    @Field(() => GraphQLJSON, {nullable:true})
+    values?: any;
+
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: DateTimeFieldUpdateOperationsInput;
 

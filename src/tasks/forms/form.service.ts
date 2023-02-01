@@ -7,21 +7,13 @@ import { TaskState } from '../fsm/task-state';
 export class FormService {
   constructor(private prisma: PrismaService) {}
 
-  async getForm(formId: number) {
-    return this.prisma.form.findUnique({
+  async submitForm(formId: number, values: any) {
+    const form = await this.prisma.form.update({
       where: { id: formId },
+      data: {
+        values: values,
+      },
     });
-  }
-
-  async validateForm(formId: number, values: any) {
-    const form = await this.getForm(formId);
-    const errors = null;
-    return { errors, values };
-  }
-
-  async serializeForm(formId: number, values: any) {
-    const form = await this.getForm(formId);
-    const properties = { ...values };
-    return properties;
+    return form;
   }
 }

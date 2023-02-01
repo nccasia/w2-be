@@ -1,0 +1,93 @@
+{
+  "id": "[DEV#40] Device request",
+  "on": {
+    "SET_ACTIVE": { "actions": "setActive" },
+    "CHANGE_STATUS": [
+      { "cond": "isTodo", "target": "#TODO" },
+      { "cond": "isDiscarded", "target": "#DISCARDED" }
+    ]
+  },
+  "states": {
+    "NEW": {
+      "type": "atomic",
+      "invoke": { "src": "setupTask", "onDone": { "target": "TODO" } }
+    },
+    "TODO": {
+      "id": "TODO",
+      "on": {
+        "changeStatus": [
+          { "cond": "isDoing", "target": "DOING" },
+          { "cond": "isDiscarded", "target": "#DISCARDED" }
+        ]
+      },
+      "type": "atomic",
+      "invoke": { "src": "checkTodo", "onDone": { "target": "DOING" } }
+    },
+    "DISCARDED": { "id": "DISCARDED", "type": "final" },
+    "DOING": {
+      "id": "DOING",
+      "type": "compound",
+      "initial": "PM_APPROVAL",
+      "states": {
+        "PM_APPROVAL": {
+          "type": "atomic",
+          "id": "PM_APPROVAL",
+          "on": {
+            "FORM_SUBMIT_PM_APPROVAL": [
+              {
+                "cond": "isApproved",
+                "target": "#IT_APPROVAL"
+              },
+              {
+                "cond": "isRejected",
+                "target": "#SALE_APPROVAL"
+              },
+              {
+                "target": "#IT_APPROVAL"
+              }
+            ]
+          }
+        },
+        "SALE_APPROVAL": {
+          "type": "atomic",
+          "id": "SALE_APPROVAL",
+          "on": {
+            "FORM_SUBMIT_SALE_APPROVAL": [
+              { "cond": "isApproved", "target": "#CUSTOMER_APPROVAL" }
+            ]
+          }
+        },
+        "CUSTOMER_APPROVAL": {
+          "type": "atomic",
+          "id": "CUSTOMER_APPROVAL",
+          "on": {
+            "FORM_SUBMIT_CUSTOMER_APPROVAL": [
+              { "cond": "isApproved", "target": "#IT_APPROVAL" }
+            ]
+          }
+        },
+        "IT_APPROVAL": {
+          "id": "IT_APPROVAL",
+          "type": "atomic",
+          "on": {
+            "FORM_SUBMIT_IT_APPROVAL": [
+              { "cond": "isApproved", "target": "#DONE.APPROVED" },
+              { "cond": "isRejected", "target": "#DONE.REJECTED" }
+            ]
+          }
+        }
+      }
+    },
+    "DONE": {
+      "id": "DONE",
+      "type": "compound",
+      "states": {
+        "APPROVED": { "type": "final" },
+        "REJECTED": { "type": "final" }
+      }
+    }
+  },
+  "initial": "NEW",
+  "type": "compound",
+  "context": {}
+}

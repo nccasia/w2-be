@@ -15,8 +15,5 @@ export class EventLogAvgAggregate {
     taskId?: number;
 
     @Field(() => Float, {nullable:true})
-    actionId?: number;
-
-    @Field(() => Float, {nullable:true})
     organizationId?: number;
 }

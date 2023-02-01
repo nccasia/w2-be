@@ -132,6 +132,7 @@ Table Form {
   displayConfig Json [not null]
   taskDefinitions TaskDefinition [not null]
   tasks Task [not null]
+  values Json
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [default: `now()`, not null]
 }
@@ -415,21 +416,13 @@ Table EventLog {
   user User
   taskId Int
   task Task
-  actionId Int [not null]
-  Action Action
   organizationId Int [not null]
   organization Organization [not null]
-}
-
-Table Action {
-  id Int [pk, increment]
-  createdAt DateTime [default: `now()`, not null]
-  type ActionType [not null]
-  events EventLog [not null]
-  action String [not null]
-  intent String [not null]
-  domain String [not null]
-  content String [not null]
+  context Json
+  action String
+  intent String
+  domain String
+  content String
 }
 
 Table Trigger {
@@ -494,16 +487,6 @@ Enum TaskPriority {
   MEDIUM
   HIGH
   URGENT
-}
-
-Enum ActionType {
-  CREATE_TASK
-  UPDATE_TASK
-  DELETE_TASK
-  CREATE_COMMENT
-  UPDATE_STATUS
-  ASSIGN_USER
-  SUMBIT_FORM
 }
 
 Enum TriggerType {
@@ -624,8 +607,6 @@ Ref: Comment.taskId > Task.id
 Ref: EventLog.userId > User.id
 
 Ref: EventLog.taskId > Task.id
-
-Ref: EventLog.actionId > Action.id
 
 Ref: EventLog.organizationId > Organization.id
 

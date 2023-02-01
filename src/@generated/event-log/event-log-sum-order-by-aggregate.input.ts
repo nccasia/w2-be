@@ -15,8 +15,5 @@ export class EventLogSumOrderByAggregateInput {
     taskId?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
-    actionId?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
     organizationId?: keyof typeof SortOrder;
 }

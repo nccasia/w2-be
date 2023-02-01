@@ -18,8 +18,17 @@ export class EventLogMaxOrderByAggregateInput {
     taskId?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
-    actionId?: keyof typeof SortOrder;
+    organizationId?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
-    organizationId?: keyof typeof SortOrder;
+    action?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    intent?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    domain?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    content?: keyof typeof SortOrder;
 }

@@ -49,6 +49,9 @@ export class FormUncheckedUpdateInput {
     @Field(() => TaskUncheckedUpdateManyWithoutFormNestedInput, {nullable:true})
     tasks?: TaskUncheckedUpdateManyWithoutFormNestedInput;
 
+    @Field(() => GraphQLJSON, {nullable:true})
+    values?: any;
+
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: DateTimeFieldUpdateOperationsInput;
 

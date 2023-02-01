@@ -112,7 +112,7 @@ export class TaskSchema {
   constructor(initSchema: any = DEFAULT_TASK_SCHEMA) {
     const validation = initSchema && initSchema.states;
     if (!validation) {
-      console.log(initSchema);
+      console.error('Invalid schema', initSchema);
       throw new Error('Invalid schema');
     }
     this.init(initSchema);
@@ -159,6 +159,14 @@ export class TaskSchema {
       jsonPointer.set(this.schema, `/states/DOING/states`, {});
     }
     return this;
+  }
+
+  getDoingType() {
+    return jsonPointer.get(this.schema, `/states/DOING/type`);
+  }
+
+  hasDoingSubState(stateName: string) {
+    return jsonPointer.has(this.schema, `/states/DOING/states/${stateName}`);
   }
 
   addSubTask(task: Task) {

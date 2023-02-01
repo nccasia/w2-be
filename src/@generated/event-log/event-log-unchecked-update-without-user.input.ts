@@ -3,6 +3,8 @@ import { InputType } from '@nestjs/graphql';
 import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
 import { NullableIntFieldUpdateOperationsInput } from '../prisma/nullable-int-field-update-operations.input';
+import { GraphQLJSON } from 'graphql-type-json';
+import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-string-field-update-operations.input';
 
 @InputType()
 export class EventLogUncheckedUpdateWithoutUserInput {
@@ -17,8 +19,20 @@ export class EventLogUncheckedUpdateWithoutUserInput {
     taskId?: NullableIntFieldUpdateOperationsInput;
 
     @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    actionId?: IntFieldUpdateOperationsInput;
-
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
     organizationId?: IntFieldUpdateOperationsInput;
+
+    @Field(() => GraphQLJSON, {nullable:true})
+    context?: any;
+
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    action?: NullableStringFieldUpdateOperationsInput;
+
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    intent?: NullableStringFieldUpdateOperationsInput;
+
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    domain?: NullableStringFieldUpdateOperationsInput;
+
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    content?: NullableStringFieldUpdateOperationsInput;
 }

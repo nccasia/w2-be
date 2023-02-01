@@ -41,6 +41,9 @@ export class FormUpdateWithoutTaskDefinitionsInput {
     @Field(() => TaskUpdateManyWithoutFormNestedInput, {nullable:true})
     tasks?: TaskUpdateManyWithoutFormNestedInput;
 
+    @Field(() => GraphQLJSON, {nullable:true})
+    values?: any;
+
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: DateTimeFieldUpdateOperationsInput;
 

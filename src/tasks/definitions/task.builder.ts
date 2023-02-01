@@ -1,3 +1,4 @@
+import { Logger } from '@nestjs/common';
 import { PrismaClient, Task, Prisma, TaskDefinition } from '@prisma/client';
 import Handlebars from 'handlebars';
 import { TaskSchema } from '../fsm/task-schema';
@@ -30,7 +31,7 @@ export class TaskBuilder {
     await builder.loadParentTask(parent.id);
     return builder;
   }
-
+  private readonly logger = new Logger(TaskBuilder.name);
   private subTasks: Task[] = [];
   private definetion: Prisma.TaskDefinitionGetPayload<{
     include: {
@@ -159,6 +160,7 @@ export class TaskBuilder {
       });
       const payload = JSON.parse(JSON.stringify(form));
       payload.id = undefined;
+      payload.values = {};
 
       const newForm = await this.prisma.form.create({
         data: payload,
@@ -192,8 +194,14 @@ export class TaskBuilder {
       this.definetion.machineConfig &&
       (this.definetion.machineConfig as any).states
     ) {
+      this.logger.log(
+        `${this.task.id} ${this.task.key} using def machine config`
+      );
       this.taskSchema.init(this.definetion.machineConfig);
     } else {
+      this.logger.log(
+        `${this.task.id} ${this.task.key} using default machine config`
+      );
       this.taskSchema.init();
     }
     this.taskSchema.name(
@@ -202,12 +210,25 @@ export class TaskBuilder {
         `Task Machine ${this.task.id}`
     );
     if (this.subTasks.length > 0) {
-      this.taskSchema.enableParallelSubTasks();
+      const doingType = this.taskSchema.getDoingType();
+      if (doingType === 'atomic') {
+        this.logger.log(
+          `${this.task.id} ${this.task.key} using parallel sub tasks`
+        );
+        this.taskSchema.enableParallelSubTasks();
+      }
 
       for (const subTask of this.subTasks) {
-        this.taskSchema.addSubTask(subTask);
+        const hasDoingSubState = this.taskSchema.hasDoingSubState(subTask.key);
+        this.logger.log(
+          `${this.task.id} ${this.task.key} ${subTask.key} has doing sub state ${hasDoingSubState}`
+        );
+        if (!hasDoingSubState) {
+          this.taskSchema.addSubTask(subTask);
+        }
       }
     }
+
     this.args.machineConfig = this.taskSchema.getSchema();
     return this;
   }
@@ -321,7 +342,8 @@ export class TaskBuilder {
       );
       await newSubtaskBuilder.configureTaskFromParent();
       await newSubtaskBuilder.configureTask();
-      await newSubtaskBuilder.configureTaskSchema();
+      // un-controlled task dont need schema
+      // await newSubtaskBuilder.configureTaskSchema();
     }
     await this.loadSubTasks();
     return this;

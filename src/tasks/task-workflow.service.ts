@@ -24,9 +24,13 @@ export class TaskWorkflowService {
     const taskMachine = new TaskMachine(taskId, this.prisma);
     await taskMachine.init();
 
-    const trigger = await this.triggerService.getTrigger(triggerId);
-    taskMachine.triggerEvent(trigger.key, trigger.value);
-
     await taskMachine.run();
+
+    const trigger = await this.triggerService.getTrigger(triggerId);
+    taskMachine.triggerEvent(trigger.key, trigger);
+    await this.sleep(10000);
+  }
+  sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 }

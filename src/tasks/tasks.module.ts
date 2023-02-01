@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TaskDefinetionService } from './definitions/task-definetion.service';
 import { FormService } from './forms/form.service';
+import { EventLogService } from './history/eventlog.service';
 import { TaskFactoryService } from './task-factory.service';
 import { TaskWorkflowService } from './task-workflow.service';
 import { TasksHasuraService } from './tasks-hasura.service';
@@ -18,6 +19,7 @@ import { TriggerService } from './triggers/trigger.service';
     TaskFactoryService,
     TaskWorkflowService,
     TriggerService,
+    EventLogService,
     FormService,
   ],
 })

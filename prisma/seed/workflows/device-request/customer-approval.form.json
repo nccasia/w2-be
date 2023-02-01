@@ -1,0 +1,15 @@
+{
+  "title": "Decision",
+  "type": "object",
+  "properties": {
+    "approval": {
+      "label": "Approval",
+      "type": "string",
+      "nullable": true,
+      "allowedValues": ["Approved", "Rejected"],
+      "uniforms": { "checkboxes": true, "index": 1 }
+    },
+    "reason": { "type": "string", "nullable": true, "uniforms": { "index": 2 } }
+  },
+  "required": ["approval"]
+}

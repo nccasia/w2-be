@@ -1,18 +1,22 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { Task } from '@prisma/client';
 import { PrismaService } from 'nestjs-prisma';
 import { TaskDefinetionService } from './definitions/task-definetion.service';
+import { EventLogService } from './history/eventlog.service';
 import { TaskWorkflowService } from './task-workflow.service';
 
 @Injectable()
 export class TaskFactoryService {
+  private readonly logger = new Logger(TaskFactoryService.name);
+
   constructor(
     private readonly prisma: PrismaService,
     private readonly taskDefinetionService: TaskDefinetionService,
-    private readonly taskWorkflowService: TaskWorkflowService
+    private readonly taskWorkflowService: TaskWorkflowService,
+    private readonly eventLogService: EventLogService
   ) {}
   async setupNewTask(data: Task): Promise<Task> {
-    console.log('setupNewTask', data.id);
+    this.logger.log(`setupNewTask ${data.id} ${data.key}`);
     const existingTask = await this.prisma.task.findUnique({
       where: { id: data.id },
     });
@@ -33,6 +37,7 @@ export class TaskFactoryService {
 
     await this.taskWorkflowService.executeTaskMachine(task.id);
 
+    this.eventLogService.logNewTaskCreated(task);
     return task;
   }
 }

@@ -17,11 +17,8 @@ export class TaskResolver {
 
   @Mutation(() => Form)
   async submitTask(@Args('input') input: FormTriggerInput): Promise<Form> {
-    const formValue = this.formService.serializeForm(input.formId, input.value);
-    const trigger = await this.trigger.createFormTrigger(
-      input.taskId,
-      formValue
-    );
+    const form = await this.formService.submitForm(input.formId, input.value);
+    const trigger = await this.trigger.createFormTrigger(input.taskId, form);
     await this.taskWorkflowService.executeTaskTrigger(input.taskId, trigger.id);
     return this.prisma.form.findUnique({
       where: { id: input.formId },

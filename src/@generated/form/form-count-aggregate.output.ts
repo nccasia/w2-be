@@ -39,6 +39,9 @@ export class FormCountAggregate {
     displayConfig!: number;
 
     @Field(() => Int, {nullable:false})
+    values!: number;
+
+    @Field(() => Int, {nullable:false})
     createdAt!: number;
 
     @Field(() => Int, {nullable:false})

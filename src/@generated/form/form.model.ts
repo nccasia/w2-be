@@ -48,6 +48,9 @@ export class Form {
     @Field(() => [Task], {nullable:true})
     tasks?: Array<Task>;
 
+    @Field(() => GraphQLJSON, {nullable:true})
+    values!: any | null;
+
     @Field(() => Date, {nullable:false})
     createdAt!: Date;
 

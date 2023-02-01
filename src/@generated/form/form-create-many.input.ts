@@ -39,6 +39,9 @@ export class FormCreateManyInput {
     @Field(() => GraphQLJSON, {nullable:false})
     displayConfig!: any;
 
+    @Field(() => GraphQLJSON, {nullable:true})
+    values?: any;
+
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
 

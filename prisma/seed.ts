@@ -1,4 +1,12 @@
 import { Organization, PrismaClient, Resource, Role } from '@prisma/client';
+import * as fs from 'fs';
+
+console.log(process.cwd());
+
+function getJson(path: string) {
+  const raw = fs.readFileSync(path, 'utf8');
+  return JSON.parse(raw);
+}
 
 const prisma = new PrismaClient();
 
@@ -36,25 +44,11 @@ async function defineDeviceRequestTask(
           create: {
             name: 'Device Request PM Approval',
             description: 'Device Request PM Approval',
-            code: 'DEVICE_REQUEST_PM_APPROVAL',
+            code: 'PM_APPROVAL',
             config: {},
-            schema: {
-              title: 'Singlechoice',
-              type: 'object',
-              properties: {
-                singlechoice: {
-                  type: 'string',
-                  nullable: true,
-                  uniforms: { uiComponent: 'SinglechoiceField', index: 1 },
-                },
-                reason: {
-                  type: 'string',
-                  nullable: true,
-                  uniforms: { index: 2 },
-                },
-              },
-              required: ['singlechoice', 'reason'],
-            },
+            schema: getJson(
+              'prisma/seed/workflows/device-request/pm-approval.form.json'
+            ),
             validationConfig: {},
             triggerConfig: {},
             serializerConfig: {},
@@ -94,25 +88,11 @@ async function defineDeviceRequestTask(
           create: {
             name: 'Device Request IT Approval',
             description: 'Device Request IT Approval',
-            code: 'DEVICE_REQUEST_IT_APPROVAL',
+            code: 'IT_APPROVAL',
             config: {},
-            schema: {
-              title: 'Singlechoice',
-              type: 'object',
-              properties: {
-                singlechoice: {
-                  type: 'string',
-                  nullable: true,
-                  uniforms: { uiComponent: 'SinglechoiceField', index: 1 },
-                },
-                reason: {
-                  type: 'string',
-                  nullable: true,
-                  uniforms: { index: 2 },
-                },
-              },
-              required: ['singlechoice', 'reason'],
-            },
+            schema: getJson(
+              'prisma/seed/workflows/device-request/it-approval.form.json'
+            ),
             validationConfig: {},
             triggerConfig: {},
             serializerConfig: {},
@@ -152,25 +132,11 @@ async function defineDeviceRequestTask(
           create: {
             name: 'Device Request SALE Approval',
             description: 'Device Request SALE Approval',
-            code: 'DEVICE_REQUEST_SALE_APPROVAL',
+            code: 'SALE_APPROVAL',
             config: {},
-            schema: {
-              title: 'Singlechoice',
-              type: 'object',
-              properties: {
-                singlechoice: {
-                  type: 'string',
-                  nullable: true,
-                  uniforms: { uiComponent: 'SinglechoiceField', index: 1 },
-                },
-                reason: {
-                  type: 'string',
-                  nullable: true,
-                  uniforms: { index: 2 },
-                },
-              },
-              required: ['singlechoice', 'reason'],
-            },
+            schema: getJson(
+              'prisma/seed/workflows/device-request/sale-approval.form.json'
+            ),
             validationConfig: {},
             triggerConfig: {},
             serializerConfig: {},
@@ -210,25 +176,11 @@ async function defineDeviceRequestTask(
           create: {
             name: 'Device Request CUSTOMER Approval',
             description: 'Device Request CUSTOMER Approval',
-            code: 'DEVICE_REQUEST_CUSTOMER_APPROVAL',
+            code: 'CUSTOMER_APPROVAL',
             config: {},
-            schema: {
-              title: 'Singlechoice',
-              type: 'object',
-              properties: {
-                singlechoice: {
-                  type: 'string',
-                  nullable: true,
-                  uniforms: { uiComponent: 'SinglechoiceField', index: 1 },
-                },
-                reason: {
-                  type: 'string',
-                  nullable: true,
-                  uniforms: { index: 2 },
-                },
-              },
-              required: ['singlechoice', 'reason'],
-            },
+            schema: getJson(
+              'prisma/seed/workflows/device-request/customer-approval.form.json'
+            ),
             validationConfig: {},
             triggerConfig: {},
             serializerConfig: {},
@@ -257,6 +209,13 @@ async function defineDeviceRequestTask(
       },
     });
 
+  const deviceRequestForm = getJson(
+    'prisma/seed/workflows/device-request/device-request.form.json'
+  );
+
+  deviceRequestForm.properties.device.items.properties.type.uniforms.resource =
+    defaultResourceDevices.id;
+
   const defaultTaskDefinitionDevice = await prisma.taskDefinition.create({
     data: {
       title: 'Device request',
@@ -276,61 +235,16 @@ async function defineDeviceRequestTask(
       processConfig: {},
       triggerConfig: {},
       ctaConfig: {},
+      machineConfig: getJson(
+        'prisma/seed/workflows/device-request/workflow.json'
+      ),
       form: {
         create: {
           name: 'Device Request',
           description: 'Create Device request',
           code: 'DEVICE_REQUEST',
           config: {},
-          schema: {
-            title: 'Device Request',
-            type: 'object',
-            properties: {
-              device: {
-                type: 'array',
-                items: {
-                  type: 'object',
-                  properties: {
-                    type: {
-                      type: 'string',
-                      uniforms: {
-                        uiComponent: 'SelectResourceField',
-                        resource: defaultResourceDevices.id,
-                      },
-                    },
-                    quantity: {
-                      type: 'integer',
-                      minimum: 1,
-                      maximum: 100,
-                    },
-                    detail: {
-                      type: 'string',
-                    },
-                  },
-                  required: ['type', 'detail', 'quantity'],
-                },
-                minItems: 1,
-                uniforms: {
-                  index: 1,
-                },
-              },
-              dueDate: {
-                type: 'string',
-                format: 'date',
-                default: null,
-                nullable: true,
-                uniforms: {
-                  index: 2,
-                },
-              },
-              content: {
-                type: 'string',
-                nullable: true,
-                uniforms: { uiComponent: 'QuillEditorField', index: 4 },
-              },
-            },
-            required: ['dueDate'],
-          },
+          schema: deviceRequestForm,
           validationConfig: {},
           triggerConfig: {},
           serializerConfig: {},
@@ -720,7 +634,7 @@ async function main() {
           create: {
             name: 'Change Office Request Start Approval',
             description: 'Create Change office request Start approval',
-            code: 'CHANGE_OFFICE_REQUEST_START_APPROVAL',
+            code: 'START_APPROVAL',
             config: {},
             schema: {
               title: 'Singlechoice',
@@ -778,7 +692,7 @@ async function main() {
           create: {
             name: 'Change Office Request end Approval',
             description: 'Create Change office request end approval',
-            code: 'CHANGE_OFFICE_REQUEST_END_APPROVAL',
+            code: 'END_APPROVAL',
             config: {},
             schema: {
               title: 'Singlechoice',
@@ -864,7 +778,7 @@ async function main() {
         create: {
           name: 'WFH Request PM Approval',
           description: 'Create WFH request PM approval',
-          code: 'WFH_REQUEST_PM_APPROVAL',
+          code: 'PM_APPROVAL',
           config: {},
           schema: {
             title: 'Singlechoice',
@@ -922,7 +836,7 @@ async function main() {
           create: {
             name: 'WFH Request CEO Approval',
             description: 'Create WFH request CEO approval',
-            code: 'WFH_REQUEST_CEO_APPROVAL',
+            code: 'CEO_APPROVAL',
             config: {},
             schema: {
               title: 'Singlechoice',

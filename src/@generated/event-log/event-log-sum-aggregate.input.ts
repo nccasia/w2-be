@@ -14,8 +14,5 @@ export class EventLogSumAggregateInput {
     taskId?: true;
 
     @Field(() => Boolean, {nullable:true})
-    actionId?: true;
-
-    @Field(() => Boolean, {nullable:true})
     organizationId?: true;
 }

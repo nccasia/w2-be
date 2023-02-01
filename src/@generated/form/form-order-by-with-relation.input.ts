@@ -47,6 +47,9 @@ export class FormOrderByWithRelationInput {
     tasks?: TaskOrderByRelationAggregateInput;
 
     @Field(() => SortOrder, {nullable:true})
+    values?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
     createdAt?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})

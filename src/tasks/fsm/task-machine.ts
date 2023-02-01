@@ -7,6 +7,7 @@ import { Injector } from '@nestjs/core/injector/injector';
 import { ModuleRef } from '@nestjs/core';
 import { TaskService } from '../tasks.service';
 import { TaskState } from './task-state';
+import { Logger } from '@nestjs/common';
 
 export class TaskMachine {
   engine: any;
@@ -16,6 +17,7 @@ export class TaskMachine {
   state: any;
   config: any;
   key: any;
+  private readonly logger = new Logger(TaskMachine.name);
 
   constructor(public taskId: number, private readonly prisma: PrismaClient) {}
 
@@ -35,25 +37,31 @@ export class TaskMachine {
 
     this.createTaskMachine();
     await this.createInterpretor();
-    console.log('init task', this.taskId, this.key);
+    this.logger.log(`TaskMachine created ${this.taskId} ${this.key}`);
     this.state = this.task.stateConfig || this.engine.initialState;
   }
 
   createInterpretor() {
-    this.service = interpret(this.engine, { execute: false });
+    this.service = interpret(this.engine, {
+      execute: false,
+    });
     this.service.onTransition(async (state) => {
-      if (state.changed) {
-        console.log('state changed', this.taskId, state.value);
-        this.state = new TaskState(state);
-        await this.saveState(state);
-      }
+      console.log(
+        'onTransition',
+        this.taskId,
+        this.key,
+        state.event,
+        state.value
+      );
+      this.state = new TaskState(state);
+      await this.saveState(state);
       this.service.execute(state);
     });
   }
 
   async saveState(taskState: TaskState<any, any, any, any>) {
     const states = taskState.toStrings();
-    console.log('saveState', this.taskId, states);
+    this.logger.log(`saveState ${this.taskId} ${this.key} ${states}`);
     const state = JSON.parse(JSON.stringify(taskState));
     await this.prisma.task.update({
       where: { id: this.task.id },
@@ -63,17 +71,17 @@ export class TaskMachine {
         stateConfig: state,
       },
     });
-    this.updateTaskState(this.taskId, taskState);
-  }
-
-  async updateTaskState(taskId: number, state: TaskState<any, any, any, any>) {
-    const activeStates = state.toStrings();
-    console.log('updateTaskState', taskId, activeStates);
     for (const subTask of this.task.subTasks) {
-      const isActive = activeStates.includes(`DOING.${subTask.key}`);
+      const isActive = states.includes(`DOING.${subTask.key}`);
+      const data = { isActive };
+      this.logger.log(
+        `save SubState ${this.taskId} ${this.key} - ${subTask.id} ${
+          subTask.key
+        } ${JSON.stringify(data)}`
+      );
       await this.prisma.task.update({
         where: { id: subTask.id },
-        data: { isActive },
+        data,
       });
     }
   }
@@ -89,6 +97,7 @@ export class TaskMachine {
           },
         }),
         summitTask: (context, event) => {
+          console.log('summitTask', context, event);
           // update the task properties based on the event
         },
         sendEmailUpdate: (context, event) => {
@@ -108,10 +117,31 @@ export class TaskMachine {
       },
       guards: {
         isApproved: (context, event) => {
-          if (!event['value']) {
+          console.log('isApproved', event);
+          if (!event['data']) {
             return false;
           }
-          return (event as any)?.value?.approval === 'APPROVED';
+          const isApproved =
+            (event as any)?.data.value?.approval === 'Approved';
+          this.logger.log(
+            `guard isApproved ${this.taskId} ${this.key} - ${JSON.stringify(
+              event
+            )} - ${isApproved}`
+          );
+          return isApproved;
+        },
+        isRejected: (context, event) => {
+          if (!event['data']) {
+            return false;
+          }
+          const isRejected =
+            (event as any)?.data.value?.approval === 'Rejected';
+          this.logger.log(
+            `guard isRejected ${this.taskId} ${this.key} - ${JSON.stringify(
+              event
+            )} - ${isRejected}`
+          );
+          return isRejected;
         },
         allTasksCompleted: (context, event) => {
           return false;
@@ -122,18 +152,30 @@ export class TaskMachine {
   }
 
   triggerEvent(event: any, value: any) {
-    console.log('triggerEvent', this.taskId, event, value);
-    this.service.send(event, value);
+    this.logger.log(
+      `triggerEvent ${this.taskId} ${this.key} ${event} ${JSON.stringify(
+        value
+      )}`
+    );
+    this.service.send({
+      data: value,
+      type: event,
+    });
   }
 
   run() {
-    console.log('run', this.taskId);
+    this.logger.log(`run ${this.taskId} ${this.key}`);
     // Start the service
     this.service.start(this.state);
   }
 
+  stop() {
+    this.logger.log(`stop ${this.taskId} ${this.key}`);
+    this.service.stop();
+  }
+
   async sendSetActive(isActive: boolean) {
-    console.log('sendSetActive', this.taskId, isActive);
+    this.logger.log(`sendSetActive ${this.taskId} ${this.key} ${isActive}`);
     await this.service.send({ type: 'SET_ACTIVE', value: isActive });
   }
 }

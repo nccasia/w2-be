@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import { GraphQLJSON } from 'graphql-type-json';
 
 @InputType()
 export class EventLogCreateManyActionInput {
@@ -19,4 +20,10 @@ export class EventLogCreateManyActionInput {
 
     @Field(() => Int, {nullable:false})
     organizationId!: number;
+
+    @Field(() => GraphQLJSON, {nullable:true})
+    context?: any;
+
+    @Field(() => String, {nullable:true})
+    content?: string;
 }

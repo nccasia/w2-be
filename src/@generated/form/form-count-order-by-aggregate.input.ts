@@ -39,6 +39,9 @@ export class FormCountOrderByAggregateInput {
     displayConfig?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
+    values?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
     createdAt?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { TriggerType, TriggerStatus } from '@prisma/client';
+import { TriggerType, TriggerStatus, Form } from '@prisma/client';
 import { PrismaService } from 'nestjs-prisma';
 import { TaskState } from '../fsm/task-state';
 
@@ -13,7 +13,7 @@ export class TriggerService {
     });
   }
 
-  async createFormTrigger(taskId: number, values: any) {
+  async createFormTrigger(taskId: number, form: Form) {
     const trigger = await this.prisma.trigger.create({
       data: {
         task: {
@@ -21,10 +21,10 @@ export class TriggerService {
             id: taskId,
           },
         },
-        key: 'SUBMIT_FORM',
+        key: `FORM_SUBMIT_${form.code}`,
         type: TriggerType.FORM_TRIGGER,
         status: TriggerStatus.NEW,
-        value: values || {},
+        value: form.values || {},
         name: 'Form Trigger',
       },
     });

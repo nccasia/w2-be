@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import { GraphQLJSON } from 'graphql-type-json';
 import { EventLogCountAggregate } from './event-log-count-aggregate.output';
 import { EventLogAvgAggregate } from './event-log-avg-aggregate.output';
 import { EventLogSumAggregate } from './event-log-sum-aggregate.output';
@@ -23,10 +24,22 @@ export class EventLogGroupBy {
     taskId?: number;
 
     @Field(() => Int, {nullable:false})
-    actionId!: number;
-
-    @Field(() => Int, {nullable:false})
     organizationId!: number;
+
+    @Field(() => GraphQLJSON, {nullable:true})
+    context?: any;
+
+    @Field(() => String, {nullable:true})
+    action?: string;
+
+    @Field(() => String, {nullable:true})
+    intent?: string;
+
+    @Field(() => String, {nullable:true})
+    domain?: string;
+
+    @Field(() => String, {nullable:true})
+    content?: string;
 
     @Field(() => EventLogCountAggregate, {nullable:true})
     _count?: EventLogCountAggregate;

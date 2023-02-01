@@ -15,8 +15,5 @@ export class EventLogSumAggregate {
     taskId?: number;
 
     @Field(() => Int, {nullable:true})
-    actionId?: number;
-
-    @Field(() => Int, {nullable:true})
     organizationId?: number;
 }
