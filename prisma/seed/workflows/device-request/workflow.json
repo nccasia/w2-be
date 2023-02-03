@@ -10,7 +10,12 @@
   "states": {
     "NEW": {
       "type": "atomic",
-      "invoke": { "src": "setupTask", "onDone": { "target": "TODO" } }
+      "invoke": { "src": "setupTask", "onDone": { "target": "TODO" } },
+      "meta": {
+        "MAIN": {
+          "state": "NEW"
+        }
+      }
     },
     "TODO": {
       "id": "TODO",
@@ -21,7 +26,12 @@
         ]
       },
       "type": "atomic",
-      "invoke": { "src": "checkTodo", "onDone": { "target": "DOING" } }
+      "invoke": { "src": "checkTodo", "onDone": { "target": "DOING" } },
+      "meta": {
+        "MAIN": {
+          "state": "TODO"
+        }
+      }
     },
     "DISCARDED": { "id": "DISCARDED", "type": "final" },
     "DOING": {
@@ -30,50 +40,253 @@
       "initial": "PM_APPROVAL",
       "states": {
         "PM_APPROVAL": {
-          "type": "atomic",
           "id": "PM_APPROVAL",
-          "on": {
-            "FORM_SUBMIT_PM_APPROVAL": [
-              {
-                "cond": "isApproved",
-                "target": "#IT_APPROVAL"
-              },
-              {
-                "cond": "isRejected",
-                "target": "#SALE_APPROVAL"
-              },
-              {
-                "target": "#IT_APPROVAL"
+          "type": "compound",
+          "initial": "SETUP",
+          "meta": {
+            "MAIN": {
+              "state": "PM_APPROVAL"
+            }
+          },
+          "states": {
+            "SETUP": {
+              "entry": "fetchPm",
+              "onDone": {
+                "target": "WAIT_PM_APPROVAL",
+                "actions": "assignTask"
               }
-            ]
+            },
+            "WAIT_PM_APPROVAL": {
+              "meta": {
+                "PM_APPROVAL": {
+                  "state": "WAIT_PM_APPROVAL"
+                }
+              },
+
+              "on": {
+                "FORM_SUBMIT_PM_APPROVAL": [
+                  {
+                    "cond": "isApproved",
+                    "target": "APPROVED"
+                  },
+                  {
+                    "cond": "isRejected",
+                    "target": "REJECTED"
+                  }
+                ]
+              }
+            },
+            "APPROVED": {
+              "type": "final",
+              "meta": {
+                "PM_APPROVAL": {
+                  "state": "APPROVED"
+                }
+              },
+
+              "on": {
+                "": "#IT_APPROVAL"
+              }
+            },
+            "REJECTED": {
+              "type": "final",
+              "meta": {
+                "PM_APPROVAL": {
+                  "state": "REJECTED"
+                }
+              },
+
+              "on": {
+                "": "#DONE.REJECTED"
+              }
+            },
+            "FORWARDED": {
+              "type": "final",
+              "meta": {
+                "PM_APPROVAL": {
+                  "state": "FORWARDED"
+                }
+              },
+
+              "on": {
+                "": "#SALE_APPROVAL"
+              }
+            }
           }
         },
         "SALE_APPROVAL": {
-          "type": "atomic",
           "id": "SALE_APPROVAL",
-          "on": {
-            "FORM_SUBMIT_SALE_APPROVAL": [
-              { "cond": "isApproved", "target": "#CUSTOMER_APPROVAL" }
-            ]
+          "type": "compound",
+          "initial": "WAIT_SALE_APPROVAL",
+          "meta": {
+            "state": "SALE_APPROVAL"
+          },
+
+          "states": {
+            "WAIT_SALE_APPROVAL": {
+              "meta": {
+                "SALE_APPROVAL": {
+                  "state": "WAIT_SALE_APPROVAL"
+                }
+              },
+
+              "on": {
+                "FORM_SUBMIT_SALE_APPROVAL": [
+                  {
+                    "cond": "isApproved",
+                    "target": "APPROVED"
+                  },
+                  {
+                    "cond": "isRejected",
+                    "target": "REJECTED"
+                  }
+                ]
+              }
+            },
+            "APPROVED": {
+              "type": "final",
+              "meta": {
+                "SALE_APPROVAL": {
+                  "state": "APPROVED"
+                }
+              },
+
+              "on": {
+                "": "#CUSTOMER_APPROVAL"
+              }
+            },
+            "REJECTED": {
+              "type": "final",
+              "meta": {
+                "SALE_APPROVAL": {
+                  "state": "REJECTED"
+                }
+              },
+
+              "on": {
+                "": "#DONE.REJECTED"
+              }
+            }
           }
         },
         "CUSTOMER_APPROVAL": {
-          "type": "atomic",
           "id": "CUSTOMER_APPROVAL",
-          "on": {
-            "FORM_SUBMIT_CUSTOMER_APPROVAL": [
-              { "cond": "isApproved", "target": "#IT_APPROVAL" }
-            ]
+          "type": "compound",
+          "initial": "WAIT_CUSTOMER_APPROVAL",
+          "meta": {
+            "MAIN": {
+              "state": "CUSTOMER_APPROVAL"
+            }
+          },
+
+          "states": {
+            "WAIT_CUSTOMER_APPROVAL": {
+              "meta": {
+                "CUSTOMER_APPROVAL": {
+                  "state": "WAIT_CUSTOMER_APPROVAL"
+                }
+              },
+
+              "on": {
+                "FORM_SUBMIT_CUSTOMER_APPROVAL": [
+                  {
+                    "cond": "isApproved",
+                    "target": "APPROVED"
+                  },
+                  {
+                    "cond": "isRejected",
+                    "target": "REJECTED"
+                  }
+                ]
+              }
+            },
+            "APPROVED": {
+              "type": "final",
+              "meta": {
+                "CUSTOMER_APPROVAL": {
+                  "state": "APPROVED"
+                }
+              },
+
+              "on": {
+                "": "#IT_APPROVAL"
+              }
+            },
+            "REJECTED": {
+              "type": "final",
+              "meta": {
+                "CUSTOMER_APPROVAL": {
+                  "state": "REJECTED"
+                }
+              },
+
+              "on": {
+                "": "#DONE.REJECTED"
+              }
+            }
           }
         },
         "IT_APPROVAL": {
           "id": "IT_APPROVAL",
-          "type": "atomic",
-          "on": {
-            "FORM_SUBMIT_IT_APPROVAL": [
-              { "cond": "isApproved", "target": "#DONE.APPROVED" },
-              { "cond": "isRejected", "target": "#DONE.REJECTED" }
-            ]
+          "type": "compound",
+          "initial": "SETUP",
+          "meta": {
+            "MAIN": {
+              "state": "IT_APPROVAL"
+            }
+          },
+          "states": {
+            "SETUP": {
+              "entry": "fetchIt",
+              "onDone": {
+                "actions": "assignTask",
+                "target": "WAIT_IT_APPROVAL"
+              }
+            },
+            "WAIT_IT_APPROVAL": {
+              "meta": {
+                "IT_APPROVAL": {
+                  "state": "WAIT_IT_APPROVAL"
+                }
+              },
+
+              "on": {
+                "FORM_SUBMIT_IT_APPROVAL": [
+                  {
+                    "cond": "isApproved",
+                    "target": "APPROVED"
+                  },
+                  {
+                    "cond": "isRejected",
+                    "target": "REJECTED"
+                  }
+                ]
+              }
+            },
+            "APPROVED": {
+              "type": "final",
+              "meta": {
+                "IT_APPROVAL": {
+                  "state": "APPROVED"
+                }
+              },
+
+              "on": {
+                "": "#DONE.APPROVED"
+              }
+            },
+            "REJECTED": {
+              "type": "final",
+              "meta": {
+                "IT_APPROVAL": {
+                  "state": "REJECTED"
+                }
+              },
+
+              "on": {
+                "": "#DONE.REJECTED"
+              }
+            }
           }
         }
       }
@@ -82,8 +295,22 @@
       "id": "DONE",
       "type": "compound",
       "states": {
-        "APPROVED": { "type": "final" },
-        "REJECTED": { "type": "final" }
+        "APPROVED": {
+          "type": "final",
+          "meta": {
+            "MAIN": {
+              "state": "APPROVED"
+            }
+          }
+        },
+        "REJECTED": {
+          "type": "final",
+          "meta": {
+            "MAIN": {
+              "state": "REJECTED"
+            }
+          }
+        }
       }
     }
   },

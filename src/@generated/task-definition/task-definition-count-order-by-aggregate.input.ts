@@ -54,6 +54,9 @@ export class TaskDefinitionCountOrderByAggregateInput {
     machineConfig?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
+    contextConfig?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
     stateConfig?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})

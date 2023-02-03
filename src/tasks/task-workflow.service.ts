@@ -4,6 +4,7 @@ import { PrismaService } from 'nestjs-prisma';
 import { TaskMachine } from './fsm/task-machine';
 import { TaskService } from './tasks.service';
 import { TriggerService } from './triggers/trigger.service';
+import { EventLogService } from './history/eventlog.service';
 
 @Injectable()
 export class TaskWorkflowService {
@@ -11,17 +12,26 @@ export class TaskWorkflowService {
     private readonly taskService: TaskService,
     private readonly prisma: PrismaService,
     private readonly moduleRef: ModuleRef,
-    private readonly triggerService: TriggerService
+    private readonly triggerService: TriggerService,
+    private readonly eventLogService: EventLogService
   ) {}
 
   async executeTaskMachine(taskId: number) {
-    const taskMachine = new TaskMachine(taskId, this.prisma);
+    const taskMachine = new TaskMachine(
+      taskId,
+      this.prisma,
+      this.eventLogService
+    );
     await taskMachine.init();
     await taskMachine.run();
   }
 
   async executeTaskTrigger(taskId: number, triggerId: number) {
-    const taskMachine = new TaskMachine(taskId, this.prisma);
+    const taskMachine = new TaskMachine(
+      taskId,
+      this.prisma,
+      this.eventLogService
+    );
     await taskMachine.init();
 
     await taskMachine.run();

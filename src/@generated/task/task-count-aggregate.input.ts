@@ -80,6 +80,9 @@ export class TaskCountAggregateInput {
     machineConfig?: true;
 
     @Field(() => Boolean, {nullable:true})
+    contextConfig?: true;
+
+    @Field(() => Boolean, {nullable:true})
     stateConfig?: true;
 
     @Field(() => Boolean, {nullable:true})

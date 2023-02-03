@@ -8,6 +8,8 @@ import { ModuleRef } from '@nestjs/core';
 import { TaskService } from '../tasks.service';
 import { TaskState } from './task-state';
 import { Logger } from '@nestjs/common';
+import * as lodash from 'lodash';
+import { EventLogService } from '../history/eventlog.service';
 
 export class TaskMachine {
   engine: any;
@@ -19,7 +21,11 @@ export class TaskMachine {
   key: any;
   private readonly logger = new Logger(TaskMachine.name);
 
-  constructor(public taskId: number, private readonly prisma: PrismaClient) {}
+  constructor(
+    public taskId: number,
+    private readonly prisma: PrismaClient,
+    private readonly eventLogService: EventLogService
+  ) {}
 
   async loadTask() {
     // fetch the task and its subtasks from the database
@@ -35,10 +41,10 @@ export class TaskMachine {
     this.config = this.task.machineConfig;
     this.schema = new TaskSchema(this.config);
 
-    this.createTaskMachine();
+    await this.createTaskMachine();
     await this.createInterpretor();
-    this.logger.log(`TaskMachine created ${this.taskId} ${this.key}`);
     this.state = this.task.stateConfig || this.engine.initialState;
+    this.logger.log(`TaskMachine created ${this.taskId} ${this.key}`);
   }
 
   createInterpretor() {
@@ -61,19 +67,22 @@ export class TaskMachine {
 
   async saveState(taskState: TaskState<any, any, any, any>) {
     const states = taskState.toStrings();
-    this.logger.log(`saveState ${this.taskId} ${this.key} ${states}`);
+    const stateMmeta = taskState.meta;
     const state = JSON.parse(JSON.stringify(taskState));
-    await this.prisma.task.update({
-      where: { id: this.task.id },
-      data: {
-        isActive: taskState.context.isActive,
-        status: states[0],
-        stateConfig: state,
-      },
-    });
+    let meta = {};
+    for (const metavalue of Object.values(stateMmeta)) {
+      meta = lodash.merge(meta, metavalue);
+    }
+
+    this.logger.log(
+      `saveState ${this.taskId} ${this.key} ${states} ${JSON.stringify(meta)}`
+    );
+    const activeTaskKeys = [];
     for (const subTask of this.task.subTasks) {
-      const isActive = states.includes(`DOING.${subTask.key}`);
-      const data = { isActive };
+      const subMeta = meta[subTask.key];
+      const isActive = subMeta?.isActive || undefined;
+      const subState = subMeta?.state || undefined;
+      const data = { isActive, state: subState };
       this.logger.log(
         `save SubState ${this.taskId} ${this.key} - ${subTask.id} ${
           subTask.key
@@ -83,7 +92,21 @@ export class TaskMachine {
         where: { id: subTask.id },
         data,
       });
+      if (isActive) {
+        activeTaskKeys.push(subTask.key);
+      }
     }
+    const mainState = meta['MAIN'] || {};
+    const status = states[0];
+    await this.prisma.task.update({
+      where: { id: this.task.id },
+      data: {
+        isActive: taskState.context.isActive,
+        status,
+        state: mainState,
+        stateConfig: state,
+      },
+    });
   }
 
   createTaskMachine() {
@@ -96,13 +119,18 @@ export class TaskMachine {
             return (event as any).value;
           },
         }),
-        summitTask: (context, event) => {
+        summitTask: (context, event, anc) => {
           console.log('summitTask', context, event);
           // update the task properties based on the event
         },
         sendEmailUpdate: (context, event) => {
           // update the task properties based on the event
         },
+        assignTask: assign({
+          assignee: (context, event) => {
+            return (event as any).data.assignee;
+          },
+        }),
       },
       services: {
         setupTask: (context, event) => {
@@ -111,6 +139,14 @@ export class TaskMachine {
         },
         checkTodo: (context, event) => {
           // update the task properties based on the event
+          // update the task properties based on the event
+          return Promise.resolve(true);
+        },
+        fetchId: (context, event) => {
+          // update the task properties based on the event
+          return Promise.resolve(true);
+        },
+        fetchPm: (context, event) => {
           // update the task properties based on the event
           return Promise.resolve(true);
         },

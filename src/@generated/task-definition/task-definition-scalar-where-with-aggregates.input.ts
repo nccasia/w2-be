@@ -68,6 +68,9 @@ export class TaskDefinitionScalarWhereWithAggregatesInput {
     machineConfig?: JsonNullableWithAggregatesFilter;
 
     @Field(() => JsonNullableWithAggregatesFilter, {nullable:true})
+    contextConfig?: JsonNullableWithAggregatesFilter;
+
+    @Field(() => JsonNullableWithAggregatesFilter, {nullable:true})
     stateConfig?: JsonNullableWithAggregatesFilter;
 
     @Field(() => JsonNullableWithAggregatesFilter, {nullable:true})

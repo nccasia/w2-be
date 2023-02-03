@@ -98,6 +98,9 @@ export class TaskScalarWhereInput {
     machineConfig?: JsonNullableFilter;
 
     @Field(() => JsonNullableFilter, {nullable:true})
+    contextConfig?: JsonNullableFilter;
+
+    @Field(() => JsonNullableFilter, {nullable:true})
     stateConfig?: JsonNullableFilter;
 
     @Field(() => JsonNullableFilter, {nullable:true})

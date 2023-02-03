@@ -419,6 +419,7 @@ model TaskDefinition {
   ctaTemplate          String?
 
   machineConfig      Json?
+  contextConfig      Json?
   stateConfig        Json?
   statusConfig       Json?
   notificationConfig Json?
@@ -498,6 +499,7 @@ model Task {
   ctaTemplate          String?
 
   machineConfig      Json?
+  contextConfig      Json?
   stateConfig        Json?
   statusConfig       Json?
   notificationConfig Json?

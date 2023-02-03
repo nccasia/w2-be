@@ -209,6 +209,8 @@ export class TaskBuilder {
         `${this.task.title}` ||
         `Task Machine ${this.task.id}`
     );
+
+    const subTasksMap = {};
     if (this.subTasks.length > 0) {
       const doingType = this.taskSchema.getDoingType();
       if (doingType === 'atomic') {
@@ -219,6 +221,7 @@ export class TaskBuilder {
       }
 
       for (const subTask of this.subTasks) {
+        subTasksMap[subTask.key] = subTask;
         const hasDoingSubState = this.taskSchema.hasDoingSubState(subTask.key);
         this.logger.log(
           `${this.task.id} ${this.task.key} ${subTask.key} has doing sub state ${hasDoingSubState}`
@@ -228,7 +231,13 @@ export class TaskBuilder {
         }
       }
     }
-
+    const contextConfig = this.task.contextConfig || this.args.contextConfig;
+    const contextTemplate =
+      typeof contextConfig === 'string' ? contextConfig : '{}';
+    this.taskSchema.initContext(contextTemplate, {
+      task: this.task,
+      ...subTasksMap,
+    });
     this.args.machineConfig = this.taskSchema.getSchema();
     return this;
   }
@@ -262,6 +271,7 @@ export class TaskBuilder {
     this.args.stateTemplate = this.definetion.stateTemplate;
     this.args.notificationTemplate = this.definetion.notificationTemplate;
     this.args.ctaTemplate = this.definetion.ctaTemplate;
+    this.args.contextConfig = this.definetion.contextConfig || '{}';
     this.args.machineConfig = this.definetion.config.machineConfig;
     this.args.statusConfig = this.definetion.config.statusConfig;
     this.args.notificationConfig = this.definetion.config.notificationConfig;

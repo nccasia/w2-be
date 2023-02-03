@@ -66,6 +66,9 @@ export class TaskDefinition {
     machineConfig!: any | null;
 
     @Field(() => GraphQLJSON, {nullable:true})
+    contextConfig!: any | null;
+
+    @Field(() => GraphQLJSON, {nullable:true})
     stateConfig!: any | null;
 
     @Field(() => GraphQLJSON, {nullable:true})

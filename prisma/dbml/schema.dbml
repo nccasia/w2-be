@@ -308,6 +308,7 @@ Table TaskDefinition {
   notificationTemplate String
   ctaTemplate String
   machineConfig Json
+  contextConfig Json
   stateConfig Json
   statusConfig Json
   notificationConfig Json
@@ -364,6 +365,7 @@ Table Task {
   notificationTemplate String
   ctaTemplate String
   machineConfig Json
+  contextConfig Json
   stateConfig Json
   statusConfig Json
   notificationConfig Json

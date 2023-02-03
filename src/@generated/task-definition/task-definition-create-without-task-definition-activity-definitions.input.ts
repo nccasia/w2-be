@@ -58,6 +58,9 @@ export class TaskDefinitionCreateWithoutTaskDefinitionActivityDefinitionsInput {
     machineConfig?: any;
 
     @Field(() => GraphQLJSON, {nullable:true})
+    contextConfig?: any;
+
+    @Field(() => GraphQLJSON, {nullable:true})
     stateConfig?: any;
 
     @Field(() => GraphQLJSON, {nullable:true})

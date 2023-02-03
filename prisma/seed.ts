@@ -230,6 +230,7 @@ async function defineDeviceRequestTask(
       notificationTemplate: 'notificationTemplate',
       ctaTemplate: 'ctaTemplate',
       stateConfig: {},
+      contextConfig: `{}`,
       statusConfig: {},
       notificationConfig: {},
       processConfig: {},

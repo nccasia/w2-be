@@ -1,4 +1,5 @@
 import { createModel } from 'xstate/lib/model';
+import Handlebars from 'handlebars';
 import * as jsonPointer from 'json-pointer';
 import * as machineSchema from './machine.schema.json';
 import Ajv from 'ajv';
@@ -120,6 +121,18 @@ export class TaskSchema {
 
   init(initSchema: any = DEFAULT_TASK_SCHEMA) {
     this.schema = JSON.parse(JSON.stringify(initSchema));
+    return this;
+  }
+
+  initContext(template: string, context: any) {
+    try {
+      const templateFn = Handlebars.compile(template);
+      const rendered = templateFn(context);
+      const initialContext = JSON.parse(rendered);
+      jsonPointer.set(this.schema, '/context', initialContext);
+    } catch (e) {
+      console.error('Invalid context', e, template, context);
+    }
     return this;
   }
 
