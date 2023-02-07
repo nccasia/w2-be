@@ -50,10 +50,12 @@
           },
           "states": {
             "SETUP": {
-              "entry": "fetchPm",
-              "onDone": {
-                "target": "WAIT_PM_APPROVAL",
-                "actions": "assignTask"
+              "invoke": {
+                "src": "fetchPm",
+                "onDone": {
+                  "target": "WAIT_PM_APPROVAL",
+                  "actions": "assignTask"
+                }
               }
             },
             "WAIT_PM_APPROVAL": {
@@ -62,7 +64,6 @@
                   "state": "WAIT_PM_APPROVAL"
                 }
               },
-
               "on": {
                 "FORM_SUBMIT_PM_APPROVAL": [
                   {
@@ -83,10 +84,7 @@
                   "state": "APPROVED"
                 }
               },
-
-              "on": {
-                "": "#IT_APPROVAL"
-              }
+              "always": "#IT_APPROVAL"
             },
             "REJECTED": {
               "type": "final",
@@ -95,10 +93,7 @@
                   "state": "REJECTED"
                 }
               },
-
-              "on": {
-                "": "#DONE.REJECTED"
-              }
+              "always": "#DONE.REJECTED"
             },
             "FORWARDED": {
               "type": "final",
@@ -107,10 +102,7 @@
                   "state": "FORWARDED"
                 }
               },
-
-              "on": {
-                "": "#SALE_APPROVAL"
-              }
+              "always": "#SALE_APPROVAL"
             }
           }
         },
@@ -121,7 +113,6 @@
           "meta": {
             "state": "SALE_APPROVAL"
           },
-
           "states": {
             "WAIT_SALE_APPROVAL": {
               "meta": {
@@ -129,7 +120,6 @@
                   "state": "WAIT_SALE_APPROVAL"
                 }
               },
-
               "on": {
                 "FORM_SUBMIT_SALE_APPROVAL": [
                   {
@@ -150,10 +140,7 @@
                   "state": "APPROVED"
                 }
               },
-
-              "on": {
-                "": "#CUSTOMER_APPROVAL"
-              }
+              "always": "#CUSTOMER_APPROVAL"
             },
             "REJECTED": {
               "type": "final",
@@ -162,10 +149,7 @@
                   "state": "REJECTED"
                 }
               },
-
-              "on": {
-                "": "#DONE.REJECTED"
-              }
+              "always": "#DONE.REJECTED"
             }
           }
         },
@@ -178,7 +162,6 @@
               "state": "CUSTOMER_APPROVAL"
             }
           },
-
           "states": {
             "WAIT_CUSTOMER_APPROVAL": {
               "meta": {
@@ -186,7 +169,6 @@
                   "state": "WAIT_CUSTOMER_APPROVAL"
                 }
               },
-
               "on": {
                 "FORM_SUBMIT_CUSTOMER_APPROVAL": [
                   {
@@ -207,10 +189,7 @@
                   "state": "APPROVED"
                 }
               },
-
-              "on": {
-                "": "#IT_APPROVAL"
-              }
+              "always": "#IT_APPROVAL"
             },
             "REJECTED": {
               "type": "final",
@@ -219,10 +198,7 @@
                   "state": "REJECTED"
                 }
               },
-
-              "on": {
-                "": "#DONE.REJECTED"
-              }
+              "always": "#DONE.REJECTED"
             }
           }
         },
@@ -237,10 +213,12 @@
           },
           "states": {
             "SETUP": {
-              "entry": "fetchIt",
-              "onDone": {
-                "actions": "assignTask",
-                "target": "WAIT_IT_APPROVAL"
+              "invoke": {
+                "src": "fetchIt",
+                "onDone": {
+                  "actions": "assignTask",
+                  "target": "WAIT_IT_APPROVAL"
+                }
               }
             },
             "WAIT_IT_APPROVAL": {
@@ -249,7 +227,6 @@
                   "state": "WAIT_IT_APPROVAL"
                 }
               },
-
               "on": {
                 "FORM_SUBMIT_IT_APPROVAL": [
                   {
@@ -270,10 +247,7 @@
                   "state": "APPROVED"
                 }
               },
-
-              "on": {
-                "": "#DONE.APPROVED"
-              }
+              "always": "#DONE.APPROVED"
             },
             "REJECTED": {
               "type": "final",
@@ -282,10 +256,7 @@
                   "state": "REJECTED"
                 }
               },
-
-              "on": {
-                "": "#DONE.REJECTED"
-              }
+              "always": "#DONE.REJECTED"
             }
           }
         }

@@ -67,6 +67,7 @@ export class TaskMachine {
 
   async saveState(taskState: TaskState<any, any, any, any>) {
     const states = taskState.toStrings();
+    const rootState = states[0];
     const stateMmeta = taskState.meta;
     const state = JSON.parse(JSON.stringify(taskState));
     let meta = {};
@@ -80,7 +81,7 @@ export class TaskMachine {
     const activeTaskKeys = [];
     for (const subTask of this.task.subTasks) {
       const subMeta = meta[subTask.key];
-      const isActive = subMeta?.isActive || undefined;
+      const isActive = taskState.matches(`${rootState}.${subTask.key}`);
       const subState = subMeta?.state || undefined;
       const data = { isActive, state: subState };
       this.logger.log(
@@ -96,7 +97,7 @@ export class TaskMachine {
         activeTaskKeys.push(subTask.key);
       }
     }
-    const mainState = meta['MAIN'] || {};
+    const mainState = meta['MAIN'].state || undefined;
     const status = states[0];
     await this.prisma.task.update({
       where: { id: this.task.id },
@@ -119,6 +120,9 @@ export class TaskMachine {
             return (event as any).value;
           },
         }),
+        passThrough: (context, event) => {
+          console.log('passThrough', context, event);
+        },
         summitTask: (context, event, anc) => {
           console.log('summitTask', context, event);
           // update the task properties based on the event
@@ -128,7 +132,7 @@ export class TaskMachine {
         },
         assignTask: assign({
           assignee: (context, event) => {
-            return (event as any).data.assignee;
+            return (event as any).data?.assignee;
           },
         }),
       },
@@ -142,7 +146,7 @@ export class TaskMachine {
           // update the task properties based on the event
           return Promise.resolve(true);
         },
-        fetchId: (context, event) => {
+        fetchIt: (context, event) => {
           // update the task properties based on the event
           return Promise.resolve(true);
         },
@@ -181,6 +185,9 @@ export class TaskMachine {
         },
         allTasksCompleted: (context, event) => {
           return false;
+        },
+        pass: (context, event) => {
+          return true;
         },
       },
     });
