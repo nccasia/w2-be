@@ -1,6 +1,11 @@
 import { IsEmail, IsNotEmpty, MinLength } from 'class-validator';
 import { InputType, Field } from '@nestjs/graphql';
 
+// eslint-disable-next-line prettier/prettier
+export enum SocialProviderTypes {
+  FACEBOOK = 'facebook',
+  GOOGLE = 'google',
+}
 @InputType()
 export class LoginInput {
   @Field()
@@ -11,4 +16,10 @@ export class LoginInput {
   @IsNotEmpty()
   @MinLength(8)
   password: string;
+}
+
+export class GoogleLoginInput {
+  @Field()
+  @IsNotEmpty()
+  code: string;
 }

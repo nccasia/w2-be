@@ -13,6 +13,7 @@ import { PasswordService } from './password.service';
 import { SignupInput } from './dto/signup.input';
 import { Token } from './models/token.model';
 import { SecurityConfig } from 'src/common/configs/config.interface';
+import { GoogleService } from './google.service';
 
 @Injectable()
 export class AuthService {
@@ -20,7 +21,8 @@ export class AuthService {
     private readonly jwtService: JwtService,
     private readonly prisma: PrismaService,
     private readonly passwordService: PasswordService,
-    private readonly configService: ConfigService
+    private readonly configService: ConfigService,
+    private readonly googleService: GoogleService
   ) {}
 
   async createUser(payload: SignupInput): Promise<Token> {
@@ -65,6 +67,20 @@ export class AuthService {
 
     if (!passwordValid) {
       throw new BadRequestException('Invalid password');
+    }
+
+    return this.generateTokens({
+      userId: user.id,
+    });
+  }
+  async googleLogin(code: string): Promise<Token> {
+    const userData = await this.googleService.getUserData(code);
+    const user = await this.prisma.user.findUnique({
+      where: { email: userData.email },
+    });
+
+    if (!user) {
+      throw new NotFoundException(`No user found for email: ${userData.email}`);
     }
 
     return this.generateTokens({

@@ -8,7 +8,7 @@ import {
 import { AuthService } from './auth.service';
 import { Auth } from './models/auth.model';
 import { Token } from './models/token.model';
-import { LoginInput } from './dto/login.input';
+import { GoogleLoginInput, LoginInput } from './dto/login.input';
 import { SignupInput } from './dto/signup.input';
 import { RefreshTokenInput } from './dto/refresh-token.input';
 import { User } from 'src/@generated/user/user.model';
@@ -48,5 +48,14 @@ export class AuthResolver {
   @ResolveField('user', () => User)
   async user(@Parent() auth: Auth) {
     return await this.auth.getUserFromToken(auth.accessToken);
+  }
+  @Mutation(() => Auth)
+  async googleLogin(@Args('data') { code }: GoogleLoginInput) {
+    const { accessToken, refreshToken } = await this.auth.googleLogin(code);
+
+    return {
+      accessToken,
+      refreshToken,
+    };
   }
 }

@@ -114,13 +114,17 @@ model Settings {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt
-  email     String   @unique
-  password  String
+  id        Int          @id @default(autoincrement())
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @default(now()) @updatedAt
+  email     String       @unique
+  password  String?
+  provider  ProviderEnum @default(ProviderEnum.local)
   firstname String?
   lastname  String?
+
+  googleId    String?
+  googleToken String?
 
   avatarId Int?
   avatar   File? @relation(fields: [avatarId], references: [id])
@@ -141,13 +145,18 @@ model User {
   role          Role
 
   userPermissions UserPermission[]
-  userSettings UserSetting[]
+  userSettings    UserSetting[]
 
   memberOnProjects MemberOnProjects[]
   managedProjects  Project[]          @relation("ProjectManager")
   createdProjects  Project[]          @relation("ProjectCreator")
   reportedTasks    Task[]             @relation("TaskReporter")
   repotedProjects  Project[]          @relation("ProjectReporter")
+}
+
+enum ProviderEnum {
+  local
+  google
 }
 
 model UserSetting {
@@ -440,7 +449,7 @@ model TaskDefinition {
 
   taskDefinitionActivityDefinitions TaskDefinitionActivityDefinition[]
 
-  projects Project[]
+  projects   Project[]
   taskBoards TaskBoard[]
 
   @@index([parentId])
