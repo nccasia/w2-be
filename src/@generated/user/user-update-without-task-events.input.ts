@@ -3,6 +3,7 @@ import { InputType } from '@nestjs/graphql';
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
 import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
 import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-string-field-update-operations.input';
+import { EnumProviderEnumFieldUpdateOperationsInput } from '../prisma/enum-provider-enum-field-update-operations.input';
 import { FileUpdateOneWithoutAvatarUsersNestedInput } from '../file/file-update-one-without-avatar-users-nested.input';
 import { OrganizationUpdateOneRequiredWithoutUsersNestedInput } from '../organization/organization-update-one-required-without-users-nested.input';
 import { TeamUpdateManyWithoutManagerNestedInput } from '../team/team-update-many-without-manager-nested.input';
@@ -33,14 +34,23 @@ export class UserUpdateWithoutTaskEventsInput {
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
     email?: StringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    password?: StringFieldUpdateOperationsInput;
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    password?: NullableStringFieldUpdateOperationsInput;
+
+    @Field(() => EnumProviderEnumFieldUpdateOperationsInput, {nullable:true})
+    provider?: EnumProviderEnumFieldUpdateOperationsInput;
 
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     firstname?: NullableStringFieldUpdateOperationsInput;
 
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     lastname?: NullableStringFieldUpdateOperationsInput;
+
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    googleId?: NullableStringFieldUpdateOperationsInput;
+
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    googleToken?: NullableStringFieldUpdateOperationsInput;
 
     @Field(() => FileUpdateOneWithoutAvatarUsersNestedInput, {nullable:true})
     avatar?: FileUpdateOneWithoutAvatarUsersNestedInput;

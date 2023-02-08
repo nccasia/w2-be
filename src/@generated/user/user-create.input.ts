@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import { ProviderEnum } from '../prisma/provider.enum';
 import { FileCreateNestedOneWithoutAvatarUsersInput } from '../file/file-create-nested-one-without-avatar-users.input';
 import { OrganizationCreateNestedOneWithoutUsersInput } from '../organization/organization-create-nested-one-without-users.input';
 import { TeamCreateNestedManyWithoutManagerInput } from '../team/team-create-nested-many-without-manager.input';
@@ -21,76 +22,92 @@ import { ProjectCreateNestedManyWithoutReporterInput } from '../project/project-
 
 @InputType()
 export class UserCreateInput {
+  @Field(() => Date, { nullable: true })
+  createdAt?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
+  @Field(() => Date, { nullable: true })
+  updatedAt?: Date | string;
 
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
+  @Field(() => String, { nullable: false })
+  email!: string;
 
-    @Field(() => String, {nullable:false})
-    email!: string;
+  @Field(() => String, { nullable: true })
+  password?: string;
 
-    @Field(() => String, {nullable:false})
-    password!: string;
+  @Field(() => ProviderEnum, { nullable: true })
+  provider?: ProviderEnum;
 
-    @Field(() => String, {nullable:true})
-    firstname?: string;
+  @Field(() => String, { nullable: true })
+  firstname?: string;
 
-    @Field(() => String, {nullable:true})
-    lastname?: string;
+  @Field(() => String, { nullable: true })
+  lastname?: string;
 
-    @Field(() => FileCreateNestedOneWithoutAvatarUsersInput, {nullable:true})
-    avatar?: FileCreateNestedOneWithoutAvatarUsersInput;
+  @Field(() => String, { nullable: true })
+  googleId?: string;
 
-    @Field(() => OrganizationCreateNestedOneWithoutUsersInput, {nullable:false})
-    organization!: OrganizationCreateNestedOneWithoutUsersInput;
+  @Field(() => String, { nullable: true })
+  googleToken?: string;
 
-    @Field(() => TeamCreateNestedManyWithoutManagerInput, {nullable:true})
-    managedteams?: TeamCreateNestedManyWithoutManagerInput;
+  @Field(() => FileCreateNestedOneWithoutAvatarUsersInput, { nullable: true })
+  avatar?: FileCreateNestedOneWithoutAvatarUsersInput;
 
-    @Field(() => TeamCreateNestedManyWithoutCreatorInput, {nullable:true})
-    createdteams?: TeamCreateNestedManyWithoutCreatorInput;
+  @Field(() => OrganizationCreateNestedOneWithoutUsersInput, {
+    nullable: false,
+  })
+  organization!: OrganizationCreateNestedOneWithoutUsersInput;
 
-    @Field(() => TaskCreateNestedManyWithoutCreatorInput, {nullable:true})
-    createdTasks?: TaskCreateNestedManyWithoutCreatorInput;
+  @Field(() => TeamCreateNestedManyWithoutManagerInput, { nullable: true })
+  managedteams?: TeamCreateNestedManyWithoutManagerInput;
 
-    @Field(() => TaskCreateNestedManyWithoutAssigneeInput, {nullable:true})
-    assignedTasks?: TaskCreateNestedManyWithoutAssigneeInput;
+  @Field(() => TeamCreateNestedManyWithoutCreatorInput, { nullable: true })
+  createdteams?: TeamCreateNestedManyWithoutCreatorInput;
 
-    @Field(() => MemberOnTeamsCreateNestedManyWithoutUserInput, {nullable:true})
-    memberOnTeams?: MemberOnTeamsCreateNestedManyWithoutUserInput;
+  @Field(() => TaskCreateNestedManyWithoutCreatorInput, { nullable: true })
+  createdTasks?: TaskCreateNestedManyWithoutCreatorInput;
 
-    @Field(() => PostCreateNestedManyWithoutAuthorInput, {nullable:true})
-    posts?: PostCreateNestedManyWithoutAuthorInput;
+  @Field(() => TaskCreateNestedManyWithoutAssigneeInput, { nullable: true })
+  assignedTasks?: TaskCreateNestedManyWithoutAssigneeInput;
 
-    @Field(() => CommentCreateNestedManyWithoutCreatorInput, {nullable:true})
-    comments?: CommentCreateNestedManyWithoutCreatorInput;
+  @Field(() => MemberOnTeamsCreateNestedManyWithoutUserInput, {
+    nullable: true,
+  })
+  memberOnTeams?: MemberOnTeamsCreateNestedManyWithoutUserInput;
 
-    @Field(() => EventLogCreateNestedManyWithoutUserInput, {nullable:true})
-    taskEvents?: EventLogCreateNestedManyWithoutUserInput;
+  @Field(() => PostCreateNestedManyWithoutAuthorInput, { nullable: true })
+  posts?: PostCreateNestedManyWithoutAuthorInput;
 
-    @Field(() => Role, {nullable:false})
-    role!: keyof typeof Role;
+  @Field(() => CommentCreateNestedManyWithoutCreatorInput, { nullable: true })
+  comments?: CommentCreateNestedManyWithoutCreatorInput;
 
-    @Field(() => UserPermissionCreateNestedManyWithoutUserInput, {nullable:true})
-    userPermissions?: UserPermissionCreateNestedManyWithoutUserInput;
+  @Field(() => EventLogCreateNestedManyWithoutUserInput, { nullable: true })
+  taskEvents?: EventLogCreateNestedManyWithoutUserInput;
 
-    @Field(() => UserSettingCreateNestedManyWithoutUserInput, {nullable:true})
-    userSettings?: UserSettingCreateNestedManyWithoutUserInput;
+  @Field(() => Role, { nullable: false })
+  role!: keyof typeof Role;
 
-    @Field(() => MemberOnProjectsCreateNestedManyWithoutUserInput, {nullable:true})
-    memberOnProjects?: MemberOnProjectsCreateNestedManyWithoutUserInput;
+  @Field(() => UserPermissionCreateNestedManyWithoutUserInput, {
+    nullable: true,
+  })
+  userPermissions?: UserPermissionCreateNestedManyWithoutUserInput;
 
-    @Field(() => ProjectCreateNestedManyWithoutManagerInput, {nullable:true})
-    managedProjects?: ProjectCreateNestedManyWithoutManagerInput;
+  @Field(() => UserSettingCreateNestedManyWithoutUserInput, { nullable: true })
+  userSettings?: UserSettingCreateNestedManyWithoutUserInput;
 
-    @Field(() => ProjectCreateNestedManyWithoutCreatorInput, {nullable:true})
-    createdProjects?: ProjectCreateNestedManyWithoutCreatorInput;
+  @Field(() => MemberOnProjectsCreateNestedManyWithoutUserInput, {
+    nullable: true,
+  })
+  memberOnProjects?: MemberOnProjectsCreateNestedManyWithoutUserInput;
 
-    @Field(() => TaskCreateNestedManyWithoutReporterInput, {nullable:true})
-    reportedTasks?: TaskCreateNestedManyWithoutReporterInput;
+  @Field(() => ProjectCreateNestedManyWithoutManagerInput, { nullable: true })
+  managedProjects?: ProjectCreateNestedManyWithoutManagerInput;
 
-    @Field(() => ProjectCreateNestedManyWithoutReporterInput, {nullable:true})
-    repotedProjects?: ProjectCreateNestedManyWithoutReporterInput;
+  @Field(() => ProjectCreateNestedManyWithoutCreatorInput, { nullable: true })
+  createdProjects?: ProjectCreateNestedManyWithoutCreatorInput;
+
+  @Field(() => TaskCreateNestedManyWithoutReporterInput, { nullable: true })
+  reportedTasks?: TaskCreateNestedManyWithoutReporterInput;
+
+  @Field(() => ProjectCreateNestedManyWithoutReporterInput, { nullable: true })
+  repotedProjects?: ProjectCreateNestedManyWithoutReporterInput;
 }

@@ -33,10 +33,19 @@ export class UserOrderByWithRelationInput {
     password?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
+    provider?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
     firstname?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
     lastname?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    googleId?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    googleToken?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
     avatarId?: keyof typeof SortOrder;

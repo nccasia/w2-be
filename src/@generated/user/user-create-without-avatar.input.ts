@@ -1,5 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import { ProviderEnum } from '../prisma/provider.enum';
 import { OrganizationCreateNestedOneWithoutUsersInput } from '../organization/organization-create-nested-one-without-users.input';
 import { TeamCreateNestedManyWithoutManagerInput } from '../team/team-create-nested-many-without-manager.input';
 import { TeamCreateNestedManyWithoutCreatorInput } from '../team/team-create-nested-many-without-creator.input';
@@ -30,14 +31,23 @@ export class UserCreateWithoutAvatarInput {
     @Field(() => String, {nullable:false})
     email!: string;
 
-    @Field(() => String, {nullable:false})
-    password!: string;
+    @Field(() => String, {nullable:true})
+    password?: string;
+
+    @Field(() => ProviderEnum, {nullable:true})
+    provider?: keyof typeof ProviderEnum;
 
     @Field(() => String, {nullable:true})
     firstname?: string;
 
     @Field(() => String, {nullable:true})
     lastname?: string;
+
+    @Field(() => String, {nullable:true})
+    googleId?: string;
+
+    @Field(() => String, {nullable:true})
+    googleToken?: string;
 
     @Field(() => OrganizationCreateNestedOneWithoutUsersInput, {nullable:false})
     organization!: OrganizationCreateNestedOneWithoutUsersInput;

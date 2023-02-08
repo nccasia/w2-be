@@ -1,5 +1,5 @@
 import { PrismaService } from 'nestjs-prisma';
-import { Prisma, Role, User } from '@prisma/client';
+import { Prisma, Role, User, ProviderEnum } from '@prisma/client';
 import {
   Injectable,
   NotFoundException,
@@ -13,6 +13,7 @@ import { PasswordService } from './password.service';
 import { SignupInput } from './dto/signup.input';
 import { Token } from './models/token.model';
 import { SecurityConfig } from 'src/common/configs/config.interface';
+import { GoogleService } from './google.service';
 
 @Injectable()
 export class AuthService {
@@ -20,7 +21,8 @@ export class AuthService {
     private readonly jwtService: JwtService,
     private readonly prisma: PrismaService,
     private readonly passwordService: PasswordService,
-    private readonly configService: ConfigService
+    private readonly configService: ConfigService,
+    private readonly googleService: GoogleService
   ) {}
 
   async createUser(payload: SignupInput): Promise<Token> {
@@ -65,6 +67,31 @@ export class AuthService {
 
     if (!passwordValid) {
       throw new BadRequestException('Invalid password');
+    }
+
+    return this.generateTokens({
+      userId: user.id,
+    });
+  }
+  async googleLogin(code: string): Promise<Token> {
+    const userData = await this.googleService.getUserData(code);
+    let user = await this.prisma.user.findUnique({
+      where: { email: userData.email },
+    });
+
+    if (!user) {
+      const organization = await this.prisma.organization.findFirst();
+      user = await this.prisma.user.create({
+        data: {
+          email: userData.email,
+          provider: ProviderEnum.google,
+          firstname: userData.displayName,
+          googleId: userData.localId,
+          googleToken: userData.tokens.access_token,
+          role: Role.USER,
+          organization: { connect: { id: organization.id } },
+        },
+      });
     }
 
     return this.generateTokens({
