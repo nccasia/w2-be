@@ -20,10 +20,19 @@ export class UserMinAggregateInput {
     password?: true;
 
     @Field(() => Boolean, {nullable:true})
+    provider?: true;
+
+    @Field(() => Boolean, {nullable:true})
     firstname?: true;
 
     @Field(() => Boolean, {nullable:true})
     lastname?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    googleId?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    googleToken?: true;
 
     @Field(() => Boolean, {nullable:true})
     avatarId?: true;

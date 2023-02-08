@@ -52,7 +52,6 @@ export class AuthResolver {
   @Mutation(() => Auth)
   async googleLogin(@Args('data') { code }: GoogleLoginInput) {
     const { accessToken, refreshToken } = await this.auth.googleLogin(code);
-
     return {
       accessToken,
       refreshToken,

@@ -3,6 +3,7 @@ import { AuthService } from './auth.service';
 import { OAuth2Client } from 'google-auth-library';
 import axios from 'axios';
 export interface UserInfo {
+  tokens: any;
   localId: string;
   email: string;
   displayName: string;

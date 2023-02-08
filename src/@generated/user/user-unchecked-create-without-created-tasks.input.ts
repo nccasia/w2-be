@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import { ProviderEnum } from '../prisma/provider.enum';
 import { TeamUncheckedCreateNestedManyWithoutManagerInput } from '../team/team-unchecked-create-nested-many-without-manager.input';
 import { TeamUncheckedCreateNestedManyWithoutCreatorInput } from '../team/team-unchecked-create-nested-many-without-creator.input';
 import { TaskUncheckedCreateNestedManyWithoutAssigneeInput } from '../task/task-unchecked-create-nested-many-without-assignee.input';
@@ -32,14 +33,23 @@ export class UserUncheckedCreateWithoutCreatedTasksInput {
     @Field(() => String, {nullable:false})
     email!: string;
 
-    @Field(() => String, {nullable:false})
-    password!: string;
+    @Field(() => String, {nullable:true})
+    password?: string;
+
+    @Field(() => ProviderEnum, {nullable:true})
+    provider?: keyof typeof ProviderEnum;
 
     @Field(() => String, {nullable:true})
     firstname?: string;
 
     @Field(() => String, {nullable:true})
     lastname?: string;
+
+    @Field(() => String, {nullable:true})
+    googleId?: string;
+
+    @Field(() => String, {nullable:true})
+    googleToken?: string;
 
     @Field(() => Int, {nullable:true})
     avatarId?: number;

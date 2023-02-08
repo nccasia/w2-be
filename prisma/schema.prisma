@@ -113,13 +113,18 @@ model Settings {
   organizationId Int
 }
 
+enum ProviderEnum {
+  local
+  google
+}
+
 model User {
   id        Int          @id @default(autoincrement())
   createdAt DateTime     @default(now())
   updatedAt DateTime     @default(now()) @updatedAt
   email     String       @unique
   password  String?
-  provider  ProviderEnum @default(ProviderEnum.local)
+  provider  ProviderEnum @default(local)
   firstname String?
   lastname  String?
 
@@ -152,11 +157,6 @@ model User {
   createdProjects  Project[]          @relation("ProjectCreator")
   reportedTasks    Task[]             @relation("TaskReporter")
   repotedProjects  Project[]          @relation("ProjectReporter")
-}
-
-enum ProviderEnum {
-  local
-  google
 }
 
 model UserSetting {

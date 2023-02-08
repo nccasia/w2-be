@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
+import { ProviderEnum } from '../prisma/provider.enum';
 import { Int } from '@nestjs/graphql';
 import { File } from '../file/file.model';
 import { Organization } from '../organization/organization.model';
@@ -32,14 +33,23 @@ export class User {
     @Field(() => String, {nullable:false})
     email!: string;
 
-    @Field(() => String, {nullable:false})
-    password!: string;
+    @Field(() => String, {nullable:true})
+    password!: string | null;
+
+    @Field(() => ProviderEnum, {nullable:false,defaultValue:'local'})
+    provider!: keyof typeof ProviderEnum;
 
     @Field(() => String, {nullable:true})
     firstname!: string | null;
 
     @Field(() => String, {nullable:true})
     lastname!: string | null;
+
+    @Field(() => String, {nullable:true})
+    googleId!: string | null;
+
+    @Field(() => String, {nullable:true})
+    googleToken!: string | null;
 
     @Field(() => Int, {nullable:true})
     avatarId!: number | null;

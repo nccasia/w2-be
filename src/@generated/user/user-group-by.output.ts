@@ -1,6 +1,7 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
+import { ProviderEnum } from '../prisma/provider.enum';
 import { Role } from '../prisma/role.enum';
 import { UserCountAggregate } from './user-count-aggregate.output';
 import { UserAvgAggregate } from './user-avg-aggregate.output';
@@ -23,14 +24,23 @@ export class UserGroupBy {
     @Field(() => String, {nullable:false})
     email!: string;
 
-    @Field(() => String, {nullable:false})
-    password!: string;
+    @Field(() => String, {nullable:true})
+    password?: string;
+
+    @Field(() => ProviderEnum, {nullable:false})
+    provider!: keyof typeof ProviderEnum;
 
     @Field(() => String, {nullable:true})
     firstname?: string;
 
     @Field(() => String, {nullable:true})
     lastname?: string;
+
+    @Field(() => String, {nullable:true})
+    googleId?: string;
+
+    @Field(() => String, {nullable:true})
+    googleToken?: string;
 
     @Field(() => Int, {nullable:true})
     avatarId?: number;

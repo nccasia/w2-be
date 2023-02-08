@@ -1,5 +1,5 @@
 import { PrismaService } from 'nestjs-prisma';
-import { Prisma, Role, User } from '@prisma/client';
+import { Prisma, Role, User, ProviderEnum } from '@prisma/client';
 import {
   Injectable,
   NotFoundException,
@@ -75,12 +75,23 @@ export class AuthService {
   }
   async googleLogin(code: string): Promise<Token> {
     const userData = await this.googleService.getUserData(code);
-    const user = await this.prisma.user.findUnique({
+    let user = await this.prisma.user.findUnique({
       where: { email: userData.email },
     });
 
     if (!user) {
-      throw new NotFoundException(`No user found for email: ${userData.email}`);
+      const organization = await this.prisma.organization.findFirst();
+      user = await this.prisma.user.create({
+        data: {
+          email: userData.email,
+          provider: ProviderEnum.google,
+          firstname: userData.displayName,
+          googleId: userData.localId,
+          googleToken: userData.tokens.access_token,
+          role: Role.USER,
+          organization: { connect: { id: organization.id } },
+        },
+      });
     }
 
     return this.generateTokens({

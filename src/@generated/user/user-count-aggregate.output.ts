@@ -21,10 +21,19 @@ export class UserCountAggregate {
     password!: number;
 
     @Field(() => Int, {nullable:false})
+    provider!: number;
+
+    @Field(() => Int, {nullable:false})
     firstname!: number;
 
     @Field(() => Int, {nullable:false})
     lastname!: number;
+
+    @Field(() => Int, {nullable:false})
+    googleId!: number;
+
+    @Field(() => Int, {nullable:false})
+    googleToken!: number;
 
     @Field(() => Int, {nullable:false})
     avatarId!: number;
