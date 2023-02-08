@@ -1,5 +1,4 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { AuthService } from './auth.service';
 import { OAuth2Client } from 'google-auth-library';
 import axios from 'axios';
 export interface UserInfo {
@@ -35,13 +34,6 @@ export interface UserInfo {
 @Injectable()
 export class GoogleService {
   private oAuth2Client: OAuth2Client;
-  constructor(private readonly authService: AuthService) {
-    this.oAuth2Client = new OAuth2Client(
-      process.env.GOOGLE_CLIENT_ID,
-      process.env.GOOGLE_SECRET,
-      'postmessage'
-    );
-  }
 
   async getUserData(code: string): Promise<UserInfo> {
     const credentials = { code };
