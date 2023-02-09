@@ -1,4 +1,33 @@
 actions:
+  - name: googleLogin
+    definition:
+      kind: synchronous
+      handler: http://nest-api:3000/graphql
+      forward_client_headers: true
+      request_transform:
+        body:
+          action: transform
+          template: |
+            {
+              "operationName": "googleLogin",
+              "variables": { "data": {{$body.input.data}} },
+              "query": "mutation googleLogin($data: GoogleLoginInput!) {\n  googleLogin(data: $data) {\n    accessToken\n    refreshToken\n    user {\n      id\n      email\n      firstname\n      lastname\n    }\n  }\n}\n"
+            }
+        method: POST
+        query_params: {}
+        template_engine: Kriti
+        version: 2
+      response_transform:
+        body:
+          action: transform
+          template: |-
+            {
+                "accessToken": {{$body.data.googleLogin.accessToken}},
+                "refreshToken": {{$body.data.googleLogin.refreshToken}},
+                "user": {{$body.data.googleLogin.user}}
+            }
+        template_engine: Kriti
+        version: 2
   - name: signin
     definition:
       kind: synchronous
@@ -61,6 +90,7 @@ custom_types:
   input_objects:
     - name: LoginInput
     - name: FormTriggerInput
+    - name: GoogleLoginInput
   objects:
     - name: LoginAuth
     - name: LoginUser

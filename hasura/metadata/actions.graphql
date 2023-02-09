@@ -1,4 +1,10 @@
 type Mutation {
+  googleLogin(
+    data: GoogleLoginInput!
+  ): LoginAuth!
+}
+
+type Mutation {
   signin(
     data: LoginInput!
   ): LoginAuth!
@@ -19,6 +25,10 @@ input FormTriggerInput {
   formId: Int
   taskId: Int
   value: json!
+}
+
+input GoogleLoginInput {
+  code: String!
 }
 
 type LoginAuth {

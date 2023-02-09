@@ -18,6 +18,7 @@ export class LoginInput {
   password: string;
 }
 
+@InputType()
 export class GoogleLoginInput {
   @Field()
   @IsNotEmpty()
