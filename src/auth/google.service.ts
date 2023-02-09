@@ -35,7 +35,7 @@ export interface UserInfo {
 @Injectable()
 export class GoogleService {
   private oAuth2Client: OAuth2Client;
-  constructor(private readonly authService: AuthService) {
+  constructor() {
     this.oAuth2Client = new OAuth2Client(
       process.env.GOOGLE_CLIENT_ID,
       process.env.GOOGLE_SECRET,
@@ -68,6 +68,6 @@ export class GoogleService {
     if (!data) {
       throw new BadRequestException('Get info user google fail');
     }
-    return data;
+    return { ...data, tokens };
   }
 }
