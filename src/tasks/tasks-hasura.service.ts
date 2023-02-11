@@ -26,6 +26,6 @@ export class TasksHasuraService {
     if (evt.event?.data?.new?.status !== '') {
       return;
     }
-    this.taskFactoryService.setupNewTask(evt.event.data.new);
+    // this.taskFactoryService.setupNewTask(evt.event.data.new);
   }
 }

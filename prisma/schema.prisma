@@ -521,8 +521,8 @@ model Task {
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
 
-  definitionId Int
-  definition   TaskDefinition @relation(fields: [definitionId], references: [id])
+  definitionId Int?
+  definition   TaskDefinition? @relation(fields: [definitionId], references: [id])
 
   comments  Comment[]
   eventLogs EventLog[]

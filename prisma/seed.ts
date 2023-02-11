@@ -16,6 +16,7 @@ async function cleanUp() {
   await prisma.comment.deleteMany();
   await prisma.task.deleteMany();
   await prisma.form.deleteMany();
+  await prisma.taskBoard.deleteMany();
   await prisma.taskDefinition.deleteMany();
   await prisma.resourceItem.deleteMany();
   await prisma.resource.deleteMany();
@@ -276,6 +277,7 @@ async function defineDeviceRequestTask(
       },
     },
   });
+  return defaultTaskDefinitionDevice;
 }
 
 async function main() {
@@ -608,9 +610,10 @@ async function main() {
       assignedBy: 'SYSTEM',
     },
   });
-
-  await defineDeviceRequestTask(defaultOrg, defaultResourceDevices);
-
+  const defaultReaquestTaskDefinition = await defineDeviceRequestTask(
+    defaultOrg,
+    defaultResourceDevices
+  );
   const defaultTaskDefinitionChangeOfficeStartApproval =
     await prisma.taskDefinition.create({
       data: {
@@ -924,6 +927,152 @@ async function main() {
           },
         ],
       },
+    },
+  });
+  const deviceRequestTaskBoard = await prisma.taskBoard.create({
+    data: {
+      name: 'DEV Task Board',
+      description: 'This is DEV Task Board',
+      code: 'device-request',
+      icon: 'dev-task-board',
+      viewType: 'Kanban',
+      viewConfig: {
+        color: 'red',
+        lanes: [
+          {
+            id: 'lane1',
+            cards: [],
+            label: '2/2',
+            state: 'REQUEST',
+            title: 'REQUEST',
+          },
+          {
+            id: 'lane2',
+            cards: [],
+            label: '2/2',
+            state: 'PM_APPROVAL',
+            title: 'PM_APPROVAL',
+          },
+          {
+            id: 'lane3',
+            cards: [],
+            label: '0/0',
+            state: 'CUSTOMER_APPROVAL',
+            title: 'CUSTOMER_APPROVAL',
+          },
+          {
+            id: 'lane4',
+            cards: [],
+            label: '2/2',
+            state: 'DONE',
+            title: 'DONE',
+          },
+        ],
+      },
+      organization: { connect: { id: defaultOrg.id } },
+      taskDefinition: { connect: { id: defaultReaquestTaskDefinition.id } },
+    },
+  });
+  const changeOfficeRequestTaskBoard = await prisma.taskBoard.create({
+    data: {
+      name: 'DEV Task Board',
+      description: 'This is change Office Request TaskBoard',
+      code: 'office-request',
+      icon: 'dev-task-board',
+      viewType: 'Kanban',
+      viewConfig: {
+        color: 'red',
+        lanes: [
+          {
+            id: 'lane1',
+            cards: [],
+            label: '2/2',
+            state: 'REQUEST',
+            title: 'REQUEST',
+          },
+          {
+            id: 'lane2',
+            cards: [],
+            label: '2/2',
+            state: 'ORIGINAL_OFFICE',
+            title: 'ORIGINAL-OFFICE',
+          },
+          {
+            id: 'lane3',
+            cards: [],
+            label: '2/2',
+            state: 'PM_APPROVAL',
+            title: 'PM_APPROVAL',
+          },
+          {
+            id: 'lane4',
+            cards: [],
+            label: '0/0',
+            state: 'DESTINATION_OFFICE',
+            title: 'DESTINATION_OFFICE',
+          },
+          {
+            id: 'lane5',
+            cards: [],
+            label: '2/2',
+            state: 'DONE',
+            title: 'DONE',
+          },
+        ],
+      },
+      organization: { connect: { id: defaultOrg.id } },
+      taskDefinition: { connect: { id: defaultReaquestTaskDefinition.id } },
+    },
+  });
+  const workFromHomeRequestTaskBoard = await prisma.taskBoard.create({
+    data: {
+      name: 'DEV Task Board',
+      description: 'This is work From Home Request TaskBoard',
+      code: 'wfh-request',
+      icon: 'dev-task-board',
+      viewType: 'Kanban',
+      viewConfig: {
+        color: 'red',
+        lanes: [
+          {
+            id: 'lane1',
+            cards: [],
+            label: '2/2',
+            state: 'REQUEST',
+            title: 'REQUEST',
+          },
+          {
+            id: 'lane2',
+            cards: [],
+            label: '2/2',
+            state: 'PM_APPROVAL',
+            title: 'PM_APPROVAL',
+          },
+          {
+            id: 'lane3',
+            cards: [],
+            label: '0/0',
+            state: 'CUSTOMER_APPROVAL',
+            title: 'CUSTOMER_APPROVAL',
+          },
+          {
+            id: 'lane4',
+            cards: [],
+            label: '2/2',
+            state: 'REJECT',
+            title: 'REJECT',
+          },
+          {
+            id: 'lane5',
+            cards: [],
+            label: '2/2',
+            state: 'DONE',
+            title: 'DONE',
+          },
+        ],
+      },
+      organization: { connect: { id: defaultOrg.id } },
+      taskDefinition: { connect: { id: defaultReaquestTaskDefinition.id } },
     },
   });
 }
