@@ -4,20 +4,20 @@ import { IntFilter } from '../prisma/int-filter.input';
 import { StringFilter } from '../prisma/string-filter.input';
 import { DateTimeNullableFilter } from '../prisma/date-time-nullable-filter.input';
 import { EnumTaskPriorityFilter } from '../prisma/enum-task-priority-filter.input';
-import { BoolFilter } from '../prisma/bool-filter.input';
 import { JsonNullableFilter } from '../prisma/json-nullable-filter.input';
-import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
 import { DateTimeFilter } from '../prisma/date-time-filter.input';
-import { TaskDefinitionRelationFilter } from '../task-definition/task-definition-relation-filter.input';
+import { IntNullableFilter } from '../prisma/int-nullable-filter.input';
+import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
+import { BoolFilter } from '../prisma/bool-filter.input';
 import { CommentListRelationFilter } from '../comment/comment-list-relation-filter.input';
 import { EventLogListRelationFilter } from '../event-log/event-log-list-relation-filter.input';
-import { IntNullableFilter } from '../prisma/int-nullable-filter.input';
-import { FormRelationFilter } from '../form/form-relation-filter.input';
-import { ProjectRelationFilter } from '../project/project-relation-filter.input';
 import { UserRelationFilter } from '../user/user-relation-filter.input';
+import { TaskDefinitionRelationFilter } from '../task-definition/task-definition-relation-filter.input';
+import { FormRelationFilter } from '../form/form-relation-filter.input';
+import { OrganizationRelationFilter } from '../organization/organization-relation-filter.input';
 import { TaskRelationFilter } from './task-relation-filter.input';
 import { TaskListRelationFilter } from './task-list-relation-filter.input';
-import { OrganizationRelationFilter } from '../organization/organization-relation-filter.input';
+import { ProjectRelationFilter } from '../project/project-relation-filter.input';
 import { TeamRelationFilter } from '../team/team-relation-filter.input';
 import { TriggerListRelationFilter } from '../trigger/trigger-list-relation-filter.input';
 
@@ -48,17 +48,74 @@ export class TaskWhereInput {
     @Field(() => EnumTaskPriorityFilter, {nullable:true})
     priority?: EnumTaskPriorityFilter;
 
-    @Field(() => BoolFilter, {nullable:true})
-    isActive?: BoolFilter;
+    @Field(() => JsonNullableFilter, {nullable:true})
+    values?: JsonNullableFilter;
 
     @Field(() => StringFilter, {nullable:true})
-    key?: StringFilter;
+    ctaName?: StringFilter;
+
+    @Field(() => StringFilter, {nullable:true})
+    stateName?: StringFilter;
+
+    @Field(() => StringFilter, {nullable:true})
+    statusName?: StringFilter;
+
+    @Field(() => DateTimeFilter, {nullable:true})
+    createdAt?: DateTimeFilter;
+
+    @Field(() => DateTimeFilter, {nullable:true})
+    updatedAt?: DateTimeFilter;
+
+    @Field(() => IntNullableFilter, {nullable:true})
+    definitionId?: IntNullableFilter;
+
+    @Field(() => IntNullableFilter, {nullable:true})
+    assigneeId?: IntNullableFilter;
+
+    @Field(() => IntFilter, {nullable:true})
+    creatorId?: IntFilter;
+
+    @Field(() => IntNullableFilter, {nullable:true})
+    parentId?: IntNullableFilter;
+
+    @Field(() => IntFilter, {nullable:true})
+    organizationId?: IntFilter;
+
+    @Field(() => IntNullableFilter, {nullable:true})
+    teamId?: IntNullableFilter;
+
+    @Field(() => JsonNullableFilter, {nullable:true})
+    config?: JsonNullableFilter;
+
+    @Field(() => StringFilter, {nullable:true})
+    cta?: StringFilter;
+
+    @Field(() => StringNullableFilter, {nullable:true})
+    ctaTemplate?: StringNullableFilter;
+
+    @Field(() => StringNullableFilter, {nullable:true})
+    descriptionTemplate?: StringNullableFilter;
+
+    @Field(() => StringNullableFilter, {nullable:true})
+    notificationTemplate?: StringNullableFilter;
 
     @Field(() => JsonNullableFilter, {nullable:true})
     properties?: JsonNullableFilter;
 
-    @Field(() => JsonNullableFilter, {nullable:true})
-    values?: JsonNullableFilter;
+    @Field(() => StringFilter, {nullable:true})
+    state?: StringFilter;
+
+    @Field(() => StringNullableFilter, {nullable:true})
+    stateTemplate?: StringNullableFilter;
+
+    @Field(() => StringFilter, {nullable:true})
+    stateValues?: StringFilter;
+
+    @Field(() => StringNullableFilter, {nullable:true})
+    statusTemplate?: StringNullableFilter;
+
+    @Field(() => StringNullableFilter, {nullable:true})
+    titleTemplate?: StringNullableFilter;
 
     @Field(() => StringFilter, {nullable:true})
     type?: StringFilter;
@@ -67,85 +124,25 @@ export class TaskWhereInput {
     typeName?: StringFilter;
 
     @Field(() => StringFilter, {nullable:true})
-    cta?: StringFilter;
-
-    @Field(() => StringFilter, {nullable:true})
-    ctaName?: StringFilter;
-
-    @Field(() => StringFilter, {nullable:true})
-    state?: StringFilter;
-
-    @Field(() => StringFilter, {nullable:true})
-    stateName?: StringFilter;
-
-    @Field(() => StringFilter, {nullable:true})
     status?: StringFilter;
-
-    @Field(() => StringFilter, {nullable:true})
-    statusName?: StringFilter;
-
-    @Field(() => StringFilter, {nullable:true})
-    stateValues?: StringFilter;
-
-    @Field(() => StringNullableFilter, {nullable:true})
-    descriptionTemplate?: StringNullableFilter;
-
-    @Field(() => StringNullableFilter, {nullable:true})
-    titleTemplate?: StringNullableFilter;
-
-    @Field(() => StringNullableFilter, {nullable:true})
-    statusTemplate?: StringNullableFilter;
-
-    @Field(() => StringNullableFilter, {nullable:true})
-    stateTemplate?: StringNullableFilter;
-
-    @Field(() => StringNullableFilter, {nullable:true})
-    notificationTemplate?: StringNullableFilter;
-
-    @Field(() => StringNullableFilter, {nullable:true})
-    ctaTemplate?: StringNullableFilter;
-
-    @Field(() => JsonNullableFilter, {nullable:true})
-    machineConfig?: JsonNullableFilter;
-
-    @Field(() => JsonNullableFilter, {nullable:true})
-    contextConfig?: JsonNullableFilter;
-
-    @Field(() => JsonNullableFilter, {nullable:true})
-    stateConfig?: JsonNullableFilter;
-
-    @Field(() => JsonNullableFilter, {nullable:true})
-    statusConfig?: JsonNullableFilter;
-
-    @Field(() => JsonNullableFilter, {nullable:true})
-    notificationConfig?: JsonNullableFilter;
-
-    @Field(() => JsonNullableFilter, {nullable:true})
-    processConfig?: JsonNullableFilter;
-
-    @Field(() => JsonNullableFilter, {nullable:true})
-    triggerConfig?: JsonNullableFilter;
-
-    @Field(() => JsonNullableFilter, {nullable:true})
-    ctaConfig?: JsonNullableFilter;
 
     @Field(() => JsonNullableFilter, {nullable:true})
     formConfig?: JsonNullableFilter;
 
-    @Field(() => JsonNullableFilter, {nullable:true})
-    config?: JsonNullableFilter;
+    @Field(() => StringFilter, {nullable:true})
+    key?: StringFilter;
 
-    @Field(() => DateTimeFilter, {nullable:true})
-    createdAt?: DateTimeFilter;
+    @Field(() => BoolFilter, {nullable:true})
+    isActive?: BoolFilter;
 
-    @Field(() => DateTimeFilter, {nullable:true})
-    updatedAt?: DateTimeFilter;
+    @Field(() => IntNullableFilter, {nullable:true})
+    formId?: IntNullableFilter;
 
-    @Field(() => IntFilter, {nullable:true})
-    definitionId?: IntFilter;
+    @Field(() => IntNullableFilter, {nullable:true})
+    projectId?: IntNullableFilter;
 
-    @Field(() => TaskDefinitionRelationFilter, {nullable:true})
-    definition?: TaskDefinitionRelationFilter;
+    @Field(() => IntNullableFilter, {nullable:true})
+    reporterId?: IntNullableFilter;
 
     @Field(() => CommentListRelationFilter, {nullable:true})
     comments?: CommentListRelationFilter;
@@ -153,32 +150,20 @@ export class TaskWhereInput {
     @Field(() => EventLogListRelationFilter, {nullable:true})
     eventLogs?: EventLogListRelationFilter;
 
-    @Field(() => IntNullableFilter, {nullable:true})
-    formId?: IntNullableFilter;
-
-    @Field(() => FormRelationFilter, {nullable:true})
-    form?: FormRelationFilter;
-
-    @Field(() => IntNullableFilter, {nullable:true})
-    projectId?: IntNullableFilter;
-
-    @Field(() => ProjectRelationFilter, {nullable:true})
-    project?: ProjectRelationFilter;
-
-    @Field(() => IntNullableFilter, {nullable:true})
-    assigneeId?: IntNullableFilter;
-
     @Field(() => UserRelationFilter, {nullable:true})
     assignee?: UserRelationFilter;
-
-    @Field(() => IntFilter, {nullable:true})
-    creatorId?: IntFilter;
 
     @Field(() => UserRelationFilter, {nullable:true})
     creator?: UserRelationFilter;
 
-    @Field(() => IntNullableFilter, {nullable:true})
-    parentId?: IntNullableFilter;
+    @Field(() => TaskDefinitionRelationFilter, {nullable:true})
+    definition?: TaskDefinitionRelationFilter;
+
+    @Field(() => FormRelationFilter, {nullable:true})
+    form?: FormRelationFilter;
+
+    @Field(() => OrganizationRelationFilter, {nullable:true})
+    organization?: OrganizationRelationFilter;
 
     @Field(() => TaskRelationFilter, {nullable:true})
     parentTask?: TaskRelationFilter;
@@ -186,20 +171,11 @@ export class TaskWhereInput {
     @Field(() => TaskListRelationFilter, {nullable:true})
     subTasks?: TaskListRelationFilter;
 
-    @Field(() => IntFilter, {nullable:true})
-    organizationId?: IntFilter;
-
-    @Field(() => OrganizationRelationFilter, {nullable:true})
-    organization?: OrganizationRelationFilter;
-
-    @Field(() => IntNullableFilter, {nullable:true})
-    reporterId?: IntNullableFilter;
+    @Field(() => ProjectRelationFilter, {nullable:true})
+    project?: ProjectRelationFilter;
 
     @Field(() => UserRelationFilter, {nullable:true})
     reporter?: UserRelationFilter;
-
-    @Field(() => IntNullableFilter, {nullable:true})
-    teamId?: IntNullableFilter;
 
     @Field(() => TeamRelationFilter, {nullable:true})
     team?: TeamRelationFilter;

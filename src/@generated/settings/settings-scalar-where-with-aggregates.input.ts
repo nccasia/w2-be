@@ -29,9 +29,9 @@ export class SettingsScalarWhereWithAggregatesInput {
     @Field(() => StringWithAggregatesFilter, {nullable:true})
     key?: StringWithAggregatesFilter;
 
-    @Field(() => JsonWithAggregatesFilter, {nullable:true})
-    value?: JsonWithAggregatesFilter;
-
     @Field(() => IntWithAggregatesFilter, {nullable:true})
     organizationId?: IntWithAggregatesFilter;
+
+    @Field(() => JsonWithAggregatesFilter, {nullable:true})
+    value?: JsonWithAggregatesFilter;
 }

@@ -6,14 +6,14 @@ import { Int } from '@nestjs/graphql';
 export class ProjectCount {
 
     @Field(() => Int, {nullable:false})
-    tasks?: number;
-
-    @Field(() => Int, {nullable:false})
     members?: number;
 
     @Field(() => Int, {nullable:false})
-    taskBoards?: number;
+    settings?: number;
 
     @Field(() => Int, {nullable:false})
-    settings?: number;
+    tasks?: number;
+
+    @Field(() => Int, {nullable:false})
+    taskBoards?: number;
 }

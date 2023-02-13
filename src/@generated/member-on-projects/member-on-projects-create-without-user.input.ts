@@ -5,12 +5,12 @@ import { ProjectCreateNestedOneWithoutMembersInput } from '../project/project-cr
 @InputType()
 export class MemberOnProjectsCreateWithoutUserInput {
 
-    @Field(() => ProjectCreateNestedOneWithoutMembersInput, {nullable:false})
-    project!: ProjectCreateNestedOneWithoutMembersInput;
-
     @Field(() => Date, {nullable:true})
     assignedAt?: Date | string;
 
     @Field(() => String, {nullable:false})
     assignedBy!: string;
+
+    @Field(() => ProjectCreateNestedOneWithoutMembersInput, {nullable:false})
+    project!: ProjectCreateNestedOneWithoutMembersInput;
 }

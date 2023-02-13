@@ -26,13 +26,19 @@ export class UserOrderByWithAggregationInput {
     password?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
-    provider?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
     firstname?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
     lastname?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    organizationId?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    role?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    avatarId?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
     googleId?: keyof typeof SortOrder;
@@ -41,13 +47,7 @@ export class UserOrderByWithAggregationInput {
     googleToken?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
-    avatarId?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
-    organizationId?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
-    role?: keyof typeof SortOrder;
+    provider?: keyof typeof SortOrder;
 
     @Field(() => UserCountOrderByAggregateInput, {nullable:true})
     _count?: UserCountOrderByAggregateInput;

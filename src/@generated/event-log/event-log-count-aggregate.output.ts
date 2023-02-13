@@ -21,19 +21,19 @@ export class EventLogCountAggregate {
     organizationId!: number;
 
     @Field(() => Int, {nullable:false})
+    content!: number;
+
+    @Field(() => Int, {nullable:false})
     context!: number;
 
     @Field(() => Int, {nullable:false})
     action!: number;
 
     @Field(() => Int, {nullable:false})
-    intent!: number;
-
-    @Field(() => Int, {nullable:false})
     domain!: number;
 
     @Field(() => Int, {nullable:false})
-    content!: number;
+    intent!: number;
 
     @Field(() => Int, {nullable:false})
     _all!: number;

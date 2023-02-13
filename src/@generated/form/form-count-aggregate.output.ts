@@ -27,25 +27,13 @@ export class FormCountAggregate {
     validationConfig!: number;
 
     @Field(() => Int, {nullable:false})
-    triggerConfig!: number;
-
-    @Field(() => Int, {nullable:false})
-    serializerConfig!: number;
-
-    @Field(() => Int, {nullable:false})
-    displayTemplate!: number;
-
-    @Field(() => Int, {nullable:false})
-    displayConfig!: number;
-
-    @Field(() => Int, {nullable:false})
-    values!: number;
-
-    @Field(() => Int, {nullable:false})
     createdAt!: number;
 
     @Field(() => Int, {nullable:false})
     updatedAt!: number;
+
+    @Field(() => Int, {nullable:false})
+    values!: number;
 
     @Field(() => Int, {nullable:false})
     _all!: number;

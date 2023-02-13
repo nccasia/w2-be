@@ -1,8 +1,8 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { UserCreateNestedOneWithoutTaskEventsInput } from '../user/user-create-nested-one-without-task-events.input';
-import { OrganizationCreateNestedOneWithoutEventLogsInput } from '../organization/organization-create-nested-one-without-event-logs.input';
 import { GraphQLJSON } from 'graphql-type-json';
+import { OrganizationCreateNestedOneWithoutEventLogsInput } from '../organization/organization-create-nested-one-without-event-logs.input';
+import { UserCreateNestedOneWithoutTaskEventsInput } from '../user/user-create-nested-one-without-task-events.input';
 
 @InputType()
 export class EventLogCreateWithoutTaskInput {
@@ -10,11 +10,8 @@ export class EventLogCreateWithoutTaskInput {
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
 
-    @Field(() => UserCreateNestedOneWithoutTaskEventsInput, {nullable:true})
-    user?: UserCreateNestedOneWithoutTaskEventsInput;
-
-    @Field(() => OrganizationCreateNestedOneWithoutEventLogsInput, {nullable:false})
-    organization!: OrganizationCreateNestedOneWithoutEventLogsInput;
+    @Field(() => String, {nullable:true})
+    content?: string;
 
     @Field(() => GraphQLJSON, {nullable:true})
     context?: any;
@@ -23,11 +20,14 @@ export class EventLogCreateWithoutTaskInput {
     action?: string;
 
     @Field(() => String, {nullable:true})
-    intent?: string;
-
-    @Field(() => String, {nullable:true})
     domain?: string;
 
     @Field(() => String, {nullable:true})
-    content?: string;
+    intent?: string;
+
+    @Field(() => OrganizationCreateNestedOneWithoutEventLogsInput, {nullable:false})
+    organization!: OrganizationCreateNestedOneWithoutEventLogsInput;
+
+    @Field(() => UserCreateNestedOneWithoutTaskEventsInput, {nullable:true})
+    user?: UserCreateNestedOneWithoutTaskEventsInput;
 }

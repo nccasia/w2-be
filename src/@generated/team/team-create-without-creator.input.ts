@@ -1,9 +1,9 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { UserCreateNestedOneWithoutManagedteamsInput } from '../user/user-create-nested-one-without-managedteams.input';
-import { OrganizationCreateNestedOneWithoutTeamsInput } from '../organization/organization-create-nested-one-without-teams.input';
 import { MemberOnTeamsCreateNestedManyWithoutTeamInput } from '../member-on-teams/member-on-teams-create-nested-many-without-team.input';
 import { TaskCreateNestedManyWithoutTeamInput } from '../task/task-create-nested-many-without-team.input';
+import { UserCreateNestedOneWithoutManagedteamsInput } from '../user/user-create-nested-one-without-managedteams.input';
+import { OrganizationCreateNestedOneWithoutTeamsInput } from '../organization/organization-create-nested-one-without-teams.input';
 
 @InputType()
 export class TeamCreateWithoutCreatorInput {
@@ -23,15 +23,15 @@ export class TeamCreateWithoutCreatorInput {
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
 
-    @Field(() => UserCreateNestedOneWithoutManagedteamsInput, {nullable:false})
-    manager!: UserCreateNestedOneWithoutManagedteamsInput;
-
-    @Field(() => OrganizationCreateNestedOneWithoutTeamsInput, {nullable:false})
-    organization!: OrganizationCreateNestedOneWithoutTeamsInput;
-
     @Field(() => MemberOnTeamsCreateNestedManyWithoutTeamInput, {nullable:true})
     memberOnTeams?: MemberOnTeamsCreateNestedManyWithoutTeamInput;
 
     @Field(() => TaskCreateNestedManyWithoutTeamInput, {nullable:true})
     tasks?: TaskCreateNestedManyWithoutTeamInput;
+
+    @Field(() => UserCreateNestedOneWithoutManagedteamsInput, {nullable:false})
+    manager!: UserCreateNestedOneWithoutManagedteamsInput;
+
+    @Field(() => OrganizationCreateNestedOneWithoutTeamsInput, {nullable:false})
+    organization!: OrganizationCreateNestedOneWithoutTeamsInput;
 }

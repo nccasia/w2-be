@@ -7,7 +7,6 @@ import { EnumActivityTypeFilter } from '../prisma/enum-activity-type-filter.inpu
 import { JsonNullableFilter } from '../prisma/json-nullable-filter.input';
 import { StringFilter } from '../prisma/string-filter.input';
 import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
-import { TaskDefinitionActivityDefinitionListRelationFilter } from '../task-definition-activity-definition/task-definition-activity-definition-list-relation-filter.input';
 
 @InputType()
 export class ActivityDefinitionWhereInput {
@@ -50,7 +49,4 @@ export class ActivityDefinitionWhereInput {
 
     @Field(() => StringNullableFilter, {nullable:true})
     description?: StringNullableFilter;
-
-    @Field(() => TaskDefinitionActivityDefinitionListRelationFilter, {nullable:true})
-    taskDefinitionActivityDefinitions?: TaskDefinitionActivityDefinitionListRelationFilter;
 }

@@ -8,13 +8,9 @@ export enum FormScalarFieldEnum {
     schema = "schema",
     config = "config",
     validationConfig = "validationConfig",
-    triggerConfig = "triggerConfig",
-    serializerConfig = "serializerConfig",
-    displayTemplate = "displayTemplate",
-    displayConfig = "displayConfig",
-    values = "values",
     createdAt = "createdAt",
-    updatedAt = "updatedAt"
+    updatedAt = "updatedAt",
+    values = "values"
 }
 
 

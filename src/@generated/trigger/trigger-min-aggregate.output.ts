@@ -19,17 +19,17 @@ export class TriggerMinAggregate {
     @Field(() => TriggerType, {nullable:true})
     type?: keyof typeof TriggerType;
 
-    @Field(() => TriggerStatus, {nullable:true})
-    status?: keyof typeof TriggerStatus;
-
-    @Field(() => String, {nullable:true})
-    key?: string;
-
     @Field(() => String, {nullable:true})
     name?: string;
 
     @Field(() => String, {nullable:true})
     description?: string;
+
+    @Field(() => String, {nullable:true})
+    key?: string;
+
+    @Field(() => TriggerStatus, {nullable:true})
+    status?: keyof typeof TriggerStatus;
 
     @Field(() => Int, {nullable:true})
     taskId?: number;

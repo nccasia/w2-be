@@ -3,17 +3,17 @@ import { InputType } from '@nestjs/graphql';
 import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
 import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
-import { TaskUncheckedUpdateManyWithoutOrganizationNestedInput } from '../task/task-unchecked-update-many-without-organization-nested.input';
-import { UserUncheckedUpdateManyWithoutOrganizationNestedInput } from '../user/user-unchecked-update-many-without-organization-nested.input';
-import { TeamUncheckedUpdateManyWithoutOrganizationNestedInput } from '../team/team-unchecked-update-many-without-organization-nested.input';
-import { SettingsUncheckedUpdateManyWithoutOrganizationNestedInput } from '../settings/settings-unchecked-update-many-without-organization-nested.input';
-import { FileUncheckedUpdateManyWithoutOrganizationNestedInput } from '../file/file-unchecked-update-many-without-organization-nested.input';
 import { EventLogUncheckedUpdateManyWithoutOrganizationNestedInput } from '../event-log/event-log-unchecked-update-many-without-organization-nested.input';
-import { TaskDefinitionUncheckedUpdateManyWithoutOrganizationNestedInput } from '../task-definition/task-definition-unchecked-update-many-without-organization-nested.input';
+import { FileUncheckedUpdateManyWithoutOrganizationNestedInput } from '../file/file-unchecked-update-many-without-organization-nested.input';
 import { PermissionUncheckedUpdateManyWithoutOrganizationNestedInput } from '../permission/permission-unchecked-update-many-without-organization-nested.input';
-import { ResourceUncheckedUpdateManyWithoutOrganizationNestedInput } from '../resource/resource-unchecked-update-many-without-organization-nested.input';
 import { ProjectUncheckedUpdateManyWithoutOrganizationNestedInput } from '../project/project-unchecked-update-many-without-organization-nested.input';
+import { ResourceUncheckedUpdateManyWithoutOrganizationNestedInput } from '../resource/resource-unchecked-update-many-without-organization-nested.input';
+import { SettingsUncheckedUpdateManyWithoutOrganizationNestedInput } from '../settings/settings-unchecked-update-many-without-organization-nested.input';
+import { TaskUncheckedUpdateManyWithoutOrganizationNestedInput } from '../task/task-unchecked-update-many-without-organization-nested.input';
 import { TaskBoardUncheckedUpdateManyWithoutOrganizationNestedInput } from '../task-board/task-board-unchecked-update-many-without-organization-nested.input';
+import { TaskDefinitionUncheckedUpdateManyWithoutOrganizationNestedInput } from '../task-definition/task-definition-unchecked-update-many-without-organization-nested.input';
+import { TeamUncheckedUpdateManyWithoutOrganizationNestedInput } from '../team/team-unchecked-update-many-without-organization-nested.input';
+import { UserUncheckedUpdateManyWithoutOrganizationNestedInput } from '../user/user-unchecked-update-many-without-organization-nested.input';
 
 @InputType()
 export class OrganizationUncheckedUpdateWithoutPermissionGroupsInput {
@@ -33,36 +33,36 @@ export class OrganizationUncheckedUpdateWithoutPermissionGroupsInput {
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     updatedAt?: DateTimeFieldUpdateOperationsInput;
 
-    @Field(() => TaskUncheckedUpdateManyWithoutOrganizationNestedInput, {nullable:true})
-    tasks?: TaskUncheckedUpdateManyWithoutOrganizationNestedInput;
-
-    @Field(() => UserUncheckedUpdateManyWithoutOrganizationNestedInput, {nullable:true})
-    users?: UserUncheckedUpdateManyWithoutOrganizationNestedInput;
-
-    @Field(() => TeamUncheckedUpdateManyWithoutOrganizationNestedInput, {nullable:true})
-    teams?: TeamUncheckedUpdateManyWithoutOrganizationNestedInput;
-
-    @Field(() => SettingsUncheckedUpdateManyWithoutOrganizationNestedInput, {nullable:true})
-    settings?: SettingsUncheckedUpdateManyWithoutOrganizationNestedInput;
+    @Field(() => EventLogUncheckedUpdateManyWithoutOrganizationNestedInput, {nullable:true})
+    eventLogs?: EventLogUncheckedUpdateManyWithoutOrganizationNestedInput;
 
     @Field(() => FileUncheckedUpdateManyWithoutOrganizationNestedInput, {nullable:true})
     files?: FileUncheckedUpdateManyWithoutOrganizationNestedInput;
 
-    @Field(() => EventLogUncheckedUpdateManyWithoutOrganizationNestedInput, {nullable:true})
-    eventLogs?: EventLogUncheckedUpdateManyWithoutOrganizationNestedInput;
-
-    @Field(() => TaskDefinitionUncheckedUpdateManyWithoutOrganizationNestedInput, {nullable:true})
-    taskDefinitions?: TaskDefinitionUncheckedUpdateManyWithoutOrganizationNestedInput;
-
     @Field(() => PermissionUncheckedUpdateManyWithoutOrganizationNestedInput, {nullable:true})
     permissions?: PermissionUncheckedUpdateManyWithoutOrganizationNestedInput;
-
-    @Field(() => ResourceUncheckedUpdateManyWithoutOrganizationNestedInput, {nullable:true})
-    resources?: ResourceUncheckedUpdateManyWithoutOrganizationNestedInput;
 
     @Field(() => ProjectUncheckedUpdateManyWithoutOrganizationNestedInput, {nullable:true})
     projects?: ProjectUncheckedUpdateManyWithoutOrganizationNestedInput;
 
+    @Field(() => ResourceUncheckedUpdateManyWithoutOrganizationNestedInput, {nullable:true})
+    resources?: ResourceUncheckedUpdateManyWithoutOrganizationNestedInput;
+
+    @Field(() => SettingsUncheckedUpdateManyWithoutOrganizationNestedInput, {nullable:true})
+    settings?: SettingsUncheckedUpdateManyWithoutOrganizationNestedInput;
+
+    @Field(() => TaskUncheckedUpdateManyWithoutOrganizationNestedInput, {nullable:true})
+    tasks?: TaskUncheckedUpdateManyWithoutOrganizationNestedInput;
+
     @Field(() => TaskBoardUncheckedUpdateManyWithoutOrganizationNestedInput, {nullable:true})
     taskBoards?: TaskBoardUncheckedUpdateManyWithoutOrganizationNestedInput;
+
+    @Field(() => TaskDefinitionUncheckedUpdateManyWithoutOrganizationNestedInput, {nullable:true})
+    taskDefinitions?: TaskDefinitionUncheckedUpdateManyWithoutOrganizationNestedInput;
+
+    @Field(() => TeamUncheckedUpdateManyWithoutOrganizationNestedInput, {nullable:true})
+    teams?: TeamUncheckedUpdateManyWithoutOrganizationNestedInput;
+
+    @Field(() => UserUncheckedUpdateManyWithoutOrganizationNestedInput, {nullable:true})
+    users?: UserUncheckedUpdateManyWithoutOrganizationNestedInput;
 }

@@ -1,8 +1,8 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
-import { TaskUncheckedCreateNestedManyWithoutProjectInput } from '../task/task-unchecked-create-nested-many-without-project.input';
 import { MemberOnProjectsUncheckedCreateNestedManyWithoutProjectInput } from '../member-on-projects/member-on-projects-unchecked-create-nested-many-without-project.input';
+import { TaskUncheckedCreateNestedManyWithoutProjectInput } from '../task/task-unchecked-create-nested-many-without-project.input';
 import { TaskBoardUncheckedCreateNestedManyWithoutProjectInput } from '../task-board/task-board-unchecked-create-nested-many-without-project.input';
 
 @InputType()
@@ -35,9 +35,6 @@ export class ProjectUncheckedCreateWithoutSettingsInput {
     @Field(() => Int, {nullable:false})
     taskDefinitionId!: number;
 
-    @Field(() => TaskUncheckedCreateNestedManyWithoutProjectInput, {nullable:true})
-    tasks?: TaskUncheckedCreateNestedManyWithoutProjectInput;
-
     @Field(() => Int, {nullable:false})
     creatorId!: number;
 
@@ -49,6 +46,9 @@ export class ProjectUncheckedCreateWithoutSettingsInput {
 
     @Field(() => MemberOnProjectsUncheckedCreateNestedManyWithoutProjectInput, {nullable:true})
     members?: MemberOnProjectsUncheckedCreateNestedManyWithoutProjectInput;
+
+    @Field(() => TaskUncheckedCreateNestedManyWithoutProjectInput, {nullable:true})
+    tasks?: TaskUncheckedCreateNestedManyWithoutProjectInput;
 
     @Field(() => TaskBoardUncheckedCreateNestedManyWithoutProjectInput, {nullable:true})
     taskBoards?: TaskBoardUncheckedCreateNestedManyWithoutProjectInput;

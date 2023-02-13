@@ -21,9 +21,9 @@ export class UserSettingOrderByWithRelationInput {
     @Field(() => SortOrder, {nullable:true})
     value?: keyof typeof SortOrder;
 
-    @Field(() => UserOrderByWithRelationInput, {nullable:true})
-    user?: UserOrderByWithRelationInput;
-
     @Field(() => SortOrder, {nullable:true})
     userId?: keyof typeof SortOrder;
+
+    @Field(() => UserOrderByWithRelationInput, {nullable:true})
+    user?: UserOrderByWithRelationInput;
 }

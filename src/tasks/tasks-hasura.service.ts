@@ -3,17 +3,12 @@ import {
   HasuraInsertEvent,
 } from '@golevelup/nestjs-hasura';
 import { Injectable } from '@nestjs/common';
-import { Task, TriggerStatus, User } from '@prisma/client';
-import { TaskFactoryService } from './task-factory.service';
+import { Task } from '@prisma/client';
 import { TaskWorkflowService } from './task-workflow.service';
-import { TaskService } from './tasks.service';
 
 @Injectable()
 export class TasksHasuraService {
-  constructor(
-    private readonly taskFactoryService: TaskFactoryService,
-    private readonly taskWorkflowService: TaskWorkflowService
-  ) {}
+  constructor(private readonly taskWorkflowService: TaskWorkflowService) {}
 
   @TrackedHasuraEventHandler({
     triggerName: 'task-created',

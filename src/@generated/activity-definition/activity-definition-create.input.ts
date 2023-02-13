@@ -2,7 +2,6 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { ActivityType } from '../prisma/activity-type.enum';
 import { GraphQLJSON } from 'graphql-type-json';
-import { TaskDefinitionActivityDefinitionCreateNestedManyWithoutActivityDefinitionInput } from '../task-definition-activity-definition/task-definition-activity-definition-create-nested-many-without-activity-definition.input';
 
 @InputType()
 export class ActivityDefinitionCreateInput {
@@ -33,7 +32,4 @@ export class ActivityDefinitionCreateInput {
 
     @Field(() => String, {nullable:true})
     description?: string;
-
-    @Field(() => TaskDefinitionActivityDefinitionCreateNestedManyWithoutActivityDefinitionInput, {nullable:true})
-    taskDefinitionActivityDefinitions?: TaskDefinitionActivityDefinitionCreateNestedManyWithoutActivityDefinitionInput;
 }

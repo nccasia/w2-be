@@ -33,9 +33,9 @@ export class ProjectSettingsWhereInput {
     @Field(() => JsonFilter, {nullable:true})
     value?: JsonFilter;
 
-    @Field(() => ProjectRelationFilter, {nullable:true})
-    project?: ProjectRelationFilter;
-
     @Field(() => IntFilter, {nullable:true})
     projectId?: IntFilter;
+
+    @Field(() => ProjectRelationFilter, {nullable:true})
+    project?: ProjectRelationFilter;
 }

@@ -14,9 +14,6 @@ export class TaskDefinitionCountAggregateInput {
     updatedAt?: true;
 
     @Field(() => Boolean, {nullable:true})
-    keyTemplate?: true;
-
-    @Field(() => Boolean, {nullable:true})
     title?: true;
 
     @Field(() => Boolean, {nullable:true})
@@ -27,9 +24,6 @@ export class TaskDefinitionCountAggregateInput {
 
     @Field(() => Boolean, {nullable:true})
     thumbnail?: true;
-
-    @Field(() => Boolean, {nullable:true})
-    formId?: true;
 
     @Field(() => Boolean, {nullable:true})
     descriptionTemplate?: true;
@@ -48,15 +42,6 @@ export class TaskDefinitionCountAggregateInput {
 
     @Field(() => Boolean, {nullable:true})
     ctaTemplate?: true;
-
-    @Field(() => Boolean, {nullable:true})
-    machineConfig?: true;
-
-    @Field(() => Boolean, {nullable:true})
-    contextConfig?: true;
-
-    @Field(() => Boolean, {nullable:true})
-    stateConfig?: true;
 
     @Field(() => Boolean, {nullable:true})
     statusConfig?: true;
@@ -81,6 +66,21 @@ export class TaskDefinitionCountAggregateInput {
 
     @Field(() => Boolean, {nullable:true})
     parentId?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    stateConfig?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    formId?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    keyTemplate?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    machineConfig?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    contextConfig?: true;
 
     @Field(() => Boolean, {nullable:true})
     _all?: true;

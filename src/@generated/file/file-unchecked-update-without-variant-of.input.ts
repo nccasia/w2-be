@@ -49,11 +49,11 @@ export class FileUncheckedUpdateWithoutVariantOfInput {
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     updatedAt?: DateTimeFieldUpdateOperationsInput;
 
-    @Field(() => FileUncheckedUpdateManyWithoutVariantOfNestedInput, {nullable:true})
-    variants?: FileUncheckedUpdateManyWithoutVariantOfNestedInput;
-
     @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
     organizationId?: IntFieldUpdateOperationsInput;
+
+    @Field(() => FileUncheckedUpdateManyWithoutVariantOfNestedInput, {nullable:true})
+    variants?: FileUncheckedUpdateManyWithoutVariantOfNestedInput;
 
     @Field(() => UserUncheckedUpdateManyWithoutAvatarNestedInput, {nullable:true})
     avatarUsers?: UserUncheckedUpdateManyWithoutAvatarNestedInput;

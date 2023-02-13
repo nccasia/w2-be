@@ -21,9 +21,9 @@ export class TaskBoardSettingsOrderByWithRelationInput {
     @Field(() => SortOrder, {nullable:true})
     value?: keyof typeof SortOrder;
 
-    @Field(() => TaskBoardOrderByWithRelationInput, {nullable:true})
-    taskBoard?: TaskBoardOrderByWithRelationInput;
-
     @Field(() => SortOrder, {nullable:true})
     taskBoardId?: keyof typeof SortOrder;
+
+    @Field(() => TaskBoardOrderByWithRelationInput, {nullable:true})
+    taskBoard?: TaskBoardOrderByWithRelationInput;
 }

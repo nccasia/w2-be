@@ -4,8 +4,8 @@ import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operat
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
 import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
 import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-string-field-update-operations.input';
-import { EnumProviderEnumFieldUpdateOperationsInput } from '../prisma/enum-provider-enum-field-update-operations.input';
 import { EnumRoleFieldUpdateOperationsInput } from '../prisma/enum-role-field-update-operations.input';
+import { EnumProviderEnumFieldUpdateOperationsInput } from '../prisma/enum-provider-enum-field-update-operations.input';
 
 @InputType()
 export class UserUncheckedUpdateManyWithoutAvatarUsersInput {
@@ -25,14 +25,17 @@ export class UserUncheckedUpdateManyWithoutAvatarUsersInput {
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     password?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => EnumProviderEnumFieldUpdateOperationsInput, {nullable:true})
-    provider?: EnumProviderEnumFieldUpdateOperationsInput;
-
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     firstname?: NullableStringFieldUpdateOperationsInput;
 
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     lastname?: NullableStringFieldUpdateOperationsInput;
+
+    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
+    organizationId?: IntFieldUpdateOperationsInput;
+
+    @Field(() => EnumRoleFieldUpdateOperationsInput, {nullable:true})
+    role?: EnumRoleFieldUpdateOperationsInput;
 
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     googleId?: NullableStringFieldUpdateOperationsInput;
@@ -40,9 +43,6 @@ export class UserUncheckedUpdateManyWithoutAvatarUsersInput {
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     googleToken?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    organizationId?: IntFieldUpdateOperationsInput;
-
-    @Field(() => EnumRoleFieldUpdateOperationsInput, {nullable:true})
-    role?: EnumRoleFieldUpdateOperationsInput;
+    @Field(() => EnumProviderEnumFieldUpdateOperationsInput, {nullable:true})
+    provider?: EnumProviderEnumFieldUpdateOperationsInput;
 }

@@ -4,11 +4,11 @@ import { IntWithAggregatesFilter } from '../prisma/int-with-aggregates-filter.in
 import { StringWithAggregatesFilter } from '../prisma/string-with-aggregates-filter.input';
 import { DateTimeNullableWithAggregatesFilter } from '../prisma/date-time-nullable-with-aggregates-filter.input';
 import { EnumTaskPriorityWithAggregatesFilter } from '../prisma/enum-task-priority-with-aggregates-filter.input';
-import { BoolWithAggregatesFilter } from '../prisma/bool-with-aggregates-filter.input';
 import { JsonNullableWithAggregatesFilter } from '../prisma/json-nullable-with-aggregates-filter.input';
-import { StringNullableWithAggregatesFilter } from '../prisma/string-nullable-with-aggregates-filter.input';
 import { DateTimeWithAggregatesFilter } from '../prisma/date-time-with-aggregates-filter.input';
 import { IntNullableWithAggregatesFilter } from '../prisma/int-nullable-with-aggregates-filter.input';
+import { StringNullableWithAggregatesFilter } from '../prisma/string-nullable-with-aggregates-filter.input';
+import { BoolWithAggregatesFilter } from '../prisma/bool-with-aggregates-filter.input';
 
 @InputType()
 export class TaskScalarWhereWithAggregatesInput {
@@ -37,92 +37,17 @@ export class TaskScalarWhereWithAggregatesInput {
     @Field(() => EnumTaskPriorityWithAggregatesFilter, {nullable:true})
     priority?: EnumTaskPriorityWithAggregatesFilter;
 
-    @Field(() => BoolWithAggregatesFilter, {nullable:true})
-    isActive?: BoolWithAggregatesFilter;
-
-    @Field(() => StringWithAggregatesFilter, {nullable:true})
-    key?: StringWithAggregatesFilter;
-
-    @Field(() => JsonNullableWithAggregatesFilter, {nullable:true})
-    properties?: JsonNullableWithAggregatesFilter;
-
     @Field(() => JsonNullableWithAggregatesFilter, {nullable:true})
     values?: JsonNullableWithAggregatesFilter;
-
-    @Field(() => StringWithAggregatesFilter, {nullable:true})
-    type?: StringWithAggregatesFilter;
-
-    @Field(() => StringWithAggregatesFilter, {nullable:true})
-    typeName?: StringWithAggregatesFilter;
-
-    @Field(() => StringWithAggregatesFilter, {nullable:true})
-    cta?: StringWithAggregatesFilter;
 
     @Field(() => StringWithAggregatesFilter, {nullable:true})
     ctaName?: StringWithAggregatesFilter;
 
     @Field(() => StringWithAggregatesFilter, {nullable:true})
-    state?: StringWithAggregatesFilter;
-
-    @Field(() => StringWithAggregatesFilter, {nullable:true})
     stateName?: StringWithAggregatesFilter;
 
     @Field(() => StringWithAggregatesFilter, {nullable:true})
-    status?: StringWithAggregatesFilter;
-
-    @Field(() => StringWithAggregatesFilter, {nullable:true})
     statusName?: StringWithAggregatesFilter;
-
-    @Field(() => StringWithAggregatesFilter, {nullable:true})
-    stateValues?: StringWithAggregatesFilter;
-
-    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
-    descriptionTemplate?: StringNullableWithAggregatesFilter;
-
-    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
-    titleTemplate?: StringNullableWithAggregatesFilter;
-
-    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
-    statusTemplate?: StringNullableWithAggregatesFilter;
-
-    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
-    stateTemplate?: StringNullableWithAggregatesFilter;
-
-    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
-    notificationTemplate?: StringNullableWithAggregatesFilter;
-
-    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
-    ctaTemplate?: StringNullableWithAggregatesFilter;
-
-    @Field(() => JsonNullableWithAggregatesFilter, {nullable:true})
-    machineConfig?: JsonNullableWithAggregatesFilter;
-
-    @Field(() => JsonNullableWithAggregatesFilter, {nullable:true})
-    contextConfig?: JsonNullableWithAggregatesFilter;
-
-    @Field(() => JsonNullableWithAggregatesFilter, {nullable:true})
-    stateConfig?: JsonNullableWithAggregatesFilter;
-
-    @Field(() => JsonNullableWithAggregatesFilter, {nullable:true})
-    statusConfig?: JsonNullableWithAggregatesFilter;
-
-    @Field(() => JsonNullableWithAggregatesFilter, {nullable:true})
-    notificationConfig?: JsonNullableWithAggregatesFilter;
-
-    @Field(() => JsonNullableWithAggregatesFilter, {nullable:true})
-    processConfig?: JsonNullableWithAggregatesFilter;
-
-    @Field(() => JsonNullableWithAggregatesFilter, {nullable:true})
-    triggerConfig?: JsonNullableWithAggregatesFilter;
-
-    @Field(() => JsonNullableWithAggregatesFilter, {nullable:true})
-    ctaConfig?: JsonNullableWithAggregatesFilter;
-
-    @Field(() => JsonNullableWithAggregatesFilter, {nullable:true})
-    formConfig?: JsonNullableWithAggregatesFilter;
-
-    @Field(() => JsonNullableWithAggregatesFilter, {nullable:true})
-    config?: JsonNullableWithAggregatesFilter;
 
     @Field(() => DateTimeWithAggregatesFilter, {nullable:true})
     createdAt?: DateTimeWithAggregatesFilter;
@@ -130,14 +55,8 @@ export class TaskScalarWhereWithAggregatesInput {
     @Field(() => DateTimeWithAggregatesFilter, {nullable:true})
     updatedAt?: DateTimeWithAggregatesFilter;
 
-    @Field(() => IntWithAggregatesFilter, {nullable:true})
-    definitionId?: IntWithAggregatesFilter;
-
     @Field(() => IntNullableWithAggregatesFilter, {nullable:true})
-    formId?: IntNullableWithAggregatesFilter;
-
-    @Field(() => IntNullableWithAggregatesFilter, {nullable:true})
-    projectId?: IntNullableWithAggregatesFilter;
+    definitionId?: IntNullableWithAggregatesFilter;
 
     @Field(() => IntNullableWithAggregatesFilter, {nullable:true})
     assigneeId?: IntNullableWithAggregatesFilter;
@@ -152,8 +71,65 @@ export class TaskScalarWhereWithAggregatesInput {
     organizationId?: IntWithAggregatesFilter;
 
     @Field(() => IntNullableWithAggregatesFilter, {nullable:true})
-    reporterId?: IntNullableWithAggregatesFilter;
+    teamId?: IntNullableWithAggregatesFilter;
+
+    @Field(() => JsonNullableWithAggregatesFilter, {nullable:true})
+    config?: JsonNullableWithAggregatesFilter;
+
+    @Field(() => StringWithAggregatesFilter, {nullable:true})
+    cta?: StringWithAggregatesFilter;
+
+    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
+    ctaTemplate?: StringNullableWithAggregatesFilter;
+
+    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
+    descriptionTemplate?: StringNullableWithAggregatesFilter;
+
+    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
+    notificationTemplate?: StringNullableWithAggregatesFilter;
+
+    @Field(() => JsonNullableWithAggregatesFilter, {nullable:true})
+    properties?: JsonNullableWithAggregatesFilter;
+
+    @Field(() => StringWithAggregatesFilter, {nullable:true})
+    state?: StringWithAggregatesFilter;
+
+    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
+    stateTemplate?: StringNullableWithAggregatesFilter;
+
+    @Field(() => StringWithAggregatesFilter, {nullable:true})
+    stateValues?: StringWithAggregatesFilter;
+
+    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
+    statusTemplate?: StringNullableWithAggregatesFilter;
+
+    @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
+    titleTemplate?: StringNullableWithAggregatesFilter;
+
+    @Field(() => StringWithAggregatesFilter, {nullable:true})
+    type?: StringWithAggregatesFilter;
+
+    @Field(() => StringWithAggregatesFilter, {nullable:true})
+    typeName?: StringWithAggregatesFilter;
+
+    @Field(() => StringWithAggregatesFilter, {nullable:true})
+    status?: StringWithAggregatesFilter;
+
+    @Field(() => JsonNullableWithAggregatesFilter, {nullable:true})
+    formConfig?: JsonNullableWithAggregatesFilter;
+
+    @Field(() => StringWithAggregatesFilter, {nullable:true})
+    key?: StringWithAggregatesFilter;
+
+    @Field(() => BoolWithAggregatesFilter, {nullable:true})
+    isActive?: BoolWithAggregatesFilter;
 
     @Field(() => IntNullableWithAggregatesFilter, {nullable:true})
-    teamId?: IntNullableWithAggregatesFilter;
+    formId?: IntNullableWithAggregatesFilter;
+
+    @Field(() => IntNullableWithAggregatesFilter, {nullable:true})
+    projectId?: IntNullableWithAggregatesFilter;
+
+    @Field(() => IntNullableWithAggregatesFilter, {nullable:true})
+    reporterId?: IntNullableWithAggregatesFilter;
 }

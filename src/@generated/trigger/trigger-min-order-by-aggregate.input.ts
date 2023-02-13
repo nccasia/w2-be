@@ -18,16 +18,16 @@ export class TriggerMinOrderByAggregateInput {
     type?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
-    status?: keyof typeof SortOrder;
+    name?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    description?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
     key?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
-    name?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
-    description?: keyof typeof SortOrder;
+    status?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
     taskId?: keyof typeof SortOrder;

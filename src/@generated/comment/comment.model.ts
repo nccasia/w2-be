@@ -23,11 +23,11 @@ export class Comment {
     @Field(() => Int, {nullable:false})
     creatorId!: number;
 
-    @Field(() => User, {nullable:false})
-    creator?: User;
-
     @Field(() => Int, {nullable:false})
     taskId!: number;
+
+    @Field(() => User, {nullable:false})
+    creator?: User;
 
     @Field(() => Task, {nullable:false})
     task?: Task;

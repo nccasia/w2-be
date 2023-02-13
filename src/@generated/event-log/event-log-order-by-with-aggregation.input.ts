@@ -26,19 +26,19 @@ export class EventLogOrderByWithAggregationInput {
     organizationId?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
+    content?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
     context?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
     action?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
-    intent?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
     domain?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
-    content?: keyof typeof SortOrder;
+    intent?: keyof typeof SortOrder;
 
     @Field(() => EventLogCountOrderByAggregateInput, {nullable:true})
     _count?: EventLogCountOrderByAggregateInput;

@@ -21,14 +21,14 @@ export class EventLogMaxAggregate {
     organizationId?: number;
 
     @Field(() => String, {nullable:true})
-    action?: string;
+    content?: string;
 
     @Field(() => String, {nullable:true})
-    intent?: string;
+    action?: string;
 
     @Field(() => String, {nullable:true})
     domain?: string;
 
     @Field(() => String, {nullable:true})
-    content?: string;
+    intent?: string;
 }

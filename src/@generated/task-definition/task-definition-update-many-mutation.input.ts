@@ -1,8 +1,8 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
-import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-string-field-update-operations.input';
 import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
+import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-string-field-update-operations.input';
 import { GraphQLJSON } from 'graphql-type-json';
 
 @InputType()
@@ -13,9 +13,6 @@ export class TaskDefinitionUpdateManyMutationInput {
 
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     updatedAt?: DateTimeFieldUpdateOperationsInput;
-
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    keyTemplate?: NullableStringFieldUpdateOperationsInput;
 
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
     title?: StringFieldUpdateOperationsInput;
@@ -48,15 +45,6 @@ export class TaskDefinitionUpdateManyMutationInput {
     ctaTemplate?: NullableStringFieldUpdateOperationsInput;
 
     @Field(() => GraphQLJSON, {nullable:true})
-    machineConfig?: any;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    contextConfig?: any;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    stateConfig?: any;
-
-    @Field(() => GraphQLJSON, {nullable:true})
     statusConfig?: any;
 
     @Field(() => GraphQLJSON, {nullable:true})
@@ -73,4 +61,16 @@ export class TaskDefinitionUpdateManyMutationInput {
 
     @Field(() => GraphQLJSON, {nullable:true})
     config?: any;
+
+    @Field(() => GraphQLJSON, {nullable:true})
+    stateConfig?: any;
+
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    keyTemplate?: NullableStringFieldUpdateOperationsInput;
+
+    @Field(() => GraphQLJSON, {nullable:true})
+    machineConfig?: any;
+
+    @Field(() => GraphQLJSON, {nullable:true})
+    contextConfig?: any;
 }

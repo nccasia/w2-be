@@ -6,9 +6,9 @@ import { EnumTaskBoardTypeFieldUpdateOperationsInput } from '../prisma/enum-task
 import { EnumTaskBoardViewTypeFieldUpdateOperationsInput } from '../prisma/enum-task-board-view-type-field-update-operations.input';
 import { GraphQLJSON } from 'graphql-type-json';
 import { EnumVisibilityFieldUpdateOperationsInput } from '../prisma/enum-visibility-field-update-operations.input';
-import { TaskBoardSettingsUpdateManyWithoutTaskBoardNestedInput } from '../task-board-settings/task-board-settings-update-many-without-task-board-nested.input';
 import { ProjectUpdateOneWithoutTaskBoardsNestedInput } from '../project/project-update-one-without-task-boards-nested.input';
 import { TaskDefinitionUpdateOneRequiredWithoutTaskBoardsNestedInput } from '../task-definition/task-definition-update-one-required-without-task-boards-nested.input';
+import { TaskBoardSettingsUpdateManyWithoutTaskBoardNestedInput } from '../task-board-settings/task-board-settings-update-many-without-task-board-nested.input';
 
 @InputType()
 export class TaskBoardUpdateWithoutOrganizationInput {
@@ -43,12 +43,12 @@ export class TaskBoardUpdateWithoutOrganizationInput {
     @Field(() => EnumVisibilityFieldUpdateOperationsInput, {nullable:true})
     visibility?: EnumVisibilityFieldUpdateOperationsInput;
 
-    @Field(() => TaskBoardSettingsUpdateManyWithoutTaskBoardNestedInput, {nullable:true})
-    settings?: TaskBoardSettingsUpdateManyWithoutTaskBoardNestedInput;
-
     @Field(() => ProjectUpdateOneWithoutTaskBoardsNestedInput, {nullable:true})
     project?: ProjectUpdateOneWithoutTaskBoardsNestedInput;
 
     @Field(() => TaskDefinitionUpdateOneRequiredWithoutTaskBoardsNestedInput, {nullable:true})
     taskDefinition?: TaskDefinitionUpdateOneRequiredWithoutTaskBoardsNestedInput;
+
+    @Field(() => TaskBoardSettingsUpdateManyWithoutTaskBoardNestedInput, {nullable:true})
+    settings?: TaskBoardSettingsUpdateManyWithoutTaskBoardNestedInput;
 }

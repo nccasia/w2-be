@@ -1,7 +1,6 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
-import { TaskDefinitionActivityDefinitionOrderByRelationAggregateInput } from '../task-definition-activity-definition/task-definition-activity-definition-order-by-relation-aggregate.input';
 
 @InputType()
 export class ActivityDefinitionOrderByWithRelationInput {
@@ -35,7 +34,4 @@ export class ActivityDefinitionOrderByWithRelationInput {
 
     @Field(() => SortOrder, {nullable:true})
     description?: keyof typeof SortOrder;
-
-    @Field(() => TaskDefinitionActivityDefinitionOrderByRelationAggregateInput, {nullable:true})
-    taskDefinitionActivityDefinitions?: TaskDefinitionActivityDefinitionOrderByRelationAggregateInput;
 }

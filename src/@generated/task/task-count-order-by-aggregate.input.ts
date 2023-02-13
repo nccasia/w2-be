@@ -21,91 +21,16 @@ export class TaskCountOrderByAggregateInput {
     priority?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
-    isActive?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
-    key?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
-    properties?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
     values?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
-    type?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
-    typeName?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
-    cta?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
     ctaName?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
-    state?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
     stateName?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
-    status?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
     statusName?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
-    stateValues?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
-    descriptionTemplate?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
-    titleTemplate?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
-    statusTemplate?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
-    stateTemplate?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
-    notificationTemplate?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
-    ctaTemplate?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
-    machineConfig?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
-    contextConfig?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
-    stateConfig?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
-    statusConfig?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
-    notificationConfig?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
-    processConfig?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
-    triggerConfig?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
-    ctaConfig?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
-    formConfig?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
-    config?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
     createdAt?: keyof typeof SortOrder;
@@ -115,12 +40,6 @@ export class TaskCountOrderByAggregateInput {
 
     @Field(() => SortOrder, {nullable:true})
     definitionId?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
-    formId?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
-    projectId?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
     assigneeId?: keyof typeof SortOrder;
@@ -135,8 +54,65 @@ export class TaskCountOrderByAggregateInput {
     organizationId?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
-    reporterId?: keyof typeof SortOrder;
+    teamId?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
-    teamId?: keyof typeof SortOrder;
+    config?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    cta?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    ctaTemplate?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    descriptionTemplate?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    notificationTemplate?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    properties?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    state?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    stateTemplate?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    stateValues?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    statusTemplate?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    titleTemplate?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    type?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    typeName?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    status?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    formConfig?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    key?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    isActive?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    formId?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    projectId?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    reporterId?: keyof typeof SortOrder;
 }

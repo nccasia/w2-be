@@ -5,12 +5,12 @@ import { UserCreateNestedOneWithoutMemberOnTeamsInput } from '../user/user-creat
 @InputType()
 export class MemberOnTeamsCreateWithoutTeamInput {
 
-    @Field(() => UserCreateNestedOneWithoutMemberOnTeamsInput, {nullable:false})
-    user!: UserCreateNestedOneWithoutMemberOnTeamsInput;
-
     @Field(() => Date, {nullable:true})
     assignedAt?: Date | string;
 
     @Field(() => String, {nullable:false})
     assignedBy!: string;
+
+    @Field(() => UserCreateNestedOneWithoutMemberOnTeamsInput, {nullable:false})
+    user!: UserCreateNestedOneWithoutMemberOnTeamsInput;
 }

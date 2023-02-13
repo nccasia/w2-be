@@ -21,9 +21,9 @@ export class ProjectSettingsOrderByWithRelationInput {
     @Field(() => SortOrder, {nullable:true})
     value?: keyof typeof SortOrder;
 
-    @Field(() => ProjectOrderByWithRelationInput, {nullable:true})
-    project?: ProjectOrderByWithRelationInput;
-
     @Field(() => SortOrder, {nullable:true})
     projectId?: keyof typeof SortOrder;
+
+    @Field(() => ProjectOrderByWithRelationInput, {nullable:true})
+    project?: ProjectOrderByWithRelationInput;
 }

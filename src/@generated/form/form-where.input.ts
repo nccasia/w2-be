@@ -3,10 +3,10 @@ import { InputType } from '@nestjs/graphql';
 import { IntFilter } from '../prisma/int-filter.input';
 import { StringFilter } from '../prisma/string-filter.input';
 import { JsonFilter } from '../prisma/json-filter.input';
-import { TaskDefinitionListRelationFilter } from '../task-definition/task-definition-list-relation-filter.input';
-import { TaskListRelationFilter } from '../task/task-list-relation-filter.input';
-import { JsonNullableFilter } from '../prisma/json-nullable-filter.input';
 import { DateTimeFilter } from '../prisma/date-time-filter.input';
+import { JsonNullableFilter } from '../prisma/json-nullable-filter.input';
+import { TaskListRelationFilter } from '../task/task-list-relation-filter.input';
+import { TaskDefinitionListRelationFilter } from '../task-definition/task-definition-list-relation-filter.input';
 
 @InputType()
 export class FormWhereInput {
@@ -41,30 +41,18 @@ export class FormWhereInput {
     @Field(() => JsonFilter, {nullable:true})
     validationConfig?: JsonFilter;
 
-    @Field(() => JsonFilter, {nullable:true})
-    triggerConfig?: JsonFilter;
-
-    @Field(() => JsonFilter, {nullable:true})
-    serializerConfig?: JsonFilter;
-
-    @Field(() => StringFilter, {nullable:true})
-    displayTemplate?: StringFilter;
-
-    @Field(() => JsonFilter, {nullable:true})
-    displayConfig?: JsonFilter;
-
-    @Field(() => TaskDefinitionListRelationFilter, {nullable:true})
-    taskDefinitions?: TaskDefinitionListRelationFilter;
-
-    @Field(() => TaskListRelationFilter, {nullable:true})
-    tasks?: TaskListRelationFilter;
-
-    @Field(() => JsonNullableFilter, {nullable:true})
-    values?: JsonNullableFilter;
-
     @Field(() => DateTimeFilter, {nullable:true})
     createdAt?: DateTimeFilter;
 
     @Field(() => DateTimeFilter, {nullable:true})
     updatedAt?: DateTimeFilter;
+
+    @Field(() => JsonNullableFilter, {nullable:true})
+    values?: JsonNullableFilter;
+
+    @Field(() => TaskListRelationFilter, {nullable:true})
+    tasks?: TaskListRelationFilter;
+
+    @Field(() => TaskDefinitionListRelationFilter, {nullable:true})
+    taskDefinitions?: TaskDefinitionListRelationFilter;
 }

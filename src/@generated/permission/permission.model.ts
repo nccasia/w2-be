@@ -1,8 +1,8 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
-import { Organization } from '../organization/organization.model';
 import { Int } from '@nestjs/graphql';
+import { Organization } from '../organization/organization.model';
 import { PermissionGroup } from '../permission-group/permission-group.model';
 import { UserPermission } from '../user-permission/user-permission.model';
 import { PermissionCount } from './permission-count.output';
@@ -28,17 +28,17 @@ export class Permission {
     @Field(() => Date, {nullable:false})
     updatedAt!: Date;
 
-    @Field(() => Organization, {nullable:false})
-    organization?: Organization;
-
     @Field(() => Int, {nullable:false})
     organizationId!: number;
 
-    @Field(() => PermissionGroup, {nullable:false})
-    permissionGroup?: PermissionGroup;
-
     @Field(() => Int, {nullable:false})
     permissionGroupId!: number;
+
+    @Field(() => Organization, {nullable:false})
+    organization?: Organization;
+
+    @Field(() => PermissionGroup, {nullable:false})
+    permissionGroup?: PermissionGroup;
 
     @Field(() => [UserPermission], {nullable:true})
     userPermissions?: Array<UserPermission>;

@@ -1,8 +1,8 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
-import { OrganizationOrderByWithRelationInput } from '../organization/organization-order-by-with-relation.input';
 import { PermissionOrderByRelationAggregateInput } from '../permission/permission-order-by-relation-aggregate.input';
+import { OrganizationOrderByWithRelationInput } from '../organization/organization-order-by-with-relation.input';
 
 @InputType()
 export class PermissionGroupOrderByWithRelationInput {
@@ -22,12 +22,12 @@ export class PermissionGroupOrderByWithRelationInput {
     @Field(() => SortOrder, {nullable:true})
     updatedAt?: keyof typeof SortOrder;
 
-    @Field(() => OrganizationOrderByWithRelationInput, {nullable:true})
-    organization?: OrganizationOrderByWithRelationInput;
-
     @Field(() => SortOrder, {nullable:true})
     organizationId?: keyof typeof SortOrder;
 
     @Field(() => PermissionOrderByRelationAggregateInput, {nullable:true})
     permissions?: PermissionOrderByRelationAggregateInput;
+
+    @Field(() => OrganizationOrderByWithRelationInput, {nullable:true})
+    organization?: OrganizationOrderByWithRelationInput;
 }

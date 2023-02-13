@@ -37,17 +37,17 @@ export class PermissionWhereInput {
     @Field(() => DateTimeFilter, {nullable:true})
     updatedAt?: DateTimeFilter;
 
-    @Field(() => OrganizationRelationFilter, {nullable:true})
-    organization?: OrganizationRelationFilter;
-
     @Field(() => IntFilter, {nullable:true})
     organizationId?: IntFilter;
 
-    @Field(() => PermissionGroupRelationFilter, {nullable:true})
-    permissionGroup?: PermissionGroupRelationFilter;
-
     @Field(() => IntFilter, {nullable:true})
     permissionGroupId?: IntFilter;
+
+    @Field(() => OrganizationRelationFilter, {nullable:true})
+    organization?: OrganizationRelationFilter;
+
+    @Field(() => PermissionGroupRelationFilter, {nullable:true})
+    permissionGroup?: PermissionGroupRelationFilter;
 
     @Field(() => UserPermissionListRelationFilter, {nullable:true})
     userPermissions?: UserPermissionListRelationFilter;

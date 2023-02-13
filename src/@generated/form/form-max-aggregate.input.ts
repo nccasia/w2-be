@@ -17,9 +17,6 @@ export class FormMaxAggregateInput {
     description?: true;
 
     @Field(() => Boolean, {nullable:true})
-    displayTemplate?: true;
-
-    @Field(() => Boolean, {nullable:true})
     createdAt?: true;
 
     @Field(() => Boolean, {nullable:true})

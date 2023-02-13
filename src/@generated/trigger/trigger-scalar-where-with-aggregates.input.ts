@@ -3,11 +3,11 @@ import { InputType } from '@nestjs/graphql';
 import { IntWithAggregatesFilter } from '../prisma/int-with-aggregates-filter.input';
 import { DateTimeWithAggregatesFilter } from '../prisma/date-time-with-aggregates-filter.input';
 import { EnumTriggerTypeWithAggregatesFilter } from '../prisma/enum-trigger-type-with-aggregates-filter.input';
-import { EnumTriggerStatusWithAggregatesFilter } from '../prisma/enum-trigger-status-with-aggregates-filter.input';
-import { StringWithAggregatesFilter } from '../prisma/string-with-aggregates-filter.input';
-import { JsonNullableWithAggregatesFilter } from '../prisma/json-nullable-with-aggregates-filter.input';
 import { StringNullableWithAggregatesFilter } from '../prisma/string-nullable-with-aggregates-filter.input';
+import { StringWithAggregatesFilter } from '../prisma/string-with-aggregates-filter.input';
+import { EnumTriggerStatusWithAggregatesFilter } from '../prisma/enum-trigger-status-with-aggregates-filter.input';
 import { IntNullableWithAggregatesFilter } from '../prisma/int-nullable-with-aggregates-filter.input';
+import { JsonNullableWithAggregatesFilter } from '../prisma/json-nullable-with-aggregates-filter.input';
 
 @InputType()
 export class TriggerScalarWhereWithAggregatesInput {
@@ -33,21 +33,21 @@ export class TriggerScalarWhereWithAggregatesInput {
     @Field(() => EnumTriggerTypeWithAggregatesFilter, {nullable:true})
     type?: EnumTriggerTypeWithAggregatesFilter;
 
-    @Field(() => EnumTriggerStatusWithAggregatesFilter, {nullable:true})
-    status?: EnumTriggerStatusWithAggregatesFilter;
-
-    @Field(() => StringWithAggregatesFilter, {nullable:true})
-    key?: StringWithAggregatesFilter;
-
-    @Field(() => JsonNullableWithAggregatesFilter, {nullable:true})
-    value?: JsonNullableWithAggregatesFilter;
-
     @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
     name?: StringNullableWithAggregatesFilter;
 
     @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
     description?: StringNullableWithAggregatesFilter;
 
+    @Field(() => StringWithAggregatesFilter, {nullable:true})
+    key?: StringWithAggregatesFilter;
+
+    @Field(() => EnumTriggerStatusWithAggregatesFilter, {nullable:true})
+    status?: EnumTriggerStatusWithAggregatesFilter;
+
     @Field(() => IntNullableWithAggregatesFilter, {nullable:true})
     taskId?: IntNullableWithAggregatesFilter;
+
+    @Field(() => JsonNullableWithAggregatesFilter, {nullable:true})
+    value?: JsonNullableWithAggregatesFilter;
 }

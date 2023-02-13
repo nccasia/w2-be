@@ -21,13 +21,19 @@ export class UserCountAggregate {
     password!: number;
 
     @Field(() => Int, {nullable:false})
-    provider!: number;
-
-    @Field(() => Int, {nullable:false})
     firstname!: number;
 
     @Field(() => Int, {nullable:false})
     lastname!: number;
+
+    @Field(() => Int, {nullable:false})
+    organizationId!: number;
+
+    @Field(() => Int, {nullable:false})
+    role!: number;
+
+    @Field(() => Int, {nullable:false})
+    avatarId!: number;
 
     @Field(() => Int, {nullable:false})
     googleId!: number;
@@ -36,13 +42,7 @@ export class UserCountAggregate {
     googleToken!: number;
 
     @Field(() => Int, {nullable:false})
-    avatarId!: number;
-
-    @Field(() => Int, {nullable:false})
-    organizationId!: number;
-
-    @Field(() => Int, {nullable:false})
-    role!: number;
+    provider!: number;
 
     @Field(() => Int, {nullable:false})
     _all!: number;

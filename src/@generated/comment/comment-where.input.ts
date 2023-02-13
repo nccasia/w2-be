@@ -33,11 +33,11 @@ export class CommentWhereInput {
     @Field(() => IntFilter, {nullable:true})
     creatorId?: IntFilter;
 
-    @Field(() => UserRelationFilter, {nullable:true})
-    creator?: UserRelationFilter;
-
     @Field(() => IntFilter, {nullable:true})
     taskId?: IntFilter;
+
+    @Field(() => UserRelationFilter, {nullable:true})
+    creator?: UserRelationFilter;
 
     @Field(() => TaskRelationFilter, {nullable:true})
     task?: TaskRelationFilter;

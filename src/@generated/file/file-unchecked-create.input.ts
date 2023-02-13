@@ -47,11 +47,11 @@ export class FileUncheckedCreateInput {
     @Field(() => Int, {nullable:true})
     variantOfId?: number;
 
-    @Field(() => FileUncheckedCreateNestedManyWithoutVariantOfInput, {nullable:true})
-    variants?: FileUncheckedCreateNestedManyWithoutVariantOfInput;
-
     @Field(() => Int, {nullable:false})
     organizationId!: number;
+
+    @Field(() => FileUncheckedCreateNestedManyWithoutVariantOfInput, {nullable:true})
+    variants?: FileUncheckedCreateNestedManyWithoutVariantOfInput;
 
     @Field(() => UserUncheckedCreateNestedManyWithoutAvatarInput, {nullable:true})
     avatarUsers?: UserUncheckedCreateNestedManyWithoutAvatarInput;

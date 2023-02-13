@@ -21,56 +21,14 @@ export class TaskMinAggregate {
     @Field(() => TaskPriority, {nullable:true})
     priority?: keyof typeof TaskPriority;
 
-    @Field(() => Boolean, {nullable:true})
-    isActive?: boolean;
-
-    @Field(() => String, {nullable:true})
-    key?: string;
-
-    @Field(() => String, {nullable:true})
-    type?: string;
-
-    @Field(() => String, {nullable:true})
-    typeName?: string;
-
-    @Field(() => String, {nullable:true})
-    cta?: string;
-
     @Field(() => String, {nullable:true})
     ctaName?: string;
-
-    @Field(() => String, {nullable:true})
-    state?: string;
 
     @Field(() => String, {nullable:true})
     stateName?: string;
 
     @Field(() => String, {nullable:true})
-    status?: string;
-
-    @Field(() => String, {nullable:true})
     statusName?: string;
-
-    @Field(() => String, {nullable:true})
-    stateValues?: string;
-
-    @Field(() => String, {nullable:true})
-    descriptionTemplate?: string;
-
-    @Field(() => String, {nullable:true})
-    titleTemplate?: string;
-
-    @Field(() => String, {nullable:true})
-    statusTemplate?: string;
-
-    @Field(() => String, {nullable:true})
-    stateTemplate?: string;
-
-    @Field(() => String, {nullable:true})
-    notificationTemplate?: string;
-
-    @Field(() => String, {nullable:true})
-    ctaTemplate?: string;
 
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
@@ -80,12 +38,6 @@ export class TaskMinAggregate {
 
     @Field(() => Int, {nullable:true})
     definitionId?: number;
-
-    @Field(() => Int, {nullable:true})
-    formId?: number;
-
-    @Field(() => Int, {nullable:true})
-    projectId?: number;
 
     @Field(() => Int, {nullable:true})
     assigneeId?: number;
@@ -100,8 +52,56 @@ export class TaskMinAggregate {
     organizationId?: number;
 
     @Field(() => Int, {nullable:true})
-    reporterId?: number;
+    teamId?: number;
+
+    @Field(() => String, {nullable:true})
+    cta?: string;
+
+    @Field(() => String, {nullable:true})
+    ctaTemplate?: string;
+
+    @Field(() => String, {nullable:true})
+    descriptionTemplate?: string;
+
+    @Field(() => String, {nullable:true})
+    notificationTemplate?: string;
+
+    @Field(() => String, {nullable:true})
+    state?: string;
+
+    @Field(() => String, {nullable:true})
+    stateTemplate?: string;
+
+    @Field(() => String, {nullable:true})
+    stateValues?: string;
+
+    @Field(() => String, {nullable:true})
+    statusTemplate?: string;
+
+    @Field(() => String, {nullable:true})
+    titleTemplate?: string;
+
+    @Field(() => String, {nullable:true})
+    type?: string;
+
+    @Field(() => String, {nullable:true})
+    typeName?: string;
+
+    @Field(() => String, {nullable:true})
+    status?: string;
+
+    @Field(() => String, {nullable:true})
+    key?: string;
+
+    @Field(() => Boolean, {nullable:true})
+    isActive?: boolean;
 
     @Field(() => Int, {nullable:true})
-    teamId?: number;
+    formId?: number;
+
+    @Field(() => Int, {nullable:true})
+    projectId?: number;
+
+    @Field(() => Int, {nullable:true})
+    reporterId?: number;
 }

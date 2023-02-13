@@ -33,9 +33,9 @@ export class UserSettingWhereInput {
     @Field(() => JsonFilter, {nullable:true})
     value?: JsonFilter;
 
-    @Field(() => UserRelationFilter, {nullable:true})
-    user?: UserRelationFilter;
-
     @Field(() => IntFilter, {nullable:true})
     userId?: IntFilter;
+
+    @Field(() => UserRelationFilter, {nullable:true})
+    user?: UserRelationFilter;
 }

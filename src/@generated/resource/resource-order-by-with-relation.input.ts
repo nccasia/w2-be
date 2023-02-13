@@ -28,11 +28,11 @@ export class ResourceOrderByWithRelationInput {
     @Field(() => SortOrder, {nullable:true})
     updatedAt?: keyof typeof SortOrder;
 
-    @Field(() => OrganizationOrderByWithRelationInput, {nullable:true})
-    organization?: OrganizationOrderByWithRelationInput;
-
     @Field(() => SortOrder, {nullable:true})
     organizationId?: keyof typeof SortOrder;
+
+    @Field(() => OrganizationOrderByWithRelationInput, {nullable:true})
+    organization?: OrganizationOrderByWithRelationInput;
 
     @Field(() => ResourceItemOrderByRelationAggregateInput, {nullable:true})
     resourceItems?: ResourceItemOrderByRelationAggregateInput;

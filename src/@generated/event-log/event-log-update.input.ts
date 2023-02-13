@@ -1,11 +1,11 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
-import { UserUpdateOneWithoutTaskEventsNestedInput } from '../user/user-update-one-without-task-events-nested.input';
-import { TaskUpdateOneWithoutEventLogsNestedInput } from '../task/task-update-one-without-event-logs-nested.input';
-import { OrganizationUpdateOneRequiredWithoutEventLogsNestedInput } from '../organization/organization-update-one-required-without-event-logs-nested.input';
-import { GraphQLJSON } from 'graphql-type-json';
 import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-string-field-update-operations.input';
+import { GraphQLJSON } from 'graphql-type-json';
+import { OrganizationUpdateOneRequiredWithoutEventLogsNestedInput } from '../organization/organization-update-one-required-without-event-logs-nested.input';
+import { TaskUpdateOneWithoutEventLogsNestedInput } from '../task/task-update-one-without-event-logs-nested.input';
+import { UserUpdateOneWithoutTaskEventsNestedInput } from '../user/user-update-one-without-task-events-nested.input';
 
 @InputType()
 export class EventLogUpdateInput {
@@ -13,14 +13,8 @@ export class EventLogUpdateInput {
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: DateTimeFieldUpdateOperationsInput;
 
-    @Field(() => UserUpdateOneWithoutTaskEventsNestedInput, {nullable:true})
-    user?: UserUpdateOneWithoutTaskEventsNestedInput;
-
-    @Field(() => TaskUpdateOneWithoutEventLogsNestedInput, {nullable:true})
-    task?: TaskUpdateOneWithoutEventLogsNestedInput;
-
-    @Field(() => OrganizationUpdateOneRequiredWithoutEventLogsNestedInput, {nullable:true})
-    organization?: OrganizationUpdateOneRequiredWithoutEventLogsNestedInput;
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    content?: NullableStringFieldUpdateOperationsInput;
 
     @Field(() => GraphQLJSON, {nullable:true})
     context?: any;
@@ -29,11 +23,17 @@ export class EventLogUpdateInput {
     action?: NullableStringFieldUpdateOperationsInput;
 
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    intent?: NullableStringFieldUpdateOperationsInput;
-
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     domain?: NullableStringFieldUpdateOperationsInput;
 
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    content?: NullableStringFieldUpdateOperationsInput;
+    intent?: NullableStringFieldUpdateOperationsInput;
+
+    @Field(() => OrganizationUpdateOneRequiredWithoutEventLogsNestedInput, {nullable:true})
+    organization?: OrganizationUpdateOneRequiredWithoutEventLogsNestedInput;
+
+    @Field(() => TaskUpdateOneWithoutEventLogsNestedInput, {nullable:true})
+    task?: TaskUpdateOneWithoutEventLogsNestedInput;
+
+    @Field(() => UserUpdateOneWithoutTaskEventsNestedInput, {nullable:true})
+    user?: UserUpdateOneWithoutTaskEventsNestedInput;
 }

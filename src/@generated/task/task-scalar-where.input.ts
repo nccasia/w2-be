@@ -4,11 +4,11 @@ import { IntFilter } from '../prisma/int-filter.input';
 import { StringFilter } from '../prisma/string-filter.input';
 import { DateTimeNullableFilter } from '../prisma/date-time-nullable-filter.input';
 import { EnumTaskPriorityFilter } from '../prisma/enum-task-priority-filter.input';
-import { BoolFilter } from '../prisma/bool-filter.input';
 import { JsonNullableFilter } from '../prisma/json-nullable-filter.input';
-import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
 import { DateTimeFilter } from '../prisma/date-time-filter.input';
 import { IntNullableFilter } from '../prisma/int-nullable-filter.input';
+import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
+import { BoolFilter } from '../prisma/bool-filter.input';
 
 @InputType()
 export class TaskScalarWhereInput {
@@ -37,92 +37,17 @@ export class TaskScalarWhereInput {
     @Field(() => EnumTaskPriorityFilter, {nullable:true})
     priority?: EnumTaskPriorityFilter;
 
-    @Field(() => BoolFilter, {nullable:true})
-    isActive?: BoolFilter;
-
-    @Field(() => StringFilter, {nullable:true})
-    key?: StringFilter;
-
-    @Field(() => JsonNullableFilter, {nullable:true})
-    properties?: JsonNullableFilter;
-
     @Field(() => JsonNullableFilter, {nullable:true})
     values?: JsonNullableFilter;
-
-    @Field(() => StringFilter, {nullable:true})
-    type?: StringFilter;
-
-    @Field(() => StringFilter, {nullable:true})
-    typeName?: StringFilter;
-
-    @Field(() => StringFilter, {nullable:true})
-    cta?: StringFilter;
 
     @Field(() => StringFilter, {nullable:true})
     ctaName?: StringFilter;
 
     @Field(() => StringFilter, {nullable:true})
-    state?: StringFilter;
-
-    @Field(() => StringFilter, {nullable:true})
     stateName?: StringFilter;
 
     @Field(() => StringFilter, {nullable:true})
-    status?: StringFilter;
-
-    @Field(() => StringFilter, {nullable:true})
     statusName?: StringFilter;
-
-    @Field(() => StringFilter, {nullable:true})
-    stateValues?: StringFilter;
-
-    @Field(() => StringNullableFilter, {nullable:true})
-    descriptionTemplate?: StringNullableFilter;
-
-    @Field(() => StringNullableFilter, {nullable:true})
-    titleTemplate?: StringNullableFilter;
-
-    @Field(() => StringNullableFilter, {nullable:true})
-    statusTemplate?: StringNullableFilter;
-
-    @Field(() => StringNullableFilter, {nullable:true})
-    stateTemplate?: StringNullableFilter;
-
-    @Field(() => StringNullableFilter, {nullable:true})
-    notificationTemplate?: StringNullableFilter;
-
-    @Field(() => StringNullableFilter, {nullable:true})
-    ctaTemplate?: StringNullableFilter;
-
-    @Field(() => JsonNullableFilter, {nullable:true})
-    machineConfig?: JsonNullableFilter;
-
-    @Field(() => JsonNullableFilter, {nullable:true})
-    contextConfig?: JsonNullableFilter;
-
-    @Field(() => JsonNullableFilter, {nullable:true})
-    stateConfig?: JsonNullableFilter;
-
-    @Field(() => JsonNullableFilter, {nullable:true})
-    statusConfig?: JsonNullableFilter;
-
-    @Field(() => JsonNullableFilter, {nullable:true})
-    notificationConfig?: JsonNullableFilter;
-
-    @Field(() => JsonNullableFilter, {nullable:true})
-    processConfig?: JsonNullableFilter;
-
-    @Field(() => JsonNullableFilter, {nullable:true})
-    triggerConfig?: JsonNullableFilter;
-
-    @Field(() => JsonNullableFilter, {nullable:true})
-    ctaConfig?: JsonNullableFilter;
-
-    @Field(() => JsonNullableFilter, {nullable:true})
-    formConfig?: JsonNullableFilter;
-
-    @Field(() => JsonNullableFilter, {nullable:true})
-    config?: JsonNullableFilter;
 
     @Field(() => DateTimeFilter, {nullable:true})
     createdAt?: DateTimeFilter;
@@ -130,14 +55,8 @@ export class TaskScalarWhereInput {
     @Field(() => DateTimeFilter, {nullable:true})
     updatedAt?: DateTimeFilter;
 
-    @Field(() => IntFilter, {nullable:true})
-    definitionId?: IntFilter;
-
     @Field(() => IntNullableFilter, {nullable:true})
-    formId?: IntNullableFilter;
-
-    @Field(() => IntNullableFilter, {nullable:true})
-    projectId?: IntNullableFilter;
+    definitionId?: IntNullableFilter;
 
     @Field(() => IntNullableFilter, {nullable:true})
     assigneeId?: IntNullableFilter;
@@ -152,8 +71,65 @@ export class TaskScalarWhereInput {
     organizationId?: IntFilter;
 
     @Field(() => IntNullableFilter, {nullable:true})
-    reporterId?: IntNullableFilter;
+    teamId?: IntNullableFilter;
+
+    @Field(() => JsonNullableFilter, {nullable:true})
+    config?: JsonNullableFilter;
+
+    @Field(() => StringFilter, {nullable:true})
+    cta?: StringFilter;
+
+    @Field(() => StringNullableFilter, {nullable:true})
+    ctaTemplate?: StringNullableFilter;
+
+    @Field(() => StringNullableFilter, {nullable:true})
+    descriptionTemplate?: StringNullableFilter;
+
+    @Field(() => StringNullableFilter, {nullable:true})
+    notificationTemplate?: StringNullableFilter;
+
+    @Field(() => JsonNullableFilter, {nullable:true})
+    properties?: JsonNullableFilter;
+
+    @Field(() => StringFilter, {nullable:true})
+    state?: StringFilter;
+
+    @Field(() => StringNullableFilter, {nullable:true})
+    stateTemplate?: StringNullableFilter;
+
+    @Field(() => StringFilter, {nullable:true})
+    stateValues?: StringFilter;
+
+    @Field(() => StringNullableFilter, {nullable:true})
+    statusTemplate?: StringNullableFilter;
+
+    @Field(() => StringNullableFilter, {nullable:true})
+    titleTemplate?: StringNullableFilter;
+
+    @Field(() => StringFilter, {nullable:true})
+    type?: StringFilter;
+
+    @Field(() => StringFilter, {nullable:true})
+    typeName?: StringFilter;
+
+    @Field(() => StringFilter, {nullable:true})
+    status?: StringFilter;
+
+    @Field(() => JsonNullableFilter, {nullable:true})
+    formConfig?: JsonNullableFilter;
+
+    @Field(() => StringFilter, {nullable:true})
+    key?: StringFilter;
+
+    @Field(() => BoolFilter, {nullable:true})
+    isActive?: BoolFilter;
 
     @Field(() => IntNullableFilter, {nullable:true})
-    teamId?: IntNullableFilter;
+    formId?: IntNullableFilter;
+
+    @Field(() => IntNullableFilter, {nullable:true})
+    projectId?: IntNullableFilter;
+
+    @Field(() => IntNullableFilter, {nullable:true})
+    reporterId?: IntNullableFilter;
 }

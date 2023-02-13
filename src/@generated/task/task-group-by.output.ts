@@ -27,92 +27,17 @@ export class TaskGroupBy {
     @Field(() => TaskPriority, {nullable:false})
     priority!: keyof typeof TaskPriority;
 
-    @Field(() => Boolean, {nullable:false})
-    isActive!: boolean;
-
-    @Field(() => String, {nullable:false})
-    key!: string;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    properties?: any;
-
     @Field(() => GraphQLJSON, {nullable:true})
     values?: any;
-
-    @Field(() => String, {nullable:false})
-    type!: string;
-
-    @Field(() => String, {nullable:false})
-    typeName!: string;
-
-    @Field(() => String, {nullable:false})
-    cta!: string;
 
     @Field(() => String, {nullable:false})
     ctaName!: string;
 
     @Field(() => String, {nullable:false})
-    state!: string;
-
-    @Field(() => String, {nullable:false})
     stateName!: string;
 
     @Field(() => String, {nullable:false})
-    status!: string;
-
-    @Field(() => String, {nullable:false})
     statusName!: string;
-
-    @Field(() => String, {nullable:false})
-    stateValues!: string;
-
-    @Field(() => String, {nullable:true})
-    descriptionTemplate?: string;
-
-    @Field(() => String, {nullable:true})
-    titleTemplate?: string;
-
-    @Field(() => String, {nullable:true})
-    statusTemplate?: string;
-
-    @Field(() => String, {nullable:true})
-    stateTemplate?: string;
-
-    @Field(() => String, {nullable:true})
-    notificationTemplate?: string;
-
-    @Field(() => String, {nullable:true})
-    ctaTemplate?: string;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    machineConfig?: any;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    contextConfig?: any;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    stateConfig?: any;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    statusConfig?: any;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    notificationConfig?: any;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    processConfig?: any;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    triggerConfig?: any;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    ctaConfig?: any;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    formConfig?: any;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    config?: any;
 
     @Field(() => Date, {nullable:false})
     createdAt!: Date | string;
@@ -120,14 +45,8 @@ export class TaskGroupBy {
     @Field(() => Date, {nullable:false})
     updatedAt!: Date | string;
 
-    @Field(() => Int, {nullable:false})
-    definitionId!: number;
-
     @Field(() => Int, {nullable:true})
-    formId?: number;
-
-    @Field(() => Int, {nullable:true})
-    projectId?: number;
+    definitionId?: number;
 
     @Field(() => Int, {nullable:true})
     assigneeId?: number;
@@ -142,10 +61,67 @@ export class TaskGroupBy {
     organizationId!: number;
 
     @Field(() => Int, {nullable:true})
-    reporterId?: number;
+    teamId?: number;
+
+    @Field(() => GraphQLJSON, {nullable:true})
+    config?: any;
+
+    @Field(() => String, {nullable:false})
+    cta!: string;
+
+    @Field(() => String, {nullable:true})
+    ctaTemplate?: string;
+
+    @Field(() => String, {nullable:true})
+    descriptionTemplate?: string;
+
+    @Field(() => String, {nullable:true})
+    notificationTemplate?: string;
+
+    @Field(() => GraphQLJSON, {nullable:true})
+    properties?: any;
+
+    @Field(() => String, {nullable:false})
+    state!: string;
+
+    @Field(() => String, {nullable:true})
+    stateTemplate?: string;
+
+    @Field(() => String, {nullable:false})
+    stateValues!: string;
+
+    @Field(() => String, {nullable:true})
+    statusTemplate?: string;
+
+    @Field(() => String, {nullable:true})
+    titleTemplate?: string;
+
+    @Field(() => String, {nullable:false})
+    type!: string;
+
+    @Field(() => String, {nullable:false})
+    typeName!: string;
+
+    @Field(() => String, {nullable:false})
+    status!: string;
+
+    @Field(() => GraphQLJSON, {nullable:true})
+    formConfig?: any;
+
+    @Field(() => String, {nullable:false})
+    key!: string;
+
+    @Field(() => Boolean, {nullable:false})
+    isActive!: boolean;
 
     @Field(() => Int, {nullable:true})
-    teamId?: number;
+    formId?: number;
+
+    @Field(() => Int, {nullable:true})
+    projectId?: number;
+
+    @Field(() => Int, {nullable:true})
+    reporterId?: number;
 
     @Field(() => TaskCountAggregate, {nullable:true})
     _count?: TaskCountAggregate;

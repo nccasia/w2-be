@@ -20,13 +20,19 @@ export class UserMaxAggregateInput {
     password?: true;
 
     @Field(() => Boolean, {nullable:true})
-    provider?: true;
-
-    @Field(() => Boolean, {nullable:true})
     firstname?: true;
 
     @Field(() => Boolean, {nullable:true})
     lastname?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    organizationId?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    role?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    avatarId?: true;
 
     @Field(() => Boolean, {nullable:true})
     googleId?: true;
@@ -35,11 +41,5 @@ export class UserMaxAggregateInput {
     googleToken?: true;
 
     @Field(() => Boolean, {nullable:true})
-    avatarId?: true;
-
-    @Field(() => Boolean, {nullable:true})
-    organizationId?: true;
-
-    @Field(() => Boolean, {nullable:true})
-    role?: true;
+    provider?: true;
 }

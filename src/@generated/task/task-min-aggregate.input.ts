@@ -20,55 +20,13 @@ export class TaskMinAggregateInput {
     priority?: true;
 
     @Field(() => Boolean, {nullable:true})
-    isActive?: true;
-
-    @Field(() => Boolean, {nullable:true})
-    key?: true;
-
-    @Field(() => Boolean, {nullable:true})
-    type?: true;
-
-    @Field(() => Boolean, {nullable:true})
-    typeName?: true;
-
-    @Field(() => Boolean, {nullable:true})
-    cta?: true;
-
-    @Field(() => Boolean, {nullable:true})
     ctaName?: true;
-
-    @Field(() => Boolean, {nullable:true})
-    state?: true;
 
     @Field(() => Boolean, {nullable:true})
     stateName?: true;
 
     @Field(() => Boolean, {nullable:true})
-    status?: true;
-
-    @Field(() => Boolean, {nullable:true})
     statusName?: true;
-
-    @Field(() => Boolean, {nullable:true})
-    stateValues?: true;
-
-    @Field(() => Boolean, {nullable:true})
-    descriptionTemplate?: true;
-
-    @Field(() => Boolean, {nullable:true})
-    titleTemplate?: true;
-
-    @Field(() => Boolean, {nullable:true})
-    statusTemplate?: true;
-
-    @Field(() => Boolean, {nullable:true})
-    stateTemplate?: true;
-
-    @Field(() => Boolean, {nullable:true})
-    notificationTemplate?: true;
-
-    @Field(() => Boolean, {nullable:true})
-    ctaTemplate?: true;
 
     @Field(() => Boolean, {nullable:true})
     createdAt?: true;
@@ -78,12 +36,6 @@ export class TaskMinAggregateInput {
 
     @Field(() => Boolean, {nullable:true})
     definitionId?: true;
-
-    @Field(() => Boolean, {nullable:true})
-    formId?: true;
-
-    @Field(() => Boolean, {nullable:true})
-    projectId?: true;
 
     @Field(() => Boolean, {nullable:true})
     assigneeId?: true;
@@ -98,8 +50,56 @@ export class TaskMinAggregateInput {
     organizationId?: true;
 
     @Field(() => Boolean, {nullable:true})
-    reporterId?: true;
+    teamId?: true;
 
     @Field(() => Boolean, {nullable:true})
-    teamId?: true;
+    cta?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    ctaTemplate?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    descriptionTemplate?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    notificationTemplate?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    state?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    stateTemplate?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    stateValues?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    statusTemplate?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    titleTemplate?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    type?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    typeName?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    status?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    key?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    isActive?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    formId?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    projectId?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    reporterId?: true;
 }

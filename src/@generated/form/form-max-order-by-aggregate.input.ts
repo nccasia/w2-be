@@ -18,9 +18,6 @@ export class FormMaxOrderByAggregateInput {
     description?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
-    displayTemplate?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
     createdAt?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})

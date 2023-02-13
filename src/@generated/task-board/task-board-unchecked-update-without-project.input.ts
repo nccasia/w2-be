@@ -45,12 +45,12 @@ export class TaskBoardUncheckedUpdateWithoutProjectInput {
     @Field(() => EnumVisibilityFieldUpdateOperationsInput, {nullable:true})
     visibility?: EnumVisibilityFieldUpdateOperationsInput;
 
-    @Field(() => TaskBoardSettingsUncheckedUpdateManyWithoutTaskBoardNestedInput, {nullable:true})
-    settings?: TaskBoardSettingsUncheckedUpdateManyWithoutTaskBoardNestedInput;
-
     @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
     organizationId?: IntFieldUpdateOperationsInput;
 
     @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
     taskDefinitionId?: IntFieldUpdateOperationsInput;
+
+    @Field(() => TaskBoardSettingsUncheckedUpdateManyWithoutTaskBoardNestedInput, {nullable:true})
+    settings?: TaskBoardSettingsUncheckedUpdateManyWithoutTaskBoardNestedInput;
 }

@@ -1,8 +1,8 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
-import { TaskDefinitionOrderByRelationAggregateInput } from '../task-definition/task-definition-order-by-relation-aggregate.input';
 import { TaskOrderByRelationAggregateInput } from '../task/task-order-by-relation-aggregate.input';
+import { TaskDefinitionOrderByRelationAggregateInput } from '../task-definition/task-definition-order-by-relation-aggregate.input';
 
 @InputType()
 export class FormOrderByWithRelationInput {
@@ -29,29 +29,17 @@ export class FormOrderByWithRelationInput {
     validationConfig?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
-    triggerConfig?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
-    serializerConfig?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
-    displayTemplate?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
-    displayConfig?: keyof typeof SortOrder;
-
-    @Field(() => TaskDefinitionOrderByRelationAggregateInput, {nullable:true})
-    taskDefinitions?: TaskDefinitionOrderByRelationAggregateInput;
-
-    @Field(() => TaskOrderByRelationAggregateInput, {nullable:true})
-    tasks?: TaskOrderByRelationAggregateInput;
-
-    @Field(() => SortOrder, {nullable:true})
-    values?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
     createdAt?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
     updatedAt?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    values?: keyof typeof SortOrder;
+
+    @Field(() => TaskOrderByRelationAggregateInput, {nullable:true})
+    tasks?: TaskOrderByRelationAggregateInput;
+
+    @Field(() => TaskDefinitionOrderByRelationAggregateInput, {nullable:true})
+    taskDefinitions?: TaskDefinitionOrderByRelationAggregateInput;
 }

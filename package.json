@@ -36,6 +36,7 @@
     "migrate:resolve": "npx prisma migrate resolve --preview-feature",
     "prisma:studio": "npx prisma studio",
     "prisma:generate": "npx prisma generate",
+    "prisma:pull": " npx prisma db pull",
     "prisma:generate:watch": "npx prisma generate --watch",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -65,6 +66,7 @@
     "@devoxa/prisma-relay-cursor-connection": "2.2.2",
     "@golevelup/nestjs-hasura": "^3.0.2",
     "@nestjs/apollo": "10.0.19",
+    "@nestjs/axios": "^2.0.0",
     "@nestjs/common": "9.0.5",
     "@nestjs/config": "2.2.0",
     "@nestjs/core": "9.0.5",
@@ -97,8 +99,7 @@
     "prisma-graphql-type-decimal": "^2.0.4",
     "reflect-metadata": "0.1.13",
     "rimraf": "3.0.2",
-    "rxjs": "7.5.6",
-    "xstate": "^4.35.2"
+    "rxjs": "7.5.6"
   },
   "devDependencies": {
     "@nestjs/cli": "9.0.0",

@@ -3,8 +3,6 @@ import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
 import { ActivityType } from '../prisma/activity-type.enum';
 import { GraphQLJSON } from 'graphql-type-json';
-import { TaskDefinitionActivityDefinition } from '../task-definition-activity-definition/task-definition-activity-definition.model';
-import { ActivityDefinitionCount } from './activity-definition-count.output';
 
 @ObjectType()
 export class ActivityDefinition {
@@ -38,10 +36,4 @@ export class ActivityDefinition {
 
     @Field(() => String, {nullable:true})
     description!: string | null;
-
-    @Field(() => [TaskDefinitionActivityDefinition], {nullable:true})
-    taskDefinitionActivityDefinitions?: Array<TaskDefinitionActivityDefinition>;
-
-    @Field(() => ActivityDefinitionCount, {nullable:false})
-    _count?: ActivityDefinitionCount;
 }

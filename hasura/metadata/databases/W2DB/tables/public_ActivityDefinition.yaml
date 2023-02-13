@@ -1,11 +1,3 @@
 table:
   name: ActivityDefinition
   schema: public
-array_relationships:
-  - name: TaskDefinitionActivityDefinitions
-    using:
-      foreign_key_constraint_on:
-        column: activityDefinitionId
-        table:
-          name: TaskDefinitionActivityDefinition
-          schema: public

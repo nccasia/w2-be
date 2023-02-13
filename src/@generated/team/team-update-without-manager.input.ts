@@ -2,10 +2,10 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
-import { UserUpdateOneRequiredWithoutCreatedteamsNestedInput } from '../user/user-update-one-required-without-createdteams-nested.input';
-import { OrganizationUpdateOneRequiredWithoutTeamsNestedInput } from '../organization/organization-update-one-required-without-teams-nested.input';
 import { MemberOnTeamsUpdateManyWithoutTeamNestedInput } from '../member-on-teams/member-on-teams-update-many-without-team-nested.input';
 import { TaskUpdateManyWithoutTeamNestedInput } from '../task/task-update-many-without-team-nested.input';
+import { UserUpdateOneRequiredWithoutCreatedteamsNestedInput } from '../user/user-update-one-required-without-createdteams-nested.input';
+import { OrganizationUpdateOneRequiredWithoutTeamsNestedInput } from '../organization/organization-update-one-required-without-teams-nested.input';
 
 @InputType()
 export class TeamUpdateWithoutManagerInput {
@@ -25,15 +25,15 @@ export class TeamUpdateWithoutManagerInput {
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     updatedAt?: DateTimeFieldUpdateOperationsInput;
 
-    @Field(() => UserUpdateOneRequiredWithoutCreatedteamsNestedInput, {nullable:true})
-    creator?: UserUpdateOneRequiredWithoutCreatedteamsNestedInput;
-
-    @Field(() => OrganizationUpdateOneRequiredWithoutTeamsNestedInput, {nullable:true})
-    organization?: OrganizationUpdateOneRequiredWithoutTeamsNestedInput;
-
     @Field(() => MemberOnTeamsUpdateManyWithoutTeamNestedInput, {nullable:true})
     memberOnTeams?: MemberOnTeamsUpdateManyWithoutTeamNestedInput;
 
     @Field(() => TaskUpdateManyWithoutTeamNestedInput, {nullable:true})
     tasks?: TaskUpdateManyWithoutTeamNestedInput;
+
+    @Field(() => UserUpdateOneRequiredWithoutCreatedteamsNestedInput, {nullable:true})
+    creator?: UserUpdateOneRequiredWithoutCreatedteamsNestedInput;
+
+    @Field(() => OrganizationUpdateOneRequiredWithoutTeamsNestedInput, {nullable:true})
+    organization?: OrganizationUpdateOneRequiredWithoutTeamsNestedInput;
 }

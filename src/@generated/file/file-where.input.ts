@@ -7,9 +7,9 @@ import { Type } from 'class-transformer';
 import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
 import { DateTimeFilter } from '../prisma/date-time-filter.input';
 import { IntNullableFilter } from '../prisma/int-nullable-filter.input';
+import { OrganizationRelationFilter } from '../organization/organization-relation-filter.input';
 import { FileRelationFilter } from './file-relation-filter.input';
 import { FileListRelationFilter } from './file-list-relation-filter.input';
-import { OrganizationRelationFilter } from '../organization/organization-relation-filter.input';
 import { UserListRelationFilter } from '../user/user-list-relation-filter.input';
 
 @InputType()
@@ -64,17 +64,17 @@ export class FileWhereInput {
     @Field(() => IntNullableFilter, {nullable:true})
     variantOfId?: IntNullableFilter;
 
-    @Field(() => FileRelationFilter, {nullable:true})
-    variantOf?: FileRelationFilter;
-
-    @Field(() => FileListRelationFilter, {nullable:true})
-    variants?: FileListRelationFilter;
-
     @Field(() => IntFilter, {nullable:true})
     organizationId?: IntFilter;
 
     @Field(() => OrganizationRelationFilter, {nullable:true})
     organization?: OrganizationRelationFilter;
+
+    @Field(() => FileRelationFilter, {nullable:true})
+    variantOf?: FileRelationFilter;
+
+    @Field(() => FileListRelationFilter, {nullable:true})
+    variants?: FileListRelationFilter;
 
     @Field(() => UserListRelationFilter, {nullable:true})
     avatarUsers?: UserListRelationFilter;

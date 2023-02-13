@@ -1,8 +1,8 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
-import { ProviderEnum } from '../prisma/provider.enum';
 import { Role } from '../prisma/role.enum';
+import { ProviderEnum } from '../prisma/provider.enum';
 import { UserCountAggregate } from './user-count-aggregate.output';
 import { UserAvgAggregate } from './user-avg-aggregate.output';
 import { UserSumAggregate } from './user-sum-aggregate.output';
@@ -27,14 +27,20 @@ export class UserGroupBy {
     @Field(() => String, {nullable:true})
     password?: string;
 
-    @Field(() => ProviderEnum, {nullable:false})
-    provider!: keyof typeof ProviderEnum;
-
     @Field(() => String, {nullable:true})
     firstname?: string;
 
     @Field(() => String, {nullable:true})
     lastname?: string;
+
+    @Field(() => Int, {nullable:false})
+    organizationId!: number;
+
+    @Field(() => Role, {nullable:false})
+    role!: keyof typeof Role;
+
+    @Field(() => Int, {nullable:true})
+    avatarId?: number;
 
     @Field(() => String, {nullable:true})
     googleId?: string;
@@ -42,14 +48,8 @@ export class UserGroupBy {
     @Field(() => String, {nullable:true})
     googleToken?: string;
 
-    @Field(() => Int, {nullable:true})
-    avatarId?: number;
-
-    @Field(() => Int, {nullable:false})
-    organizationId!: number;
-
-    @Field(() => Role, {nullable:false})
-    role!: keyof typeof Role;
+    @Field(() => ProviderEnum, {nullable:false})
+    provider!: keyof typeof ProviderEnum;
 
     @Field(() => UserCountAggregate, {nullable:true})
     _count?: UserCountAggregate;

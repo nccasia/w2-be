@@ -38,9 +38,9 @@ export class ResourceItemWhereInput {
     @Field(() => DateTimeFilter, {nullable:true})
     updatedAt?: DateTimeFilter;
 
-    @Field(() => ResourceRelationFilter, {nullable:true})
-    resource?: ResourceRelationFilter;
-
     @Field(() => IntFilter, {nullable:true})
     resourceId?: IntFilter;
+
+    @Field(() => ResourceRelationFilter, {nullable:true})
+    resource?: ResourceRelationFilter;
 }

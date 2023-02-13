@@ -18,7 +18,6 @@
 - "!include public_TaskBoard.yaml"
 - "!include public_TaskBoardSettings.yaml"
 - "!include public_TaskDefinition.yaml"
-- "!include public_TaskDefinitionActivityDefinition.yaml"
 - "!include public_Team.yaml"
 - "!include public_Trigger.yaml"
 - "!include public_User.yaml"

@@ -6,8 +6,8 @@ import { Int } from '@nestjs/graphql';
 export class FormCount {
 
     @Field(() => Int, {nullable:false})
-    taskDefinitions?: number;
+    tasks?: number;
 
     @Field(() => Int, {nullable:false})
-    tasks?: number;
+    taskDefinitions?: number;
 }

@@ -1,8 +1,8 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { FileType } from '../prisma/file-type.enum';
-import { FileCreateNestedOneWithoutVariantsInput } from './file-create-nested-one-without-variants.input';
 import { OrganizationCreateNestedOneWithoutFilesInput } from '../organization/organization-create-nested-one-without-files.input';
+import { FileCreateNestedOneWithoutVariantsInput } from './file-create-nested-one-without-variants.input';
 import { UserCreateNestedManyWithoutAvatarInput } from '../user/user-create-nested-many-without-avatar.input';
 
 @InputType()
@@ -41,11 +41,11 @@ export class FileCreateWithoutVariantsInput {
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
 
-    @Field(() => FileCreateNestedOneWithoutVariantsInput, {nullable:true})
-    variantOf?: FileCreateNestedOneWithoutVariantsInput;
-
     @Field(() => OrganizationCreateNestedOneWithoutFilesInput, {nullable:false})
     organization!: OrganizationCreateNestedOneWithoutFilesInput;
+
+    @Field(() => FileCreateNestedOneWithoutVariantsInput, {nullable:true})
+    variantOf?: FileCreateNestedOneWithoutVariantsInput;
 
     @Field(() => UserCreateNestedManyWithoutAvatarInput, {nullable:true})
     avatarUsers?: UserCreateNestedManyWithoutAvatarInput;

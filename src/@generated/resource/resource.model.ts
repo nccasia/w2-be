@@ -1,8 +1,8 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
-import { Organization } from '../organization/organization.model';
 import { Int } from '@nestjs/graphql';
+import { Organization } from '../organization/organization.model';
 import { ResourceItem } from '../resource-item/resource-item.model';
 import { ResourceCount } from './resource-count.output';
 
@@ -30,11 +30,11 @@ export class Resource {
     @Field(() => Date, {nullable:false})
     updatedAt!: Date;
 
-    @Field(() => Organization, {nullable:false})
-    organization?: Organization;
-
     @Field(() => Int, {nullable:false})
     organizationId!: number;
+
+    @Field(() => Organization, {nullable:false})
+    organization?: Organization;
 
     @Field(() => [ResourceItem], {nullable:true})
     resourceItems?: Array<ResourceItem>;

@@ -2,10 +2,10 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
-import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-string-field-update-operations.input';
 import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
-import { NullableIntFieldUpdateOperationsInput } from '../prisma/nullable-int-field-update-operations.input';
+import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-string-field-update-operations.input';
 import { GraphQLJSON } from 'graphql-type-json';
+import { NullableIntFieldUpdateOperationsInput } from '../prisma/nullable-int-field-update-operations.input';
 
 @InputType()
 export class TaskDefinitionUncheckedUpdateManyWithoutSubTaskDefinitionsInput {
@@ -19,9 +19,6 @@ export class TaskDefinitionUncheckedUpdateManyWithoutSubTaskDefinitionsInput {
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     updatedAt?: DateTimeFieldUpdateOperationsInput;
 
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    keyTemplate?: NullableStringFieldUpdateOperationsInput;
-
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
     title?: StringFieldUpdateOperationsInput;
 
@@ -33,9 +30,6 @@ export class TaskDefinitionUncheckedUpdateManyWithoutSubTaskDefinitionsInput {
 
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
     thumbnail?: StringFieldUpdateOperationsInput;
-
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    formId?: NullableIntFieldUpdateOperationsInput;
 
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     descriptionTemplate?: NullableStringFieldUpdateOperationsInput;
@@ -54,15 +48,6 @@ export class TaskDefinitionUncheckedUpdateManyWithoutSubTaskDefinitionsInput {
 
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     ctaTemplate?: NullableStringFieldUpdateOperationsInput;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    machineConfig?: any;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    contextConfig?: any;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    stateConfig?: any;
 
     @Field(() => GraphQLJSON, {nullable:true})
     statusConfig?: any;
@@ -84,4 +69,19 @@ export class TaskDefinitionUncheckedUpdateManyWithoutSubTaskDefinitionsInput {
 
     @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
     organizationId?: IntFieldUpdateOperationsInput;
+
+    @Field(() => GraphQLJSON, {nullable:true})
+    stateConfig?: any;
+
+    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
+    formId?: NullableIntFieldUpdateOperationsInput;
+
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    keyTemplate?: NullableStringFieldUpdateOperationsInput;
+
+    @Field(() => GraphQLJSON, {nullable:true})
+    machineConfig?: any;
+
+    @Field(() => GraphQLJSON, {nullable:true})
+    contextConfig?: any;
 }

@@ -3,9 +3,9 @@ import { InputType } from '@nestjs/graphql';
 import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
 import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
+import { ProjectSettingsUncheckedUpdateManyWithoutProjectNestedInput } from '../project-settings/project-settings-unchecked-update-many-without-project-nested.input';
 import { TaskUncheckedUpdateManyWithoutProjectNestedInput } from '../task/task-unchecked-update-many-without-project-nested.input';
 import { TaskBoardUncheckedUpdateManyWithoutProjectNestedInput } from '../task-board/task-board-unchecked-update-many-without-project-nested.input';
-import { ProjectSettingsUncheckedUpdateManyWithoutProjectNestedInput } from '../project-settings/project-settings-unchecked-update-many-without-project-nested.input';
 
 @InputType()
 export class ProjectUncheckedUpdateWithoutMembersInput {
@@ -37,9 +37,6 @@ export class ProjectUncheckedUpdateWithoutMembersInput {
     @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
     taskDefinitionId?: IntFieldUpdateOperationsInput;
 
-    @Field(() => TaskUncheckedUpdateManyWithoutProjectNestedInput, {nullable:true})
-    tasks?: TaskUncheckedUpdateManyWithoutProjectNestedInput;
-
     @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
     creatorId?: IntFieldUpdateOperationsInput;
 
@@ -49,9 +46,12 @@ export class ProjectUncheckedUpdateWithoutMembersInput {
     @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
     reporterId?: IntFieldUpdateOperationsInput;
 
-    @Field(() => TaskBoardUncheckedUpdateManyWithoutProjectNestedInput, {nullable:true})
-    taskBoards?: TaskBoardUncheckedUpdateManyWithoutProjectNestedInput;
-
     @Field(() => ProjectSettingsUncheckedUpdateManyWithoutProjectNestedInput, {nullable:true})
     settings?: ProjectSettingsUncheckedUpdateManyWithoutProjectNestedInput;
+
+    @Field(() => TaskUncheckedUpdateManyWithoutProjectNestedInput, {nullable:true})
+    tasks?: TaskUncheckedUpdateManyWithoutProjectNestedInput;
+
+    @Field(() => TaskBoardUncheckedUpdateManyWithoutProjectNestedInput, {nullable:true})
+    taskBoards?: TaskBoardUncheckedUpdateManyWithoutProjectNestedInput;
 }

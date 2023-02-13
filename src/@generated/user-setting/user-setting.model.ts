@@ -2,8 +2,8 @@ import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
 import { GraphQLJSON } from 'graphql-type-json';
-import { User } from '../user/user.model';
 import { Int } from '@nestjs/graphql';
+import { User } from '../user/user.model';
 
 @ObjectType()
 export class UserSetting {
@@ -23,9 +23,9 @@ export class UserSetting {
     @Field(() => GraphQLJSON, {nullable:false,defaultValue:'{}'})
     value!: any;
 
-    @Field(() => User, {nullable:false})
-    user?: User;
-
     @Field(() => Int, {nullable:false})
     userId!: number;
+
+    @Field(() => User, {nullable:false})
+    user?: User;
 }

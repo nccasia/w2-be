@@ -26,6 +26,9 @@ export class EventLogGroupBy {
     @Field(() => Int, {nullable:false})
     organizationId!: number;
 
+    @Field(() => String, {nullable:true})
+    content?: string;
+
     @Field(() => GraphQLJSON, {nullable:true})
     context?: any;
 
@@ -33,13 +36,10 @@ export class EventLogGroupBy {
     action?: string;
 
     @Field(() => String, {nullable:true})
-    intent?: string;
-
-    @Field(() => String, {nullable:true})
     domain?: string;
 
     @Field(() => String, {nullable:true})
-    content?: string;
+    intent?: string;
 
     @Field(() => EventLogCountAggregate, {nullable:true})
     _count?: EventLogCountAggregate;

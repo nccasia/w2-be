@@ -3,7 +3,6 @@ import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { ActivityType } from '../prisma/activity-type.enum';
 import { GraphQLJSON } from 'graphql-type-json';
-import { TaskDefinitionActivityDefinitionUncheckedCreateNestedManyWithoutActivityDefinitionInput } from '../task-definition-activity-definition/task-definition-activity-definition-unchecked-create-nested-many-without-activity-definition.input';
 
 @InputType()
 export class ActivityDefinitionUncheckedCreateInput {
@@ -37,7 +36,4 @@ export class ActivityDefinitionUncheckedCreateInput {
 
     @Field(() => String, {nullable:true})
     description?: string;
-
-    @Field(() => TaskDefinitionActivityDefinitionUncheckedCreateNestedManyWithoutActivityDefinitionInput, {nullable:true})
-    taskDefinitionActivityDefinitions?: TaskDefinitionActivityDefinitionUncheckedCreateNestedManyWithoutActivityDefinitionInput;
 }

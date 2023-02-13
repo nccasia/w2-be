@@ -15,9 +15,6 @@ export class TaskDefinitionCreateManyFormInput {
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
 
-    @Field(() => String, {nullable:true})
-    keyTemplate?: string;
-
     @Field(() => String, {nullable:false})
     title!: string;
 
@@ -49,15 +46,6 @@ export class TaskDefinitionCreateManyFormInput {
     ctaTemplate?: string;
 
     @Field(() => GraphQLJSON, {nullable:true})
-    machineConfig?: any;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    contextConfig?: any;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    stateConfig?: any;
-
-    @Field(() => GraphQLJSON, {nullable:true})
     statusConfig?: any;
 
     @Field(() => GraphQLJSON, {nullable:true})
@@ -80,4 +68,16 @@ export class TaskDefinitionCreateManyFormInput {
 
     @Field(() => Int, {nullable:true})
     parentId?: number;
+
+    @Field(() => GraphQLJSON, {nullable:true})
+    stateConfig?: any;
+
+    @Field(() => String, {nullable:true})
+    keyTemplate?: string;
+
+    @Field(() => GraphQLJSON, {nullable:true})
+    machineConfig?: any;
+
+    @Field(() => GraphQLJSON, {nullable:true})
+    contextConfig?: any;
 }

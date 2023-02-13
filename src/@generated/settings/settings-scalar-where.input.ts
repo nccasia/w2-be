@@ -29,9 +29,9 @@ export class SettingsScalarWhereInput {
     @Field(() => StringFilter, {nullable:true})
     key?: StringFilter;
 
-    @Field(() => JsonFilter, {nullable:true})
-    value?: JsonFilter;
-
     @Field(() => IntFilter, {nullable:true})
     organizationId?: IntFilter;
+
+    @Field(() => JsonFilter, {nullable:true})
+    value?: JsonFilter;
 }

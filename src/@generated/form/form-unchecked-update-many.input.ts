@@ -29,24 +29,12 @@ export class FormUncheckedUpdateManyInput {
     @Field(() => GraphQLJSON, {nullable:true})
     validationConfig?: any;
 
-    @Field(() => GraphQLJSON, {nullable:true})
-    triggerConfig?: any;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    serializerConfig?: any;
-
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    displayTemplate?: StringFieldUpdateOperationsInput;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    displayConfig?: any;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    values?: any;
-
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: DateTimeFieldUpdateOperationsInput;
 
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     updatedAt?: DateTimeFieldUpdateOperationsInput;
+
+    @Field(() => GraphQLJSON, {nullable:true})
+    values?: any;
 }

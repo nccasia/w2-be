@@ -4,23 +4,23 @@ import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operat
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
 import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
 import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-string-field-update-operations.input';
-import { EnumProviderEnumFieldUpdateOperationsInput } from '../prisma/enum-provider-enum-field-update-operations.input';
+import { EnumRoleFieldUpdateOperationsInput } from '../prisma/enum-role-field-update-operations.input';
 import { NullableIntFieldUpdateOperationsInput } from '../prisma/nullable-int-field-update-operations.input';
-import { TeamUncheckedUpdateManyWithoutManagerNestedInput } from '../team/team-unchecked-update-many-without-manager-nested.input';
-import { TeamUncheckedUpdateManyWithoutCreatorNestedInput } from '../team/team-unchecked-update-many-without-creator-nested.input';
-import { TaskUncheckedUpdateManyWithoutCreatorNestedInput } from '../task/task-unchecked-update-many-without-creator-nested.input';
-import { TaskUncheckedUpdateManyWithoutAssigneeNestedInput } from '../task/task-unchecked-update-many-without-assignee-nested.input';
+import { EnumProviderEnumFieldUpdateOperationsInput } from '../prisma/enum-provider-enum-field-update-operations.input';
+import { CommentUncheckedUpdateManyWithoutCreatorNestedInput } from '../comment/comment-unchecked-update-many-without-creator-nested.input';
+import { MemberOnProjectsUncheckedUpdateManyWithoutUserNestedInput } from '../member-on-projects/member-on-projects-unchecked-update-many-without-user-nested.input';
 import { MemberOnTeamsUncheckedUpdateManyWithoutUserNestedInput } from '../member-on-teams/member-on-teams-unchecked-update-many-without-user-nested.input';
 import { PostUncheckedUpdateManyWithoutAuthorNestedInput } from '../post/post-unchecked-update-many-without-author-nested.input';
-import { CommentUncheckedUpdateManyWithoutCreatorNestedInput } from '../comment/comment-unchecked-update-many-without-creator-nested.input';
-import { EnumRoleFieldUpdateOperationsInput } from '../prisma/enum-role-field-update-operations.input';
+import { ProjectUncheckedUpdateManyWithoutCreatorNestedInput } from '../project/project-unchecked-update-many-without-creator-nested.input';
+import { ProjectUncheckedUpdateManyWithoutManagerNestedInput } from '../project/project-unchecked-update-many-without-manager-nested.input';
+import { ProjectUncheckedUpdateManyWithoutReporterNestedInput } from '../project/project-unchecked-update-many-without-reporter-nested.input';
+import { TaskUncheckedUpdateManyWithoutAssigneeNestedInput } from '../task/task-unchecked-update-many-without-assignee-nested.input';
+import { TaskUncheckedUpdateManyWithoutCreatorNestedInput } from '../task/task-unchecked-update-many-without-creator-nested.input';
+import { TaskUncheckedUpdateManyWithoutReporterNestedInput } from '../task/task-unchecked-update-many-without-reporter-nested.input';
+import { TeamUncheckedUpdateManyWithoutCreatorNestedInput } from '../team/team-unchecked-update-many-without-creator-nested.input';
+import { TeamUncheckedUpdateManyWithoutManagerNestedInput } from '../team/team-unchecked-update-many-without-manager-nested.input';
 import { UserPermissionUncheckedUpdateManyWithoutUserNestedInput } from '../user-permission/user-permission-unchecked-update-many-without-user-nested.input';
 import { UserSettingUncheckedUpdateManyWithoutUserNestedInput } from '../user-setting/user-setting-unchecked-update-many-without-user-nested.input';
-import { MemberOnProjectsUncheckedUpdateManyWithoutUserNestedInput } from '../member-on-projects/member-on-projects-unchecked-update-many-without-user-nested.input';
-import { ProjectUncheckedUpdateManyWithoutManagerNestedInput } from '../project/project-unchecked-update-many-without-manager-nested.input';
-import { ProjectUncheckedUpdateManyWithoutCreatorNestedInput } from '../project/project-unchecked-update-many-without-creator-nested.input';
-import { TaskUncheckedUpdateManyWithoutReporterNestedInput } from '../task/task-unchecked-update-many-without-reporter-nested.input';
-import { ProjectUncheckedUpdateManyWithoutReporterNestedInput } from '../project/project-unchecked-update-many-without-reporter-nested.input';
 
 @InputType()
 export class UserUncheckedUpdateWithoutTaskEventsInput {
@@ -40,14 +40,20 @@ export class UserUncheckedUpdateWithoutTaskEventsInput {
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     password?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => EnumProviderEnumFieldUpdateOperationsInput, {nullable:true})
-    provider?: EnumProviderEnumFieldUpdateOperationsInput;
-
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     firstname?: NullableStringFieldUpdateOperationsInput;
 
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     lastname?: NullableStringFieldUpdateOperationsInput;
+
+    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
+    organizationId?: IntFieldUpdateOperationsInput;
+
+    @Field(() => EnumRoleFieldUpdateOperationsInput, {nullable:true})
+    role?: EnumRoleFieldUpdateOperationsInput;
+
+    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
+    avatarId?: NullableIntFieldUpdateOperationsInput;
 
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     googleId?: NullableStringFieldUpdateOperationsInput;
@@ -55,23 +61,14 @@ export class UserUncheckedUpdateWithoutTaskEventsInput {
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     googleToken?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    avatarId?: NullableIntFieldUpdateOperationsInput;
+    @Field(() => EnumProviderEnumFieldUpdateOperationsInput, {nullable:true})
+    provider?: EnumProviderEnumFieldUpdateOperationsInput;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    organizationId?: IntFieldUpdateOperationsInput;
+    @Field(() => CommentUncheckedUpdateManyWithoutCreatorNestedInput, {nullable:true})
+    comments?: CommentUncheckedUpdateManyWithoutCreatorNestedInput;
 
-    @Field(() => TeamUncheckedUpdateManyWithoutManagerNestedInput, {nullable:true})
-    managedteams?: TeamUncheckedUpdateManyWithoutManagerNestedInput;
-
-    @Field(() => TeamUncheckedUpdateManyWithoutCreatorNestedInput, {nullable:true})
-    createdteams?: TeamUncheckedUpdateManyWithoutCreatorNestedInput;
-
-    @Field(() => TaskUncheckedUpdateManyWithoutCreatorNestedInput, {nullable:true})
-    createdTasks?: TaskUncheckedUpdateManyWithoutCreatorNestedInput;
-
-    @Field(() => TaskUncheckedUpdateManyWithoutAssigneeNestedInput, {nullable:true})
-    assignedTasks?: TaskUncheckedUpdateManyWithoutAssigneeNestedInput;
+    @Field(() => MemberOnProjectsUncheckedUpdateManyWithoutUserNestedInput, {nullable:true})
+    memberOnProjects?: MemberOnProjectsUncheckedUpdateManyWithoutUserNestedInput;
 
     @Field(() => MemberOnTeamsUncheckedUpdateManyWithoutUserNestedInput, {nullable:true})
     memberOnTeams?: MemberOnTeamsUncheckedUpdateManyWithoutUserNestedInput;
@@ -79,30 +76,33 @@ export class UserUncheckedUpdateWithoutTaskEventsInput {
     @Field(() => PostUncheckedUpdateManyWithoutAuthorNestedInput, {nullable:true})
     posts?: PostUncheckedUpdateManyWithoutAuthorNestedInput;
 
-    @Field(() => CommentUncheckedUpdateManyWithoutCreatorNestedInput, {nullable:true})
-    comments?: CommentUncheckedUpdateManyWithoutCreatorNestedInput;
+    @Field(() => ProjectUncheckedUpdateManyWithoutCreatorNestedInput, {nullable:true})
+    createdProjects?: ProjectUncheckedUpdateManyWithoutCreatorNestedInput;
 
-    @Field(() => EnumRoleFieldUpdateOperationsInput, {nullable:true})
-    role?: EnumRoleFieldUpdateOperationsInput;
+    @Field(() => ProjectUncheckedUpdateManyWithoutManagerNestedInput, {nullable:true})
+    managedProjects?: ProjectUncheckedUpdateManyWithoutManagerNestedInput;
+
+    @Field(() => ProjectUncheckedUpdateManyWithoutReporterNestedInput, {nullable:true})
+    repotedProjects?: ProjectUncheckedUpdateManyWithoutReporterNestedInput;
+
+    @Field(() => TaskUncheckedUpdateManyWithoutAssigneeNestedInput, {nullable:true})
+    assignedTasks?: TaskUncheckedUpdateManyWithoutAssigneeNestedInput;
+
+    @Field(() => TaskUncheckedUpdateManyWithoutCreatorNestedInput, {nullable:true})
+    createdTasks?: TaskUncheckedUpdateManyWithoutCreatorNestedInput;
+
+    @Field(() => TaskUncheckedUpdateManyWithoutReporterNestedInput, {nullable:true})
+    reportedTasks?: TaskUncheckedUpdateManyWithoutReporterNestedInput;
+
+    @Field(() => TeamUncheckedUpdateManyWithoutCreatorNestedInput, {nullable:true})
+    createdteams?: TeamUncheckedUpdateManyWithoutCreatorNestedInput;
+
+    @Field(() => TeamUncheckedUpdateManyWithoutManagerNestedInput, {nullable:true})
+    managedteams?: TeamUncheckedUpdateManyWithoutManagerNestedInput;
 
     @Field(() => UserPermissionUncheckedUpdateManyWithoutUserNestedInput, {nullable:true})
     userPermissions?: UserPermissionUncheckedUpdateManyWithoutUserNestedInput;
 
     @Field(() => UserSettingUncheckedUpdateManyWithoutUserNestedInput, {nullable:true})
     userSettings?: UserSettingUncheckedUpdateManyWithoutUserNestedInput;
-
-    @Field(() => MemberOnProjectsUncheckedUpdateManyWithoutUserNestedInput, {nullable:true})
-    memberOnProjects?: MemberOnProjectsUncheckedUpdateManyWithoutUserNestedInput;
-
-    @Field(() => ProjectUncheckedUpdateManyWithoutManagerNestedInput, {nullable:true})
-    managedProjects?: ProjectUncheckedUpdateManyWithoutManagerNestedInput;
-
-    @Field(() => ProjectUncheckedUpdateManyWithoutCreatorNestedInput, {nullable:true})
-    createdProjects?: ProjectUncheckedUpdateManyWithoutCreatorNestedInput;
-
-    @Field(() => TaskUncheckedUpdateManyWithoutReporterNestedInput, {nullable:true})
-    reportedTasks?: TaskUncheckedUpdateManyWithoutReporterNestedInput;
-
-    @Field(() => ProjectUncheckedUpdateManyWithoutReporterNestedInput, {nullable:true})
-    repotedProjects?: ProjectUncheckedUpdateManyWithoutReporterNestedInput;
 }

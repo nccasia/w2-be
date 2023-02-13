@@ -11,12 +11,6 @@ export class TaskAvgAggregateInput {
     definitionId?: true;
 
     @Field(() => Boolean, {nullable:true})
-    formId?: true;
-
-    @Field(() => Boolean, {nullable:true})
-    projectId?: true;
-
-    @Field(() => Boolean, {nullable:true})
     assigneeId?: true;
 
     @Field(() => Boolean, {nullable:true})
@@ -29,8 +23,14 @@ export class TaskAvgAggregateInput {
     organizationId?: true;
 
     @Field(() => Boolean, {nullable:true})
-    reporterId?: true;
+    teamId?: true;
 
     @Field(() => Boolean, {nullable:true})
-    teamId?: true;
+    formId?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    projectId?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    reporterId?: true;
 }

@@ -20,14 +20,14 @@ export class EventLogMaxAggregateInput {
     organizationId?: true;
 
     @Field(() => Boolean, {nullable:true})
-    action?: true;
+    content?: true;
 
     @Field(() => Boolean, {nullable:true})
-    intent?: true;
+    action?: true;
 
     @Field(() => Boolean, {nullable:true})
     domain?: true;
 
     @Field(() => Boolean, {nullable:true})
-    content?: true;
+    intent?: true;
 }

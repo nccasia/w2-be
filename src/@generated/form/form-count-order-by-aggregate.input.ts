@@ -27,23 +27,11 @@ export class FormCountOrderByAggregateInput {
     validationConfig?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
-    triggerConfig?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
-    serializerConfig?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
-    displayTemplate?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
-    displayConfig?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
-    values?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
     createdAt?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
     updatedAt?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    values?: keyof typeof SortOrder;
 }

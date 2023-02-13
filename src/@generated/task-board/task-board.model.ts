@@ -5,11 +5,11 @@ import { TaskBoardType } from '../prisma/task-board-type.enum';
 import { TaskBoardViewType } from '../task/task-board-view-type.enum';
 import { GraphQLJSON } from 'graphql-type-json';
 import { Visibility } from '../prisma/visibility.enum';
-import { TaskBoardSettings } from '../task-board-settings/task-board-settings.model';
-import { Organization } from '../organization/organization.model';
 import { Int } from '@nestjs/graphql';
+import { Organization } from '../organization/organization.model';
 import { Project } from '../project/project.model';
 import { TaskDefinition } from '../task-definition/task-definition.model';
+import { TaskBoardSettings } from '../task-board-settings/task-board-settings.model';
 import { TaskBoardCount } from './task-board-count.output';
 
 @ObjectType()
@@ -48,26 +48,26 @@ export class TaskBoard {
     @Field(() => Visibility, {nullable:false,defaultValue:'Public'})
     visibility!: keyof typeof Visibility;
 
-    @Field(() => [TaskBoardSettings], {nullable:true})
-    settings?: Array<TaskBoardSettings>;
-
-    @Field(() => Organization, {nullable:false})
-    organization?: Organization;
-
     @Field(() => Int, {nullable:false})
     organizationId!: number;
-
-    @Field(() => Project, {nullable:true})
-    project?: Project | null;
 
     @Field(() => Int, {nullable:true})
     projectId!: number | null;
 
+    @Field(() => Int, {nullable:false})
+    taskDefinitionId!: number;
+
+    @Field(() => Organization, {nullable:false})
+    organization?: Organization;
+
+    @Field(() => Project, {nullable:true})
+    project?: Project | null;
+
     @Field(() => TaskDefinition, {nullable:false})
     taskDefinition?: TaskDefinition;
 
-    @Field(() => Int, {nullable:false})
-    taskDefinitionId!: number;
+    @Field(() => [TaskBoardSettings], {nullable:true})
+    settings?: Array<TaskBoardSettings>;
 
     @Field(() => TaskBoardCount, {nullable:false})
     _count?: TaskBoardCount;

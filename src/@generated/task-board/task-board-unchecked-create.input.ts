@@ -43,9 +43,6 @@ export class TaskBoardUncheckedCreateInput {
     @Field(() => Visibility, {nullable:true})
     visibility?: keyof typeof Visibility;
 
-    @Field(() => TaskBoardSettingsUncheckedCreateNestedManyWithoutTaskBoardInput, {nullable:true})
-    settings?: TaskBoardSettingsUncheckedCreateNestedManyWithoutTaskBoardInput;
-
     @Field(() => Int, {nullable:false})
     organizationId!: number;
 
@@ -54,4 +51,7 @@ export class TaskBoardUncheckedCreateInput {
 
     @Field(() => Int, {nullable:false})
     taskDefinitionId!: number;
+
+    @Field(() => TaskBoardSettingsUncheckedCreateNestedManyWithoutTaskBoardInput, {nullable:true})
+    settings?: TaskBoardSettingsUncheckedCreateNestedManyWithoutTaskBoardInput;
 }

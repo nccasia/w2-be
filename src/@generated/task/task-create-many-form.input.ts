@@ -22,92 +22,17 @@ export class TaskCreateManyFormInput {
     @Field(() => TaskPriority, {nullable:true})
     priority?: keyof typeof TaskPriority;
 
-    @Field(() => Boolean, {nullable:true})
-    isActive?: boolean;
-
-    @Field(() => String, {nullable:false})
-    key!: string;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    properties?: any;
-
     @Field(() => GraphQLJSON, {nullable:true})
     values?: any;
-
-    @Field(() => String, {nullable:true})
-    type?: string;
-
-    @Field(() => String, {nullable:true})
-    typeName?: string;
-
-    @Field(() => String, {nullable:true})
-    cta?: string;
 
     @Field(() => String, {nullable:true})
     ctaName?: string;
 
     @Field(() => String, {nullable:true})
-    state?: string;
-
-    @Field(() => String, {nullable:true})
     stateName?: string;
 
     @Field(() => String, {nullable:true})
-    status?: string;
-
-    @Field(() => String, {nullable:true})
     statusName?: string;
-
-    @Field(() => String, {nullable:true})
-    stateValues?: string;
-
-    @Field(() => String, {nullable:true})
-    descriptionTemplate?: string;
-
-    @Field(() => String, {nullable:true})
-    titleTemplate?: string;
-
-    @Field(() => String, {nullable:true})
-    statusTemplate?: string;
-
-    @Field(() => String, {nullable:true})
-    stateTemplate?: string;
-
-    @Field(() => String, {nullable:true})
-    notificationTemplate?: string;
-
-    @Field(() => String, {nullable:true})
-    ctaTemplate?: string;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    machineConfig?: any;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    contextConfig?: any;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    stateConfig?: any;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    statusConfig?: any;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    notificationConfig?: any;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    processConfig?: any;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    triggerConfig?: any;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    ctaConfig?: any;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    formConfig?: any;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    config?: any;
 
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
@@ -115,11 +40,8 @@ export class TaskCreateManyFormInput {
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
 
-    @Field(() => Int, {nullable:false})
-    definitionId!: number;
-
     @Field(() => Int, {nullable:true})
-    projectId?: number;
+    definitionId?: number;
 
     @Field(() => Int, {nullable:true})
     assigneeId?: number;
@@ -134,8 +56,62 @@ export class TaskCreateManyFormInput {
     organizationId!: number;
 
     @Field(() => Int, {nullable:true})
-    reporterId?: number;
+    teamId?: number;
+
+    @Field(() => GraphQLJSON, {nullable:true})
+    config?: any;
+
+    @Field(() => String, {nullable:true})
+    cta?: string;
+
+    @Field(() => String, {nullable:true})
+    ctaTemplate?: string;
+
+    @Field(() => String, {nullable:true})
+    descriptionTemplate?: string;
+
+    @Field(() => String, {nullable:true})
+    notificationTemplate?: string;
+
+    @Field(() => GraphQLJSON, {nullable:true})
+    properties?: any;
+
+    @Field(() => String, {nullable:true})
+    state?: string;
+
+    @Field(() => String, {nullable:true})
+    stateTemplate?: string;
+
+    @Field(() => String, {nullable:true})
+    stateValues?: string;
+
+    @Field(() => String, {nullable:true})
+    statusTemplate?: string;
+
+    @Field(() => String, {nullable:true})
+    titleTemplate?: string;
+
+    @Field(() => String, {nullable:true})
+    type?: string;
+
+    @Field(() => String, {nullable:true})
+    typeName?: string;
+
+    @Field(() => String, {nullable:true})
+    status?: string;
+
+    @Field(() => GraphQLJSON, {nullable:true})
+    formConfig?: any;
+
+    @Field(() => String, {nullable:false})
+    key!: string;
+
+    @Field(() => Boolean, {nullable:true})
+    isActive?: boolean;
 
     @Field(() => Int, {nullable:true})
-    teamId?: number;
+    projectId?: number;
+
+    @Field(() => Int, {nullable:true})
+    reporterId?: number;
 }

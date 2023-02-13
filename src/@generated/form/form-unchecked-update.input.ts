@@ -3,9 +3,9 @@ import { InputType } from '@nestjs/graphql';
 import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
 import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
 import { GraphQLJSON } from 'graphql-type-json';
-import { TaskDefinitionUncheckedUpdateManyWithoutFormNestedInput } from '../task-definition/task-definition-unchecked-update-many-without-form-nested.input';
-import { TaskUncheckedUpdateManyWithoutFormNestedInput } from '../task/task-unchecked-update-many-without-form-nested.input';
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
+import { TaskUncheckedUpdateManyWithoutFormNestedInput } from '../task/task-unchecked-update-many-without-form-nested.input';
+import { TaskDefinitionUncheckedUpdateManyWithoutFormNestedInput } from '../task-definition/task-definition-unchecked-update-many-without-form-nested.input';
 
 @InputType()
 export class FormUncheckedUpdateInput {
@@ -31,30 +31,18 @@ export class FormUncheckedUpdateInput {
     @Field(() => GraphQLJSON, {nullable:true})
     validationConfig?: any;
 
-    @Field(() => GraphQLJSON, {nullable:true})
-    triggerConfig?: any;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    serializerConfig?: any;
-
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    displayTemplate?: StringFieldUpdateOperationsInput;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    displayConfig?: any;
-
-    @Field(() => TaskDefinitionUncheckedUpdateManyWithoutFormNestedInput, {nullable:true})
-    taskDefinitions?: TaskDefinitionUncheckedUpdateManyWithoutFormNestedInput;
-
-    @Field(() => TaskUncheckedUpdateManyWithoutFormNestedInput, {nullable:true})
-    tasks?: TaskUncheckedUpdateManyWithoutFormNestedInput;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    values?: any;
-
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     createdAt?: DateTimeFieldUpdateOperationsInput;
 
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     updatedAt?: DateTimeFieldUpdateOperationsInput;
+
+    @Field(() => GraphQLJSON, {nullable:true})
+    values?: any;
+
+    @Field(() => TaskUncheckedUpdateManyWithoutFormNestedInput, {nullable:true})
+    tasks?: TaskUncheckedUpdateManyWithoutFormNestedInput;
+
+    @Field(() => TaskDefinitionUncheckedUpdateManyWithoutFormNestedInput, {nullable:true})
+    taskDefinitions?: TaskDefinitionUncheckedUpdateManyWithoutFormNestedInput;
 }

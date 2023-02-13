@@ -26,17 +26,17 @@ export class PermissionOrderByWithRelationInput {
     @Field(() => SortOrder, {nullable:true})
     updatedAt?: keyof typeof SortOrder;
 
-    @Field(() => OrganizationOrderByWithRelationInput, {nullable:true})
-    organization?: OrganizationOrderByWithRelationInput;
-
     @Field(() => SortOrder, {nullable:true})
     organizationId?: keyof typeof SortOrder;
 
-    @Field(() => PermissionGroupOrderByWithRelationInput, {nullable:true})
-    permissionGroup?: PermissionGroupOrderByWithRelationInput;
-
     @Field(() => SortOrder, {nullable:true})
     permissionGroupId?: keyof typeof SortOrder;
+
+    @Field(() => OrganizationOrderByWithRelationInput, {nullable:true})
+    organization?: OrganizationOrderByWithRelationInput;
+
+    @Field(() => PermissionGroupOrderByWithRelationInput, {nullable:true})
+    permissionGroup?: PermissionGroupOrderByWithRelationInput;
 
     @Field(() => UserPermissionOrderByRelationAggregateInput, {nullable:true})
     userPermissions?: UserPermissionOrderByRelationAggregateInput;

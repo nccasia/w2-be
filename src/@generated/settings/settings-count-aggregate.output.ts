@@ -18,10 +18,10 @@ export class SettingsCountAggregate {
     key!: number;
 
     @Field(() => Int, {nullable:false})
-    value!: number;
+    organizationId!: number;
 
     @Field(() => Int, {nullable:false})
-    organizationId!: number;
+    value!: number;
 
     @Field(() => Int, {nullable:false})
     _all!: number;

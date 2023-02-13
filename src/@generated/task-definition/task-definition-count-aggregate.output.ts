@@ -15,9 +15,6 @@ export class TaskDefinitionCountAggregate {
     updatedAt!: number;
 
     @Field(() => Int, {nullable:false})
-    keyTemplate!: number;
-
-    @Field(() => Int, {nullable:false})
     title!: number;
 
     @Field(() => Int, {nullable:false})
@@ -28,9 +25,6 @@ export class TaskDefinitionCountAggregate {
 
     @Field(() => Int, {nullable:false})
     thumbnail!: number;
-
-    @Field(() => Int, {nullable:false})
-    formId!: number;
 
     @Field(() => Int, {nullable:false})
     descriptionTemplate!: number;
@@ -49,15 +43,6 @@ export class TaskDefinitionCountAggregate {
 
     @Field(() => Int, {nullable:false})
     ctaTemplate!: number;
-
-    @Field(() => Int, {nullable:false})
-    machineConfig!: number;
-
-    @Field(() => Int, {nullable:false})
-    contextConfig!: number;
-
-    @Field(() => Int, {nullable:false})
-    stateConfig!: number;
 
     @Field(() => Int, {nullable:false})
     statusConfig!: number;
@@ -82,6 +67,21 @@ export class TaskDefinitionCountAggregate {
 
     @Field(() => Int, {nullable:false})
     parentId!: number;
+
+    @Field(() => Int, {nullable:false})
+    stateConfig!: number;
+
+    @Field(() => Int, {nullable:false})
+    formId!: number;
+
+    @Field(() => Int, {nullable:false})
+    keyTemplate!: number;
+
+    @Field(() => Int, {nullable:false})
+    machineConfig!: number;
+
+    @Field(() => Int, {nullable:false})
+    contextConfig!: number;
 
     @Field(() => Int, {nullable:false})
     _all!: number;

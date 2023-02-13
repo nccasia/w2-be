@@ -21,6 +21,9 @@ export class EventLogCreateManyInput {
     @Field(() => Int, {nullable:false})
     organizationId!: number;
 
+    @Field(() => String, {nullable:true})
+    content?: string;
+
     @Field(() => GraphQLJSON, {nullable:true})
     context?: any;
 
@@ -28,11 +31,8 @@ export class EventLogCreateManyInput {
     action?: string;
 
     @Field(() => String, {nullable:true})
-    intent?: string;
-
-    @Field(() => String, {nullable:true})
     domain?: string;
 
     @Field(() => String, {nullable:true})
-    content?: string;
+    intent?: string;
 }

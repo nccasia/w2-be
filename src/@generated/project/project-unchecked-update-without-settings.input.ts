@@ -3,8 +3,8 @@ import { InputType } from '@nestjs/graphql';
 import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
 import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
-import { TaskUncheckedUpdateManyWithoutProjectNestedInput } from '../task/task-unchecked-update-many-without-project-nested.input';
 import { MemberOnProjectsUncheckedUpdateManyWithoutProjectNestedInput } from '../member-on-projects/member-on-projects-unchecked-update-many-without-project-nested.input';
+import { TaskUncheckedUpdateManyWithoutProjectNestedInput } from '../task/task-unchecked-update-many-without-project-nested.input';
 import { TaskBoardUncheckedUpdateManyWithoutProjectNestedInput } from '../task-board/task-board-unchecked-update-many-without-project-nested.input';
 
 @InputType()
@@ -37,9 +37,6 @@ export class ProjectUncheckedUpdateWithoutSettingsInput {
     @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
     taskDefinitionId?: IntFieldUpdateOperationsInput;
 
-    @Field(() => TaskUncheckedUpdateManyWithoutProjectNestedInput, {nullable:true})
-    tasks?: TaskUncheckedUpdateManyWithoutProjectNestedInput;
-
     @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
     creatorId?: IntFieldUpdateOperationsInput;
 
@@ -51,6 +48,9 @@ export class ProjectUncheckedUpdateWithoutSettingsInput {
 
     @Field(() => MemberOnProjectsUncheckedUpdateManyWithoutProjectNestedInput, {nullable:true})
     members?: MemberOnProjectsUncheckedUpdateManyWithoutProjectNestedInput;
+
+    @Field(() => TaskUncheckedUpdateManyWithoutProjectNestedInput, {nullable:true})
+    tasks?: TaskUncheckedUpdateManyWithoutProjectNestedInput;
 
     @Field(() => TaskBoardUncheckedUpdateManyWithoutProjectNestedInput, {nullable:true})
     taskBoards?: TaskBoardUncheckedUpdateManyWithoutProjectNestedInput;

@@ -23,10 +23,10 @@ export class SettingsOrderByWithAggregationInput {
     key?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
-    value?: keyof typeof SortOrder;
+    organizationId?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
-    organizationId?: keyof typeof SortOrder;
+    value?: keyof typeof SortOrder;
 
     @Field(() => SettingsCountOrderByAggregateInput, {nullable:true})
     _count?: SettingsCountOrderByAggregateInput;

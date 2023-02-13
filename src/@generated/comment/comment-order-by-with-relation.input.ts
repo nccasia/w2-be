@@ -22,11 +22,11 @@ export class CommentOrderByWithRelationInput {
     @Field(() => SortOrder, {nullable:true})
     creatorId?: keyof typeof SortOrder;
 
-    @Field(() => UserOrderByWithRelationInput, {nullable:true})
-    creator?: UserOrderByWithRelationInput;
-
     @Field(() => SortOrder, {nullable:true})
     taskId?: keyof typeof SortOrder;
+
+    @Field(() => UserOrderByWithRelationInput, {nullable:true})
+    creator?: UserOrderByWithRelationInput;
 
     @Field(() => TaskOrderByWithRelationInput, {nullable:true})
     task?: TaskOrderByWithRelationInput;

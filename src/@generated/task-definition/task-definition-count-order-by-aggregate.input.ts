@@ -15,9 +15,6 @@ export class TaskDefinitionCountOrderByAggregateInput {
     updatedAt?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
-    keyTemplate?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
     title?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
@@ -28,9 +25,6 @@ export class TaskDefinitionCountOrderByAggregateInput {
 
     @Field(() => SortOrder, {nullable:true})
     thumbnail?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
-    formId?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
     descriptionTemplate?: keyof typeof SortOrder;
@@ -49,15 +43,6 @@ export class TaskDefinitionCountOrderByAggregateInput {
 
     @Field(() => SortOrder, {nullable:true})
     ctaTemplate?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
-    machineConfig?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
-    contextConfig?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
-    stateConfig?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
     statusConfig?: keyof typeof SortOrder;
@@ -82,4 +67,19 @@ export class TaskDefinitionCountOrderByAggregateInput {
 
     @Field(() => SortOrder, {nullable:true})
     parentId?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    stateConfig?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    formId?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    keyTemplate?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    machineConfig?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    contextConfig?: keyof typeof SortOrder;
 }

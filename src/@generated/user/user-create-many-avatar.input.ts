@@ -1,8 +1,8 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
-import { ProviderEnum } from '../prisma/provider.enum';
 import { Role } from '../prisma/role.enum';
+import { ProviderEnum } from '../prisma/provider.enum';
 
 @InputType()
 export class UserCreateManyAvatarInput {
@@ -22,14 +22,17 @@ export class UserCreateManyAvatarInput {
     @Field(() => String, {nullable:true})
     password?: string;
 
-    @Field(() => ProviderEnum, {nullable:true})
-    provider?: keyof typeof ProviderEnum;
-
     @Field(() => String, {nullable:true})
     firstname?: string;
 
     @Field(() => String, {nullable:true})
     lastname?: string;
+
+    @Field(() => Int, {nullable:false})
+    organizationId!: number;
+
+    @Field(() => Role, {nullable:false})
+    role!: keyof typeof Role;
 
     @Field(() => String, {nullable:true})
     googleId?: string;
@@ -37,9 +40,6 @@ export class UserCreateManyAvatarInput {
     @Field(() => String, {nullable:true})
     googleToken?: string;
 
-    @Field(() => Int, {nullable:false})
-    organizationId!: number;
-
-    @Field(() => Role, {nullable:false})
-    role!: keyof typeof Role;
+    @Field(() => ProviderEnum, {nullable:true})
+    provider?: keyof typeof ProviderEnum;
 }

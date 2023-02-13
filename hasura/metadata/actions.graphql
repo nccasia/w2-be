@@ -1,4 +1,10 @@
 type Mutation {
+  createTaskInput(
+    newTask: New_task!
+  ): ITask
+}
+
+type Mutation {
   googleLogin(
     data: GoogleLoginInput!
   ): LoginAuth!
@@ -29,6 +35,30 @@ input FormTriggerInput {
 
 input GoogleLoginInput {
   code: String!
+}
+
+input New_task {
+  creatorId: Int
+  dueDate: timestamp
+  organizationId: Int
+  teamId: Int
+  title: String
+  assigneeId: Int
+  Form: Form_obj_rel_insert
+  definitionId: Int
+  values: jsonb
+  description: String
+  key: String
+}
+
+input Form_obj_rel_insert {
+  data: Form_insert!
+}
+
+input Form_insert {
+  name: String
+  schema: jsonb
+  values: jsonb
 }
 
 type LoginAuth {
@@ -72,6 +102,10 @@ type SubmitTask {
   description: String
   id: String
   name: String
+}
+
+type ITask {
+  id: ID!
 }
 
 scalar JWT

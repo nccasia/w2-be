@@ -2,10 +2,10 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
+import { TaskUpdateManyWithoutTeamNestedInput } from '../task/task-update-many-without-team-nested.input';
 import { UserUpdateOneRequiredWithoutCreatedteamsNestedInput } from '../user/user-update-one-required-without-createdteams-nested.input';
 import { UserUpdateOneRequiredWithoutManagedteamsNestedInput } from '../user/user-update-one-required-without-managedteams-nested.input';
 import { OrganizationUpdateOneRequiredWithoutTeamsNestedInput } from '../organization/organization-update-one-required-without-teams-nested.input';
-import { TaskUpdateManyWithoutTeamNestedInput } from '../task/task-update-many-without-team-nested.input';
 
 @InputType()
 export class TeamUpdateWithoutMemberOnTeamsInput {
@@ -25,6 +25,9 @@ export class TeamUpdateWithoutMemberOnTeamsInput {
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     updatedAt?: DateTimeFieldUpdateOperationsInput;
 
+    @Field(() => TaskUpdateManyWithoutTeamNestedInput, {nullable:true})
+    tasks?: TaskUpdateManyWithoutTeamNestedInput;
+
     @Field(() => UserUpdateOneRequiredWithoutCreatedteamsNestedInput, {nullable:true})
     creator?: UserUpdateOneRequiredWithoutCreatedteamsNestedInput;
 
@@ -33,7 +36,4 @@ export class TeamUpdateWithoutMemberOnTeamsInput {
 
     @Field(() => OrganizationUpdateOneRequiredWithoutTeamsNestedInput, {nullable:true})
     organization?: OrganizationUpdateOneRequiredWithoutTeamsNestedInput;
-
-    @Field(() => TaskUpdateManyWithoutTeamNestedInput, {nullable:true})
-    tasks?: TaskUpdateManyWithoutTeamNestedInput;
 }

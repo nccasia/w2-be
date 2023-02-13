@@ -1,30 +1,38 @@
 import { Injectable } from '@nestjs/common';
-import { Task } from '@prisma/client';
 import { PrismaService } from 'nestjs-prisma';
-import { interpret, Machine } from 'xstate';
-import { TaskState } from './fsm/task-state';
+import { TaskWorkflowService } from './task-workflow.service';
 
 @Injectable()
 export class TaskService {
-  constructor(private prisma: PrismaService) {}
-  async updateTaskState(taskId: number, state: TaskState<any, any, any, any>) {
-    return this.prisma.task.update({
-      where: { id: taskId },
-      data: {
-        stateConfig: state.toJSON() as any,
-      },
-    });
-  }
+  constructor(
+    private prisma: PrismaService,
+    private taskWorkflowService: TaskWorkflowService
+  ) {}
 
   async submitTask(taskId: number, rawValues: any) {
-    const values = { ...rawValues };
-    const properties = { ...values };
-    return this.prisma.task.update({
+    const task = await this.prisma.task.findUnique({
+      where: { id: taskId },
+    });
+    const values = Object.assign(task.values, { ...rawValues });
+    const properties = Object.assign(task.properties, values);
+    const updatedTask = await this.prisma.task.update({
       where: { id: taskId },
       data: {
         values: values as any,
         properties: properties as any,
       },
     });
+
+    if (updatedTask.parentId) {
+      const parrentValue = {
+        [updatedTask.key]: values,
+      };
+      await this.submitTask(updatedTask.parentId, parrentValue);
+    }
+
+    if (task.config && task.config['resumeWebhookUrl']) {
+      this.taskWorkflowService.triggerTaskWorkflow(taskId, 'SUBMMIT', values);
+    }
+    return updatedTask;
   }
 }

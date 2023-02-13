@@ -3,8 +3,8 @@ import { InputType } from '@nestjs/graphql';
 import { IntFilter } from '../prisma/int-filter.input';
 import { StringFilter } from '../prisma/string-filter.input';
 import { DateTimeFilter } from '../prisma/date-time-filter.input';
-import { OrganizationRelationFilter } from '../organization/organization-relation-filter.input';
 import { PermissionListRelationFilter } from '../permission/permission-list-relation-filter.input';
+import { OrganizationRelationFilter } from '../organization/organization-relation-filter.input';
 
 @InputType()
 export class PermissionGroupWhereInput {
@@ -33,12 +33,12 @@ export class PermissionGroupWhereInput {
     @Field(() => DateTimeFilter, {nullable:true})
     updatedAt?: DateTimeFilter;
 
-    @Field(() => OrganizationRelationFilter, {nullable:true})
-    organization?: OrganizationRelationFilter;
-
     @Field(() => IntFilter, {nullable:true})
     organizationId?: IntFilter;
 
     @Field(() => PermissionListRelationFilter, {nullable:true})
     permissions?: PermissionListRelationFilter;
+
+    @Field(() => OrganizationRelationFilter, {nullable:true})
+    organization?: OrganizationRelationFilter;
 }

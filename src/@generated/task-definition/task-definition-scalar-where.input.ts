@@ -2,10 +2,10 @@ import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { IntFilter } from '../prisma/int-filter.input';
 import { DateTimeFilter } from '../prisma/date-time-filter.input';
-import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
 import { StringFilter } from '../prisma/string-filter.input';
-import { IntNullableFilter } from '../prisma/int-nullable-filter.input';
+import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
 import { JsonNullableFilter } from '../prisma/json-nullable-filter.input';
+import { IntNullableFilter } from '../prisma/int-nullable-filter.input';
 
 @InputType()
 export class TaskDefinitionScalarWhereInput {
@@ -28,9 +28,6 @@ export class TaskDefinitionScalarWhereInput {
     @Field(() => DateTimeFilter, {nullable:true})
     updatedAt?: DateTimeFilter;
 
-    @Field(() => StringNullableFilter, {nullable:true})
-    keyTemplate?: StringNullableFilter;
-
     @Field(() => StringFilter, {nullable:true})
     title?: StringFilter;
 
@@ -42,9 +39,6 @@ export class TaskDefinitionScalarWhereInput {
 
     @Field(() => StringFilter, {nullable:true})
     thumbnail?: StringFilter;
-
-    @Field(() => IntNullableFilter, {nullable:true})
-    formId?: IntNullableFilter;
 
     @Field(() => StringNullableFilter, {nullable:true})
     descriptionTemplate?: StringNullableFilter;
@@ -63,15 +57,6 @@ export class TaskDefinitionScalarWhereInput {
 
     @Field(() => StringNullableFilter, {nullable:true})
     ctaTemplate?: StringNullableFilter;
-
-    @Field(() => JsonNullableFilter, {nullable:true})
-    machineConfig?: JsonNullableFilter;
-
-    @Field(() => JsonNullableFilter, {nullable:true})
-    contextConfig?: JsonNullableFilter;
-
-    @Field(() => JsonNullableFilter, {nullable:true})
-    stateConfig?: JsonNullableFilter;
 
     @Field(() => JsonNullableFilter, {nullable:true})
     statusConfig?: JsonNullableFilter;
@@ -96,4 +81,19 @@ export class TaskDefinitionScalarWhereInput {
 
     @Field(() => IntNullableFilter, {nullable:true})
     parentId?: IntNullableFilter;
+
+    @Field(() => JsonNullableFilter, {nullable:true})
+    stateConfig?: JsonNullableFilter;
+
+    @Field(() => IntNullableFilter, {nullable:true})
+    formId?: IntNullableFilter;
+
+    @Field(() => StringNullableFilter, {nullable:true})
+    keyTemplate?: StringNullableFilter;
+
+    @Field(() => JsonNullableFilter, {nullable:true})
+    machineConfig?: JsonNullableFilter;
+
+    @Field(() => JsonNullableFilter, {nullable:true})
+    contextConfig?: JsonNullableFilter;
 }

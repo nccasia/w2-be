@@ -8,11 +8,11 @@ export class TaskDefinitionSumAggregateInput {
     id?: true;
 
     @Field(() => Boolean, {nullable:true})
-    formId?: true;
-
-    @Field(() => Boolean, {nullable:true})
     organizationId?: true;
 
     @Field(() => Boolean, {nullable:true})
     parentId?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    formId?: true;
 }

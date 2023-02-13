@@ -6,38 +6,38 @@ import { Int } from '@nestjs/graphql';
 export class OrganizationCount {
 
     @Field(() => Int, {nullable:false})
-    tasks?: number;
-
-    @Field(() => Int, {nullable:false})
-    users?: number;
-
-    @Field(() => Int, {nullable:false})
-    teams?: number;
-
-    @Field(() => Int, {nullable:false})
-    settings?: number;
+    eventLogs?: number;
 
     @Field(() => Int, {nullable:false})
     files?: number;
 
     @Field(() => Int, {nullable:false})
-    eventLogs?: number;
-
-    @Field(() => Int, {nullable:false})
-    taskDefinitions?: number;
+    permissions?: number;
 
     @Field(() => Int, {nullable:false})
     permissionGroups?: number;
 
     @Field(() => Int, {nullable:false})
-    permissions?: number;
+    projects?: number;
 
     @Field(() => Int, {nullable:false})
     resources?: number;
 
     @Field(() => Int, {nullable:false})
-    projects?: number;
+    settings?: number;
+
+    @Field(() => Int, {nullable:false})
+    tasks?: number;
 
     @Field(() => Int, {nullable:false})
     taskBoards?: number;
+
+    @Field(() => Int, {nullable:false})
+    taskDefinitions?: number;
+
+    @Field(() => Int, {nullable:false})
+    teams?: number;
+
+    @Field(() => Int, {nullable:false})
+    users?: number;
 }

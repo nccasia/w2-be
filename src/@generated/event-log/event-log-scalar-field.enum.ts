@@ -6,11 +6,11 @@ export enum EventLogScalarFieldEnum {
     userId = "userId",
     taskId = "taskId",
     organizationId = "organizationId",
+    content = "content",
     context = "context",
     action = "action",
-    intent = "intent",
     domain = "domain",
-    content = "content"
+    intent = "intent"
 }
 
 

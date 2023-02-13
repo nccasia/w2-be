@@ -15,9 +15,6 @@ export class TaskDefinitionMaxOrderByAggregateInput {
     updatedAt?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
-    keyTemplate?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
     title?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
@@ -28,9 +25,6 @@ export class TaskDefinitionMaxOrderByAggregateInput {
 
     @Field(() => SortOrder, {nullable:true})
     thumbnail?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
-    formId?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
     descriptionTemplate?: keyof typeof SortOrder;
@@ -55,4 +49,10 @@ export class TaskDefinitionMaxOrderByAggregateInput {
 
     @Field(() => SortOrder, {nullable:true})
     parentId?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    formId?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    keyTemplate?: keyof typeof SortOrder;
 }

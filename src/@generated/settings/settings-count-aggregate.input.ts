@@ -17,10 +17,10 @@ export class SettingsCountAggregateInput {
     key?: true;
 
     @Field(() => Boolean, {nullable:true})
-    value?: true;
+    organizationId?: true;
 
     @Field(() => Boolean, {nullable:true})
-    organizationId?: true;
+    value?: true;
 
     @Field(() => Boolean, {nullable:true})
     _all?: true;

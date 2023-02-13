@@ -1,20 +1,14 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
-import { Project } from '../project/project.model';
 import { Int } from '@nestjs/graphql';
+import { Project } from '../project/project.model';
 import { User } from '../user/user.model';
 
 @ObjectType()
 export class MemberOnProjects {
 
-    @Field(() => Project, {nullable:false})
-    project?: Project;
-
     @Field(() => Int, {nullable:false})
     projectId!: number;
-
-    @Field(() => User, {nullable:false})
-    user?: User;
 
     @Field(() => Int, {nullable:false})
     userId!: number;
@@ -24,4 +18,10 @@ export class MemberOnProjects {
 
     @Field(() => String, {nullable:false})
     assignedBy!: string;
+
+    @Field(() => Project, {nullable:false})
+    project?: Project;
+
+    @Field(() => User, {nullable:false})
+    user?: User;
 }

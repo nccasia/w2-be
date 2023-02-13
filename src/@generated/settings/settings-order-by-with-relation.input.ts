@@ -19,11 +19,11 @@ export class SettingsOrderByWithRelationInput {
     key?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
+    organizationId?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
     value?: keyof typeof SortOrder;
 
     @Field(() => OrganizationOrderByWithRelationInput, {nullable:true})
     organization?: OrganizationOrderByWithRelationInput;
-
-    @Field(() => SortOrder, {nullable:true})
-    organizationId?: keyof typeof SortOrder;
 }

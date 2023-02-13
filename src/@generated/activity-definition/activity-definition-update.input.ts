@@ -6,7 +6,6 @@ import { EnumActivityTypeFieldUpdateOperationsInput } from '../prisma/enum-activ
 import { GraphQLJSON } from 'graphql-type-json';
 import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
 import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-string-field-update-operations.input';
-import { TaskDefinitionActivityDefinitionUpdateManyWithoutActivityDefinitionNestedInput } from '../task-definition-activity-definition/task-definition-activity-definition-update-many-without-activity-definition-nested.input';
 
 @InputType()
 export class ActivityDefinitionUpdateInput {
@@ -37,7 +36,4 @@ export class ActivityDefinitionUpdateInput {
 
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     description?: NullableStringFieldUpdateOperationsInput;
-
-    @Field(() => TaskDefinitionActivityDefinitionUpdateManyWithoutActivityDefinitionNestedInput, {nullable:true})
-    taskDefinitionActivityDefinitions?: TaskDefinitionActivityDefinitionUpdateManyWithoutActivityDefinitionNestedInput;
 }

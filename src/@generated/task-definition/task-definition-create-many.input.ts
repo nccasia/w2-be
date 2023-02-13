@@ -15,9 +15,6 @@ export class TaskDefinitionCreateManyInput {
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
 
-    @Field(() => String, {nullable:true})
-    keyTemplate?: string;
-
     @Field(() => String, {nullable:false})
     title!: string;
 
@@ -29,9 +26,6 @@ export class TaskDefinitionCreateManyInput {
 
     @Field(() => String, {nullable:false})
     thumbnail!: string;
-
-    @Field(() => Int, {nullable:true})
-    formId?: number;
 
     @Field(() => String, {nullable:true})
     descriptionTemplate?: string;
@@ -50,15 +44,6 @@ export class TaskDefinitionCreateManyInput {
 
     @Field(() => String, {nullable:true})
     ctaTemplate?: string;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    machineConfig?: any;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    contextConfig?: any;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    stateConfig?: any;
 
     @Field(() => GraphQLJSON, {nullable:true})
     statusConfig?: any;
@@ -83,4 +68,19 @@ export class TaskDefinitionCreateManyInput {
 
     @Field(() => Int, {nullable:true})
     parentId?: number;
+
+    @Field(() => GraphQLJSON, {nullable:true})
+    stateConfig?: any;
+
+    @Field(() => Int, {nullable:true})
+    formId?: number;
+
+    @Field(() => String, {nullable:true})
+    keyTemplate?: string;
+
+    @Field(() => GraphQLJSON, {nullable:true})
+    machineConfig?: any;
+
+    @Field(() => GraphQLJSON, {nullable:true})
+    contextConfig?: any;
 }

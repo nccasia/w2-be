@@ -12,12 +12,6 @@ export class TaskAvgOrderByAggregateInput {
     definitionId?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
-    formId?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
-    projectId?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
     assigneeId?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
@@ -30,8 +24,14 @@ export class TaskAvgOrderByAggregateInput {
     organizationId?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
-    reporterId?: keyof typeof SortOrder;
+    teamId?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
-    teamId?: keyof typeof SortOrder;
+    formId?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    projectId?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    reporterId?: keyof typeof SortOrder;
 }

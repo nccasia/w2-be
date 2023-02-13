@@ -27,9 +27,9 @@ export class ResourceItemOrderByWithRelationInput {
     @Field(() => SortOrder, {nullable:true})
     updatedAt?: keyof typeof SortOrder;
 
-    @Field(() => ResourceOrderByWithRelationInput, {nullable:true})
-    resource?: ResourceOrderByWithRelationInput;
-
     @Field(() => SortOrder, {nullable:true})
     resourceId?: keyof typeof SortOrder;
+
+    @Field(() => ResourceOrderByWithRelationInput, {nullable:true})
+    resource?: ResourceOrderByWithRelationInput;
 }

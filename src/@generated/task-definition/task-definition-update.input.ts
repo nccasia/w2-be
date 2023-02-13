@@ -1,17 +1,16 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
-import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-string-field-update-operations.input';
 import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
-import { FormUpdateOneWithoutTaskDefinitionsNestedInput } from '../form/form-update-one-without-task-definitions-nested.input';
+import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-string-field-update-operations.input';
 import { GraphQLJSON } from 'graphql-type-json';
+import { ProjectUpdateManyWithoutTaskDefinitionNestedInput } from '../project/project-update-many-without-task-definition-nested.input';
 import { TaskUpdateManyWithoutDefinitionNestedInput } from '../task/task-update-many-without-definition-nested.input';
+import { TaskBoardUpdateManyWithoutTaskDefinitionNestedInput } from '../task-board/task-board-update-many-without-task-definition-nested.input';
+import { FormUpdateOneWithoutTaskDefinitionsNestedInput } from '../form/form-update-one-without-task-definitions-nested.input';
 import { OrganizationUpdateOneRequiredWithoutTaskDefinitionsNestedInput } from '../organization/organization-update-one-required-without-task-definitions-nested.input';
 import { TaskDefinitionUpdateOneWithoutSubTaskDefinitionsNestedInput } from './task-definition-update-one-without-sub-task-definitions-nested.input';
 import { TaskDefinitionUpdateManyWithoutParentTaskDefinitionNestedInput } from './task-definition-update-many-without-parent-task-definition-nested.input';
-import { TaskDefinitionActivityDefinitionUpdateManyWithoutTaskDefinitionNestedInput } from '../task-definition-activity-definition/task-definition-activity-definition-update-many-without-task-definition-nested.input';
-import { ProjectUpdateManyWithoutTaskDefinitionNestedInput } from '../project/project-update-many-without-task-definition-nested.input';
-import { TaskBoardUpdateManyWithoutTaskDefinitionNestedInput } from '../task-board/task-board-update-many-without-task-definition-nested.input';
 
 @InputType()
 export class TaskDefinitionUpdateInput {
@@ -21,9 +20,6 @@ export class TaskDefinitionUpdateInput {
 
     @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
     updatedAt?: DateTimeFieldUpdateOperationsInput;
-
-    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
-    keyTemplate?: NullableStringFieldUpdateOperationsInput;
 
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
     title?: StringFieldUpdateOperationsInput;
@@ -36,9 +32,6 @@ export class TaskDefinitionUpdateInput {
 
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
     thumbnail?: StringFieldUpdateOperationsInput;
-
-    @Field(() => FormUpdateOneWithoutTaskDefinitionsNestedInput, {nullable:true})
-    form?: FormUpdateOneWithoutTaskDefinitionsNestedInput;
 
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     descriptionTemplate?: NullableStringFieldUpdateOperationsInput;
@@ -59,15 +52,6 @@ export class TaskDefinitionUpdateInput {
     ctaTemplate?: NullableStringFieldUpdateOperationsInput;
 
     @Field(() => GraphQLJSON, {nullable:true})
-    machineConfig?: any;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    contextConfig?: any;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    stateConfig?: any;
-
-    @Field(() => GraphQLJSON, {nullable:true})
     statusConfig?: any;
 
     @Field(() => GraphQLJSON, {nullable:true})
@@ -85,8 +69,29 @@ export class TaskDefinitionUpdateInput {
     @Field(() => GraphQLJSON, {nullable:true})
     config?: any;
 
+    @Field(() => GraphQLJSON, {nullable:true})
+    stateConfig?: any;
+
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    keyTemplate?: NullableStringFieldUpdateOperationsInput;
+
+    @Field(() => GraphQLJSON, {nullable:true})
+    machineConfig?: any;
+
+    @Field(() => GraphQLJSON, {nullable:true})
+    contextConfig?: any;
+
+    @Field(() => ProjectUpdateManyWithoutTaskDefinitionNestedInput, {nullable:true})
+    projects?: ProjectUpdateManyWithoutTaskDefinitionNestedInput;
+
     @Field(() => TaskUpdateManyWithoutDefinitionNestedInput, {nullable:true})
     taskInstances?: TaskUpdateManyWithoutDefinitionNestedInput;
+
+    @Field(() => TaskBoardUpdateManyWithoutTaskDefinitionNestedInput, {nullable:true})
+    taskBoards?: TaskBoardUpdateManyWithoutTaskDefinitionNestedInput;
+
+    @Field(() => FormUpdateOneWithoutTaskDefinitionsNestedInput, {nullable:true})
+    form?: FormUpdateOneWithoutTaskDefinitionsNestedInput;
 
     @Field(() => OrganizationUpdateOneRequiredWithoutTaskDefinitionsNestedInput, {nullable:true})
     organization?: OrganizationUpdateOneRequiredWithoutTaskDefinitionsNestedInput;
@@ -96,13 +101,4 @@ export class TaskDefinitionUpdateInput {
 
     @Field(() => TaskDefinitionUpdateManyWithoutParentTaskDefinitionNestedInput, {nullable:true})
     subTaskDefinitions?: TaskDefinitionUpdateManyWithoutParentTaskDefinitionNestedInput;
-
-    @Field(() => TaskDefinitionActivityDefinitionUpdateManyWithoutTaskDefinitionNestedInput, {nullable:true})
-    taskDefinitionActivityDefinitions?: TaskDefinitionActivityDefinitionUpdateManyWithoutTaskDefinitionNestedInput;
-
-    @Field(() => ProjectUpdateManyWithoutTaskDefinitionNestedInput, {nullable:true})
-    projects?: ProjectUpdateManyWithoutTaskDefinitionNestedInput;
-
-    @Field(() => TaskBoardUpdateManyWithoutTaskDefinitionNestedInput, {nullable:true})
-    taskBoards?: TaskBoardUpdateManyWithoutTaskDefinitionNestedInput;
 }

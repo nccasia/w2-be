@@ -20,19 +20,19 @@ export class EventLogCountAggregateInput {
     organizationId?: true;
 
     @Field(() => Boolean, {nullable:true})
+    content?: true;
+
+    @Field(() => Boolean, {nullable:true})
     context?: true;
 
     @Field(() => Boolean, {nullable:true})
     action?: true;
 
     @Field(() => Boolean, {nullable:true})
-    intent?: true;
-
-    @Field(() => Boolean, {nullable:true})
     domain?: true;
 
     @Field(() => Boolean, {nullable:true})
-    content?: true;
+    intent?: true;
 
     @Field(() => Boolean, {nullable:true})
     _all?: true;

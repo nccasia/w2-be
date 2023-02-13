@@ -1,13 +1,12 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
 import { SortOrder } from '../prisma/sort-order.enum';
-import { FormOrderByWithRelationInput } from '../form/form-order-by-with-relation.input';
+import { ProjectOrderByRelationAggregateInput } from '../project/project-order-by-relation-aggregate.input';
 import { TaskOrderByRelationAggregateInput } from '../task/task-order-by-relation-aggregate.input';
+import { TaskBoardOrderByRelationAggregateInput } from '../task-board/task-board-order-by-relation-aggregate.input';
+import { FormOrderByWithRelationInput } from '../form/form-order-by-with-relation.input';
 import { OrganizationOrderByWithRelationInput } from '../organization/organization-order-by-with-relation.input';
 import { TaskDefinitionOrderByRelationAggregateInput } from './task-definition-order-by-relation-aggregate.input';
-import { TaskDefinitionActivityDefinitionOrderByRelationAggregateInput } from '../task-definition-activity-definition/task-definition-activity-definition-order-by-relation-aggregate.input';
-import { ProjectOrderByRelationAggregateInput } from '../project/project-order-by-relation-aggregate.input';
-import { TaskBoardOrderByRelationAggregateInput } from '../task-board/task-board-order-by-relation-aggregate.input';
 
 @InputType()
 export class TaskDefinitionOrderByWithRelationInput {
@@ -22,9 +21,6 @@ export class TaskDefinitionOrderByWithRelationInput {
     updatedAt?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
-    keyTemplate?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
     title?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
@@ -35,12 +31,6 @@ export class TaskDefinitionOrderByWithRelationInput {
 
     @Field(() => SortOrder, {nullable:true})
     thumbnail?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
-    formId?: keyof typeof SortOrder;
-
-    @Field(() => FormOrderByWithRelationInput, {nullable:true})
-    form?: FormOrderByWithRelationInput;
 
     @Field(() => SortOrder, {nullable:true})
     descriptionTemplate?: keyof typeof SortOrder;
@@ -61,15 +51,6 @@ export class TaskDefinitionOrderByWithRelationInput {
     ctaTemplate?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
-    machineConfig?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
-    contextConfig?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
-    stateConfig?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
     statusConfig?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
@@ -87,30 +68,45 @@ export class TaskDefinitionOrderByWithRelationInput {
     @Field(() => SortOrder, {nullable:true})
     config?: keyof typeof SortOrder;
 
-    @Field(() => TaskOrderByRelationAggregateInput, {nullable:true})
-    taskInstances?: TaskOrderByRelationAggregateInput;
-
-    @Field(() => OrganizationOrderByWithRelationInput, {nullable:true})
-    organization?: OrganizationOrderByWithRelationInput;
-
     @Field(() => SortOrder, {nullable:true})
     organizationId?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
     parentId?: keyof typeof SortOrder;
 
+    @Field(() => SortOrder, {nullable:true})
+    stateConfig?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    formId?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    keyTemplate?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    machineConfig?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    contextConfig?: keyof typeof SortOrder;
+
+    @Field(() => ProjectOrderByRelationAggregateInput, {nullable:true})
+    projects?: ProjectOrderByRelationAggregateInput;
+
+    @Field(() => TaskOrderByRelationAggregateInput, {nullable:true})
+    taskInstances?: TaskOrderByRelationAggregateInput;
+
+    @Field(() => TaskBoardOrderByRelationAggregateInput, {nullable:true})
+    taskBoards?: TaskBoardOrderByRelationAggregateInput;
+
+    @Field(() => FormOrderByWithRelationInput, {nullable:true})
+    form?: FormOrderByWithRelationInput;
+
+    @Field(() => OrganizationOrderByWithRelationInput, {nullable:true})
+    organization?: OrganizationOrderByWithRelationInput;
+
     @Field(() => TaskDefinitionOrderByWithRelationInput, {nullable:true})
     parentTaskDefinition?: TaskDefinitionOrderByWithRelationInput;
 
     @Field(() => TaskDefinitionOrderByRelationAggregateInput, {nullable:true})
     subTaskDefinitions?: TaskDefinitionOrderByRelationAggregateInput;
-
-    @Field(() => TaskDefinitionActivityDefinitionOrderByRelationAggregateInput, {nullable:true})
-    taskDefinitionActivityDefinitions?: TaskDefinitionActivityDefinitionOrderByRelationAggregateInput;
-
-    @Field(() => ProjectOrderByRelationAggregateInput, {nullable:true})
-    projects?: ProjectOrderByRelationAggregateInput;
-
-    @Field(() => TaskBoardOrderByRelationAggregateInput, {nullable:true})
-    taskBoards?: TaskBoardOrderByRelationAggregateInput;
 }

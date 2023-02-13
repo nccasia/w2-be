@@ -8,18 +8,18 @@ Table Organization {
   description String [not null]
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [default: `now()`, not null]
-  tasks Task [not null]
-  users User [not null]
-  teams Team [not null]
-  settings Settings [not null]
-  files File [not null]
   eventLogs EventLog [not null]
-  taskDefinitions TaskDefinition [not null]
-  permissionGroups PermissionGroup [not null]
+  files File [not null]
   permissions Permission [not null]
-  resources Resource [not null]
+  permissionGroups PermissionGroup [not null]
   projects Project [not null]
+  resources Resource [not null]
+  settings Settings [not null]
+  tasks Task [not null]
   taskBoards TaskBoard [not null]
+  taskDefinitions TaskDefinition [not null]
+  teams Team [not null]
+  users User [not null]
 }
 
 Table Resource {
@@ -30,8 +30,8 @@ Table Resource {
   icon String [not null]
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [default: `now()`, not null]
-  organization Organization [not null]
   organizationId Int [not null]
+  organization Organization [not null]
   resourceItems ResourceItem [not null]
 }
 
@@ -43,8 +43,8 @@ Table ResourceItem {
   icon String [not null]
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [default: `now()`, not null]
-  resource Resource [not null]
   resourceId Int [not null]
+  resource Resource [not null]
 }
 
 Table File {
@@ -61,10 +61,10 @@ Table File {
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [default: `now()`, not null]
   variantOfId Int
-  variantOf File
-  variants File [not null]
   organizationId Int [not null]
   organization Organization [not null]
+  variantOf File
+  variants File [not null]
   avatarUsers User [not null]
 }
 
@@ -73,9 +73,9 @@ Table Settings {
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [default: `now()`, not null]
   key String [not null]
+  organizationId Int [not null]
   value Json [not null, default: '{}']
   organization Organization [not null]
-  organizationId Int [not null]
 }
 
 Table User {
@@ -84,31 +84,31 @@ Table User {
   updatedAt DateTime [default: `now()`, not null]
   email String [unique, not null]
   password String
-  provider ProviderEnum [not null, default: 'local']
   firstname String
   lastname String
+  organizationId Int [not null]
+  role Role [not null]
+  avatarId Int
   googleId String
   googleToken String
-  avatarId Int
-  avatar File
-  organizationId Int [not null]
-  organization Organization [not null]
-  managedteams Team [not null]
-  createdteams Team [not null]
-  createdTasks Task [not null]
-  assignedTasks Task [not null]
-  memberOnTeams MemberOnTeams [not null]
-  posts Post [not null]
+  provider ProviderEnum [not null, default: 'local']
   comments Comment [not null]
   taskEvents EventLog [not null]
-  role Role [not null]
+  memberOnProjects MemberOnProjects [not null]
+  memberOnTeams MemberOnTeams [not null]
+  posts Post [not null]
+  createdProjects Project [not null]
+  managedProjects Project [not null]
+  repotedProjects Project [not null]
+  assignedTasks Task [not null]
+  createdTasks Task [not null]
+  reportedTasks Task [not null]
+  createdteams Team [not null]
+  managedteams Team [not null]
+  avatar File
+  organization Organization [not null]
   userPermissions UserPermission [not null]
   userSettings UserSetting [not null]
-  memberOnProjects MemberOnProjects [not null]
-  managedProjects Project [not null]
-  createdProjects Project [not null]
-  reportedTasks Task [not null]
-  repotedProjects Project [not null]
 }
 
 Table UserSetting {
@@ -117,8 +117,8 @@ Table UserSetting {
   updatedAt DateTime [default: `now()`, not null]
   key String [not null]
   value Json [not null, default: '{}']
-  user User [not null]
   userId Int [not null]
+  user User [not null]
 }
 
 Table Form {
@@ -129,15 +129,11 @@ Table Form {
   schema Json [not null]
   config Json [not null]
   validationConfig Json [not null]
-  triggerConfig Json [not null]
-  serializerConfig Json [not null]
-  displayTemplate String [not null]
-  displayConfig Json [not null]
-  taskDefinitions TaskDefinition [not null]
-  tasks Task [not null]
-  values Json
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [default: `now()`, not null]
+  values Json
+  tasks Task [not null]
+  taskDefinitions TaskDefinition [not null]
 }
 
 Table Permission {
@@ -147,10 +143,10 @@ Table Permission {
   description String [not null]
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [default: `now()`, not null]
-  organization Organization [not null]
   organizationId Int [not null]
-  permissionGroup PermissionGroup [not null]
   permissionGroupId Int [not null]
+  organization Organization [not null]
+  permissionGroup PermissionGroup [not null]
   userPermissions UserPermission [not null]
 }
 
@@ -160,18 +156,18 @@ Table PermissionGroup {
   description String [not null]
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [default: `now()`, not null]
-  organization Organization [not null]
   organizationId Int [not null]
   permissions Permission [not null]
+  organization Organization [not null]
 }
 
 Table UserPermission {
   id Int [pk, increment]
   createdAt DateTime [default: `now()`, not null]
-  user User [not null]
   userId Int [not null]
-  permission Permission [not null]
   permissionId Int [not null]
+  permission Permission [not null]
+  user User [not null]
 }
 
 Table Post {
@@ -181,8 +177,8 @@ Table Post {
   published Boolean [not null]
   title String [not null]
   content String
-  author User
   authorId Int
+  author User
 }
 
 Table Project {
@@ -193,20 +189,20 @@ Table Project {
   description String [not null]
   code String [not null]
   icon String [not null]
-  organization Organization [not null]
   organizationId Int [not null]
-  taskDefinition TaskDefinition [not null]
   taskDefinitionId Int [not null]
-  tasks Task [not null]
-  creator User [not null]
   creatorId Int [not null]
-  manager User [not null]
   managerId Int [not null]
-  reporter User [not null]
   reporterId Int [not null]
   members MemberOnProjects [not null]
-  taskBoards TaskBoard [not null]
+  creator User [not null]
+  manager User [not null]
+  organization Organization [not null]
+  reporter User [not null]
+  taskDefinition TaskDefinition [not null]
   settings ProjectSettings [not null]
+  tasks Task [not null]
+  taskBoards TaskBoard [not null]
 }
 
 Table TaskBoard {
@@ -221,13 +217,13 @@ Table TaskBoard {
   viewType TaskBoardViewType [not null, default: 'Todos']
   viewConfig Json [not null, default: '{}']
   visibility Visibility [not null, default: 'Public']
-  settings TaskBoardSettings [not null]
-  organization Organization [not null]
   organizationId Int [not null]
-  project Project
   projectId Int
-  taskDefinition TaskDefinition [not null]
   taskDefinitionId Int [not null]
+  organization Organization [not null]
+  project Project
+  taskDefinition TaskDefinition [not null]
+  settings TaskBoardSettings [not null]
 }
 
 Table TaskBoardSettings {
@@ -236,17 +232,17 @@ Table TaskBoardSettings {
   updatedAt DateTime [default: `now()`, not null]
   key String [not null]
   value Json [not null, default: '{}']
-  taskBoard TaskBoard [not null]
   taskBoardId Int [not null]
+  taskBoard TaskBoard [not null]
 }
 
 Table MemberOnProjects {
-  project Project [not null]
   projectId Int [not null]
-  user User [not null]
   userId Int [not null]
   assignedAt DateTime [default: `now()`, not null]
   assignedBy String [not null]
+  project Project [not null]
+  user User [not null]
 
   indexes {
     (projectId, userId) [pk]
@@ -259,8 +255,8 @@ Table ProjectSettings {
   updatedAt DateTime [default: `now()`, not null]
   key String [not null]
   value Json [not null, default: '{}']
-  project Project [not null]
   projectId Int [not null]
+  project Project [not null]
 }
 
 Table Team {
@@ -271,22 +267,22 @@ Table Team {
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [default: `now()`, not null]
   creatorId Int [not null]
-  creator User [not null]
   managerId Int [not null]
-  manager User [not null]
   organizationId Int [not null]
-  organization Organization [not null]
   memberOnTeams MemberOnTeams [not null]
   tasks Task [not null]
+  creator User [not null]
+  manager User [not null]
+  organization Organization [not null]
 }
 
 Table MemberOnTeams {
-  team Team [not null]
   teamId Int [not null]
-  user User [not null]
   userId Int [not null]
   assignedAt DateTime [default: `now()`, not null]
   assignedBy String [not null]
+  team Team [not null]
+  user User [not null]
 
   indexes {
     (teamId, userId) [pk]
@@ -297,49 +293,36 @@ Table TaskDefinition {
   id Int [pk, increment]
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [default: `now()`, not null]
-  keyTemplate String
   title String [not null]
   description String [not null]
   icon String [not null]
   thumbnail String [not null]
-  formId Int
-  form Form
   descriptionTemplate String
   titleTemplate String
   statusTemplate String
   stateTemplate String
   notificationTemplate String
   ctaTemplate String
-  machineConfig Json
-  contextConfig Json
-  stateConfig Json
   statusConfig Json
   notificationConfig Json
   processConfig Json
   triggerConfig Json
   ctaConfig Json
   config Json
-  taskInstances Task [not null]
-  organization Organization [not null]
   organizationId Int [not null]
   parentId Int
+  stateConfig Json
+  formId Int
+  keyTemplate String
+  machineConfig Json
+  contextConfig Json
+  projects Project [not null]
+  taskInstances Task [not null]
+  taskBoards TaskBoard [not null]
+  form Form
+  organization Organization [not null]
   parentTaskDefinition TaskDefinition
   subTaskDefinitions TaskDefinition [not null]
-  taskDefinitionActivityDefinitions TaskDefinitionActivityDefinition [not null]
-  projects Project [not null]
-  taskBoards TaskBoard [not null]
-}
-
-Table TaskDefinitionActivityDefinition {
-  id Int [pk, increment]
-  taskDefinitionId Int [not null]
-  taskDefinition TaskDefinition [not null]
-  activityDefinitionId Int [not null]
-  activityDefinition ActivityDefinition [not null]
-  config Json
-  initialValue Json
-  createdAt DateTime [default: `now()`, not null]
-  updatedAt DateTime [default: `now()`, not null]
 }
 
 Table Task {
@@ -348,57 +331,49 @@ Table Task {
   description String [not null]
   dueDate DateTime
   priority TaskPriority [not null, default: 'LOW']
-  isActive Boolean [not null, default: false]
-  key String [not null]
-  properties Json
   values Json
-  type String [not null, default: '']
-  typeName String [not null, default: '']
-  cta String [not null, default: '']
   ctaName String [not null, default: '']
-  state String [not null, default: '']
   stateName String [not null, default: '']
-  status String [not null, default: '']
   statusName String [not null, default: '']
-  stateValues String [not null, default: '']
-  descriptionTemplate String
-  titleTemplate String
-  statusTemplate String
-  stateTemplate String
-  notificationTemplate String
-  ctaTemplate String
-  machineConfig Json
-  contextConfig Json
-  stateConfig Json
-  statusConfig Json
-  notificationConfig Json
-  processConfig Json
-  triggerConfig Json
-  ctaConfig Json
-  formConfig Json
-  config Json
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [default: `now()`, not null]
-  definitionId Int [not null]
-  definition TaskDefinition [not null]
+  definitionId Int
+  assigneeId Int
+  creatorId Int [not null]
+  parentId Int
+  organizationId Int [not null]
+  teamId Int
+  config Json
+  cta String [not null, default: '']
+  ctaTemplate String
+  descriptionTemplate String
+  notificationTemplate String
+  properties Json
+  state String [not null, default: '']
+  stateTemplate String
+  stateValues String [not null, default: '']
+  statusTemplate String
+  titleTemplate String
+  type String [not null, default: '']
+  typeName String [not null, default: '']
+  status String [not null, default: '']
+  formConfig Json
+  key String [not null]
+  isActive Boolean [not null, default: false]
+  formId Int
+  projectId Int
+  reporterId Int
   comments Comment [not null]
   eventLogs EventLog [not null]
-  formId Int
-  form Form
-  projectId Int
-  project Project
-  assigneeId Int
   assignee User
-  creatorId Int [not null]
   creator User [not null]
-  parentId Int
+  definition TaskDefinition
+  form Form
+  organization Organization [not null]
   parentTask Task
   subTasks Task [not null]
-  organizationId Int [not null]
-  organization Organization [not null]
-  reporterId Int
+  project Project
   reporter User
-  teamId Int
   team Team
   Trigger Trigger [not null]
 }
@@ -409,8 +384,8 @@ Table Comment {
   updatedAt DateTime [default: `now()`, not null]
   content String [not null]
   creatorId Int [not null]
-  creator User [not null]
   taskId Int [not null]
+  creator User [not null]
   task Task [not null]
 }
 
@@ -418,16 +393,16 @@ Table EventLog {
   id Int [pk, increment]
   createdAt DateTime [default: `now()`, not null]
   userId Int
-  user User
   taskId Int
-  task Task
   organizationId Int [not null]
-  organization Organization [not null]
+  content String
   context Json
   action String
-  intent String
   domain String
-  content String
+  intent String
+  organization Organization [not null]
+  task Task
+  user User
 }
 
 Table Trigger {
@@ -435,12 +410,12 @@ Table Trigger {
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [default: `now()`, not null]
   type TriggerType [not null]
-  status TriggerStatus [not null]
-  key String [not null]
-  value Json
   name String
   description String
+  key String [not null]
+  status TriggerStatus [not null]
   taskId Int
+  value Json
   task Task
 }
 
@@ -455,7 +430,6 @@ Table ActivityDefinition {
   key String [unique, not null]
   name String
   description String
-  taskDefinitionActivityDefinitions TaskDefinitionActivityDefinition [not null]
 }
 
 Enum FileType {
@@ -524,9 +498,9 @@ Ref: Resource.organizationId > Organization.id
 
 Ref: ResourceItem.resourceId > Resource.id
 
-Ref: File.variantOfId - File.id
-
 Ref: File.organizationId > Organization.id
+
+Ref: File.variantOfId - File.id
 
 Ref: Settings.organizationId > Organization.id
 
@@ -542,21 +516,21 @@ Ref: Permission.permissionGroupId > PermissionGroup.id
 
 Ref: PermissionGroup.organizationId > Organization.id
 
-Ref: UserPermission.userId > User.id
-
 Ref: UserPermission.permissionId > Permission.id
 
+Ref: UserPermission.userId > User.id
+
 Ref: Post.authorId > User.id
-
-Ref: Project.organizationId > Organization.id
-
-Ref: Project.taskDefinitionId > TaskDefinition.id
 
 Ref: Project.creatorId > User.id
 
 Ref: Project.managerId > User.id
 
+Ref: Project.organizationId > Organization.id
+
 Ref: Project.reporterId > User.id
+
+Ref: Project.taskDefinitionId > TaskDefinition.id
 
 Ref: TaskBoard.organizationId > Organization.id
 
@@ -588,23 +562,19 @@ Ref: TaskDefinition.organizationId > Organization.id
 
 Ref: TaskDefinition.parentId - TaskDefinition.id
 
-Ref: TaskDefinitionActivityDefinition.taskDefinitionId > TaskDefinition.id
+Ref: Task.assigneeId > User.id
 
-Ref: TaskDefinitionActivityDefinition.activityDefinitionId > ActivityDefinition.id
+Ref: Task.creatorId > User.id
 
 Ref: Task.definitionId > TaskDefinition.id
 
 Ref: Task.formId > Form.id
 
-Ref: Task.projectId > Project.id
-
-Ref: Task.assigneeId > User.id
-
-Ref: Task.creatorId > User.id
+Ref: Task.organizationId > Organization.id
 
 Ref: Task.parentId - Task.id
 
-Ref: Task.organizationId > Organization.id
+Ref: Task.projectId > Project.id
 
 Ref: Task.reporterId > User.id
 
@@ -614,10 +584,10 @@ Ref: Comment.creatorId > User.id
 
 Ref: Comment.taskId > Task.id
 
-Ref: EventLog.userId > User.id
+Ref: EventLog.organizationId > Organization.id
 
 Ref: EventLog.taskId > Task.id
 
-Ref: EventLog.organizationId > Organization.id
+Ref: EventLog.userId > User.id
 
 Ref: Trigger.taskId > Task.id

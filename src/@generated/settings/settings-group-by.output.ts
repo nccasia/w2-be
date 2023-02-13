@@ -23,11 +23,11 @@ export class SettingsGroupBy {
     @Field(() => String, {nullable:false})
     key!: string;
 
-    @Field(() => GraphQLJSON, {nullable:false})
-    value!: any;
-
     @Field(() => Int, {nullable:false})
     organizationId!: number;
+
+    @Field(() => GraphQLJSON, {nullable:false})
+    value!: any;
 
     @Field(() => SettingsCountAggregate, {nullable:true})
     _count?: SettingsCountAggregate;

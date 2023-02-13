@@ -3,8 +3,8 @@ import { InputType } from '@nestjs/graphql';
 import { IntWithAggregatesFilter } from '../prisma/int-with-aggregates-filter.input';
 import { StringWithAggregatesFilter } from '../prisma/string-with-aggregates-filter.input';
 import { JsonWithAggregatesFilter } from '../prisma/json-with-aggregates-filter.input';
-import { JsonNullableWithAggregatesFilter } from '../prisma/json-nullable-with-aggregates-filter.input';
 import { DateTimeWithAggregatesFilter } from '../prisma/date-time-with-aggregates-filter.input';
+import { JsonNullableWithAggregatesFilter } from '../prisma/json-nullable-with-aggregates-filter.input';
 
 @InputType()
 export class FormScalarWhereWithAggregatesInput {
@@ -39,24 +39,12 @@ export class FormScalarWhereWithAggregatesInput {
     @Field(() => JsonWithAggregatesFilter, {nullable:true})
     validationConfig?: JsonWithAggregatesFilter;
 
-    @Field(() => JsonWithAggregatesFilter, {nullable:true})
-    triggerConfig?: JsonWithAggregatesFilter;
-
-    @Field(() => JsonWithAggregatesFilter, {nullable:true})
-    serializerConfig?: JsonWithAggregatesFilter;
-
-    @Field(() => StringWithAggregatesFilter, {nullable:true})
-    displayTemplate?: StringWithAggregatesFilter;
-
-    @Field(() => JsonWithAggregatesFilter, {nullable:true})
-    displayConfig?: JsonWithAggregatesFilter;
-
-    @Field(() => JsonNullableWithAggregatesFilter, {nullable:true})
-    values?: JsonNullableWithAggregatesFilter;
-
     @Field(() => DateTimeWithAggregatesFilter, {nullable:true})
     createdAt?: DateTimeWithAggregatesFilter;
 
     @Field(() => DateTimeWithAggregatesFilter, {nullable:true})
     updatedAt?: DateTimeWithAggregatesFilter;
+
+    @Field(() => JsonNullableWithAggregatesFilter, {nullable:true})
+    values?: JsonNullableWithAggregatesFilter;
 }

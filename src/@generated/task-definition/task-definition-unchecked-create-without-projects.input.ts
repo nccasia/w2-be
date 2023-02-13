@@ -3,9 +3,8 @@ import { InputType } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
 import { GraphQLJSON } from 'graphql-type-json';
 import { TaskUncheckedCreateNestedManyWithoutDefinitionInput } from '../task/task-unchecked-create-nested-many-without-definition.input';
-import { TaskDefinitionUncheckedCreateNestedManyWithoutParentTaskDefinitionInput } from './task-definition-unchecked-create-nested-many-without-parent-task-definition.input';
-import { TaskDefinitionActivityDefinitionUncheckedCreateNestedManyWithoutTaskDefinitionInput } from '../task-definition-activity-definition/task-definition-activity-definition-unchecked-create-nested-many-without-task-definition.input';
 import { TaskBoardUncheckedCreateNestedManyWithoutTaskDefinitionInput } from '../task-board/task-board-unchecked-create-nested-many-without-task-definition.input';
+import { TaskDefinitionUncheckedCreateNestedManyWithoutParentTaskDefinitionInput } from './task-definition-unchecked-create-nested-many-without-parent-task-definition.input';
 
 @InputType()
 export class TaskDefinitionUncheckedCreateWithoutProjectsInput {
@@ -19,9 +18,6 @@ export class TaskDefinitionUncheckedCreateWithoutProjectsInput {
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
 
-    @Field(() => String, {nullable:true})
-    keyTemplate?: string;
-
     @Field(() => String, {nullable:false})
     title!: string;
 
@@ -33,9 +29,6 @@ export class TaskDefinitionUncheckedCreateWithoutProjectsInput {
 
     @Field(() => String, {nullable:false})
     thumbnail!: string;
-
-    @Field(() => Int, {nullable:true})
-    formId?: number;
 
     @Field(() => String, {nullable:true})
     descriptionTemplate?: string;
@@ -56,15 +49,6 @@ export class TaskDefinitionUncheckedCreateWithoutProjectsInput {
     ctaTemplate?: string;
 
     @Field(() => GraphQLJSON, {nullable:true})
-    machineConfig?: any;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    contextConfig?: any;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    stateConfig?: any;
-
-    @Field(() => GraphQLJSON, {nullable:true})
     statusConfig?: any;
 
     @Field(() => GraphQLJSON, {nullable:true})
@@ -82,21 +66,33 @@ export class TaskDefinitionUncheckedCreateWithoutProjectsInput {
     @Field(() => GraphQLJSON, {nullable:true})
     config?: any;
 
-    @Field(() => TaskUncheckedCreateNestedManyWithoutDefinitionInput, {nullable:true})
-    taskInstances?: TaskUncheckedCreateNestedManyWithoutDefinitionInput;
-
     @Field(() => Int, {nullable:false})
     organizationId!: number;
 
     @Field(() => Int, {nullable:true})
     parentId?: number;
 
-    @Field(() => TaskDefinitionUncheckedCreateNestedManyWithoutParentTaskDefinitionInput, {nullable:true})
-    subTaskDefinitions?: TaskDefinitionUncheckedCreateNestedManyWithoutParentTaskDefinitionInput;
+    @Field(() => GraphQLJSON, {nullable:true})
+    stateConfig?: any;
 
-    @Field(() => TaskDefinitionActivityDefinitionUncheckedCreateNestedManyWithoutTaskDefinitionInput, {nullable:true})
-    taskDefinitionActivityDefinitions?: TaskDefinitionActivityDefinitionUncheckedCreateNestedManyWithoutTaskDefinitionInput;
+    @Field(() => Int, {nullable:true})
+    formId?: number;
+
+    @Field(() => String, {nullable:true})
+    keyTemplate?: string;
+
+    @Field(() => GraphQLJSON, {nullable:true})
+    machineConfig?: any;
+
+    @Field(() => GraphQLJSON, {nullable:true})
+    contextConfig?: any;
+
+    @Field(() => TaskUncheckedCreateNestedManyWithoutDefinitionInput, {nullable:true})
+    taskInstances?: TaskUncheckedCreateNestedManyWithoutDefinitionInput;
 
     @Field(() => TaskBoardUncheckedCreateNestedManyWithoutTaskDefinitionInput, {nullable:true})
     taskBoards?: TaskBoardUncheckedCreateNestedManyWithoutTaskDefinitionInput;
+
+    @Field(() => TaskDefinitionUncheckedCreateNestedManyWithoutParentTaskDefinitionInput, {nullable:true})
+    subTaskDefinitions?: TaskDefinitionUncheckedCreateNestedManyWithoutParentTaskDefinitionInput;
 }

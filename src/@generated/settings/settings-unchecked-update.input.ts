@@ -20,9 +20,9 @@ export class SettingsUncheckedUpdateInput {
     @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
     key?: StringFieldUpdateOperationsInput;
 
-    @Field(() => GraphQLJSON, {nullable:true})
-    value?: any;
-
     @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
     organizationId?: IntFieldUpdateOperationsInput;
+
+    @Field(() => GraphQLJSON, {nullable:true})
+    value?: any;
 }

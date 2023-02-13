@@ -1,7 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { TriggerType, TriggerStatus } from '@prisma/client';
 import { PrismaService } from 'nestjs-prisma';
-import { TaskState } from '../fsm/task-state';
 
 @Injectable()
 export class FormService {

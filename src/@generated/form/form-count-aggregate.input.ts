@@ -26,25 +26,13 @@ export class FormCountAggregateInput {
     validationConfig?: true;
 
     @Field(() => Boolean, {nullable:true})
-    triggerConfig?: true;
-
-    @Field(() => Boolean, {nullable:true})
-    serializerConfig?: true;
-
-    @Field(() => Boolean, {nullable:true})
-    displayTemplate?: true;
-
-    @Field(() => Boolean, {nullable:true})
-    displayConfig?: true;
-
-    @Field(() => Boolean, {nullable:true})
-    values?: true;
-
-    @Field(() => Boolean, {nullable:true})
     createdAt?: true;
 
     @Field(() => Boolean, {nullable:true})
     updatedAt?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    values?: true;
 
     @Field(() => Boolean, {nullable:true})
     _all?: true;

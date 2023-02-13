@@ -15,9 +15,6 @@ export class TaskDefinitionMinAggregate {
     updatedAt?: Date | string;
 
     @Field(() => String, {nullable:true})
-    keyTemplate?: string;
-
-    @Field(() => String, {nullable:true})
     title?: string;
 
     @Field(() => String, {nullable:true})
@@ -28,9 +25,6 @@ export class TaskDefinitionMinAggregate {
 
     @Field(() => String, {nullable:true})
     thumbnail?: string;
-
-    @Field(() => Int, {nullable:true})
-    formId?: number;
 
     @Field(() => String, {nullable:true})
     descriptionTemplate?: string;
@@ -55,4 +49,10 @@ export class TaskDefinitionMinAggregate {
 
     @Field(() => Int, {nullable:true})
     parentId?: number;
+
+    @Field(() => Int, {nullable:true})
+    formId?: number;
+
+    @Field(() => String, {nullable:true})
+    keyTemplate?: string;
 }

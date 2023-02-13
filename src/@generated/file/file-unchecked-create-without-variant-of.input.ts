@@ -44,11 +44,11 @@ export class FileUncheckedCreateWithoutVariantOfInput {
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
 
-    @Field(() => FileUncheckedCreateNestedManyWithoutVariantOfInput, {nullable:true})
-    variants?: FileUncheckedCreateNestedManyWithoutVariantOfInput;
-
     @Field(() => Int, {nullable:false})
     organizationId!: number;
+
+    @Field(() => FileUncheckedCreateNestedManyWithoutVariantOfInput, {nullable:true})
+    variants?: FileUncheckedCreateNestedManyWithoutVariantOfInput;
 
     @Field(() => UserUncheckedCreateNestedManyWithoutAvatarInput, {nullable:true})
     avatarUsers?: UserUncheckedCreateNestedManyWithoutAvatarInput;

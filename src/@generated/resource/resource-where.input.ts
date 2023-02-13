@@ -39,11 +39,11 @@ export class ResourceWhereInput {
     @Field(() => DateTimeFilter, {nullable:true})
     updatedAt?: DateTimeFilter;
 
-    @Field(() => OrganizationRelationFilter, {nullable:true})
-    organization?: OrganizationRelationFilter;
-
     @Field(() => IntFilter, {nullable:true})
     organizationId?: IntFilter;
+
+    @Field(() => OrganizationRelationFilter, {nullable:true})
+    organization?: OrganizationRelationFilter;
 
     @Field(() => ResourceItemListRelationFilter, {nullable:true})
     resourceItems?: ResourceItemListRelationFilter;

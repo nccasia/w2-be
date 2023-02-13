@@ -30,12 +30,12 @@ export class SettingsWhereInput {
     @Field(() => StringFilter, {nullable:true})
     key?: StringFilter;
 
+    @Field(() => IntFilter, {nullable:true})
+    organizationId?: IntFilter;
+
     @Field(() => JsonFilter, {nullable:true})
     value?: JsonFilter;
 
     @Field(() => OrganizationRelationFilter, {nullable:true})
     organization?: OrganizationRelationFilter;
-
-    @Field(() => IntFilter, {nullable:true})
-    organizationId?: IntFilter;
 }

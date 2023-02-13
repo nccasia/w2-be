@@ -49,17 +49,17 @@ export class File {
     @Field(() => Int, {nullable:true})
     variantOfId!: number | null;
 
-    @Field(() => File, {nullable:true})
-    variantOf?: File | null;
-
-    @Field(() => [File], {nullable:true})
-    variants?: Array<File>;
-
     @Field(() => Int, {nullable:false})
     organizationId!: number;
 
     @Field(() => Organization, {nullable:false})
     organization?: Organization;
+
+    @Field(() => File, {nullable:true})
+    variantOf?: File | null;
+
+    @Field(() => [File], {nullable:true})
+    variants?: Array<File>;
 
     @Field(() => [User], {nullable:true})
     avatarUsers?: Array<User>;

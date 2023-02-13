@@ -1,4 +1,22 @@
 actions:
+  - name: createTaskInput
+    definition:
+      kind: synchronous
+      handler: http://n8n:8081/webhook/5a0d0474-51e0-447f-975d-9e7ea2d2c753
+      request_transform:
+        method: POST
+        query_params: {}
+        template_engine: Kriti
+        version: 2
+      response_transform:
+        body:
+          action: transform
+          template: |-
+            {
+              "id": {{$body.ID}}
+            }
+        template_engine: Kriti
+        version: 2
   - name: googleLogin
     definition:
       kind: synchronous
@@ -91,6 +109,9 @@ custom_types:
     - name: LoginInput
     - name: FormTriggerInput
     - name: GoogleLoginInput
+    - name: New_task
+    - name: Form_obj_rel_insert
+    - name: Form_insert
   objects:
     - name: LoginAuth
     - name: LoginUser
@@ -99,5 +120,6 @@ custom_types:
     - name: FormSubmitResponse
     - name: SubmitTaskOutput
     - name: SubmitTask
+    - name: ITask
   scalars:
     - name: JWT

@@ -43,12 +43,12 @@ export class TaskBoardUncheckedCreateWithoutProjectInput {
     @Field(() => Visibility, {nullable:true})
     visibility?: keyof typeof Visibility;
 
-    @Field(() => TaskBoardSettingsUncheckedCreateNestedManyWithoutTaskBoardInput, {nullable:true})
-    settings?: TaskBoardSettingsUncheckedCreateNestedManyWithoutTaskBoardInput;
-
     @Field(() => Int, {nullable:false})
     organizationId!: number;
 
     @Field(() => Int, {nullable:false})
     taskDefinitionId!: number;
+
+    @Field(() => TaskBoardSettingsUncheckedCreateNestedManyWithoutTaskBoardInput, {nullable:true})
+    settings?: TaskBoardSettingsUncheckedCreateNestedManyWithoutTaskBoardInput;
 }

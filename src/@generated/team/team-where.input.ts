@@ -3,10 +3,10 @@ import { InputType } from '@nestjs/graphql';
 import { IntFilter } from '../prisma/int-filter.input';
 import { StringFilter } from '../prisma/string-filter.input';
 import { DateTimeFilter } from '../prisma/date-time-filter.input';
-import { UserRelationFilter } from '../user/user-relation-filter.input';
-import { OrganizationRelationFilter } from '../organization/organization-relation-filter.input';
 import { MemberOnTeamsListRelationFilter } from '../member-on-teams/member-on-teams-list-relation-filter.input';
 import { TaskListRelationFilter } from '../task/task-list-relation-filter.input';
+import { UserRelationFilter } from '../user/user-relation-filter.input';
+import { OrganizationRelationFilter } from '../organization/organization-relation-filter.input';
 
 @InputType()
 export class TeamWhereInput {
@@ -41,24 +41,24 @@ export class TeamWhereInput {
     @Field(() => IntFilter, {nullable:true})
     creatorId?: IntFilter;
 
-    @Field(() => UserRelationFilter, {nullable:true})
-    creator?: UserRelationFilter;
-
     @Field(() => IntFilter, {nullable:true})
     managerId?: IntFilter;
 
-    @Field(() => UserRelationFilter, {nullable:true})
-    manager?: UserRelationFilter;
-
     @Field(() => IntFilter, {nullable:true})
     organizationId?: IntFilter;
-
-    @Field(() => OrganizationRelationFilter, {nullable:true})
-    organization?: OrganizationRelationFilter;
 
     @Field(() => MemberOnTeamsListRelationFilter, {nullable:true})
     memberOnTeams?: MemberOnTeamsListRelationFilter;
 
     @Field(() => TaskListRelationFilter, {nullable:true})
     tasks?: TaskListRelationFilter;
+
+    @Field(() => UserRelationFilter, {nullable:true})
+    creator?: UserRelationFilter;
+
+    @Field(() => UserRelationFilter, {nullable:true})
+    manager?: UserRelationFilter;
+
+    @Field(() => OrganizationRelationFilter, {nullable:true})
+    organization?: OrganizationRelationFilter;
 }

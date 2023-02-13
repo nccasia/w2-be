@@ -2,10 +2,10 @@ import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
 import { Int } from '@nestjs/graphql';
-import { User } from '../user/user.model';
-import { Task } from '../task/task.model';
-import { Organization } from '../organization/organization.model';
 import { GraphQLJSON } from 'graphql-type-json';
+import { Organization } from '../organization/organization.model';
+import { Task } from '../task/task.model';
+import { User } from '../user/user.model';
 
 @ObjectType()
 export class EventLog {
@@ -19,20 +19,14 @@ export class EventLog {
     @Field(() => Int, {nullable:true})
     userId!: number | null;
 
-    @Field(() => User, {nullable:true})
-    user?: User | null;
-
     @Field(() => Int, {nullable:true})
     taskId!: number | null;
-
-    @Field(() => Task, {nullable:true})
-    task?: Task | null;
 
     @Field(() => Int, {nullable:false})
     organizationId!: number;
 
-    @Field(() => Organization, {nullable:false})
-    organization?: Organization;
+    @Field(() => String, {nullable:true})
+    content!: string | null;
 
     @Field(() => GraphQLJSON, {nullable:true})
     context!: any | null;
@@ -41,11 +35,17 @@ export class EventLog {
     action!: string | null;
 
     @Field(() => String, {nullable:true})
-    intent!: string | null;
-
-    @Field(() => String, {nullable:true})
     domain!: string | null;
 
     @Field(() => String, {nullable:true})
-    content!: string | null;
+    intent!: string | null;
+
+    @Field(() => Organization, {nullable:false})
+    organization?: Organization;
+
+    @Field(() => Task, {nullable:true})
+    task?: Task | null;
+
+    @Field(() => User, {nullable:true})
+    user?: User | null;
 }

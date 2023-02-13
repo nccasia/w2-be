@@ -24,27 +24,15 @@ export class FormCreateWithoutTaskDefinitionsInput {
     @Field(() => GraphQLJSON, {nullable:false})
     validationConfig!: any;
 
-    @Field(() => GraphQLJSON, {nullable:false})
-    triggerConfig!: any;
-
-    @Field(() => GraphQLJSON, {nullable:false})
-    serializerConfig!: any;
-
-    @Field(() => String, {nullable:false})
-    displayTemplate!: string;
-
-    @Field(() => GraphQLJSON, {nullable:false})
-    displayConfig!: any;
-
-    @Field(() => TaskCreateNestedManyWithoutFormInput, {nullable:true})
-    tasks?: TaskCreateNestedManyWithoutFormInput;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    values?: any;
-
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
 
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
+
+    @Field(() => GraphQLJSON, {nullable:true})
+    values?: any;
+
+    @Field(() => TaskCreateNestedManyWithoutFormInput, {nullable:true})
+    tasks?: TaskCreateNestedManyWithoutFormInput;
 }

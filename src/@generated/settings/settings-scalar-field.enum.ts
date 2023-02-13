@@ -5,8 +5,8 @@ export enum SettingsScalarFieldEnum {
     createdAt = "createdAt",
     updatedAt = "updatedAt",
     key = "key",
-    value = "value",
-    organizationId = "organizationId"
+    organizationId = "organizationId",
+    value = "value"
 }
 
 

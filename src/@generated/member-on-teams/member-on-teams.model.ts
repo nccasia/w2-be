@@ -1,20 +1,14 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
-import { Team } from '../team/team.model';
 import { Int } from '@nestjs/graphql';
+import { Team } from '../team/team.model';
 import { User } from '../user/user.model';
 
 @ObjectType()
 export class MemberOnTeams {
 
-    @Field(() => Team, {nullable:false})
-    team?: Team;
-
     @Field(() => Int, {nullable:false})
     teamId!: number;
-
-    @Field(() => User, {nullable:false})
-    user?: User;
 
     @Field(() => Int, {nullable:false})
     userId!: number;
@@ -24,4 +18,10 @@ export class MemberOnTeams {
 
     @Field(() => String, {nullable:false})
     assignedBy!: string;
+
+    @Field(() => Team, {nullable:false})
+    team?: Team;
+
+    @Field(() => User, {nullable:false})
+    user?: User;
 }

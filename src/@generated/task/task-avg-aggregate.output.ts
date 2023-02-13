@@ -12,12 +12,6 @@ export class TaskAvgAggregate {
     definitionId?: number;
 
     @Field(() => Float, {nullable:true})
-    formId?: number;
-
-    @Field(() => Float, {nullable:true})
-    projectId?: number;
-
-    @Field(() => Float, {nullable:true})
     assigneeId?: number;
 
     @Field(() => Float, {nullable:true})
@@ -30,8 +24,14 @@ export class TaskAvgAggregate {
     organizationId?: number;
 
     @Field(() => Float, {nullable:true})
-    reporterId?: number;
+    teamId?: number;
 
     @Field(() => Float, {nullable:true})
-    teamId?: number;
+    formId?: number;
+
+    @Field(() => Float, {nullable:true})
+    projectId?: number;
+
+    @Field(() => Float, {nullable:true})
+    reporterId?: number;
 }

@@ -33,9 +33,9 @@ export class TaskBoardSettingsWhereInput {
     @Field(() => JsonFilter, {nullable:true})
     value?: JsonFilter;
 
-    @Field(() => TaskBoardRelationFilter, {nullable:true})
-    taskBoard?: TaskBoardRelationFilter;
-
     @Field(() => IntFilter, {nullable:true})
     taskBoardId?: IntFilter;
+
+    @Field(() => TaskBoardRelationFilter, {nullable:true})
+    taskBoard?: TaskBoardRelationFilter;
 }

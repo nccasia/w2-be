@@ -1,13 +1,13 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { OrganizationCreateNestedOneWithoutProjectsInput } from '../organization/organization-create-nested-one-without-projects.input';
-import { TaskDefinitionCreateNestedOneWithoutProjectsInput } from '../task-definition/task-definition-create-nested-one-without-projects.input';
-import { TaskCreateNestedManyWithoutProjectInput } from '../task/task-create-nested-many-without-project.input';
 import { UserCreateNestedOneWithoutCreatedProjectsInput } from '../user/user-create-nested-one-without-created-projects.input';
 import { UserCreateNestedOneWithoutManagedProjectsInput } from '../user/user-create-nested-one-without-managed-projects.input';
+import { OrganizationCreateNestedOneWithoutProjectsInput } from '../organization/organization-create-nested-one-without-projects.input';
 import { UserCreateNestedOneWithoutRepotedProjectsInput } from '../user/user-create-nested-one-without-repoted-projects.input';
-import { TaskBoardCreateNestedManyWithoutProjectInput } from '../task-board/task-board-create-nested-many-without-project.input';
+import { TaskDefinitionCreateNestedOneWithoutProjectsInput } from '../task-definition/task-definition-create-nested-one-without-projects.input';
 import { ProjectSettingsCreateNestedManyWithoutProjectInput } from '../project-settings/project-settings-create-nested-many-without-project.input';
+import { TaskCreateNestedManyWithoutProjectInput } from '../task/task-create-nested-many-without-project.input';
+import { TaskBoardCreateNestedManyWithoutProjectInput } from '../task-board/task-board-create-nested-many-without-project.input';
 
 @InputType()
 export class ProjectCreateWithoutMembersInput {
@@ -30,27 +30,27 @@ export class ProjectCreateWithoutMembersInput {
     @Field(() => String, {nullable:false})
     icon!: string;
 
-    @Field(() => OrganizationCreateNestedOneWithoutProjectsInput, {nullable:false})
-    organization!: OrganizationCreateNestedOneWithoutProjectsInput;
-
-    @Field(() => TaskDefinitionCreateNestedOneWithoutProjectsInput, {nullable:false})
-    taskDefinition!: TaskDefinitionCreateNestedOneWithoutProjectsInput;
-
-    @Field(() => TaskCreateNestedManyWithoutProjectInput, {nullable:true})
-    tasks?: TaskCreateNestedManyWithoutProjectInput;
-
     @Field(() => UserCreateNestedOneWithoutCreatedProjectsInput, {nullable:false})
     creator!: UserCreateNestedOneWithoutCreatedProjectsInput;
 
     @Field(() => UserCreateNestedOneWithoutManagedProjectsInput, {nullable:false})
     manager!: UserCreateNestedOneWithoutManagedProjectsInput;
 
+    @Field(() => OrganizationCreateNestedOneWithoutProjectsInput, {nullable:false})
+    organization!: OrganizationCreateNestedOneWithoutProjectsInput;
+
     @Field(() => UserCreateNestedOneWithoutRepotedProjectsInput, {nullable:false})
     reporter!: UserCreateNestedOneWithoutRepotedProjectsInput;
 
-    @Field(() => TaskBoardCreateNestedManyWithoutProjectInput, {nullable:true})
-    taskBoards?: TaskBoardCreateNestedManyWithoutProjectInput;
+    @Field(() => TaskDefinitionCreateNestedOneWithoutProjectsInput, {nullable:false})
+    taskDefinition!: TaskDefinitionCreateNestedOneWithoutProjectsInput;
 
     @Field(() => ProjectSettingsCreateNestedManyWithoutProjectInput, {nullable:true})
     settings?: ProjectSettingsCreateNestedManyWithoutProjectInput;
+
+    @Field(() => TaskCreateNestedManyWithoutProjectInput, {nullable:true})
+    tasks?: TaskCreateNestedManyWithoutProjectInput;
+
+    @Field(() => TaskBoardCreateNestedManyWithoutProjectInput, {nullable:true})
+    taskBoards?: TaskBoardCreateNestedManyWithoutProjectInput;
 }

@@ -17,9 +17,6 @@ export class FormMaxAggregate {
     @Field(() => String, {nullable:true})
     description?: string;
 
-    @Field(() => String, {nullable:true})
-    displayTemplate?: string;
-
     @Field(() => Date, {nullable:true})
     createdAt?: Date | string;
 

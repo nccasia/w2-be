@@ -3,8 +3,8 @@ import { InputType } from '@nestjs/graphql';
 import { IntFilter } from '../prisma/int-filter.input';
 import { DateTimeFilter } from '../prisma/date-time-filter.input';
 import { IntNullableFilter } from '../prisma/int-nullable-filter.input';
-import { JsonNullableFilter } from '../prisma/json-nullable-filter.input';
 import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
+import { JsonNullableFilter } from '../prisma/json-nullable-filter.input';
 
 @InputType()
 export class EventLogScalarWhereInput {
@@ -33,6 +33,9 @@ export class EventLogScalarWhereInput {
     @Field(() => IntFilter, {nullable:true})
     organizationId?: IntFilter;
 
+    @Field(() => StringNullableFilter, {nullable:true})
+    content?: StringNullableFilter;
+
     @Field(() => JsonNullableFilter, {nullable:true})
     context?: JsonNullableFilter;
 
@@ -40,11 +43,8 @@ export class EventLogScalarWhereInput {
     action?: StringNullableFilter;
 
     @Field(() => StringNullableFilter, {nullable:true})
-    intent?: StringNullableFilter;
-
-    @Field(() => StringNullableFilter, {nullable:true})
     domain?: StringNullableFilter;
 
     @Field(() => StringNullableFilter, {nullable:true})
-    content?: StringNullableFilter;
+    intent?: StringNullableFilter;
 }

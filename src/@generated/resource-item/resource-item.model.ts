@@ -1,8 +1,8 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
-import { Resource } from '../resource/resource.model';
 import { Int } from '@nestjs/graphql';
+import { Resource } from '../resource/resource.model';
 
 @ObjectType()
 export class ResourceItem {
@@ -28,9 +28,9 @@ export class ResourceItem {
     @Field(() => Date, {nullable:false})
     updatedAt!: Date;
 
-    @Field(() => Resource, {nullable:false})
-    resource?: Resource;
-
     @Field(() => Int, {nullable:false})
     resourceId!: number;
+
+    @Field(() => Resource, {nullable:false})
+    resource?: Resource;
 }

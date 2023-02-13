@@ -1,16 +1,16 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { TaskCreateNestedManyWithoutOrganizationInput } from '../task/task-create-nested-many-without-organization.input';
-import { UserCreateNestedManyWithoutOrganizationInput } from '../user/user-create-nested-many-without-organization.input';
-import { TeamCreateNestedManyWithoutOrganizationInput } from '../team/team-create-nested-many-without-organization.input';
-import { SettingsCreateNestedManyWithoutOrganizationInput } from '../settings/settings-create-nested-many-without-organization.input';
-import { FileCreateNestedManyWithoutOrganizationInput } from '../file/file-create-nested-many-without-organization.input';
 import { EventLogCreateNestedManyWithoutOrganizationInput } from '../event-log/event-log-create-nested-many-without-organization.input';
-import { TaskDefinitionCreateNestedManyWithoutOrganizationInput } from '../task-definition/task-definition-create-nested-many-without-organization.input';
+import { FileCreateNestedManyWithoutOrganizationInput } from '../file/file-create-nested-many-without-organization.input';
 import { PermissionGroupCreateNestedManyWithoutOrganizationInput } from '../permission-group/permission-group-create-nested-many-without-organization.input';
-import { ResourceCreateNestedManyWithoutOrganizationInput } from '../resource/resource-create-nested-many-without-organization.input';
 import { ProjectCreateNestedManyWithoutOrganizationInput } from '../project/project-create-nested-many-without-organization.input';
+import { ResourceCreateNestedManyWithoutOrganizationInput } from '../resource/resource-create-nested-many-without-organization.input';
+import { SettingsCreateNestedManyWithoutOrganizationInput } from '../settings/settings-create-nested-many-without-organization.input';
+import { TaskCreateNestedManyWithoutOrganizationInput } from '../task/task-create-nested-many-without-organization.input';
 import { TaskBoardCreateNestedManyWithoutOrganizationInput } from '../task-board/task-board-create-nested-many-without-organization.input';
+import { TaskDefinitionCreateNestedManyWithoutOrganizationInput } from '../task-definition/task-definition-create-nested-many-without-organization.input';
+import { TeamCreateNestedManyWithoutOrganizationInput } from '../team/team-create-nested-many-without-organization.input';
+import { UserCreateNestedManyWithoutOrganizationInput } from '../user/user-create-nested-many-without-organization.input';
 
 @InputType()
 export class OrganizationCreateWithoutPermissionsInput {
@@ -27,36 +27,36 @@ export class OrganizationCreateWithoutPermissionsInput {
     @Field(() => Date, {nullable:true})
     updatedAt?: Date | string;
 
-    @Field(() => TaskCreateNestedManyWithoutOrganizationInput, {nullable:true})
-    tasks?: TaskCreateNestedManyWithoutOrganizationInput;
-
-    @Field(() => UserCreateNestedManyWithoutOrganizationInput, {nullable:true})
-    users?: UserCreateNestedManyWithoutOrganizationInput;
-
-    @Field(() => TeamCreateNestedManyWithoutOrganizationInput, {nullable:true})
-    teams?: TeamCreateNestedManyWithoutOrganizationInput;
-
-    @Field(() => SettingsCreateNestedManyWithoutOrganizationInput, {nullable:true})
-    settings?: SettingsCreateNestedManyWithoutOrganizationInput;
+    @Field(() => EventLogCreateNestedManyWithoutOrganizationInput, {nullable:true})
+    eventLogs?: EventLogCreateNestedManyWithoutOrganizationInput;
 
     @Field(() => FileCreateNestedManyWithoutOrganizationInput, {nullable:true})
     files?: FileCreateNestedManyWithoutOrganizationInput;
 
-    @Field(() => EventLogCreateNestedManyWithoutOrganizationInput, {nullable:true})
-    eventLogs?: EventLogCreateNestedManyWithoutOrganizationInput;
-
-    @Field(() => TaskDefinitionCreateNestedManyWithoutOrganizationInput, {nullable:true})
-    taskDefinitions?: TaskDefinitionCreateNestedManyWithoutOrganizationInput;
-
     @Field(() => PermissionGroupCreateNestedManyWithoutOrganizationInput, {nullable:true})
     permissionGroups?: PermissionGroupCreateNestedManyWithoutOrganizationInput;
-
-    @Field(() => ResourceCreateNestedManyWithoutOrganizationInput, {nullable:true})
-    resources?: ResourceCreateNestedManyWithoutOrganizationInput;
 
     @Field(() => ProjectCreateNestedManyWithoutOrganizationInput, {nullable:true})
     projects?: ProjectCreateNestedManyWithoutOrganizationInput;
 
+    @Field(() => ResourceCreateNestedManyWithoutOrganizationInput, {nullable:true})
+    resources?: ResourceCreateNestedManyWithoutOrganizationInput;
+
+    @Field(() => SettingsCreateNestedManyWithoutOrganizationInput, {nullable:true})
+    settings?: SettingsCreateNestedManyWithoutOrganizationInput;
+
+    @Field(() => TaskCreateNestedManyWithoutOrganizationInput, {nullable:true})
+    tasks?: TaskCreateNestedManyWithoutOrganizationInput;
+
     @Field(() => TaskBoardCreateNestedManyWithoutOrganizationInput, {nullable:true})
     taskBoards?: TaskBoardCreateNestedManyWithoutOrganizationInput;
+
+    @Field(() => TaskDefinitionCreateNestedManyWithoutOrganizationInput, {nullable:true})
+    taskDefinitions?: TaskDefinitionCreateNestedManyWithoutOrganizationInput;
+
+    @Field(() => TeamCreateNestedManyWithoutOrganizationInput, {nullable:true})
+    teams?: TeamCreateNestedManyWithoutOrganizationInput;
+
+    @Field(() => UserCreateNestedManyWithoutOrganizationInput, {nullable:true})
+    users?: UserCreateNestedManyWithoutOrganizationInput;
 }

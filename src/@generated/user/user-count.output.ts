@@ -6,16 +6,13 @@ import { Int } from '@nestjs/graphql';
 export class UserCount {
 
     @Field(() => Int, {nullable:false})
-    managedteams?: number;
+    comments?: number;
 
     @Field(() => Int, {nullable:false})
-    createdteams?: number;
+    taskEvents?: number;
 
     @Field(() => Int, {nullable:false})
-    createdTasks?: number;
-
-    @Field(() => Int, {nullable:false})
-    assignedTasks?: number;
+    memberOnProjects?: number;
 
     @Field(() => Int, {nullable:false})
     memberOnTeams?: number;
@@ -24,29 +21,32 @@ export class UserCount {
     posts?: number;
 
     @Field(() => Int, {nullable:false})
-    comments?: number;
+    createdProjects?: number;
 
     @Field(() => Int, {nullable:false})
-    taskEvents?: number;
+    managedProjects?: number;
+
+    @Field(() => Int, {nullable:false})
+    repotedProjects?: number;
+
+    @Field(() => Int, {nullable:false})
+    assignedTasks?: number;
+
+    @Field(() => Int, {nullable:false})
+    createdTasks?: number;
+
+    @Field(() => Int, {nullable:false})
+    reportedTasks?: number;
+
+    @Field(() => Int, {nullable:false})
+    createdteams?: number;
+
+    @Field(() => Int, {nullable:false})
+    managedteams?: number;
 
     @Field(() => Int, {nullable:false})
     userPermissions?: number;
 
     @Field(() => Int, {nullable:false})
     userSettings?: number;
-
-    @Field(() => Int, {nullable:false})
-    memberOnProjects?: number;
-
-    @Field(() => Int, {nullable:false})
-    managedProjects?: number;
-
-    @Field(() => Int, {nullable:false})
-    createdProjects?: number;
-
-    @Field(() => Int, {nullable:false})
-    reportedTasks?: number;
-
-    @Field(() => Int, {nullable:false})
-    repotedProjects?: number;
 }

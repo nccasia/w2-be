@@ -7,11 +7,11 @@ import { EnumTaskBoardTypeFilter } from '../prisma/enum-task-board-type-filter.i
 import { EnumTaskBoardViewTypeFilter } from '../prisma/enum-task-board-view-type-filter.input';
 import { JsonFilter } from '../prisma/json-filter.input';
 import { EnumVisibilityFilter } from '../prisma/enum-visibility-filter.input';
-import { TaskBoardSettingsListRelationFilter } from '../task-board-settings/task-board-settings-list-relation-filter.input';
+import { IntNullableFilter } from '../prisma/int-nullable-filter.input';
 import { OrganizationRelationFilter } from '../organization/organization-relation-filter.input';
 import { ProjectRelationFilter } from '../project/project-relation-filter.input';
-import { IntNullableFilter } from '../prisma/int-nullable-filter.input';
 import { TaskDefinitionRelationFilter } from '../task-definition/task-definition-relation-filter.input';
+import { TaskBoardSettingsListRelationFilter } from '../task-board-settings/task-board-settings-list-relation-filter.input';
 
 @InputType()
 export class TaskBoardWhereInput {
@@ -58,24 +58,24 @@ export class TaskBoardWhereInput {
     @Field(() => EnumVisibilityFilter, {nullable:true})
     visibility?: EnumVisibilityFilter;
 
-    @Field(() => TaskBoardSettingsListRelationFilter, {nullable:true})
-    settings?: TaskBoardSettingsListRelationFilter;
-
-    @Field(() => OrganizationRelationFilter, {nullable:true})
-    organization?: OrganizationRelationFilter;
-
     @Field(() => IntFilter, {nullable:true})
     organizationId?: IntFilter;
-
-    @Field(() => ProjectRelationFilter, {nullable:true})
-    project?: ProjectRelationFilter;
 
     @Field(() => IntNullableFilter, {nullable:true})
     projectId?: IntNullableFilter;
 
+    @Field(() => IntFilter, {nullable:true})
+    taskDefinitionId?: IntFilter;
+
+    @Field(() => OrganizationRelationFilter, {nullable:true})
+    organization?: OrganizationRelationFilter;
+
+    @Field(() => ProjectRelationFilter, {nullable:true})
+    project?: ProjectRelationFilter;
+
     @Field(() => TaskDefinitionRelationFilter, {nullable:true})
     taskDefinition?: TaskDefinitionRelationFilter;
 
-    @Field(() => IntFilter, {nullable:true})
-    taskDefinitionId?: IntFilter;
+    @Field(() => TaskBoardSettingsListRelationFilter, {nullable:true})
+    settings?: TaskBoardSettingsListRelationFilter;
 }

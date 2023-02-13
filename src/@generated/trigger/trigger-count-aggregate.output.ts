@@ -18,22 +18,22 @@ export class TriggerCountAggregate {
     type!: number;
 
     @Field(() => Int, {nullable:false})
-    status!: number;
-
-    @Field(() => Int, {nullable:false})
-    key!: number;
-
-    @Field(() => Int, {nullable:false})
-    value!: number;
-
-    @Field(() => Int, {nullable:false})
     name!: number;
 
     @Field(() => Int, {nullable:false})
     description!: number;
 
     @Field(() => Int, {nullable:false})
+    key!: number;
+
+    @Field(() => Int, {nullable:false})
+    status!: number;
+
+    @Field(() => Int, {nullable:false})
     taskId!: number;
+
+    @Field(() => Int, {nullable:false})
+    value!: number;
 
     @Field(() => Int, {nullable:false})
     _all!: number;

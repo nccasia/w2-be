@@ -16,18 +16,18 @@ export class TriggerCreateWithoutTaskInput {
     @Field(() => TriggerType, {nullable:false})
     type!: keyof typeof TriggerType;
 
-    @Field(() => TriggerStatus, {nullable:false})
-    status!: keyof typeof TriggerStatus;
-
-    @Field(() => String, {nullable:false})
-    key!: string;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    value?: any;
-
     @Field(() => String, {nullable:true})
     name?: string;
 
     @Field(() => String, {nullable:true})
     description?: string;
+
+    @Field(() => String, {nullable:false})
+    key!: string;
+
+    @Field(() => TriggerStatus, {nullable:false})
+    status!: keyof typeof TriggerStatus;
+
+    @Field(() => GraphQLJSON, {nullable:true})
+    value?: any;
 }

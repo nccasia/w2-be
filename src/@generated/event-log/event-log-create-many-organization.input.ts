@@ -18,6 +18,9 @@ export class EventLogCreateManyOrganizationInput {
     @Field(() => Int, {nullable:true})
     taskId?: number;
 
+    @Field(() => String, {nullable:true})
+    content?: string;
+
     @Field(() => GraphQLJSON, {nullable:true})
     context?: any;
 
@@ -25,11 +28,8 @@ export class EventLogCreateManyOrganizationInput {
     action?: string;
 
     @Field(() => String, {nullable:true})
-    intent?: string;
-
-    @Field(() => String, {nullable:true})
     domain?: string;
 
     @Field(() => String, {nullable:true})
-    content?: string;
+    intent?: string;
 }

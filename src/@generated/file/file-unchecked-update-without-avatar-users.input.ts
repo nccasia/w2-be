@@ -52,9 +52,9 @@ export class FileUncheckedUpdateWithoutAvatarUsersInput {
     @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
     variantOfId?: NullableIntFieldUpdateOperationsInput;
 
-    @Field(() => FileUncheckedUpdateManyWithoutVariantOfNestedInput, {nullable:true})
-    variants?: FileUncheckedUpdateManyWithoutVariantOfNestedInput;
-
     @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
     organizationId?: IntFieldUpdateOperationsInput;
+
+    @Field(() => FileUncheckedUpdateManyWithoutVariantOfNestedInput, {nullable:true})
+    variants?: FileUncheckedUpdateManyWithoutVariantOfNestedInput;
 }

@@ -26,17 +26,71 @@ export class TaskUncheckedCreateWithoutAssigneeInput {
     @Field(() => TaskPriority, {nullable:true})
     priority?: keyof typeof TaskPriority;
 
-    @Field(() => Boolean, {nullable:true})
-    isActive?: boolean;
+    @Field(() => GraphQLJSON, {nullable:true})
+    values?: any;
 
-    @Field(() => String, {nullable:false})
-    key!: string;
+    @Field(() => String, {nullable:true})
+    ctaName?: string;
+
+    @Field(() => String, {nullable:true})
+    stateName?: string;
+
+    @Field(() => String, {nullable:true})
+    statusName?: string;
+
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
+
+    @Field(() => Date, {nullable:true})
+    updatedAt?: Date | string;
+
+    @Field(() => Int, {nullable:true})
+    definitionId?: number;
+
+    @Field(() => Int, {nullable:false})
+    creatorId!: number;
+
+    @Field(() => Int, {nullable:true})
+    parentId?: number;
+
+    @Field(() => Int, {nullable:false})
+    organizationId!: number;
+
+    @Field(() => Int, {nullable:true})
+    teamId?: number;
+
+    @Field(() => GraphQLJSON, {nullable:true})
+    config?: any;
+
+    @Field(() => String, {nullable:true})
+    cta?: string;
+
+    @Field(() => String, {nullable:true})
+    ctaTemplate?: string;
+
+    @Field(() => String, {nullable:true})
+    descriptionTemplate?: string;
+
+    @Field(() => String, {nullable:true})
+    notificationTemplate?: string;
 
     @Field(() => GraphQLJSON, {nullable:true})
     properties?: any;
 
-    @Field(() => GraphQLJSON, {nullable:true})
-    values?: any;
+    @Field(() => String, {nullable:true})
+    state?: string;
+
+    @Field(() => String, {nullable:true})
+    stateTemplate?: string;
+
+    @Field(() => String, {nullable:true})
+    stateValues?: string;
+
+    @Field(() => String, {nullable:true})
+    statusTemplate?: string;
+
+    @Field(() => String, {nullable:true})
+    titleTemplate?: string;
 
     @Field(() => String, {nullable:true})
     type?: string;
@@ -45,88 +99,16 @@ export class TaskUncheckedCreateWithoutAssigneeInput {
     typeName?: string;
 
     @Field(() => String, {nullable:true})
-    cta?: string;
-
-    @Field(() => String, {nullable:true})
-    ctaName?: string;
-
-    @Field(() => String, {nullable:true})
-    state?: string;
-
-    @Field(() => String, {nullable:true})
-    stateName?: string;
-
-    @Field(() => String, {nullable:true})
     status?: string;
-
-    @Field(() => String, {nullable:true})
-    statusName?: string;
-
-    @Field(() => String, {nullable:true})
-    stateValues?: string;
-
-    @Field(() => String, {nullable:true})
-    descriptionTemplate?: string;
-
-    @Field(() => String, {nullable:true})
-    titleTemplate?: string;
-
-    @Field(() => String, {nullable:true})
-    statusTemplate?: string;
-
-    @Field(() => String, {nullable:true})
-    stateTemplate?: string;
-
-    @Field(() => String, {nullable:true})
-    notificationTemplate?: string;
-
-    @Field(() => String, {nullable:true})
-    ctaTemplate?: string;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    machineConfig?: any;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    contextConfig?: any;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    stateConfig?: any;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    statusConfig?: any;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    notificationConfig?: any;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    processConfig?: any;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    triggerConfig?: any;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    ctaConfig?: any;
 
     @Field(() => GraphQLJSON, {nullable:true})
     formConfig?: any;
 
-    @Field(() => GraphQLJSON, {nullable:true})
-    config?: any;
+    @Field(() => String, {nullable:false})
+    key!: string;
 
-    @Field(() => Date, {nullable:true})
-    createdAt?: Date | string;
-
-    @Field(() => Date, {nullable:true})
-    updatedAt?: Date | string;
-
-    @Field(() => Int, {nullable:false})
-    definitionId!: number;
-
-    @Field(() => CommentUncheckedCreateNestedManyWithoutTaskInput, {nullable:true})
-    comments?: CommentUncheckedCreateNestedManyWithoutTaskInput;
-
-    @Field(() => EventLogUncheckedCreateNestedManyWithoutTaskInput, {nullable:true})
-    eventLogs?: EventLogUncheckedCreateNestedManyWithoutTaskInput;
+    @Field(() => Boolean, {nullable:true})
+    isActive?: boolean;
 
     @Field(() => Int, {nullable:true})
     formId?: number;
@@ -134,23 +116,17 @@ export class TaskUncheckedCreateWithoutAssigneeInput {
     @Field(() => Int, {nullable:true})
     projectId?: number;
 
-    @Field(() => Int, {nullable:false})
-    creatorId!: number;
-
-    @Field(() => Int, {nullable:true})
-    parentId?: number;
-
-    @Field(() => TaskUncheckedCreateNestedManyWithoutParentTaskInput, {nullable:true})
-    subTasks?: TaskUncheckedCreateNestedManyWithoutParentTaskInput;
-
-    @Field(() => Int, {nullable:false})
-    organizationId!: number;
-
     @Field(() => Int, {nullable:true})
     reporterId?: number;
 
-    @Field(() => Int, {nullable:true})
-    teamId?: number;
+    @Field(() => CommentUncheckedCreateNestedManyWithoutTaskInput, {nullable:true})
+    comments?: CommentUncheckedCreateNestedManyWithoutTaskInput;
+
+    @Field(() => EventLogUncheckedCreateNestedManyWithoutTaskInput, {nullable:true})
+    eventLogs?: EventLogUncheckedCreateNestedManyWithoutTaskInput;
+
+    @Field(() => TaskUncheckedCreateNestedManyWithoutParentTaskInput, {nullable:true})
+    subTasks?: TaskUncheckedCreateNestedManyWithoutParentTaskInput;
 
     @Field(() => TriggerUncheckedCreateNestedManyWithoutTaskInput, {nullable:true})
     Trigger?: TriggerUncheckedCreateNestedManyWithoutTaskInput;

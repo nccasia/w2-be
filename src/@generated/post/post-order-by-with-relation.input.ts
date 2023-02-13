@@ -24,9 +24,9 @@ export class PostOrderByWithRelationInput {
     @Field(() => SortOrder, {nullable:true})
     content?: keyof typeof SortOrder;
 
-    @Field(() => UserOrderByWithRelationInput, {nullable:true})
-    author?: UserOrderByWithRelationInput;
-
     @Field(() => SortOrder, {nullable:true})
     authorId?: keyof typeof SortOrder;
+
+    @Field(() => UserOrderByWithRelationInput, {nullable:true})
+    author?: UserOrderByWithRelationInput;
 }

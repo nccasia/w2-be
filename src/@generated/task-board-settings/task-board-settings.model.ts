@@ -2,8 +2,8 @@ import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
 import { GraphQLJSON } from 'graphql-type-json';
-import { TaskBoard } from '../task-board/task-board.model';
 import { Int } from '@nestjs/graphql';
+import { TaskBoard } from '../task-board/task-board.model';
 
 @ObjectType()
 export class TaskBoardSettings {
@@ -23,9 +23,9 @@ export class TaskBoardSettings {
     @Field(() => GraphQLJSON, {nullable:false,defaultValue:'{}'})
     value!: any;
 
-    @Field(() => TaskBoard, {nullable:false})
-    taskBoard?: TaskBoard;
-
     @Field(() => Int, {nullable:false})
     taskBoardId!: number;
+
+    @Field(() => TaskBoard, {nullable:false})
+    taskBoard?: TaskBoard;
 }

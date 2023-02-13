@@ -9,8 +9,8 @@ export class UserAvgAggregate {
     id?: number;
 
     @Field(() => Float, {nullable:true})
-    avatarId?: number;
+    organizationId?: number;
 
     @Field(() => Float, {nullable:true})
-    organizationId?: number;
+    avatarId?: number;
 }
