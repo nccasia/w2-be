@@ -42,4 +42,19 @@ export class UserMinAggregateInput {
 
     @Field(() => Boolean, {nullable:true})
     provider?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    fullName?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    branchCode?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    jobPositionCode?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    userTypeName?: true;
+
+    @Field(() => Boolean, {nullable:true})
+    statusName?: true;
 }

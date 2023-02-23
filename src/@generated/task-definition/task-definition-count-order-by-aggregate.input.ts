@@ -45,31 +45,10 @@ export class TaskDefinitionCountOrderByAggregateInput {
     ctaTemplate?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
-    statusConfig?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
-    notificationConfig?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
-    processConfig?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
-    triggerConfig?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
-    ctaConfig?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
-    config?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
     organizationId?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
     parentId?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
-    stateConfig?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
     formId?: keyof typeof SortOrder;
@@ -79,7 +58,4 @@ export class TaskDefinitionCountOrderByAggregateInput {
 
     @Field(() => SortOrder, {nullable:true})
     machineConfig?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
-    contextConfig?: keyof typeof SortOrder;
 }

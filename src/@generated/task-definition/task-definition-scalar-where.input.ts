@@ -4,8 +4,8 @@ import { IntFilter } from '../prisma/int-filter.input';
 import { DateTimeFilter } from '../prisma/date-time-filter.input';
 import { StringFilter } from '../prisma/string-filter.input';
 import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
-import { JsonNullableFilter } from '../prisma/json-nullable-filter.input';
 import { IntNullableFilter } from '../prisma/int-nullable-filter.input';
+import { JsonNullableFilter } from '../prisma/json-nullable-filter.input';
 
 @InputType()
 export class TaskDefinitionScalarWhereInput {
@@ -58,32 +58,11 @@ export class TaskDefinitionScalarWhereInput {
     @Field(() => StringNullableFilter, {nullable:true})
     ctaTemplate?: StringNullableFilter;
 
-    @Field(() => JsonNullableFilter, {nullable:true})
-    statusConfig?: JsonNullableFilter;
-
-    @Field(() => JsonNullableFilter, {nullable:true})
-    notificationConfig?: JsonNullableFilter;
-
-    @Field(() => JsonNullableFilter, {nullable:true})
-    processConfig?: JsonNullableFilter;
-
-    @Field(() => JsonNullableFilter, {nullable:true})
-    triggerConfig?: JsonNullableFilter;
-
-    @Field(() => JsonNullableFilter, {nullable:true})
-    ctaConfig?: JsonNullableFilter;
-
-    @Field(() => JsonNullableFilter, {nullable:true})
-    config?: JsonNullableFilter;
-
     @Field(() => IntFilter, {nullable:true})
     organizationId?: IntFilter;
 
     @Field(() => IntNullableFilter, {nullable:true})
     parentId?: IntNullableFilter;
-
-    @Field(() => JsonNullableFilter, {nullable:true})
-    stateConfig?: JsonNullableFilter;
 
     @Field(() => IntNullableFilter, {nullable:true})
     formId?: IntNullableFilter;
@@ -93,7 +72,4 @@ export class TaskDefinitionScalarWhereInput {
 
     @Field(() => JsonNullableFilter, {nullable:true})
     machineConfig?: JsonNullableFilter;
-
-    @Field(() => JsonNullableFilter, {nullable:true})
-    contextConfig?: JsonNullableFilter;
 }

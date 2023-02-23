@@ -13,7 +13,12 @@ export enum UserScalarFieldEnum {
     avatarId = "avatarId",
     googleId = "googleId",
     googleToken = "googleToken",
-    provider = "provider"
+    provider = "provider",
+    fullName = "fullName",
+    branchCode = "branchCode",
+    jobPositionCode = "jobPositionCode",
+    userTypeName = "userTypeName",
+    statusName = "statusName"
 }
 
 

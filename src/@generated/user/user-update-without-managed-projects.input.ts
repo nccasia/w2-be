@@ -18,7 +18,7 @@ import { TaskUpdateManyWithoutReporterNestedInput } from '../task/task-update-ma
 import { TeamUpdateManyWithoutCreatorNestedInput } from '../team/team-update-many-without-creator-nested.input';
 import { TeamUpdateManyWithoutManagerNestedInput } from '../team/team-update-many-without-manager-nested.input';
 import { FileUpdateOneWithoutAvatarUsersNestedInput } from '../file/file-update-one-without-avatar-users-nested.input';
-import { OrganizationUpdateOneRequiredWithoutUsersNestedInput } from '../organization/organization-update-one-required-without-users-nested.input';
+import { OrganizationUpdateOneWithoutUsersNestedInput } from '../organization/organization-update-one-without-users-nested.input';
 import { UserPermissionUpdateManyWithoutUserNestedInput } from '../user-permission/user-permission-update-many-without-user-nested.input';
 import { UserSettingUpdateManyWithoutUserNestedInput } from '../user-setting/user-setting-update-many-without-user-nested.input';
 
@@ -54,6 +54,21 @@ export class UserUpdateWithoutManagedProjectsInput {
 
     @Field(() => EnumProviderEnumFieldUpdateOperationsInput, {nullable:true})
     provider?: EnumProviderEnumFieldUpdateOperationsInput;
+
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    fullName?: NullableStringFieldUpdateOperationsInput;
+
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    branchCode?: NullableStringFieldUpdateOperationsInput;
+
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    jobPositionCode?: NullableStringFieldUpdateOperationsInput;
+
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    userTypeName?: NullableStringFieldUpdateOperationsInput;
+
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    statusName?: NullableStringFieldUpdateOperationsInput;
 
     @Field(() => CommentUpdateManyWithoutCreatorNestedInput, {nullable:true})
     comments?: CommentUpdateManyWithoutCreatorNestedInput;
@@ -94,8 +109,8 @@ export class UserUpdateWithoutManagedProjectsInput {
     @Field(() => FileUpdateOneWithoutAvatarUsersNestedInput, {nullable:true})
     avatar?: FileUpdateOneWithoutAvatarUsersNestedInput;
 
-    @Field(() => OrganizationUpdateOneRequiredWithoutUsersNestedInput, {nullable:true})
-    organization?: OrganizationUpdateOneRequiredWithoutUsersNestedInput;
+    @Field(() => OrganizationUpdateOneWithoutUsersNestedInput, {nullable:true})
+    organization?: OrganizationUpdateOneWithoutUsersNestedInput;
 
     @Field(() => UserPermissionUpdateManyWithoutUserNestedInput, {nullable:true})
     userPermissions?: UserPermissionUpdateManyWithoutUserNestedInput;

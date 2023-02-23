@@ -67,8 +67,8 @@ export class TaskScalarWhereWithAggregatesInput {
     @Field(() => IntNullableWithAggregatesFilter, {nullable:true})
     parentId?: IntNullableWithAggregatesFilter;
 
-    @Field(() => IntWithAggregatesFilter, {nullable:true})
-    organizationId?: IntWithAggregatesFilter;
+    @Field(() => IntNullableWithAggregatesFilter, {nullable:true})
+    organizationId?: IntNullableWithAggregatesFilter;
 
     @Field(() => IntNullableWithAggregatesFilter, {nullable:true})
     teamId?: IntNullableWithAggregatesFilter;

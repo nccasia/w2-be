@@ -44,31 +44,10 @@ export class TaskDefinitionCountAggregateInput {
     ctaTemplate?: true;
 
     @Field(() => Boolean, {nullable:true})
-    statusConfig?: true;
-
-    @Field(() => Boolean, {nullable:true})
-    notificationConfig?: true;
-
-    @Field(() => Boolean, {nullable:true})
-    processConfig?: true;
-
-    @Field(() => Boolean, {nullable:true})
-    triggerConfig?: true;
-
-    @Field(() => Boolean, {nullable:true})
-    ctaConfig?: true;
-
-    @Field(() => Boolean, {nullable:true})
-    config?: true;
-
-    @Field(() => Boolean, {nullable:true})
     organizationId?: true;
 
     @Field(() => Boolean, {nullable:true})
     parentId?: true;
-
-    @Field(() => Boolean, {nullable:true})
-    stateConfig?: true;
 
     @Field(() => Boolean, {nullable:true})
     formId?: true;
@@ -78,9 +57,6 @@ export class TaskDefinitionCountAggregateInput {
 
     @Field(() => Boolean, {nullable:true})
     machineConfig?: true;
-
-    @Field(() => Boolean, {nullable:true})
-    contextConfig?: true;
 
     @Field(() => Boolean, {nullable:true})
     _all?: true;

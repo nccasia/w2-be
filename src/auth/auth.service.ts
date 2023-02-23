@@ -75,7 +75,7 @@ export class AuthService {
   }
   async googleLogin(code: string): Promise<Token> {
     const userData = await this.googleService.getUserData(code);
-    let user = await this.prisma.user.findUnique({
+    let user = await this.prisma.user.findFirst({
       where: { email: userData.email },
     });
 

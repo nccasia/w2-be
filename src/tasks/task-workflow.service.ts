@@ -1,6 +1,7 @@
 import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'nestjs-prisma';
+import { lastValueFrom } from 'rxjs';
 
 @Injectable()
 export class TaskWorkflowService {
@@ -15,10 +16,10 @@ export class TaskWorkflowService {
     });
     const url = task.config['resumeWebhookUrl'];
     if (url) {
-      return this.httpService.post(url, {
-        task: task,
-        data: payload,
-      });
+      const resumeWebhookUrl = `${url}?action=${action}`;
+      console.log('resumeWebhookUrl', resumeWebhookUrl);
+      const obs = this.httpService.post(resumeWebhookUrl, payload);
+      return lastValueFrom(obs);
     }
     return null;
   }

@@ -55,8 +55,8 @@ export class TaskUncheckedCreateWithoutTriggerInput {
     @Field(() => Int, {nullable:true})
     parentId?: number;
 
-    @Field(() => Int, {nullable:false})
-    organizationId!: number;
+    @Field(() => Int, {nullable:true})
+    organizationId?: number;
 
     @Field(() => Int, {nullable:true})
     teamId?: number;

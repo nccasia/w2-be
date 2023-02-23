@@ -49,41 +49,17 @@ export class TaskDefinitionUncheckedCreateWithoutFormInput {
     @Field(() => String, {nullable:true})
     ctaTemplate?: string;
 
-    @Field(() => GraphQLJSON, {nullable:true})
-    statusConfig?: any;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    notificationConfig?: any;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    processConfig?: any;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    triggerConfig?: any;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    ctaConfig?: any;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    config?: any;
-
     @Field(() => Int, {nullable:false})
     organizationId!: number;
 
     @Field(() => Int, {nullable:true})
     parentId?: number;
 
-    @Field(() => GraphQLJSON, {nullable:true})
-    stateConfig?: any;
-
     @Field(() => String, {nullable:true})
     keyTemplate?: string;
 
     @Field(() => GraphQLJSON, {nullable:true})
     machineConfig?: any;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    contextConfig?: any;
 
     @Field(() => ProjectUncheckedCreateNestedManyWithoutTaskDefinitionInput, {nullable:true})
     projects?: ProjectUncheckedCreateNestedManyWithoutTaskDefinitionInput;

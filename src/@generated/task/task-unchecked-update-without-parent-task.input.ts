@@ -59,8 +59,8 @@ export class TaskUncheckedUpdateWithoutParentTaskInput {
     @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
     creatorId?: IntFieldUpdateOperationsInput;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    organizationId?: IntFieldUpdateOperationsInput;
+    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
+    organizationId?: NullableIntFieldUpdateOperationsInput;
 
     @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
     teamId?: NullableIntFieldUpdateOperationsInput;

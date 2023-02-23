@@ -78,8 +78,8 @@ export class TaskWhereInput {
     @Field(() => IntNullableFilter, {nullable:true})
     parentId?: IntNullableFilter;
 
-    @Field(() => IntFilter, {nullable:true})
-    organizationId?: IntFilter;
+    @Field(() => IntNullableFilter, {nullable:true})
+    organizationId?: IntNullableFilter;
 
     @Field(() => IntNullableFilter, {nullable:true})
     teamId?: IntNullableFilter;

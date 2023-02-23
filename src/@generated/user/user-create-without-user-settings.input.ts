@@ -52,6 +52,21 @@ export class UserCreateWithoutUserSettingsInput {
     @Field(() => ProviderEnum, {nullable:true})
     provider?: keyof typeof ProviderEnum;
 
+    @Field(() => String, {nullable:true})
+    fullName?: string;
+
+    @Field(() => String, {nullable:true})
+    branchCode?: string;
+
+    @Field(() => String, {nullable:true})
+    jobPositionCode?: string;
+
+    @Field(() => String, {nullable:true})
+    userTypeName?: string;
+
+    @Field(() => String, {nullable:true})
+    statusName?: string;
+
     @Field(() => CommentCreateNestedManyWithoutCreatorInput, {nullable:true})
     comments?: CommentCreateNestedManyWithoutCreatorInput;
 
@@ -94,8 +109,8 @@ export class UserCreateWithoutUserSettingsInput {
     @Field(() => FileCreateNestedOneWithoutAvatarUsersInput, {nullable:true})
     avatar?: FileCreateNestedOneWithoutAvatarUsersInput;
 
-    @Field(() => OrganizationCreateNestedOneWithoutUsersInput, {nullable:false})
-    organization!: OrganizationCreateNestedOneWithoutUsersInput;
+    @Field(() => OrganizationCreateNestedOneWithoutUsersInput, {nullable:true})
+    organization?: OrganizationCreateNestedOneWithoutUsersInput;
 
     @Field(() => UserPermissionCreateNestedManyWithoutUserInput, {nullable:true})
     userPermissions?: UserPermissionCreateNestedManyWithoutUserInput;

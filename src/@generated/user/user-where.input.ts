@@ -4,8 +4,8 @@ import { IntFilter } from '../prisma/int-filter.input';
 import { DateTimeFilter } from '../prisma/date-time-filter.input';
 import { StringFilter } from '../prisma/string-filter.input';
 import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
-import { EnumRoleFilter } from '../prisma/enum-role-filter.input';
 import { IntNullableFilter } from '../prisma/int-nullable-filter.input';
+import { EnumRoleFilter } from '../prisma/enum-role-filter.input';
 import { EnumProviderEnumFilter } from '../prisma/enum-provider-enum-filter.input';
 import { CommentListRelationFilter } from '../comment/comment-list-relation-filter.input';
 import { EventLogListRelationFilter } from '../event-log/event-log-list-relation-filter.input';
@@ -53,8 +53,8 @@ export class UserWhereInput {
     @Field(() => StringNullableFilter, {nullable:true})
     lastname?: StringNullableFilter;
 
-    @Field(() => IntFilter, {nullable:true})
-    organizationId?: IntFilter;
+    @Field(() => IntNullableFilter, {nullable:true})
+    organizationId?: IntNullableFilter;
 
     @Field(() => EnumRoleFilter, {nullable:true})
     role?: EnumRoleFilter;
@@ -70,6 +70,21 @@ export class UserWhereInput {
 
     @Field(() => EnumProviderEnumFilter, {nullable:true})
     provider?: EnumProviderEnumFilter;
+
+    @Field(() => StringNullableFilter, {nullable:true})
+    fullName?: StringNullableFilter;
+
+    @Field(() => StringNullableFilter, {nullable:true})
+    branchCode?: StringNullableFilter;
+
+    @Field(() => StringNullableFilter, {nullable:true})
+    jobPositionCode?: StringNullableFilter;
+
+    @Field(() => StringNullableFilter, {nullable:true})
+    userTypeName?: StringNullableFilter;
+
+    @Field(() => StringNullableFilter, {nullable:true})
+    statusName?: StringNullableFilter;
 
     @Field(() => CommentListRelationFilter, {nullable:true})
     comments?: CommentListRelationFilter;

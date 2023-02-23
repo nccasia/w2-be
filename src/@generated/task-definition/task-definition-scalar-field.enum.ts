@@ -14,19 +14,11 @@ export enum TaskDefinitionScalarFieldEnum {
     stateTemplate = "stateTemplate",
     notificationTemplate = "notificationTemplate",
     ctaTemplate = "ctaTemplate",
-    statusConfig = "statusConfig",
-    notificationConfig = "notificationConfig",
-    processConfig = "processConfig",
-    triggerConfig = "triggerConfig",
-    ctaConfig = "ctaConfig",
-    config = "config",
     organizationId = "organizationId",
     parentId = "parentId",
-    stateConfig = "stateConfig",
     formId = "formId",
     keyTemplate = "keyTemplate",
-    machineConfig = "machineConfig",
-    contextConfig = "contextConfig"
+    machineConfig = "machineConfig"
 }
 
 

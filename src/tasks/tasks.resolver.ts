@@ -16,7 +16,10 @@ export class TaskResolver {
   @Mutation(() => Form)
   async submitTask(@Args('input') input: FormTriggerInput): Promise<Form> {
     const form = await this.formService.submitForm(input.formId, input.value);
-    await this.taskService.submitTask(input.taskId, form.id);
+    await this.taskService.submitTask(
+      input.taskId,
+      typeof form.values === 'object' ? form.values : { data: form.values }
+    );
     return form;
   }
 }

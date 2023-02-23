@@ -4,8 +4,8 @@ import { IntWithAggregatesFilter } from '../prisma/int-with-aggregates-filter.in
 import { DateTimeWithAggregatesFilter } from '../prisma/date-time-with-aggregates-filter.input';
 import { StringWithAggregatesFilter } from '../prisma/string-with-aggregates-filter.input';
 import { StringNullableWithAggregatesFilter } from '../prisma/string-nullable-with-aggregates-filter.input';
-import { JsonNullableWithAggregatesFilter } from '../prisma/json-nullable-with-aggregates-filter.input';
 import { IntNullableWithAggregatesFilter } from '../prisma/int-nullable-with-aggregates-filter.input';
+import { JsonNullableWithAggregatesFilter } from '../prisma/json-nullable-with-aggregates-filter.input';
 
 @InputType()
 export class TaskDefinitionScalarWhereWithAggregatesInput {
@@ -58,32 +58,11 @@ export class TaskDefinitionScalarWhereWithAggregatesInput {
     @Field(() => StringNullableWithAggregatesFilter, {nullable:true})
     ctaTemplate?: StringNullableWithAggregatesFilter;
 
-    @Field(() => JsonNullableWithAggregatesFilter, {nullable:true})
-    statusConfig?: JsonNullableWithAggregatesFilter;
-
-    @Field(() => JsonNullableWithAggregatesFilter, {nullable:true})
-    notificationConfig?: JsonNullableWithAggregatesFilter;
-
-    @Field(() => JsonNullableWithAggregatesFilter, {nullable:true})
-    processConfig?: JsonNullableWithAggregatesFilter;
-
-    @Field(() => JsonNullableWithAggregatesFilter, {nullable:true})
-    triggerConfig?: JsonNullableWithAggregatesFilter;
-
-    @Field(() => JsonNullableWithAggregatesFilter, {nullable:true})
-    ctaConfig?: JsonNullableWithAggregatesFilter;
-
-    @Field(() => JsonNullableWithAggregatesFilter, {nullable:true})
-    config?: JsonNullableWithAggregatesFilter;
-
     @Field(() => IntWithAggregatesFilter, {nullable:true})
     organizationId?: IntWithAggregatesFilter;
 
     @Field(() => IntNullableWithAggregatesFilter, {nullable:true})
     parentId?: IntNullableWithAggregatesFilter;
-
-    @Field(() => JsonNullableWithAggregatesFilter, {nullable:true})
-    stateConfig?: JsonNullableWithAggregatesFilter;
 
     @Field(() => IntNullableWithAggregatesFilter, {nullable:true})
     formId?: IntNullableWithAggregatesFilter;
@@ -93,7 +72,4 @@ export class TaskDefinitionScalarWhereWithAggregatesInput {
 
     @Field(() => JsonNullableWithAggregatesFilter, {nullable:true})
     machineConfig?: JsonNullableWithAggregatesFilter;
-
-    @Field(() => JsonNullableWithAggregatesFilter, {nullable:true})
-    contextConfig?: JsonNullableWithAggregatesFilter;
 }

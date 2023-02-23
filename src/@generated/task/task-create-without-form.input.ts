@@ -114,8 +114,8 @@ export class TaskCreateWithoutFormInput {
     @Field(() => TaskDefinitionCreateNestedOneWithoutTaskInstancesInput, {nullable:true})
     definition?: TaskDefinitionCreateNestedOneWithoutTaskInstancesInput;
 
-    @Field(() => OrganizationCreateNestedOneWithoutTasksInput, {nullable:false})
-    organization!: OrganizationCreateNestedOneWithoutTasksInput;
+    @Field(() => OrganizationCreateNestedOneWithoutTasksInput, {nullable:true})
+    organization?: OrganizationCreateNestedOneWithoutTasksInput;
 
     @Field(() => TaskCreateNestedOneWithoutSubTasksInput, {nullable:true})
     parentTask?: TaskCreateNestedOneWithoutSubTasksInput;

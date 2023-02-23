@@ -55,6 +55,21 @@ export class UserUpdateWithoutOrganizationInput {
     @Field(() => EnumProviderEnumFieldUpdateOperationsInput, {nullable:true})
     provider?: EnumProviderEnumFieldUpdateOperationsInput;
 
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    fullName?: NullableStringFieldUpdateOperationsInput;
+
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    branchCode?: NullableStringFieldUpdateOperationsInput;
+
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    jobPositionCode?: NullableStringFieldUpdateOperationsInput;
+
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    userTypeName?: NullableStringFieldUpdateOperationsInput;
+
+    @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
+    statusName?: NullableStringFieldUpdateOperationsInput;
+
     @Field(() => CommentUpdateManyWithoutCreatorNestedInput, {nullable:true})
     comments?: CommentUpdateManyWithoutCreatorNestedInput;
 

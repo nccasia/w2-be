@@ -1,8 +1,8 @@
 import { Field } from '@nestjs/graphql';
 import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
-import { GraphQLJSON } from 'graphql-type-json';
 import { Int } from '@nestjs/graphql';
+import { GraphQLJSON } from 'graphql-type-json';
 import { Project } from '../project/project.model';
 import { Task } from '../task/task.model';
 import { TaskBoard } from '../task-board/task-board.model';
@@ -52,32 +52,11 @@ export class TaskDefinition {
     @Field(() => String, {nullable:true})
     ctaTemplate!: string | null;
 
-    @Field(() => GraphQLJSON, {nullable:true})
-    statusConfig!: any | null;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    notificationConfig!: any | null;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    processConfig!: any | null;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    triggerConfig!: any | null;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    ctaConfig!: any | null;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    config!: any | null;
-
     @Field(() => Int, {nullable:false})
     organizationId!: number;
 
     @Field(() => Int, {nullable:true})
     parentId!: number | null;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    stateConfig!: any | null;
 
     @Field(() => Int, {nullable:true})
     formId!: number | null;
@@ -87,9 +66,6 @@ export class TaskDefinition {
 
     @Field(() => GraphQLJSON, {nullable:true})
     machineConfig!: any | null;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    contextConfig!: any | null;
 
     @Field(() => [Project], {nullable:true})
     projects?: Array<Project>;

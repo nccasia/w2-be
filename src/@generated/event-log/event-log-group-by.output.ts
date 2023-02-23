@@ -14,8 +14,8 @@ export class EventLogGroupBy {
     @Field(() => Int, {nullable:false})
     id!: number;
 
-    @Field(() => Date, {nullable:false})
-    createdAt!: Date | string;
+    @Field(() => Date, {nullable:true})
+    createdAt?: Date | string;
 
     @Field(() => Int, {nullable:true})
     userId?: number;
@@ -23,8 +23,8 @@ export class EventLogGroupBy {
     @Field(() => Int, {nullable:true})
     taskId?: number;
 
-    @Field(() => Int, {nullable:false})
-    organizationId!: number;
+    @Field(() => Int, {nullable:true})
+    organizationId?: number;
 
     @Field(() => String, {nullable:true})
     content?: string;

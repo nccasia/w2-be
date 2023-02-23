@@ -18,8 +18,8 @@ export class EventLogUncheckedCreateInput {
     @Field(() => Int, {nullable:true})
     taskId?: number;
 
-    @Field(() => Int, {nullable:false})
-    organizationId!: number;
+    @Field(() => Int, {nullable:true})
+    organizationId?: number;
 
     @Field(() => String, {nullable:true})
     content?: string;

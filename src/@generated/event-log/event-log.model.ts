@@ -13,8 +13,8 @@ export class EventLog {
     @Field(() => ID, {nullable:false})
     id!: number;
 
-    @Field(() => Date, {nullable:false})
-    createdAt!: Date;
+    @Field(() => Date, {nullable:true})
+    createdAt!: Date | null;
 
     @Field(() => Int, {nullable:true})
     userId!: number | null;
@@ -22,8 +22,8 @@ export class EventLog {
     @Field(() => Int, {nullable:true})
     taskId!: number | null;
 
-    @Field(() => Int, {nullable:false})
-    organizationId!: number;
+    @Field(() => Int, {nullable:true})
+    organizationId!: number | null;
 
     @Field(() => String, {nullable:true})
     content!: string | null;
@@ -40,8 +40,8 @@ export class EventLog {
     @Field(() => String, {nullable:true})
     intent!: string | null;
 
-    @Field(() => Organization, {nullable:false})
-    organization?: Organization;
+    @Field(() => Organization, {nullable:true})
+    organization?: Organization | null;
 
     @Field(() => Task, {nullable:true})
     task?: Task | null;

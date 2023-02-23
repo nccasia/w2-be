@@ -48,35 +48,11 @@ export class TaskDefinitionCreateInput {
     @Field(() => String, {nullable:true})
     ctaTemplate?: string;
 
-    @Field(() => GraphQLJSON, {nullable:true})
-    statusConfig?: any;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    notificationConfig?: any;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    processConfig?: any;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    triggerConfig?: any;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    ctaConfig?: any;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    config?: any;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    stateConfig?: any;
-
     @Field(() => String, {nullable:true})
     keyTemplate?: string;
 
     @Field(() => GraphQLJSON, {nullable:true})
     machineConfig?: any;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    contextConfig?: any;
 
     @Field(() => ProjectCreateNestedManyWithoutTaskDefinitionInput, {nullable:true})
     projects?: ProjectCreateNestedManyWithoutTaskDefinitionInput;

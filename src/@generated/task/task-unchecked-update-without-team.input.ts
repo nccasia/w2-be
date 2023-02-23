@@ -62,8 +62,8 @@ export class TaskUncheckedUpdateWithoutTeamInput {
     @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
     parentId?: NullableIntFieldUpdateOperationsInput;
 
-    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
-    organizationId?: IntFieldUpdateOperationsInput;
+    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
+    organizationId?: NullableIntFieldUpdateOperationsInput;
 
     @Field(() => GraphQLJSON, {nullable:true})
     config?: any;

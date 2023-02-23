@@ -49,6 +49,21 @@ export class UserOrderByWithAggregationInput {
     @Field(() => SortOrder, {nullable:true})
     provider?: keyof typeof SortOrder;
 
+    @Field(() => SortOrder, {nullable:true})
+    fullName?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    branchCode?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    jobPositionCode?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    userTypeName?: keyof typeof SortOrder;
+
+    @Field(() => SortOrder, {nullable:true})
+    statusName?: keyof typeof SortOrder;
+
     @Field(() => UserCountOrderByAggregateInput, {nullable:true})
     _count?: UserCountOrderByAggregateInput;
 

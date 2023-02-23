@@ -42,8 +42,8 @@ export class User {
     @Field(() => String, {nullable:true})
     lastname!: string | null;
 
-    @Field(() => Int, {nullable:false})
-    organizationId!: number;
+    @Field(() => Int, {nullable:true})
+    organizationId!: number | null;
 
     @Field(() => Role, {nullable:false})
     role!: keyof typeof Role;
@@ -59,6 +59,21 @@ export class User {
 
     @Field(() => ProviderEnum, {nullable:false,defaultValue:'local'})
     provider!: keyof typeof ProviderEnum;
+
+    @Field(() => String, {nullable:true})
+    fullName!: string | null;
+
+    @Field(() => String, {nullable:true})
+    branchCode!: string | null;
+
+    @Field(() => String, {nullable:true})
+    jobPositionCode!: string | null;
+
+    @Field(() => String, {nullable:true})
+    userTypeName!: string | null;
+
+    @Field(() => String, {nullable:true})
+    statusName!: string | null;
 
     @Field(() => [Comment], {nullable:true})
     comments?: Array<Comment>;
@@ -102,8 +117,8 @@ export class User {
     @Field(() => File, {nullable:true})
     avatar?: File | null;
 
-    @Field(() => Organization, {nullable:false})
-    organization?: Organization;
+    @Field(() => Organization, {nullable:true})
+    organization?: Organization | null;
 
     @Field(() => [UserPermission], {nullable:true})
     userPermissions?: Array<UserPermission>;

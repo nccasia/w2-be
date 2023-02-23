@@ -7,14 +7,13 @@ import { TaskResolver } from './tasks.resolver';
 import { TaskService } from './tasks.service';
 
 @Module({
-  imports: [],
+  imports: [HttpModule],
   providers: [
     TaskResolver,
     TaskService,
     TasksHasuraService,
     TaskWorkflowService,
     FormService,
-    HttpModule,
   ],
 })
 export class TasksModule {}

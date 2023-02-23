@@ -4,8 +4,8 @@ import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operat
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
 import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
 import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-string-field-update-operations.input';
-import { GraphQLJSON } from 'graphql-type-json';
 import { NullableIntFieldUpdateOperationsInput } from '../prisma/nullable-int-field-update-operations.input';
+import { GraphQLJSON } from 'graphql-type-json';
 
 @InputType()
 export class TaskDefinitionUncheckedUpdateManyInput {
@@ -49,32 +49,11 @@ export class TaskDefinitionUncheckedUpdateManyInput {
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     ctaTemplate?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => GraphQLJSON, {nullable:true})
-    statusConfig?: any;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    notificationConfig?: any;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    processConfig?: any;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    triggerConfig?: any;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    ctaConfig?: any;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    config?: any;
-
     @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
     organizationId?: IntFieldUpdateOperationsInput;
 
     @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
     parentId?: NullableIntFieldUpdateOperationsInput;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    stateConfig?: any;
 
     @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
     formId?: NullableIntFieldUpdateOperationsInput;
@@ -84,7 +63,4 @@ export class TaskDefinitionUncheckedUpdateManyInput {
 
     @Field(() => GraphQLJSON, {nullable:true})
     machineConfig?: any;
-
-    @Field(() => GraphQLJSON, {nullable:true})
-    contextConfig?: any;
 }

@@ -26,8 +26,8 @@ export class EventLogCreateInput {
     @Field(() => String, {nullable:true})
     intent?: string;
 
-    @Field(() => OrganizationCreateNestedOneWithoutEventLogsInput, {nullable:false})
-    organization!: OrganizationCreateNestedOneWithoutEventLogsInput;
+    @Field(() => OrganizationCreateNestedOneWithoutEventLogsInput, {nullable:true})
+    organization?: OrganizationCreateNestedOneWithoutEventLogsInput;
 
     @Field(() => TaskCreateNestedOneWithoutEventLogsInput, {nullable:true})
     task?: TaskCreateNestedOneWithoutEventLogsInput;

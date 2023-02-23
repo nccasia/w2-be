@@ -100,12 +100,17 @@ model User {
   password         String?
   firstname        String?
   lastname         String?
-  organizationId   Int
+  organizationId   Int?
   role             Role
   avatarId         Int?
   googleId         String?
   googleToken      String?
   provider         ProviderEnum       @default(local)
+  fullName         String?            @db.VarChar
+  branchCode       String?            @db.VarChar
+  jobPositionCode  String?            @db.VarChar
+  userTypeName     String?            @db.VarChar
+  statusName       String?            @db.VarChar
   comments         Comment[]
   taskEvents       EventLog[]
   memberOnProjects MemberOnProjects[]
@@ -120,7 +125,7 @@ model User {
   createdteams     Team[]             @relation("TeamCreator")
   managedteams     Team[]             @relation("TeamManager")
   avatar           File?              @relation(fields: [avatarId], references: [id])
-  organization     Organization       @relation(fields: [organizationId], references: [id])
+  organization     Organization?      @relation(fields: [organizationId], references: [id], onDelete: Restrict)
   userPermissions  UserPermission[]
   userSettings     UserSetting[]
 }
@@ -313,19 +318,11 @@ model TaskDefinition {
   stateTemplate        String?
   notificationTemplate String?
   ctaTemplate          String?
-  statusConfig         Json?
-  notificationConfig   Json?
-  processConfig        Json?
-  triggerConfig        Json?
-  ctaConfig            Json?
-  config               Json?
   organizationId       Int
   parentId             Int?
-  stateConfig          Json?
   formId               Int?
   keyTemplate          String?
   machineConfig        Json?
-  contextConfig        Json?
   projects             Project[]
   taskInstances        Task[]
   taskBoards           TaskBoard[]
@@ -353,7 +350,7 @@ model Task {
   assigneeId           Int?
   creatorId            Int
   parentId             Int?
-  organizationId       Int
+  organizationId       Int?
   teamId               Int?
   config               Json?
   cta                  String          @default("")
@@ -381,7 +378,7 @@ model Task {
   creator              User            @relation("TaskCreator", fields: [creatorId], references: [id])
   definition           TaskDefinition? @relation(fields: [definitionId], references: [id])
   form                 Form?           @relation(fields: [formId], references: [id])
-  organization         Organization    @relation(fields: [organizationId], references: [id])
+  organization         Organization?   @relation(fields: [organizationId], references: [id], onDelete: Restrict)
   parentTask           Task?           @relation("TaskSubtasks", fields: [parentId], references: [id])
   subTasks             Task[]          @relation("TaskSubtasks")
   project              Project?        @relation(fields: [projectId], references: [id])
@@ -407,19 +404,19 @@ model Comment {
 }
 
 model EventLog {
-  id             Int          @id @default(autoincrement())
-  createdAt      DateTime     @default(now())
+  id             Int           @id @default(autoincrement())
+  createdAt      DateTime?     @default(now())
   userId         Int?
   taskId         Int?
-  organizationId Int
+  organizationId Int?
   content        String?
   context        Json?
   action         String?
   domain         String?
   intent         String?
-  organization   Organization @relation(fields: [organizationId], references: [id])
-  task           Task?        @relation(fields: [taskId], references: [id])
-  user           User?        @relation(fields: [userId], references: [id])
+  organization   Organization? @relation(fields: [organizationId], references: [id], onDelete: Restrict)
+  task           Task?         @relation(fields: [taskId], references: [id])
+  user           User?         @relation(fields: [userId], references: [id])
 
   @@index([taskId])
   @@index([userId])

@@ -86,12 +86,17 @@ Table User {
   password String
   firstname String
   lastname String
-  organizationId Int [not null]
+  organizationId Int
   role Role [not null]
   avatarId Int
   googleId String
   googleToken String
   provider ProviderEnum [not null, default: 'local']
+  fullName String
+  branchCode String
+  jobPositionCode String
+  userTypeName String
+  statusName String
   comments Comment [not null]
   taskEvents EventLog [not null]
   memberOnProjects MemberOnProjects [not null]
@@ -106,7 +111,7 @@ Table User {
   createdteams Team [not null]
   managedteams Team [not null]
   avatar File
-  organization Organization [not null]
+  organization Organization
   userPermissions UserPermission [not null]
   userSettings UserSetting [not null]
 }
@@ -303,19 +308,11 @@ Table TaskDefinition {
   stateTemplate String
   notificationTemplate String
   ctaTemplate String
-  statusConfig Json
-  notificationConfig Json
-  processConfig Json
-  triggerConfig Json
-  ctaConfig Json
-  config Json
   organizationId Int [not null]
   parentId Int
-  stateConfig Json
   formId Int
   keyTemplate String
   machineConfig Json
-  contextConfig Json
   projects Project [not null]
   taskInstances Task [not null]
   taskBoards TaskBoard [not null]
@@ -341,7 +338,7 @@ Table Task {
   assigneeId Int
   creatorId Int [not null]
   parentId Int
-  organizationId Int [not null]
+  organizationId Int
   teamId Int
   config Json
   cta String [not null, default: '']
@@ -369,7 +366,7 @@ Table Task {
   creator User [not null]
   definition TaskDefinition
   form Form
-  organization Organization [not null]
+  organization Organization
   parentTask Task
   subTasks Task [not null]
   project Project
@@ -391,16 +388,16 @@ Table Comment {
 
 Table EventLog {
   id Int [pk, increment]
-  createdAt DateTime [default: `now()`, not null]
+  createdAt DateTime [default: `now()`]
   userId Int
   taskId Int
-  organizationId Int [not null]
+  organizationId Int
   content String
   context Json
   action String
   domain String
   intent String
-  organization Organization [not null]
+  organization Organization
   task Task
   user User
 }
@@ -506,7 +503,7 @@ Ref: Settings.organizationId > Organization.id
 
 Ref: User.avatarId > File.id
 
-Ref: User.organizationId > Organization.id
+Ref: User.organizationId > Organization.id [delete: Restrict]
 
 Ref: UserSetting.userId > User.id
 
@@ -570,7 +567,7 @@ Ref: Task.definitionId > TaskDefinition.id
 
 Ref: Task.formId > Form.id
 
-Ref: Task.organizationId > Organization.id
+Ref: Task.organizationId > Organization.id [delete: Restrict]
 
 Ref: Task.parentId - Task.id
 
@@ -584,7 +581,7 @@ Ref: Comment.creatorId > User.id
 
 Ref: Comment.taskId > Task.id
 
-Ref: EventLog.organizationId > Organization.id
+Ref: EventLog.organizationId > Organization.id [delete: Restrict]
 
 Ref: EventLog.taskId > Task.id
 

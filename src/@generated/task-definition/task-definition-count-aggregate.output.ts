@@ -45,31 +45,10 @@ export class TaskDefinitionCountAggregate {
     ctaTemplate!: number;
 
     @Field(() => Int, {nullable:false})
-    statusConfig!: number;
-
-    @Field(() => Int, {nullable:false})
-    notificationConfig!: number;
-
-    @Field(() => Int, {nullable:false})
-    processConfig!: number;
-
-    @Field(() => Int, {nullable:false})
-    triggerConfig!: number;
-
-    @Field(() => Int, {nullable:false})
-    ctaConfig!: number;
-
-    @Field(() => Int, {nullable:false})
-    config!: number;
-
-    @Field(() => Int, {nullable:false})
     organizationId!: number;
 
     @Field(() => Int, {nullable:false})
     parentId!: number;
-
-    @Field(() => Int, {nullable:false})
-    stateConfig!: number;
 
     @Field(() => Int, {nullable:false})
     formId!: number;
@@ -79,9 +58,6 @@ export class TaskDefinitionCountAggregate {
 
     @Field(() => Int, {nullable:false})
     machineConfig!: number;
-
-    @Field(() => Int, {nullable:false})
-    contextConfig!: number;
 
     @Field(() => Int, {nullable:false})
     _all!: number;

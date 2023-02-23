@@ -63,8 +63,8 @@ export class Task {
     @Field(() => Int, {nullable:true})
     parentId!: number | null;
 
-    @Field(() => Int, {nullable:false})
-    organizationId!: number;
+    @Field(() => Int, {nullable:true})
+    organizationId!: number | null;
 
     @Field(() => Int, {nullable:true})
     teamId!: number | null;
@@ -147,8 +147,8 @@ export class Task {
     @Field(() => Form, {nullable:true})
     form?: Form | null;
 
-    @Field(() => Organization, {nullable:false})
-    organization?: Organization;
+    @Field(() => Organization, {nullable:true})
+    organization?: Organization | null;
 
     @Field(() => Task, {nullable:true})
     parentTask?: Task | null;

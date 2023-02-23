@@ -42,8 +42,8 @@ export class UserUncheckedCreateWithoutUserSettingsInput {
     @Field(() => String, {nullable:true})
     lastname?: string;
 
-    @Field(() => Int, {nullable:false})
-    organizationId!: number;
+    @Field(() => Int, {nullable:true})
+    organizationId?: number;
 
     @Field(() => Role, {nullable:false})
     role!: keyof typeof Role;
@@ -59,6 +59,21 @@ export class UserUncheckedCreateWithoutUserSettingsInput {
 
     @Field(() => ProviderEnum, {nullable:true})
     provider?: keyof typeof ProviderEnum;
+
+    @Field(() => String, {nullable:true})
+    fullName?: string;
+
+    @Field(() => String, {nullable:true})
+    branchCode?: string;
+
+    @Field(() => String, {nullable:true})
+    jobPositionCode?: string;
+
+    @Field(() => String, {nullable:true})
+    userTypeName?: string;
+
+    @Field(() => String, {nullable:true})
+    statusName?: string;
 
     @Field(() => CommentUncheckedCreateNestedManyWithoutCreatorInput, {nullable:true})
     comments?: CommentUncheckedCreateNestedManyWithoutCreatorInput;

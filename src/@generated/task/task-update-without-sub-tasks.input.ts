@@ -13,7 +13,7 @@ import { UserUpdateOneWithoutAssignedTasksNestedInput } from '../user/user-updat
 import { UserUpdateOneRequiredWithoutCreatedTasksNestedInput } from '../user/user-update-one-required-without-created-tasks-nested.input';
 import { TaskDefinitionUpdateOneWithoutTaskInstancesNestedInput } from '../task-definition/task-definition-update-one-without-task-instances-nested.input';
 import { FormUpdateOneWithoutTasksNestedInput } from '../form/form-update-one-without-tasks-nested.input';
-import { OrganizationUpdateOneRequiredWithoutTasksNestedInput } from '../organization/organization-update-one-required-without-tasks-nested.input';
+import { OrganizationUpdateOneWithoutTasksNestedInput } from '../organization/organization-update-one-without-tasks-nested.input';
 import { TaskUpdateOneWithoutSubTasksNestedInput } from './task-update-one-without-sub-tasks-nested.input';
 import { ProjectUpdateOneWithoutTasksNestedInput } from '../project/project-update-one-without-tasks-nested.input';
 import { UserUpdateOneWithoutReportedTasksNestedInput } from '../user/user-update-one-without-reported-tasks-nested.input';
@@ -122,8 +122,8 @@ export class TaskUpdateWithoutSubTasksInput {
     @Field(() => FormUpdateOneWithoutTasksNestedInput, {nullable:true})
     form?: FormUpdateOneWithoutTasksNestedInput;
 
-    @Field(() => OrganizationUpdateOneRequiredWithoutTasksNestedInput, {nullable:true})
-    organization?: OrganizationUpdateOneRequiredWithoutTasksNestedInput;
+    @Field(() => OrganizationUpdateOneWithoutTasksNestedInput, {nullable:true})
+    organization?: OrganizationUpdateOneWithoutTasksNestedInput;
 
     @Field(() => TaskUpdateOneWithoutSubTasksNestedInput, {nullable:true})
     parentTask?: TaskUpdateOneWithoutSubTasksNestedInput;

@@ -15,8 +15,8 @@ export class EventLogUncheckedCreateWithoutTaskInput {
     @Field(() => Int, {nullable:true})
     userId?: number;
 
-    @Field(() => Int, {nullable:false})
-    organizationId!: number;
+    @Field(() => Int, {nullable:true})
+    organizationId?: number;
 
     @Field(() => String, {nullable:true})
     content?: string;

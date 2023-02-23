@@ -1,17 +1,17 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
-import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
+import { NullableDateTimeFieldUpdateOperationsInput } from '../prisma/nullable-date-time-field-update-operations.input';
 import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-string-field-update-operations.input';
 import { GraphQLJSON } from 'graphql-type-json';
-import { OrganizationUpdateOneRequiredWithoutEventLogsNestedInput } from '../organization/organization-update-one-required-without-event-logs-nested.input';
+import { OrganizationUpdateOneWithoutEventLogsNestedInput } from '../organization/organization-update-one-without-event-logs-nested.input';
 import { TaskUpdateOneWithoutEventLogsNestedInput } from '../task/task-update-one-without-event-logs-nested.input';
 import { UserUpdateOneWithoutTaskEventsNestedInput } from '../user/user-update-one-without-task-events-nested.input';
 
 @InputType()
 export class EventLogUpdateInput {
 
-    @Field(() => DateTimeFieldUpdateOperationsInput, {nullable:true})
-    createdAt?: DateTimeFieldUpdateOperationsInput;
+    @Field(() => NullableDateTimeFieldUpdateOperationsInput, {nullable:true})
+    createdAt?: NullableDateTimeFieldUpdateOperationsInput;
 
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     content?: NullableStringFieldUpdateOperationsInput;
@@ -28,8 +28,8 @@ export class EventLogUpdateInput {
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     intent?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => OrganizationUpdateOneRequiredWithoutEventLogsNestedInput, {nullable:true})
-    organization?: OrganizationUpdateOneRequiredWithoutEventLogsNestedInput;
+    @Field(() => OrganizationUpdateOneWithoutEventLogsNestedInput, {nullable:true})
+    organization?: OrganizationUpdateOneWithoutEventLogsNestedInput;
 
     @Field(() => TaskUpdateOneWithoutEventLogsNestedInput, {nullable:true})
     task?: TaskUpdateOneWithoutEventLogsNestedInput;

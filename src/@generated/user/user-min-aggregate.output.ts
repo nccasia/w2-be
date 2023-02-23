@@ -45,4 +45,19 @@ export class UserMinAggregate {
 
     @Field(() => ProviderEnum, {nullable:true})
     provider?: keyof typeof ProviderEnum;
+
+    @Field(() => String, {nullable:true})
+    fullName?: string;
+
+    @Field(() => String, {nullable:true})
+    branchCode?: string;
+
+    @Field(() => String, {nullable:true})
+    jobPositionCode?: string;
+
+    @Field(() => String, {nullable:true})
+    userTypeName?: string;
+
+    @Field(() => String, {nullable:true})
+    statusName?: string;
 }
