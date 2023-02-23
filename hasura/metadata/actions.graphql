@@ -30,7 +30,7 @@ input LoginInput {
 input FormTriggerInput {
   formId: Int
   taskId: Int
-  value: json!
+  value: json
 }
 
 input GoogleLoginInput {

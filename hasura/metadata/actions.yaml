@@ -2,7 +2,7 @@ actions:
   - name: createTaskInput
     definition:
       kind: synchronous
-      handler: http://n8n:8081/webhook/5a0d0474-51e0-447f-975d-9e7ea2d2c753
+      handler: http://10.10.31.80:8081/webhook/e98c9aca-ef07-414a-a0b3-3f68eeda2891
       request_transform:
         method: POST
         query_params: {}
@@ -13,7 +13,7 @@ actions:
           action: transform
           template: |-
             {
-              "id": {{$body.ID}}
+              "id": {{$body.id}}
             }
         template_engine: Kriti
         version: 2
@@ -99,7 +99,7 @@ actions:
           action: transform
           template: |-
             {
-              "submitTask": {{$body.data.submitTask}}
+              "submitTask": {{$body}}
             }
         template_engine: Kriti
         version: 2
