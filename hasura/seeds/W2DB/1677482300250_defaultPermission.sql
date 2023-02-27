@@ -1,8 +1,0 @@
-SET check_function_bodies = false;
-INSERT INTO public."Permission" (id, name, code, description, "createdAt", "updatedAt", "organizationId", "permissionGroupId") VALUES (19, 'permission', 'MANAGE_STAFF', 'Default permission', '2023-02-10 10:01:43.819', '2023-02-10 10:01:43.819', 4, 4);
-INSERT INTO public."Permission" (id, name, code, description, "createdAt", "updatedAt", "organizationId", "permissionGroupId") VALUES (20, 'permission', 'MANAGE_SETTINGS', 'Default permission', '2023-02-10 10:01:43.824', '2023-02-10 10:01:43.824', 4, 4);
-INSERT INTO public."Permission" (id, name, code, description, "createdAt", "updatedAt", "organizationId", "permissionGroupId") VALUES (21, 'permission', 'MANAGE_TRANSLATIONS', 'Default permission', '2023-02-10 10:01:43.827', '2023-02-10 10:01:43.827', 4, 4);
-INSERT INTO public."Permission" (id, name, code, description, "createdAt", "updatedAt", "organizationId", "permissionGroupId") VALUES (22, 'permission', 'MANAGE_TASKS', 'Default permission', '2023-02-10 10:01:43.831', '2023-02-10 10:01:43.831', 4, 4);
-INSERT INTO public."Permission" (id, name, code, description, "createdAt", "updatedAt", "organizationId", "permissionGroupId") VALUES (23, 'permission', 'MANAGE_CHANNELS', 'Default permission', '2023-02-10 10:01:43.835', '2023-02-10 10:01:43.835', 4, 4);
-INSERT INTO public."Permission" (id, name, code, description, "createdAt", "updatedAt", "organizationId", "permissionGroupId") VALUES (24, 'permission', 'MANAGE_PRODUCTS', 'Default permission', '2023-02-10 10:01:43.839', '2023-02-10 10:01:43.839', 4, 4);
-SELECT pg_catalog.setval('public."Permission_id_seq"', 24, true);

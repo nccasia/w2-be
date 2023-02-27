@@ -1,4 +1,4 @@
-rm -rf ./hasura/seed/W2DB
+rm -rf ./seeds/W2DB
 
 hasura seed create defaultUser --database-name W2DB --from-table User
 hasura seed create defaultOrganization --database-name W2DB --from-table Organization
