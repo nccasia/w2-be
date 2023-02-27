@@ -9,7 +9,6 @@ import { ResourceCreateNestedManyWithoutOrganizationInput } from '../resource/re
 import { SettingsCreateNestedManyWithoutOrganizationInput } from '../settings/settings-create-nested-many-without-organization.input';
 import { TaskCreateNestedManyWithoutOrganizationInput } from '../task/task-create-nested-many-without-organization.input';
 import { TaskBoardCreateNestedManyWithoutOrganizationInput } from '../task-board/task-board-create-nested-many-without-organization.input';
-import { TaskDefinitionCreateNestedManyWithoutOrganizationInput } from '../task-definition/task-definition-create-nested-many-without-organization.input';
 import { UserCreateNestedManyWithoutOrganizationInput } from '../user/user-create-nested-many-without-organization.input';
 
 @InputType()
@@ -53,9 +52,6 @@ export class OrganizationCreateWithoutTeamsInput {
 
     @Field(() => TaskBoardCreateNestedManyWithoutOrganizationInput, {nullable:true})
     taskBoards?: TaskBoardCreateNestedManyWithoutOrganizationInput;
-
-    @Field(() => TaskDefinitionCreateNestedManyWithoutOrganizationInput, {nullable:true})
-    taskDefinitions?: TaskDefinitionCreateNestedManyWithoutOrganizationInput;
 
     @Field(() => UserCreateNestedManyWithoutOrganizationInput, {nullable:true})
     users?: UserCreateNestedManyWithoutOrganizationInput;

@@ -3,7 +3,6 @@ import { ObjectType } from '@nestjs/graphql';
 import { ID } from '@nestjs/graphql';
 import { GraphQLJSON } from 'graphql-type-json';
 import { Task } from '../task/task.model';
-import { TaskDefinition } from '../task-definition/task-definition.model';
 import { FormCount } from './form-count.output';
 
 @ObjectType()
@@ -41,9 +40,6 @@ export class Form {
 
     @Field(() => [Task], {nullable:true})
     tasks?: Array<Task>;
-
-    @Field(() => [TaskDefinition], {nullable:true})
-    taskDefinitions?: Array<TaskDefinition>;
 
     @Field(() => FormCount, {nullable:false})
     _count?: FormCount;

@@ -31,7 +31,6 @@ model Organization {
   settings         Settings[]
   tasks            Task[]
   taskBoards       TaskBoard[]
-  taskDefinitions  TaskDefinition[]
   teams            Team[]
   users            User[]
 }
@@ -141,18 +140,17 @@ model UserSetting {
 }
 
 model Form {
-  id               Int              @id @default(autoincrement())
+  id               Int      @id @default(autoincrement())
   name             String
   code             String
   description      String
   schema           Json
   config           Json
   validationConfig Json
-  createdAt        DateTime         @default(now())
-  updatedAt        DateTime         @default(now()) @updatedAt
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @default(now()) @updatedAt
   values           Json?
   tasks            Task[]
-  taskDefinitions  TaskDefinition[]
 }
 
 model Permission {
@@ -320,14 +318,11 @@ model TaskDefinition {
   ctaTemplate          String?
   organizationId       Int
   parentId             Int?
-  formId               Int?
   keyTemplate          String?
   machineConfig        Json?
   projects             Project[]
   taskInstances        Task[]
   taskBoards           TaskBoard[]
-  form                 Form?            @relation(fields: [formId], references: [id])
-  organization         Organization     @relation(fields: [organizationId], references: [id])
   parentTaskDefinition TaskDefinition?  @relation("TaskSubtaskDefinition", fields: [parentId], references: [id])
   subTaskDefinitions   TaskDefinition[] @relation("TaskSubtaskDefinition")
 

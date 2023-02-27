@@ -4,8 +4,6 @@ import { SortOrder } from '../prisma/sort-order.enum';
 import { ProjectOrderByRelationAggregateInput } from '../project/project-order-by-relation-aggregate.input';
 import { TaskOrderByRelationAggregateInput } from '../task/task-order-by-relation-aggregate.input';
 import { TaskBoardOrderByRelationAggregateInput } from '../task-board/task-board-order-by-relation-aggregate.input';
-import { FormOrderByWithRelationInput } from '../form/form-order-by-with-relation.input';
-import { OrganizationOrderByWithRelationInput } from '../organization/organization-order-by-with-relation.input';
 import { TaskDefinitionOrderByRelationAggregateInput } from './task-definition-order-by-relation-aggregate.input';
 
 @InputType()
@@ -57,9 +55,6 @@ export class TaskDefinitionOrderByWithRelationInput {
     parentId?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
-    formId?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
     keyTemplate?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
@@ -73,12 +68,6 @@ export class TaskDefinitionOrderByWithRelationInput {
 
     @Field(() => TaskBoardOrderByRelationAggregateInput, {nullable:true})
     taskBoards?: TaskBoardOrderByRelationAggregateInput;
-
-    @Field(() => FormOrderByWithRelationInput, {nullable:true})
-    form?: FormOrderByWithRelationInput;
-
-    @Field(() => OrganizationOrderByWithRelationInput, {nullable:true})
-    organization?: OrganizationOrderByWithRelationInput;
 
     @Field(() => TaskDefinitionOrderByWithRelationInput, {nullable:true})
     parentTaskDefinition?: TaskDefinitionOrderByWithRelationInput;

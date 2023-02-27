@@ -16,7 +16,6 @@ export enum TaskDefinitionScalarFieldEnum {
     ctaTemplate = "ctaTemplate",
     organizationId = "organizationId",
     parentId = "parentId",
-    formId = "formId",
     keyTemplate = "keyTemplate",
     machineConfig = "machineConfig"
 }

@@ -50,9 +50,6 @@ export class TaskDefinitionCountAggregateInput {
     parentId?: true;
 
     @Field(() => Boolean, {nullable:true})
-    formId?: true;
-
-    @Field(() => Boolean, {nullable:true})
     keyTemplate?: true;
 
     @Field(() => Boolean, {nullable:true})

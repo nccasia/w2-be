@@ -48,9 +48,6 @@ export class TaskDefinitionCreateManyParentTaskDefinitionInput {
     @Field(() => Int, {nullable:false})
     organizationId!: number;
 
-    @Field(() => Int, {nullable:true})
-    formId?: number;
-
     @Field(() => String, {nullable:true})
     keyTemplate?: string;
 

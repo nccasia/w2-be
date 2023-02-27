@@ -6,8 +6,6 @@ import { GraphQLJSON } from 'graphql-type-json';
 import { Project } from '../project/project.model';
 import { Task } from '../task/task.model';
 import { TaskBoard } from '../task-board/task-board.model';
-import { Form } from '../form/form.model';
-import { Organization } from '../organization/organization.model';
 import { TaskDefinitionCount } from './task-definition-count.output';
 
 @ObjectType()
@@ -58,9 +56,6 @@ export class TaskDefinition {
     @Field(() => Int, {nullable:true})
     parentId!: number | null;
 
-    @Field(() => Int, {nullable:true})
-    formId!: number | null;
-
     @Field(() => String, {nullable:true})
     keyTemplate!: string | null;
 
@@ -75,12 +70,6 @@ export class TaskDefinition {
 
     @Field(() => [TaskBoard], {nullable:true})
     taskBoards?: Array<TaskBoard>;
-
-    @Field(() => Form, {nullable:true})
-    form?: Form | null;
-
-    @Field(() => Organization, {nullable:false})
-    organization?: Organization;
 
     @Field(() => TaskDefinition, {nullable:true})
     parentTaskDefinition?: TaskDefinition | null;

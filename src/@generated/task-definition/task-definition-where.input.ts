@@ -9,8 +9,6 @@ import { JsonNullableFilter } from '../prisma/json-nullable-filter.input';
 import { ProjectListRelationFilter } from '../project/project-list-relation-filter.input';
 import { TaskListRelationFilter } from '../task/task-list-relation-filter.input';
 import { TaskBoardListRelationFilter } from '../task-board/task-board-list-relation-filter.input';
-import { FormRelationFilter } from '../form/form-relation-filter.input';
-import { OrganizationRelationFilter } from '../organization/organization-relation-filter.input';
 import { TaskDefinitionRelationFilter } from './task-definition-relation-filter.input';
 import { TaskDefinitionListRelationFilter } from './task-definition-list-relation-filter.input';
 
@@ -71,9 +69,6 @@ export class TaskDefinitionWhereInput {
     @Field(() => IntNullableFilter, {nullable:true})
     parentId?: IntNullableFilter;
 
-    @Field(() => IntNullableFilter, {nullable:true})
-    formId?: IntNullableFilter;
-
     @Field(() => StringNullableFilter, {nullable:true})
     keyTemplate?: StringNullableFilter;
 
@@ -88,12 +83,6 @@ export class TaskDefinitionWhereInput {
 
     @Field(() => TaskBoardListRelationFilter, {nullable:true})
     taskBoards?: TaskBoardListRelationFilter;
-
-    @Field(() => FormRelationFilter, {nullable:true})
-    form?: FormRelationFilter;
-
-    @Field(() => OrganizationRelationFilter, {nullable:true})
-    organization?: OrganizationRelationFilter;
 
     @Field(() => TaskDefinitionRelationFilter, {nullable:true})
     parentTaskDefinition?: TaskDefinitionRelationFilter;

@@ -64,9 +64,6 @@ export class TaskDefinitionScalarWhereInput {
     @Field(() => IntNullableFilter, {nullable:true})
     parentId?: IntNullableFilter;
 
-    @Field(() => IntNullableFilter, {nullable:true})
-    formId?: IntNullableFilter;
-
     @Field(() => StringNullableFilter, {nullable:true})
     keyTemplate?: StringNullableFilter;
 

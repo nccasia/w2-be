@@ -1,11 +1,10 @@
 import { Field } from '@nestjs/graphql';
 import { InputType } from '@nestjs/graphql';
+import { Int } from '@nestjs/graphql';
 import { GraphQLJSON } from 'graphql-type-json';
 import { ProjectCreateNestedManyWithoutTaskDefinitionInput } from '../project/project-create-nested-many-without-task-definition.input';
 import { TaskCreateNestedManyWithoutDefinitionInput } from '../task/task-create-nested-many-without-definition.input';
 import { TaskBoardCreateNestedManyWithoutTaskDefinitionInput } from '../task-board/task-board-create-nested-many-without-task-definition.input';
-import { FormCreateNestedOneWithoutTaskDefinitionsInput } from '../form/form-create-nested-one-without-task-definitions.input';
-import { OrganizationCreateNestedOneWithoutTaskDefinitionsInput } from '../organization/organization-create-nested-one-without-task-definitions.input';
 import { TaskDefinitionCreateNestedOneWithoutSubTaskDefinitionsInput } from './task-definition-create-nested-one-without-sub-task-definitions.input';
 import { TaskDefinitionCreateNestedManyWithoutParentTaskDefinitionInput } from './task-definition-create-nested-many-without-parent-task-definition.input';
 
@@ -48,6 +47,9 @@ export class TaskDefinitionCreateInput {
     @Field(() => String, {nullable:true})
     ctaTemplate?: string;
 
+    @Field(() => Int, {nullable:false})
+    organizationId!: number;
+
     @Field(() => String, {nullable:true})
     keyTemplate?: string;
 
@@ -62,12 +64,6 @@ export class TaskDefinitionCreateInput {
 
     @Field(() => TaskBoardCreateNestedManyWithoutTaskDefinitionInput, {nullable:true})
     taskBoards?: TaskBoardCreateNestedManyWithoutTaskDefinitionInput;
-
-    @Field(() => FormCreateNestedOneWithoutTaskDefinitionsInput, {nullable:true})
-    form?: FormCreateNestedOneWithoutTaskDefinitionsInput;
-
-    @Field(() => OrganizationCreateNestedOneWithoutTaskDefinitionsInput, {nullable:false})
-    organization!: OrganizationCreateNestedOneWithoutTaskDefinitionsInput;
 
     @Field(() => TaskDefinitionCreateNestedOneWithoutSubTaskDefinitionsInput, {nullable:true})
     parentTaskDefinition?: TaskDefinitionCreateNestedOneWithoutSubTaskDefinitionsInput;

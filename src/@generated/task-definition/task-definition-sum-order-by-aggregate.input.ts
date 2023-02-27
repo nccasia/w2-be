@@ -13,7 +13,4 @@ export class TaskDefinitionSumOrderByAggregateInput {
 
     @Field(() => SortOrder, {nullable:true})
     parentId?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
-    formId?: keyof typeof SortOrder;
 }

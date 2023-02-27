@@ -7,7 +7,4 @@ export class FormCount {
 
     @Field(() => Int, {nullable:false})
     tasks?: number;
-
-    @Field(() => Int, {nullable:false})
-    taskDefinitions?: number;
 }

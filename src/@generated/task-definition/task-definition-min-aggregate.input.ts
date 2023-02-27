@@ -50,8 +50,5 @@ export class TaskDefinitionMinAggregateInput {
     parentId?: true;
 
     @Field(() => Boolean, {nullable:true})
-    formId?: true;
-
-    @Field(() => Boolean, {nullable:true})
     keyTemplate?: true;
 }

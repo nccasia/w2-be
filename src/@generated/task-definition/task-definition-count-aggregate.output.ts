@@ -51,9 +51,6 @@ export class TaskDefinitionCountAggregate {
     parentId!: number;
 
     @Field(() => Int, {nullable:false})
-    formId!: number;
-
-    @Field(() => Int, {nullable:false})
     keyTemplate!: number;
 
     @Field(() => Int, {nullable:false})

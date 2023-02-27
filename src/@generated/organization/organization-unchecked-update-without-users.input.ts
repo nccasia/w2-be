@@ -12,7 +12,6 @@ import { ResourceUncheckedUpdateManyWithoutOrganizationNestedInput } from '../re
 import { SettingsUncheckedUpdateManyWithoutOrganizationNestedInput } from '../settings/settings-unchecked-update-many-without-organization-nested.input';
 import { TaskUncheckedUpdateManyWithoutOrganizationNestedInput } from '../task/task-unchecked-update-many-without-organization-nested.input';
 import { TaskBoardUncheckedUpdateManyWithoutOrganizationNestedInput } from '../task-board/task-board-unchecked-update-many-without-organization-nested.input';
-import { TaskDefinitionUncheckedUpdateManyWithoutOrganizationNestedInput } from '../task-definition/task-definition-unchecked-update-many-without-organization-nested.input';
 import { TeamUncheckedUpdateManyWithoutOrganizationNestedInput } from '../team/team-unchecked-update-many-without-organization-nested.input';
 
 @InputType()
@@ -59,9 +58,6 @@ export class OrganizationUncheckedUpdateWithoutUsersInput {
 
     @Field(() => TaskBoardUncheckedUpdateManyWithoutOrganizationNestedInput, {nullable:true})
     taskBoards?: TaskBoardUncheckedUpdateManyWithoutOrganizationNestedInput;
-
-    @Field(() => TaskDefinitionUncheckedUpdateManyWithoutOrganizationNestedInput, {nullable:true})
-    taskDefinitions?: TaskDefinitionUncheckedUpdateManyWithoutOrganizationNestedInput;
 
     @Field(() => TeamUncheckedUpdateManyWithoutOrganizationNestedInput, {nullable:true})
     teams?: TeamUncheckedUpdateManyWithoutOrganizationNestedInput;

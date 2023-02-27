@@ -10,7 +10,6 @@ import { Resource } from '../resource/resource.model';
 import { Settings } from '../settings/settings.model';
 import { Task } from '../task/task.model';
 import { TaskBoard } from '../task-board/task-board.model';
-import { TaskDefinition } from '../task-definition/task-definition.model';
 import { Team } from '../team/team.model';
 import { User } from '../user/user.model';
 import { OrganizationCount } from './organization-count.output';
@@ -59,9 +58,6 @@ export class Organization {
 
     @Field(() => [TaskBoard], {nullable:true})
     taskBoards?: Array<TaskBoard>;
-
-    @Field(() => [TaskDefinition], {nullable:true})
-    taskDefinitions?: Array<TaskDefinition>;
 
     @Field(() => [Team], {nullable:true})
     teams?: Array<Team>;

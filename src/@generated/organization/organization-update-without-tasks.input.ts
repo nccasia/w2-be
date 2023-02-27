@@ -10,7 +10,6 @@ import { ProjectUpdateManyWithoutOrganizationNestedInput } from '../project/proj
 import { ResourceUpdateManyWithoutOrganizationNestedInput } from '../resource/resource-update-many-without-organization-nested.input';
 import { SettingsUpdateManyWithoutOrganizationNestedInput } from '../settings/settings-update-many-without-organization-nested.input';
 import { TaskBoardUpdateManyWithoutOrganizationNestedInput } from '../task-board/task-board-update-many-without-organization-nested.input';
-import { TaskDefinitionUpdateManyWithoutOrganizationNestedInput } from '../task-definition/task-definition-update-many-without-organization-nested.input';
 import { TeamUpdateManyWithoutOrganizationNestedInput } from '../team/team-update-many-without-organization-nested.input';
 import { UserUpdateManyWithoutOrganizationNestedInput } from '../user/user-update-many-without-organization-nested.input';
 
@@ -52,9 +51,6 @@ export class OrganizationUpdateWithoutTasksInput {
 
     @Field(() => TaskBoardUpdateManyWithoutOrganizationNestedInput, {nullable:true})
     taskBoards?: TaskBoardUpdateManyWithoutOrganizationNestedInput;
-
-    @Field(() => TaskDefinitionUpdateManyWithoutOrganizationNestedInput, {nullable:true})
-    taskDefinitions?: TaskDefinitionUpdateManyWithoutOrganizationNestedInput;
 
     @Field(() => TeamUpdateManyWithoutOrganizationNestedInput, {nullable:true})
     teams?: TeamUpdateManyWithoutOrganizationNestedInput;

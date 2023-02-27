@@ -59,9 +59,6 @@ export class TaskDefinitionUncheckedUpdateInput {
     @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
     parentId?: NullableIntFieldUpdateOperationsInput;
 
-    @Field(() => NullableIntFieldUpdateOperationsInput, {nullable:true})
-    formId?: NullableIntFieldUpdateOperationsInput;
-
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     keyTemplate?: NullableStringFieldUpdateOperationsInput;
 

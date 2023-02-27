@@ -10,7 +10,6 @@ import { ResourceOrderByRelationAggregateInput } from '../resource/resource-orde
 import { SettingsOrderByRelationAggregateInput } from '../settings/settings-order-by-relation-aggregate.input';
 import { TaskOrderByRelationAggregateInput } from '../task/task-order-by-relation-aggregate.input';
 import { TaskBoardOrderByRelationAggregateInput } from '../task-board/task-board-order-by-relation-aggregate.input';
-import { TaskDefinitionOrderByRelationAggregateInput } from '../task-definition/task-definition-order-by-relation-aggregate.input';
 import { TeamOrderByRelationAggregateInput } from '../team/team-order-by-relation-aggregate.input';
 import { UserOrderByRelationAggregateInput } from '../user/user-order-by-relation-aggregate.input';
 
@@ -58,9 +57,6 @@ export class OrganizationOrderByWithRelationInput {
 
     @Field(() => TaskBoardOrderByRelationAggregateInput, {nullable:true})
     taskBoards?: TaskBoardOrderByRelationAggregateInput;
-
-    @Field(() => TaskDefinitionOrderByRelationAggregateInput, {nullable:true})
-    taskDefinitions?: TaskDefinitionOrderByRelationAggregateInput;
 
     @Field(() => TeamOrderByRelationAggregateInput, {nullable:true})
     teams?: TeamOrderByRelationAggregateInput;

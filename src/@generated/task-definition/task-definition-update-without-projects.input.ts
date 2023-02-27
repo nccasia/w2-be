@@ -3,11 +3,10 @@ import { InputType } from '@nestjs/graphql';
 import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-update-operations.input';
 import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
 import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-string-field-update-operations.input';
+import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
 import { GraphQLJSON } from 'graphql-type-json';
 import { TaskUpdateManyWithoutDefinitionNestedInput } from '../task/task-update-many-without-definition-nested.input';
 import { TaskBoardUpdateManyWithoutTaskDefinitionNestedInput } from '../task-board/task-board-update-many-without-task-definition-nested.input';
-import { FormUpdateOneWithoutTaskDefinitionsNestedInput } from '../form/form-update-one-without-task-definitions-nested.input';
-import { OrganizationUpdateOneRequiredWithoutTaskDefinitionsNestedInput } from '../organization/organization-update-one-required-without-task-definitions-nested.input';
 import { TaskDefinitionUpdateOneWithoutSubTaskDefinitionsNestedInput } from './task-definition-update-one-without-sub-task-definitions-nested.input';
 import { TaskDefinitionUpdateManyWithoutParentTaskDefinitionNestedInput } from './task-definition-update-many-without-parent-task-definition-nested.input';
 
@@ -50,6 +49,9 @@ export class TaskDefinitionUpdateWithoutProjectsInput {
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     ctaTemplate?: NullableStringFieldUpdateOperationsInput;
 
+    @Field(() => IntFieldUpdateOperationsInput, {nullable:true})
+    organizationId?: IntFieldUpdateOperationsInput;
+
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     keyTemplate?: NullableStringFieldUpdateOperationsInput;
 
@@ -61,12 +63,6 @@ export class TaskDefinitionUpdateWithoutProjectsInput {
 
     @Field(() => TaskBoardUpdateManyWithoutTaskDefinitionNestedInput, {nullable:true})
     taskBoards?: TaskBoardUpdateManyWithoutTaskDefinitionNestedInput;
-
-    @Field(() => FormUpdateOneWithoutTaskDefinitionsNestedInput, {nullable:true})
-    form?: FormUpdateOneWithoutTaskDefinitionsNestedInput;
-
-    @Field(() => OrganizationUpdateOneRequiredWithoutTaskDefinitionsNestedInput, {nullable:true})
-    organization?: OrganizationUpdateOneRequiredWithoutTaskDefinitionsNestedInput;
 
     @Field(() => TaskDefinitionUpdateOneWithoutSubTaskDefinitionsNestedInput, {nullable:true})
     parentTaskDefinition?: TaskDefinitionUpdateOneWithoutSubTaskDefinitionsNestedInput;

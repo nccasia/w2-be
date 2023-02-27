@@ -13,7 +13,4 @@ export class TaskDefinitionAvgAggregate {
 
     @Field(() => Float, {nullable:true})
     parentId?: number;
-
-    @Field(() => Float, {nullable:true})
-    formId?: number;
 }

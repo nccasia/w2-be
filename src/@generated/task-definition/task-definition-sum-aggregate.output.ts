@@ -13,7 +13,4 @@ export class TaskDefinitionSumAggregate {
 
     @Field(() => Int, {nullable:true})
     parentId?: number;
-
-    @Field(() => Int, {nullable:true})
-    formId?: number;
 }

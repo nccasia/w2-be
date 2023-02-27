@@ -33,9 +33,6 @@ export class OrganizationCount {
     taskBoards?: number;
 
     @Field(() => Int, {nullable:false})
-    taskDefinitions?: number;
-
-    @Field(() => Int, {nullable:false})
     teams?: number;
 
     @Field(() => Int, {nullable:false})

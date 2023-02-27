@@ -12,7 +12,6 @@ import { ResourceListRelationFilter } from '../resource/resource-list-relation-f
 import { SettingsListRelationFilter } from '../settings/settings-list-relation-filter.input';
 import { TaskListRelationFilter } from '../task/task-list-relation-filter.input';
 import { TaskBoardListRelationFilter } from '../task-board/task-board-list-relation-filter.input';
-import { TaskDefinitionListRelationFilter } from '../task-definition/task-definition-list-relation-filter.input';
 import { TeamListRelationFilter } from '../team/team-list-relation-filter.input';
 import { UserListRelationFilter } from '../user/user-list-relation-filter.input';
 
@@ -69,9 +68,6 @@ export class OrganizationWhereInput {
 
     @Field(() => TaskBoardListRelationFilter, {nullable:true})
     taskBoards?: TaskBoardListRelationFilter;
-
-    @Field(() => TaskDefinitionListRelationFilter, {nullable:true})
-    taskDefinitions?: TaskDefinitionListRelationFilter;
 
     @Field(() => TeamListRelationFilter, {nullable:true})
     teams?: TeamListRelationFilter;

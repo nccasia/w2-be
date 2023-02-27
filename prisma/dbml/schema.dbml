@@ -17,7 +17,6 @@ Table Organization {
   settings Settings [not null]
   tasks Task [not null]
   taskBoards TaskBoard [not null]
-  taskDefinitions TaskDefinition [not null]
   teams Team [not null]
   users User [not null]
 }
@@ -138,7 +137,6 @@ Table Form {
   updatedAt DateTime [default: `now()`, not null]
   values Json
   tasks Task [not null]
-  taskDefinitions TaskDefinition [not null]
 }
 
 Table Permission {
@@ -310,14 +308,11 @@ Table TaskDefinition {
   ctaTemplate String
   organizationId Int [not null]
   parentId Int
-  formId Int
   keyTemplate String
   machineConfig Json
   projects Project [not null]
   taskInstances Task [not null]
   taskBoards TaskBoard [not null]
-  form Form
-  organization Organization [not null]
   parentTaskDefinition TaskDefinition
   subTaskDefinitions TaskDefinition [not null]
 }
@@ -552,10 +547,6 @@ Ref: Team.organizationId > Organization.id
 Ref: MemberOnTeams.teamId > Team.id
 
 Ref: MemberOnTeams.userId > User.id
-
-Ref: TaskDefinition.formId > Form.id
-
-Ref: TaskDefinition.organizationId > Organization.id
 
 Ref: TaskDefinition.parentId - TaskDefinition.id
 

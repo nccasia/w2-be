@@ -51,8 +51,5 @@ export class TaskDefinitionMaxOrderByAggregateInput {
     parentId?: keyof typeof SortOrder;
 
     @Field(() => SortOrder, {nullable:true})
-    formId?: keyof typeof SortOrder;
-
-    @Field(() => SortOrder, {nullable:true})
     keyTemplate?: keyof typeof SortOrder;
 }

@@ -50,9 +50,6 @@ export class TaskDefinitionMinAggregate {
     @Field(() => Int, {nullable:true})
     parentId?: number;
 
-    @Field(() => Int, {nullable:true})
-    formId?: number;
-
     @Field(() => String, {nullable:true})
     keyTemplate?: string;
 }
