@@ -2,9 +2,6 @@ table:
   name: TaskDefinition
   schema: public
 object_relationships:
-  - name: Form
-    using:
-      foreign_key_constraint_on: formId
   - name: Organization
     using:
       foreign_key_constraint_on: organizationId
