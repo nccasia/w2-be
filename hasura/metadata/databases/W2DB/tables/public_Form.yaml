@@ -2,6 +2,13 @@ table:
   name: Form
   schema: public
 array_relationships:
+  - name: TaskDefinitions
+    using:
+      foreign_key_constraint_on:
+        column: formId
+        table:
+          name: TaskDefinition
+          schema: public
   - name: Tasks
     using:
       foreign_key_constraint_on:

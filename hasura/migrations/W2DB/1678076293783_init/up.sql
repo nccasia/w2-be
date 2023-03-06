@@ -356,7 +356,8 @@ CREATE TABLE public."Task" (
     "isActive" boolean DEFAULT false NOT NULL,
     "formId" integer,
     "projectId" integer,
-    "reporterId" integer
+    "reporterId" integer,
+    index integer DEFAULT 0
 );
 CREATE TABLE public."TaskBoard" (
     id integer NOT NULL,
@@ -415,7 +416,8 @@ CREATE TABLE public."TaskDefinition" (
     "organizationId" integer NOT NULL,
     "parentId" integer,
     "keyTemplate" text,
-    "machineConfig" jsonb
+    "machineConfig" jsonb,
+    "formId" integer
 );
 CREATE SEQUENCE public."TaskDefinition_id_seq"
     AS integer
@@ -682,6 +684,8 @@ ALTER TABLE ONLY public."TaskBoard"
     ADD CONSTRAINT "TaskBoard_projectId_fkey" FOREIGN KEY ("projectId") REFERENCES public."Project"(id) ON UPDATE CASCADE ON DELETE SET NULL;
 ALTER TABLE ONLY public."TaskBoard"
     ADD CONSTRAINT "TaskBoard_taskDefinitionId_fkey" FOREIGN KEY ("taskDefinitionId") REFERENCES public."TaskDefinition"(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE ONLY public."TaskDefinition"
+    ADD CONSTRAINT "TaskDefinition_formId_fkey" FOREIGN KEY ("formId") REFERENCES public."Form"(id) ON UPDATE RESTRICT ON DELETE RESTRICT;
 ALTER TABLE ONLY public."TaskDefinition"
     ADD CONSTRAINT "TaskDefinition_parentId_fkey" FOREIGN KEY ("parentId") REFERENCES public."TaskDefinition"(id) ON UPDATE CASCADE ON DELETE SET NULL;
 ALTER TABLE ONLY public."Task"
