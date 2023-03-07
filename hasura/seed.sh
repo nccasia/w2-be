@@ -8,5 +8,6 @@ hasura seed create defaultUserPermission --database-name W2DB --from-table UserP
 hasura seed create defaultTeam --database-name W2DB --from-table Team
 hasura seed create defaultForm --database-name W2DB --from-table Form
 hasura seed create defaultTaskDefinition --database-name W2DB --from-table TaskDefinition
+hasura seed create defaultTaskBoard --database-name W2DB --from-table TaskBoard
 hasura seed create defaultResource --database-name W2DB --from-table Resource
 hasura seed create defaultResourceItem --database-name W2DB --from-table ResourceItem

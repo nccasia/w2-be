@@ -1,0 +1,863 @@
+{
+  "name": "SwitchSubTask",
+  "nodes": [
+    {
+      "parameters": {
+        "endpoint": "http://10.10.31.80:8080/v1/graphql",
+        "requestFormat": "json",
+        "query": "query MyQuery( $id: Int!) {\n  Task_by_pk(id : $id) {\n    id\n    key\n    status\n    parentId\n    state\n    assigneeId\n    values\n    config\n    title\n    User {\n      email\n    }\n  }\n}\n",
+        "variables": "={\n\"id\": {{ $json[\"taskID\"] }}\n }"
+      },
+      "id": "7a5aa011-daba-4459-be77-13e068d7306b",
+      "name": "updatPmSubtask",
+      "type": "n8n-nodes-base.graphql",
+      "typeVersion": 1,
+      "position": [
+        2040,
+        720
+      ]
+    },
+    {
+      "parameters": {
+        "endpoint": "http://10.10.31.80:8080/v1/graphql",
+        "requestFormat": "json",
+        "query": "query MyQuery( $id: Int!) {\n  Task_by_pk(id : $id) {\n    id\n    key\n    status\n    parentId\n    state\n    assigneeId\n    values\n    config\n    title\n   User {\n      email\n    }\n  }\n}\n",
+        "variables": "={\n\"id\": {{ $json[\"taskID\"] }}\n }"
+      },
+      "id": "90c2f095-2f36-4da0-b5c0-1f3c28c1f68a",
+      "name": "updatPmSubtask1",
+      "type": "n8n-nodes-base.graphql",
+      "typeVersion": 1,
+      "position": [
+        2040,
+        920
+      ]
+    },
+    {
+      "parameters": {
+        "endpoint": "http://10.10.31.80:8080/v1/graphql",
+        "requestFormat": "json",
+        "query": "query MyQuery( $id: Int!) {\n  Task_by_pk(id : $id) {\n    id\n    key\n    status\n    parentId\n    state\n    assigneeId\n    values\n    config\n    title\n   User {\n      email\n    }\n  }\n}\n",
+        "variables": "={\n\"id\": {{ $json[\"taskID\"] }}\n }"
+      },
+      "id": "c6dbbe57-087b-4f6b-ae82-5b914e09ffff",
+      "name": "updatPmSubtask2",
+      "type": "n8n-nodes-base.graphql",
+      "typeVersion": 1,
+      "position": [
+        2040,
+        1120
+      ]
+    },
+    {
+      "parameters": {
+        "nodeMode": "sender",
+        "dataType": "string",
+        "value1": "={{ $json[\"query\"][\"KEY\"] }}",
+        "rules": {
+          "rules": [
+            {
+              "operation": "=equal",
+              "value2": "PM_APPROVAL"
+            },
+            {
+              "value2": "CURRENT_OFFICE_APPROVAL",
+              "output": 1
+            },
+            {
+              "value2": "DESTINATION_OFFICE_APPROVAL",
+              "output": 2
+            }
+          ]
+        },
+        "fallbackOutput": "="
+      },
+      "id": "02c51c0f-8c03-4280-a445-8d4fe376050d",
+      "name": "Switch9000",
+      "type": "n8n-nodes-switch-nine-thousand.switch9000",
+      "typeVersion": 1,
+      "position": [
+        1500,
+        920
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "bc88cbbc-547e-495d-bc9a-41f59e1352de",
+      "name": "formPMSubmit",
+      "type": "n8n-nodes-switch-nine-thousand.switch9000",
+      "typeVersion": 1,
+      "position": [
+        1820,
+        720
+      ]
+    },
+    {
+      "parameters": {
+        "routeIndex": 1
+      },
+      "id": "b577f413-1fc7-4e89-a84d-c37962fadfcc",
+      "name": "formOrgOfficeSubmit",
+      "type": "n8n-nodes-switch-nine-thousand.switch9000",
+      "typeVersion": 1,
+      "position": [
+        1820,
+        920
+      ]
+    },
+    {
+      "parameters": {
+        "routeIndex": 2
+      },
+      "id": "34bc4fdb-345b-429f-bc72-ea113e4f39af",
+      "name": "formDesOfficeSubmit",
+      "type": "n8n-nodes-switch-nine-thousand.switch9000",
+      "typeVersion": 1,
+      "position": [
+        1820,
+        1120
+      ]
+    },
+    {
+      "parameters": {
+        "dataType": "string",
+        "value1": "={{ $json[\"data\"][\"Task_by_pk\"][\"values\"][\"PM_APPROVAL\"][\"approval\"] }}",
+        "rules": {
+          "rules": [
+            {
+              "value2": "Rejected",
+              "output": 1
+            },
+            {
+              "value2": "Approved"
+            }
+          ]
+        }
+      },
+      "id": "75e68a80-83dc-4cfc-8859-13af43ef8d26",
+      "name": "Switch",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 1,
+      "position": [
+        2240,
+        120
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "14c99bdf-735b-4189-8101-cb39f570077b",
+      "name": "Execute Workflow Trigger",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1,
+      "position": [
+        1260,
+        920
+      ]
+    },
+    {
+      "parameters": {
+        "endpoint": "http://graphql-engine:8080/v1beta1/relay",
+        "requestFormat": "json",
+        "query": "mutation updateTask($updates: [Task_updates!]!, ) {\n  update_Task_many(updates: $updates) {\n    returning {\n      id\n    }\n  }\n}",
+        "variables": "={\n    \"updates\": [\n      {\n        \"where\": {\n          \"id\": {\n            \"_eq\": {{ $node[\"formPMSubmit\"].json[\"body\"][\"PM_APPROVAL\"][\"taskId\"] }}\n          }\n        },\n        \"_set\": {\n          \"state\": \"APPROVED\",\n          \"status\": \"DONE\",\n          \"isActive\": false\n        }\n      },\n      {\n        \"where\": {\n          \"id\": {\n            \"_eq\": {{ $json[\"data\"][\"Task_by_pk\"][\"values\"][\"CURRENT_OFFICE_APPROVAL\"][\"taskId\"] }}\n          }\n        },\n        \"_set\": {\n          \"state\": \"WAIT_APPROVAL\",\n          \"status\": \"DOING\",\n          \"isActive\": true\n        }\n      },\n      {\n        \"where\": {\n          \"id\":{\n            \"_eq\": {{ $node[\"formPMSubmit\"].json[\"body\"][\"taskId\"] }}\n          }\n        },\n        \"_set\": {\n          \"state\": \"CURRENT_OFFICE_APPROVAL\",\n          \"status\": \"DOING\"\n        }\n      }\n    ]\n  }",
+        "operationName": "="
+      },
+      "id": "142776e7-4921-4a3d-9dfe-8c7f9f4bc138",
+      "name": "updatPmSubtask3",
+      "type": "n8n-nodes-base.graphql",
+      "typeVersion": 1,
+      "position": [
+        2620,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "dataType": "string",
+        "value1": "={{ $json[\"data\"][\"Task_by_pk\"][\"values\"][\"CURRENT_OFFICE_APPROVAL\"][\"approval\"] }}",
+        "rules": {
+          "rules": [
+            {
+              "value2": "Rejected",
+              "output": 1
+            },
+            {
+              "value2": "Approved"
+            }
+          ]
+        }
+      },
+      "id": "cbd01c6f-ef65-4ed0-b98b-53fa9d00d8ee",
+      "name": "Switch1",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 1,
+      "position": [
+        2280,
+        920
+      ]
+    },
+    {
+      "parameters": {
+        "endpoint": "http://graphql-engine:8080/v1beta1/relay",
+        "requestFormat": "json",
+        "query": "mutation updateTask($updates: [Task_updates!]!, ) {\n  update_Task_many(updates: $updates) {\n    returning {\n      id\n    }\n  }\n}",
+        "variables": "={\n    \"updates\": [\n      {\n        \"where\": {\n          \"id\": {\n            \"_eq\": {{ $node[\"formOrgOfficeSubmit\"].json[\"body\"][\"CURRENT_OFFICE_APPROVAL\"][\"taskId\"] }}\n          }\n        },\n        \"_set\": {\n          \"state\": \"APPROVAL\",\n          \"status\": \"DONE\",\n          \"isActive\": false\n        }\n      },\n      {\n        \"where\": {\n          \"id\": {\n            \"_eq\": {{ $node[\"formOrgOfficeSubmit\"].json[\"body\"][\"DESTINATION_OFFICE_APPROVAL\"][\"taskId\"] }}\n          }\n        },\n        \"_set\": {\n          \"state\": \"WAIT_APPROVAL\",\n          \"status\": \"DOING\",\n          \"isActive\": true\n        }\n      },\n      {\n        \"where\": {\n          \"id\":{\n            \"_eq\": {{ $node[\"formOrgOfficeSubmit\"].json[\"body\"][\"taskId\"] }}\n          }\n        },\n        \"_set\": {\n          \"state\": \"DESTINATION_OFFICE_APPROVAL\",\n          \"status\": \"DOING\"\n        }\n      }\n    ]\n  }",
+        "operationName": "="
+      },
+      "id": "93c4c7b4-61af-4f69-af20-e1babee025a2",
+      "name": "updatPmSubtask5",
+      "type": "n8n-nodes-base.graphql",
+      "typeVersion": 1,
+      "position": [
+        2560,
+        780
+      ]
+    },
+    {
+      "parameters": {
+        "endpoint": "http://graphql-engine:8080/v1beta1/relay",
+        "requestFormat": "json",
+        "query": "mutation updateTask($updates: [Task_updates!]!, ) {\n  update_Task_many(updates: $updates) {\n    returning {\n      id\n    }\n  }\n}",
+        "variables": "={\n    \"updates\": [\n      {\n        \"where\": {\n          \"id\": {\n            \"_eq\": {{ $node[\"formOrgOfficeSubmit\"].json[\"body\"][\"CURRENT_OFFICE_APPROVAL\"][\"taskId\"] }}\n          }\n        },\n        \"_set\": {\n          \"state\": \"REJECTED\",\n          \"status\": \"DONE\",\n          \"isActive\": false\n        }\n      },\n      {\n        \"where\": {\n          \"id\": {\n            \"_eq\": {{ $node[\"formOrgOfficeSubmit\"].json[\"body\"][\"DESTINATION_OFFICE_APPROVAL\"][\"taskId\"] }}\n          }\n        },\n        \"_set\": {\n          \"state\": \"WAIT_APPROVAL\",\n          \"status\": \"DOING\",\n          \"isActive\": true\n        }\n      },\n      {\n        \"where\": {\n          \"id\":{\n            \"_eq\": {{ $node[\"formOrgOfficeSubmit\"].json[\"body\"][\"taskId\"] }}\n          }\n        },\n        \"_set\": {\n          \"state\": \"DESTINATION_OFFICE_APPROVAL\",\n          \"status\": \"DOING\"\n        }\n      }\n    ]\n  }",
+        "operationName": "="
+      },
+      "id": "cbc26f84-e806-4edd-b091-c7d917cfbb79",
+      "name": "updatPmSubtask6",
+      "type": "n8n-nodes-base.graphql",
+      "typeVersion": 1,
+      "position": [
+        2560,
+        980
+      ]
+    },
+    {
+      "parameters": {
+        "dataType": "string",
+        "value1": "={{ $json[\"data\"][\"Task_by_pk\"][\"values\"][\"DESTINATION_OFFICE_APPROVAL\"][\"approval\"] }}",
+        "rules": {
+          "rules": [
+            {
+              "value2": "Rejected",
+              "output": 1
+            },
+            {
+              "value2": "Approved"
+            }
+          ]
+        }
+      },
+      "id": "c1736ddc-273e-4646-8073-6217cc4b11d9",
+      "name": "Switch2",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 1,
+      "position": [
+        2220,
+        1700
+      ]
+    },
+    {
+      "parameters": {
+        "endpoint": "http://graphql-engine:8080/v1beta1/relay",
+        "requestFormat": "json",
+        "query": "mutation updateTask($updates: [Task_updates!]!, ) {\n  update_Task_many(updates: $updates) {\n    returning {\n      id\n    }\n  }\n}",
+        "variables": "={\n    \"updates\": [\n      {\n        \"where\": {\n          \"id\": {\n            \"_eq\": {{ $node[\"formDesOfficeSubmit\"].json[\"body\"][\"DESTINATION_OFFICE_APPROVAL\"][\"taskId\"] }}\n          }\n        },\n        \"_set\": {\n          \"state\": \"APPROVED\",\n          \"status\": \"DONE\",\n          \"isActive\": false\n        }\n      },\n      {\n        \"where\": {\n          \"id\":{\n            \"_eq\": {{ $node[\"formDesOfficeSubmit\"].json[\"taskID\"] }}\n          }\n        },\n        \"_set\": {\n          \"state\": \"APPROVED\",\n          \"status\": \"DONE\"\n        }\n      }\n    ]\n  }",
+        "operationName": "="
+      },
+      "id": "7bb0ed6c-af4c-4653-b18a-f74277a8e311",
+      "name": "updatPmSubtask7",
+      "type": "n8n-nodes-base.graphql",
+      "typeVersion": 1,
+      "position": [
+        2440,
+        1620
+      ]
+    },
+    {
+      "parameters": {
+        "endpoint": "http://graphql-engine:8080/v1beta1/relay",
+        "requestFormat": "json",
+        "query": "mutation updateTask($updates: [Task_updates!]!, ) {\n  update_Task_many(updates: $updates) {\n    returning {\n      id\n    }\n  }\n}",
+        "variables": "={\n    \"updates\": [\n      {\n        \"where\": {\n          \"id\": {\n            \"_eq\": {{ $node[\"formDesOfficeSubmit\"].json[\"body\"][\"DESTINATION_OFFICE_APPROVAL\"][\"taskId\"] }}\n          }\n        },\n        \"_set\": {\n          \"state\": \"REJECTED\",\n          \"status\": \"DONE\",\n          \"isActive\": false\n        }\n      },\n      {\n        \"where\": {\n          \"id\":{\n            \"_eq\": {{ $node[\"formDesOfficeSubmit\"].json[\"taskID\"] }}\n          }\n        },\n        \"_set\": {\n          \"state\": \"REJECTED\",\n          \"status\": \"DONE\"\n        }\n      }\n    ]\n  }",
+        "operationName": "="
+      },
+      "id": "473ef63c-e5f2-4d1a-8117-5abd69791ae9",
+      "name": "updatPmSubtask8",
+      "type": "n8n-nodes-base.graphql",
+      "typeVersion": 1,
+      "position": [
+        2400,
+        1860
+      ]
+    },
+    {
+      "parameters": {
+        "endpoint": "http://graphql-engine:8080/v1beta1/relay",
+        "requestFormat": "json",
+        "query": "mutation updateTask($updates: [Task_updates!]!, ) {\n  update_Task_many(updates: $updates) {\n    returning {\n      id\n    }\n  }\n}",
+        "variables": "={\n    \"updates\": [\n      {\n        \"where\": {\n          \"id\": {\n            \"_eq\": {{ $node[\"formPMSubmit\"].json[\"body\"][\"PM_APPROVAL\"][\"taskId\"] }}\n          }\n        },\n        \"_set\": {\n          \"state\": \"REJECTED\",\n          \"status\": \"DONE\",\n          \"isActive\": false\n        }\n      },\n      {\n        \"where\": {\n          \"id\": {\n            \"_eq\": {{ $json[\"data\"][\"Task_by_pk\"][\"values\"][\"CURRENT_OFFICE_APPROVAL\"][\"taskId\"] }}\n          }\n        },\n        \"_set\": {\n          \"state\": \"WAIT_APPROVAL\",\n          \"status\": \"DOING\",\n          \"isActive\": true\n        }\n      },\n      {\n        \"where\": {\n          \"id\":{\n            \"_eq\": {{ $node[\"formPMSubmit\"].json[\"body\"][\"taskId\"] }}\n          }\n        },\n        \"_set\": {\n          \"state\": \"CURRENT_OFFICE_APPROVAL\",\n          \"status\": \"DOING\"\n        }\n      }\n    ]\n  }",
+        "operationName": "="
+      },
+      "id": "e9b5470b-6ff3-40c5-8e55-2372bd449271",
+      "name": "updatPmSubtask9",
+      "type": "n8n-nodes-base.graphql",
+      "typeVersion": 1,
+      "position": [
+        2600,
+        260
+      ]
+    },
+    {
+      "parameters": {
+        "endpoint": "http://10.10.31.80:8080/v1/graphql",
+        "requestFormat": "json",
+        "query": "mutation MyMutation($data: EventLog_insert_input!) {\n  insert_EventLog_one(object: $data) {\n    id\n  }\n}\n",
+        "variables": "={\n \"data\": {\n    \"taskId\": {{ $node[\"Switch9000\"].json[\"data\"][\"taskID\"] }},\n    \"content\" : \"PM {{ $node[\"formPMSubmit\"].json[\"body\"][\"PM_APPROVAL\"][\"gmail\"] }} is approve for request\"\n}\n} "
+      },
+      "id": "f1e2350a-118a-464d-8083-07893aaf929b",
+      "name": "createPMApproval1",
+      "type": "n8n-nodes-base.graphql",
+      "typeVersion": 1,
+      "position": [
+        2980,
+        -240
+      ]
+    },
+    {
+      "parameters": {
+        "endpoint": "http://10.10.31.80:8080/v1/graphql",
+        "requestFormat": "json",
+        "query": "mutation MyMutation($data: EventLog_insert_input!) {\n  insert_EventLog_one(object: $data) {\n    id\n  }\n}\n",
+        "variables": "=\n{\n \"data\": {\n  \"taskId\": {{ $node[\"Switch9000\"].json[\"data\"][\"taskID\"] }},\n    \"content\" : \"PM {{ $node[\"formPMSubmit\"].json[\"body\"][\"PM_APPROVAL\"][\"gmail\"] }} is reject for request\"\n}\n} "
+      },
+      "id": "f6cabc0c-8ebe-4ea2-bef8-4ad068945b76",
+      "name": "createPMApproval",
+      "type": "n8n-nodes-base.graphql",
+      "typeVersion": 1,
+      "position": [
+        2980,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "endpoint": "http://10.10.31.80:8080/v1/graphql",
+        "requestFormat": "json",
+        "query": "mutation MyMutation($data: EventLog_insert_input!) {\n  insert_EventLog_one(object: $data) {\n    id\n  }\n}\n",
+        "variables": "=\n{\n \"data\": {\n     \"taskId\": {{ $node[\"Switch9000\"].json[\"data\"][\"taskID\"] }},\n    \"content\" : \"PM {{ $node[\"formOrgOfficeSubmit\"].json[\"body\"][\"CURRENT_OFFICE_APPROVAL\"][\"gmail\"] }} is approve for request\"\n}\n} "
+      },
+      "id": "4f1a1b2f-4c47-43c9-899c-85b554fffd61",
+      "name": "createPMApproval2",
+      "type": "n8n-nodes-base.graphql",
+      "typeVersion": 1,
+      "position": [
+        3080,
+        600
+      ]
+    },
+    {
+      "parameters": {
+        "endpoint": "http://10.10.31.80:8080/v1/graphql",
+        "requestFormat": "json",
+        "query": "mutation MyMutation($data: EventLog_insert_input!) {\n  insert_EventLog_one(object: $data) {\n    id\n  }\n}\n",
+        "variables": "=\n{\n \"data\": {\n  \"taskId\": {{ $node[\"Switch9000\"].json[\"data\"][\"taskID\"] }},\n    \"content\" : \"PM {{ $node[\"formOrgOfficeSubmit\"].json[\"body\"][\"CURRENT_OFFICE_APPROVAL\"][\"gmail\"] }} is reject for request\"\n}\n} "
+      },
+      "id": "7cd2c54f-05de-4508-b640-4ff4deb2dd5d",
+      "name": "createPMApproval3",
+      "type": "n8n-nodes-base.graphql",
+      "typeVersion": 1,
+      "position": [
+        3100,
+        1040
+      ]
+    },
+    {
+      "parameters": {
+        "endpoint": "http://10.10.31.80:8080/v1/graphql",
+        "requestFormat": "json",
+        "query": "mutation MyMutation($data: EventLog_insert_input!) {\n  insert_EventLog_one(object: $data) {\n    id\n  }\n}\n",
+        "variables": "=\n{\n \"data\": {  \n    \"taskId\": {{ $node[\"Switch9000\"].json[\"data\"][\"taskID\"] }},\n    \"content\" : \"PM {{ $node[\"formDesOfficeSubmit\"].json[\"body\"][\"DESTINATION_OFFICE_APPROVAL\"][\"gmail\"] }} is approve for request\"\n}\n} "
+      },
+      "id": "a86ef1ae-9097-4576-8134-e50f15f4b5cd",
+      "name": "createPMApproval4",
+      "type": "n8n-nodes-base.graphql",
+      "typeVersion": 1,
+      "position": [
+        2920,
+        1380
+      ]
+    },
+    {
+      "parameters": {
+        "endpoint": "http://10.10.31.80:8080/v1/graphql",
+        "requestFormat": "json",
+        "query": "mutation MyMutation($data: EventLog_insert_input!) {\n  insert_EventLog_one(object: $data) {\n    id\n  }\n}\n",
+        "variables": "=\n{\n \"data\": {\n     \"taskId\": {{ $node[\"Switch9000\"].json[\"data\"][\"taskID\"] }},\n    \"content\" : \"PM {{ $node[\"formDesOfficeSubmit\"].json[\"body\"][\"DESTINATION_OFFICE_APPROVAL\"][\"gmail\"] }} is reject for request\"\n}\n} "
+      },
+      "id": "1272da8b-2ad2-48e7-b1dd-6d8cfb832363",
+      "name": "createPMApproval5",
+      "type": "n8n-nodes-base.graphql",
+      "typeVersion": 1,
+      "position": [
+        2780,
+        1800
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "headerAuth",
+        "path": "96c074e0-eea5-45bb-863d-5253e91ea2c5",
+        "options": {}
+      },
+      "id": "ff4b2e3f-cb77-4f09-a81c-58ef48ecef36",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        1260,
+        680
+      ],
+      "webhookId": "96c074e0-eea5-45bb-863d-5253e91ea2c5",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "1",
+          "name": "HRM Auth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fromEmail": "w2dev@ncc.asia",
+        "toEmail": "={{ $node[\"formPMSubmit\"].json[\"body\"][\"CURRENT_OFFICE_APPROVAL\"][\"gmail\"] }}",
+        "subject": "[W2 DEV] Change office request created",
+        "text": "Hello\n\n",
+        "html": "=<!DOCTYPE html>\n<html>\n<body>\n<h1 style=\"margin-left:20px;\">[W2][COR] - {{ $node[\"Switch9000\"].json[\"data\"][\"body\"][\"title\"]}} is approved</h1>\n<div style=\"margin-left: 30px\">\n <h3>{{ $node[\"Switch9000\"].json[\"data\"][\"body\"][\"title\"]}} has been approved by PM</h3>\n <ul >\n <li style=\"margin-top: 10px\">Requester {{ $node[\"Switch9000\"].json[\"data\"][\"body\"][\"creator\"]}} ({{ $node[\"Switch9000\"].json[\"data\"][\"body\"][\"email\"]}})</li>\n <li style=\"margin-top: 10px\">Current Office: {{ $node[\"Switch9000\"].json[\"data\"][\"body\"][\"CURRENT_OFFICE_APPROVAL\"][\"location\"]}} ({{ $node[\"Switch9000\"].json[\"data\"][\"body\"][\"CURRENT_OFFICE_APPROVAL\"][\"gmail\"]}}).</li>\n <li style=\"margin-top: 10px\">New Office: {{ $node[\"Switch9000\"].json[\"data\"][\"body\"][\"DESTINATION_OFFICE_APPROVAL\"][\"location\"]}} ({{ $node[\"Switch9000\"].json[\"data\"][\"body\"][\"DESTINATION_OFFICE_APPROVAL\"][\"gmail\"]}}).</li>\n </ul>\n <p>Please follow the request and report to admin incase something when wrong.</p>\n <p><a href=\"{{ $node[\"Switch9000\"].json[\"data\"][\"body\"][\"id\"]}}\">[ View Task Detail]</a></p>\n</div>\n</body>\n</html>\n",
+        "options": {
+          "allowUnauthorizedCerts": true
+        }
+      },
+      "id": "b9257504-648c-467c-94f9-26d329e0ec5b",
+      "name": "Send Email1",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 1,
+      "position": [
+        2980,
+        -40
+      ],
+      "credentials": {
+        "smtp": {
+          "id": "3",
+          "name": "Prod SMTP account"
+        }
+      },
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "fromEmail": "w2dev@ncc.asia",
+        "toEmail": "={{ $node[\"Switch9000\"].json[\"data\"][\"body\"][\"email\"]}}",
+        "subject": "[W2 DEV] Change office request created",
+        "text": "Hello\n\n",
+        "html": "=<!DOCTYPE html>\n<html>\n<body>\n<h1 style=\"margin-left:20px;\">[W2][COR] - {{ $node[\"Switch9000\"].json[\"data\"][\"body\"][\"title\"]}} is rejected</h1>\n<div style=\"margin-left: 30px\">\n <h3>{{ $node[\"Switch9000\"].json[\"data\"][\"body\"][\"title\"]}} reject by PM</h3>\n <ul>\n <li style=\"margin-top: 10px\">Requester {{ $node[\"Switch9000\"].json[\"data\"][\"body\"][\"creator\"]}} ({{ $node[\"Switch9000\"].json[\"data\"][\"body\"][\"email\"]}})</li>\n <li style=\"margin-top: 10px\">Current Office: {{ $node[\"Switch9000\"].json[\"data\"][\"body\"][\"CURRENT_OFFICE_APPROVAL\"][\"location\"]}} ({{ $node[\"Switch9000\"].json[\"data\"][\"body\"][\"CURRENT_OFFICE_APPROVAL\"][\"gmail\"]}}).</li>\n <li style=\"margin-top: 10px\">New Office: {{ $node[\"Switch9000\"].json[\"data\"][\"body\"][\"DESTINATION_OFFICE_APPROVAL\"][\"location\"]}} ({{ $node[\"Switch9000\"].json[\"data\"][\"body\"][\"DESTINATION_OFFICE_APPROVAL\"][\"gmail\"]}}).</li>\n </ul>\n<p>Please follow the request and report to admin incase something when wrong.</p>\n   <p><a href=\"{{ $node[\"Switch9000\"].json[\"data\"][\"body\"][\"id\"]}}\">[ View Task Detail]</a></p>\n</div>\n</body>\n</html>\n",
+        "options": {
+          "allowUnauthorizedCerts": true
+        }
+      },
+      "id": "fdfad19f-11bd-4d38-ad3d-04c35897e689",
+      "name": "Send Email",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 1,
+      "position": [
+        2960,
+        360
+      ],
+      "credentials": {
+        "smtp": {
+          "id": "3",
+          "name": "Prod SMTP account"
+        }
+      },
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "fromEmail": "w2dev@ncc.asia",
+        "toEmail": "={{ $node[\"Switch9000\"].json[\"data\"][\"body\"][\"email\"]}}",
+        "subject": "[W2 DEV] Change office request created",
+        "text": "Hello\n\n",
+        "html": "=<!DOCTYPE html>\n<html>\n<body>\n<h1 style=\"margin-left:20px;\">[W2][COR] - {{ $node[\"Switch9000\"].json[\"data\"][\"body\"][\"title\"]}} is approved</h1>\n<div style=\"margin-left: 30px\">\n <h3>{{ $node[\"Switch9000\"].json[\"data\"][\"body\"][\"title\"]}} as been approved by Destination Office </h3>\n <ul>\n <li style=\"margin-top: 10px\">Requester {{ $node[\"Switch9000\"].json[\"data\"][\"body\"][\"creator\"]}} ({{ $node[\"Switch9000\"].json[\"data\"][\"body\"][\"email\"]}})</li>\n <li style=\"margin-top: 10px\">Current Office: {{ $node[\"Switch9000\"].json[\"data\"][\"body\"][\"CURRENT_OFFICE_APPROVAL\"][\"location\"]}} ({{ $node[\"Switch9000\"].json[\"data\"][\"body\"][\"CURRENT_OFFICE_APPROVAL\"][\"gmail\"]}}).</li>\n <li style=\"margin-top: 10px\">New Office: {{ $node[\"Switch9000\"].json[\"data\"][\"body\"][\"DESTINATION_OFFICE_APPROVAL\"][\"location\"]}} ({{ $node[\"Switch9000\"].json[\"data\"][\"body\"][\"DESTINATION_OFFICE_APPROVAL\"][\"gmail\"]}}).</li>\n </ul>\n<p>Please follow the request and report to admin incase something when wrong.</p>\n  <p><a href=\"{{ $node[\"Switch9000\"].json[\"data\"][\"body\"][\"id\"]}}\">[ View Task Detail]</a></p>\n</div>\n</body>\n</html>\n",
+        "options": {
+          "allowUnauthorizedCerts": true
+        }
+      },
+      "id": "61d0d10b-629c-446c-a505-0d4ec2c9ea1c",
+      "name": "Send Email4",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 1,
+      "position": [
+        2940,
+        1580
+      ],
+      "credentials": {
+        "smtp": {
+          "id": "3",
+          "name": "Prod SMTP account"
+        }
+      },
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "fromEmail": "w2dev@ncc.asia",
+        "toEmail": "={{ $node[\"formOrgOfficeSubmit\"].json[\"body\"][\"DESTINATION_OFFICE_APPROVAL\"][\"gmail\"] }}",
+        "subject": "[W2 DEV] Change office request created",
+        "text": "Hello\n\n",
+        "html": "=<!DOCTYPE html>\n<html>\n<body>\n<h1 style=\"margin-left:20px;\">[W2][COR] - {{ $node[\"Switch9000\"].json[\"data\"][\"body\"][\"title\"]}} is approved</h1>\n<div style=\"margin-left: 30px\">\n <h3>{{ $node[\"Switch9000\"].json[\"data\"][\"body\"][\"title\"]}}  has been approved by Current Office</h3>\n <ul>\n <li style=\"margin-top: 10px\">Requester {{ $node[\"Switch9000\"].json[\"data\"][\"body\"][\"creator\"]}} ({{ $node[\"Switch9000\"].json[\"data\"][\"body\"][\"email\"]}})</li>\n <li style=\"margin-top: 10px\">Current Office: {{ $node[\"Switch9000\"].json[\"data\"][\"body\"][\"CURRENT_OFFICE_APPROVAL\"][\"location\"]}} ({{ $node[\"Switch9000\"].json[\"data\"][\"body\"][\"CURRENT_OFFICE_APPROVAL\"][\"gmail\"]}}).</li>\n <li> style=\"margin-top: 10px\">New Office: {{ $node[\"Switch9000\"].json[\"data\"][\"body\"][\"DESTINATION_OFFICE_APPROVAL\"][\"location\"]}} ({{ $node[\"Switch9000\"].json[\"data\"][\"body\"][\"DESTINATION_OFFICE_APPROVAL\"][\"gmail\"]}}).</li>\n </ul>\n<p>Please follow the request and report to admin incase something when wrong.</p>\n  <p><a href=\"{{ $node[\"Switch9000\"].json[\"data\"][\"body\"][\"id\"]}}\">[ View Task Detail]</a></p>\n</div>\n</body>\n</html>\n",
+        "options": {
+          "allowUnauthorizedCerts": true
+        }
+      },
+      "id": "56cb602a-6182-4f04-9daf-c32c2fe9ba91",
+      "name": "Send Email2",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 1,
+      "position": [
+        3100,
+        840
+      ],
+      "credentials": {
+        "smtp": {
+          "id": "3",
+          "name": "Prod SMTP account"
+        }
+      },
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "fromEmail": "w2dev@ncc.asia",
+        "toEmail": "={{ $node[\"Switch9000\"].json[\"data\"][\"body\"][\"email\"]}}",
+        "subject": "[W2 DEV] Change office request created",
+        "text": "Hello\n\n",
+        "html": "=<!DOCTYPE html>\n<html>\n<body>\n<h1 style=\"margin-left:20px;\">[W2][COR] - {{ $node[\"Switch9000\"].json[\"data\"][\"body\"][\"title\"]}} is rejected</h1>\n<div style=\"margin-left: 30px\">\n <h3>{{ $node[\"Switch9000\"].json[\"data\"][\"body\"][\"title\"]}} as been rejected by Current Ofice</h3>\n <ul>\n <li style=\"margin-top: 10px\">Requester {{ $node[\"Switch9000\"].json[\"data\"][\"body\"][\"creator\"]}} ({{ $node[\"Switch9000\"].json[\"data\"][\"body\"][\"email\"]}})</li>\n <li style=\"margin-top: 10px\">Current Office: {{ $node[\"Switch9000\"].json[\"data\"][\"body\"][\"CURRENT_OFFICE_APPROVAL\"][\"location\"]}} ({{ $node[\"Switch9000\"].json[\"data\"][\"body\"][\"CURRENT_OFFICE_APPROVAL\"][\"gmail\"]}}).</li>\n <li style=\"margin-top: 10px\">New Office: {{ $node[\"Switch9000\"].json[\"data\"][\"body\"][\"DESTINATION_OFFICE_APPROVAL\"][\"location\"]}} ({{ $node[\"Switch9000\"].json[\"data\"][\"body\"][\"DESTINATION_OFFICE_APPROVAL\"][\"gmail\"]}}).</li>\n </ul>\n<p>Please follow the request and report to admin incase something when wrong.</p>\n   <p><a href=\"{{ $node[\"Switch9000\"].json[\"data\"][\"body\"][\"id\"]}}\">[ View Task Detail]</a></p>\n</div>\n</body>\n</html>\n",
+        "options": {
+          "allowUnauthorizedCerts": true
+        }
+      },
+      "id": "615f2459-273a-4f3d-86d3-95ecfcdbf36b",
+      "name": "Send Email3",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 1,
+      "position": [
+        3120,
+        1220
+      ],
+      "credentials": {
+        "smtp": {
+          "id": "3",
+          "name": "Prod SMTP account"
+        }
+      },
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "fromEmail": "w2dev@ncc.asia",
+        "toEmail": "={{ $node[\"Switch9000\"].json[\"data\"][\"body\"][\"email\"]}}",
+        "subject": "[W2 DEV] Change office request created",
+        "text": "Hello\n\n",
+        "html": "=<!DOCTYPE html>\n<html>\n<body>\n<h1 style=\"margin-left:20px;\">[W2][COR] - {{ $node[\"Switch9000\"].json[\"data\"][\"body\"][\"title\"]}} is rejected</h1>\n<div style=\"margin-left: 30px\">\n <h3>{{ $node[\"Switch9000\"].json[\"data\"][\"body\"][\"title\"]}} ras been rejected by Destination Office</h3>\n <ul >\n <li style=\"margin-top: 10px\">Requester {{ $node[\"Switch9000\"].json[\"data\"][\"body\"][\"creator\"]}} ({{ $node[\"Switch9000\"].json[\"data\"][\"body\"][\"email\"]}})</li>\n <li style=\"margin-top: 10px\">Current Office: {{ $node[\"Switch9000\"].json[\"data\"][\"body\"][\"CURRENT_OFFICE_APPROVAL\"][\"location\"]}} ({{ $node[\"Switch9000\"].json[\"data\"][\"body\"][\"CURRENT_OFFICE_APPROVAL\"][\"gmail\"]}}).</li>\n <li style=\"margin-top: 10px\">New Office: {{ $node[\"Switch9000\"].json[\"data\"][\"body\"][\"DESTINATION_OFFICE_APPROVAL\"][\"location\"]}} ({{ $node[\"Switch9000\"].json[\"data\"][\"body\"][\"DESTINATION_OFFICE_APPROVAL\"][\"gmail\"]}}).</li>\n </ul>\n<p>Please follow the request and report to admin incase something when wrong.</p>\n   <p><a href=\"{{ $node[\"Switch9000\"].json[\"data\"][\"body\"][\"id\"]}}\">[ View Task Detail]</a></p>\n</div>\n</body>\n</html>\n",
+        "options": {
+          "allowUnauthorizedCerts": true
+        }
+      },
+      "id": "a718f610-6661-4805-84fd-99475e1c0a3a",
+      "name": "Send Email5",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 1,
+      "position": [
+        2800,
+        2020
+      ],
+      "credentials": {
+        "smtp": {
+          "id": "3",
+          "name": "Prod SMTP account"
+        }
+      },
+      "continueOnFail": true
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "updatPmSubtask": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "updatPmSubtask1": {
+      "main": [
+        [
+          {
+            "node": "Switch1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "updatPmSubtask2": {
+      "main": [
+        [
+          {
+            "node": "Switch2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch9000": {
+      "main": [
+        [
+          {
+            "node": "formOrgOfficeSubmit",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "formDesOfficeSubmit",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "formPMSubmit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "formPMSubmit": {
+      "main": [
+        [
+          {
+            "node": "updatPmSubtask",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "formOrgOfficeSubmit": {
+      "main": [
+        [
+          {
+            "node": "updatPmSubtask1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "formDesOfficeSubmit": {
+      "main": [
+        [
+          {
+            "node": "updatPmSubtask2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "updatPmSubtask3",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "updatPmSubtask9",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch1": {
+      "main": [
+        [
+          {
+            "node": "updatPmSubtask5",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "updatPmSubtask6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch2": {
+      "main": [
+        [
+          {
+            "node": "updatPmSubtask7",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "updatPmSubtask8",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Workflow Trigger": {
+      "main": [
+        [
+          {
+            "node": "Switch9000",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "updatPmSubtask3": {
+      "main": [
+        [
+          {
+            "node": "createPMApproval1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Send Email1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "updatPmSubtask9": {
+      "main": [
+        [
+          {
+            "node": "createPMApproval",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Send Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "updatPmSubtask5": {
+      "main": [
+        [
+          {
+            "node": "Send Email2",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "createPMApproval2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "updatPmSubtask6": {
+      "main": [
+        [
+          {
+            "node": "createPMApproval3",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Send Email3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "updatPmSubtask7": {
+      "main": [
+        [
+          {
+            "node": "createPMApproval4",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Send Email4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "updatPmSubtask8": {
+      "main": [
+        [
+          {
+            "node": "createPMApproval5",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Send Email5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Switch9000",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "versionId": "36a69f96-bb84-4d0a-9331-3d11e5c92690",
+  "id": "5",
+  "meta": {
+    "instanceId": "5d2cff2214d650b3f0dddfdb919f829a87c69aadd402f249b3441d675f163edf"
+  },
+  "tags": []
+}

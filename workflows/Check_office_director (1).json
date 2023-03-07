@@ -1,0 +1,85 @@
+{
+  "name": "Check office director",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "6aea5679-b551-479b-9ff1-a3b20cf023cf",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "f9d1e2e7-c397-466c-beb6-4755ad144851",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        500,
+        460
+      ],
+      "webhookId": "6aea5679-b551-479b-9ff1-a3b20cf023cf"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "// Add a new field called 'myNewField' to the\n// JSON of the item\nconst officesMap = {\n  \"DN\": {\n    directorEmail: 'minh.lucvan@ncc.asia'\n  },\n   \"HN1\": {\n    directorEmail: 'minh.lucvan@ncc.asia'\n  },\n  \"HN2\": {\n    directorEmail: 'minh.lucvan@ncc.asia'\n  },\n  \"HN3\": {\n    directorEmail: 'minh.lucvan@ncc.asia'\n  },\n  \"V\": {\n    directorEmail: 'minh.lucvan@ncc.asia'\n  },\n  \"QN\": {\n    directorEmail: 'minh.lucvan@ncc.asia'\n  },\n  \"SG1\": {\n    directorEmail: 'minh.lucvan@ncc.asia'\n  },\n  \"SG2\": {\n    directorEmail: 'minh.lucvan@ncc.asia'\n  }\n}\n\nreturn {\n  json:  {\n    directorEmail: 'minh.lucvan@ncc.asia'\n  }\n};\n\n $input.item.json = officesMap[$input.item.json.query.office] \n\nreturn $input.item;"
+      },
+      "id": "c4149467-bed0-4d32-87ca-6bdd9934a299",
+      "name": "Code",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [
+        840,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "675815c0-579a-487f-b58b-4109243603d5",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        1140,
+        460
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "saveExecutionProgress": "DEFAULT",
+    "saveManualExecutions": false,
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "versionId": "c877ef8a-fbc9-4254-a1e1-c02ecfb2db1f",
+  "id": "6",
+  "meta": {
+    "instanceId": "5d2cff2214d650b3f0dddfdb919f829a87c69aadd402f249b3441d675f163edf"
+  },
+  "tags": []
+}

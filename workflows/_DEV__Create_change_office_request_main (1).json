@@ -1,0 +1,1082 @@
+{
+  "name": "[DEV] Create change office request main",
+  "nodes": [
+    {
+      "parameters": {
+        "endpoint": "http://10.10.31.80:8080/v1/graphql",
+        "requestFormat": "json",
+        "query": "mutation CreateTask(\n   $data: Task_insert_input!\n  ) {\n    insert_Task_one(\n      object: $data\n    ) {\n       id\n  assigneeId\n\n    }\n  }",
+        "variables": "={{ $node[\"Code1\"].json[\"newTask\"][\"Form\"] }}",
+        "operationName": "CreateTask"
+      },
+      "id": "94ed1871-9b6b-40b4-8725-1fe1b8c77914",
+      "name": "create task main",
+      "type": "n8n-nodes-base.graphql",
+      "typeVersion": 1,
+      "position": [
+        -640,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "// Add a new field called 'myNewField' to the\n// JSON of the item\n\nconst newTask = {\n  ...$node[\"Webhook\"].json[\"body\"][\"input\"][\"newTask\"],\n  title: \"Change Office Request - \" + $json[\"data\"][\"User_by_pk\"][\"fullName\"],\n  Form: {\n    data: {\n        assigneeId: 5,\n      creatorId: 5,\n      definitionId: 41,\n      description: \"<p>x</p>\",\n      dueDate: \"2023-02-13T07:54:02.786Z\",\n      key: \"CHANGE_OFFICE_REQUEST\",\n      status: \"DOING\",\n      \"state\": \"REQUEST\",\n      teamId: 4,\n      title: \"Change office request\",\n      values:  $node[\"Webhook\"].json[\"body\"][\"input\"][\"newTask\"][\"values\"] ,\n      Form: {\n        data: {\n          name: \"tintin\",\n          values: $node[\"Webhook\"].json[\"body\"][\"input\"][\"newTask\"][\"values\"],\n          code: \"Changeofficerequest\",\n          description: \"\",\n          config: {},\n          validationConfig: {},\n          schema: {\n            type: \"object\",\n            title: \"Change Office Request\",\n            required: [\"currentOffice\", \"destinationOffice\", \"dueDate\"],\n            properties: {\n              content: {\n                type: \"string\",\n                nullable: true,\n                uniforms: { index: 4, uiComponent: \"QuillEditorField\" },\n              },\n              dueDate: {\n                type: \"string\",\n                format: \"date\",\n                default: null,\n                nullable: true,\n                uniforms: { index: 3 },\n              },\n              currentOffice: {\n                type: \"string\",\n                nullable: true,\n                uniforms: {\n                  index: 1,\n                  resource: 7,\n                  uiComponent: \"SelectResourceField\",\n                },\n              },\n              destinationOffice: {\n                type: \"string\",\n                default: null,\n                nullable: true,\n                uniforms: {\n                  index: 2,\n                  resource: 7,\n                  uiComponent: \"SelectResourceField\",\n                },\n              },\n            },\n          },\n        },\n      },\n      config: {\n        resumeWebhookUrl: $resumeWebhookUrl,\n      },\n      EventLogs: {\n         data: [\n           {\n                    organizationId: $node[\"Webhook\"].json[\"body\"][\"input\"][\"newTask\"][\"organizationId\"],\n                    content: $json['data']['User_by_pk']['email'] + ` created change office request`,\n                    userId:  $node[\"Webhook\"].json[\"body\"][\"input\"][\"newTask\"][\"creatorId\"]\n                },\n            \n            ]\n        \n\n      },\n\n      \n    },\n  },\n};\n\nreturn { json: { newTask } };\n"
+      },
+      "id": "2d30af8a-95c4-4d78-b7cd-ab2676b1389e",
+      "name": "Code1",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [
+        -780,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "endpoint": "http://10.10.31.80:8080/v1/graphql",
+        "requestFormat": "json",
+        "query": "mutation updateTask($id: Int!, $append: Task_append_input!) {\n  update_Task_by_pk(pk_columns: {id: $id}, _append: $append) {\n    id\n  }\n}\n",
+        "variables": "={\n    \"id\": {{ $node[\"create task main\"].json[\"data\"][\"insert_Task_one\"][\"id\"] }},\n    \"append\": {\n        \"values\": {\n         \"title\": \"{{$node[\"Code1\"].json[\"newTask\"][\"title\"]}}\",\n         \"email\": \"{{$node[\"GraphQL3\"].json[\"data\"][\"User_by_pk\"][\"email\"]}}\", \n         \"id\": \"http://10.10.35.27:9000/dashboard/taskboard/tasks/{{$node[\"Code\"].json[\"id\"]}}\",\n         \"creator\": \"{{$node[\"GraphQL3\"].json[\"data\"][\"User_by_pk\"][\"fullName\"]}}\",\n         \"state\": \"WAIT_PM_APPROVAL\",\n        \"status\": \"DOING\", \n                \"{{ $node[\"createPMApproval\"].json[\"data\"][\"insert_Task_one\"][\"key\"] }}\": {\n                \"taskId\": {{ $node[\"createPMApproval\"].json[\"data\"][\"insert_Task_one\"][\"id\"] }},\n                \"gmail\": \"{{$node[\"Code2\"].json[\"data\"][\"User_connection\"][\"edges\"][0][\"node\"][\"email\"]}}\"\n            },\n                \"{{ $node[\"createOrgOfficeApproval\"].json[\"data\"][\"insert_Task_one\"][\"key\"] }}\": {\n                \"taskId\": {{ $node[\"createOrgOfficeApproval\"].json[\"data\"][\"insert_Task_one\"][\"id\"] }},\n                 \"gmail\": \"{{$node[\"Code3\"].json[\"data\"][\"User_connection\"][\"edges\"][0][\"node\"][\"email\"]}}\",\n                  \"location\": \"{{ $node[\"GraphQL4\"].json[\"data\"][\"node\"][\"name\"] }}\"\n            },\n                \"{{ $node[\"createDestOfficeApproval\"].json[\"data\"][\"insert_Task_one\"][\"key\"] }}\": {\n                \"taskId\": {{ $node[\"createDestOfficeApproval\"].json[\"data\"][\"insert_Task_one\"][\"id\"] }},\n                \"gmail\": \"{{$node[\"Code4\"].json[\"data\"][\"User_connection\"][\"edges\"][0][\"node\"][\"email\"]}}\",\n                 \"location\": \"{{ $node[\"GraphQL5\"].json[\"data\"][\"node\"][\"name\"] }}\"\n            }\n        }\n    }\n}\n",
+        "operationName": "updateTask"
+      },
+      "id": "8224b99b-c7da-48a5-a57a-5315d345e23e",
+      "name": "GraphQL",
+      "type": "n8n-nodes-base.graphql",
+      "typeVersion": 1,
+      "position": [
+        2020,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "endpoint": "http://10.10.31.80:8080/v1/graphql",
+        "requestFormat": "json",
+        "query": "mutation CreateTask(\n   $data: Task_insert_input!\n  ) {\n    insert_Task_one(\n      object: $data\n    ) {\n        id\n        assigneeId\nparentId\nkey\n\n    }\n  }\n\n",
+        "variables": "=\n{\n  \"data\": {\n    \"values\": {\n},\n    \"creatorId\": {{ $node[\"Code1\"].json[\"newTask\"][\"creatorId\"] }},\n    \"assigneeId\": {{$node[\"Code2\"].json[\"id\"][3]}},\n    \"dueDate\": \"{{ $node[\"Code1\"].json[\"newTask\"][\"dueDate\"] }}\",\n    \"title\": \"PM approval\",\n    \"description\": \"PM\",\n    \"key\":\"PM_APPROVAL\",\n\"isActive\": true,\n \"state\": \"WAIT_APPROVAL\",\n \"status\": \"DOING\",\n       \"Form\": {\n      \"data\": {\n        \"name\": \"tintin\",\n        \"values\": {},\n        \"code\": \"Changeofficerequest\",\n        \"description\": \"\",\n        \"config\": {},\n        \"validationConfig\": {},\n        \"schema\": {\n          \"type\": \"object\",\n          \"title\": \"Decision\",\n          \"required\": [\n            \"approval\"\n          ],\n          \"properties\": {\n            \"reason\": {\n              \"type\": \"string\",\n              \"nullable\": true,\n              \"uniforms\": {\n                \"index\": 2\n              }\n            },\n            \"approval\": {\n              \"type\": \"string\",\n              \"label\": \"Approval\",\n              \"nullable\": true,\n              \"uniforms\": {\n                \"index\": 1,\n                \"checkboxes\": true\n              },\n              \"allowedValues\": [\n                \"Approved\",\n                \"Rejected\"\n              ]\n            }\n          }\n        }\n      }\n    },\n    \"parentId\": {{ $node[\"Set\"].json[\"data\"][\"insert_Task_one\"][\"id\"] }}\n  }\n} ",
+        "operationName": "CreateTask"
+      },
+      "id": "a184d664-f415-4782-a804-a0655a377525",
+      "name": "createPMApproval",
+      "type": "n8n-nodes-base.graphql",
+      "typeVersion": 1,
+      "position": [
+        1120,
+        -180
+      ]
+    },
+    {
+      "parameters": {
+        "endpoint": "http://10.10.31.80:8080/v1/graphql",
+        "requestFormat": "json",
+        "query": "mutation CreateTask(\n   $data: Task_insert_input!\n  ) {\n    insert_Task_one(\n      object: $data\n    ) {\n        id\n        assigneeId\nparentId\nkey\n    }\n  }",
+        "variables": "={\n  \"data\": {\n    \"values\": {},\n    \"creatorId\": {{ $node[\"Code1\"].json[\"newTask\"][\"creatorId\"] }},\n    \"assigneeId\": {{$node[\"Code3\"].json[\"id\"]}},\n    \"dueDate\": \"{{ $node[\"Code1\"].json[\"newTask\"][\"dueDate\"] }}\",\n    \"title\": \"Current Office approval\",\n    \"description\": \"\",\n    \"key\":\"CURRENT_OFFICE_APPROVAL\",\n\"isActive\": false,\n \"state\": \"WAIT_APPROVAL\",\n \"status\": \"PENDING\",\n    \"Form\": {\n      \"data\": {\n        \"name\": \"tintin\",\n        \"values\": {},\n        \"code\": \"Changeofficerequest\",\n        \"description\": \"\",\n        \"config\": {},\n        \"validationConfig\": {},\n        \"schema\": {\n          \"type\": \"object\",\n          \"title\": \"Decision\",\n          \"required\": [\n            \"approval\"\n          ],\n          \"properties\": {\n            \"reason\": {\n              \"type\": \"string\",\n              \"nullable\": true,\n              \"uniforms\": {\n                \"index\": 2\n              }\n            },\n            \"approval\": {\n              \"type\": \"string\",\n              \"label\": \"Approval\",\n              \"nullable\": true,\n              \"uniforms\": {\n                \"index\": 1,\n                \"checkboxes\": true\n              },\n              \"allowedValues\": [\n                \"Approved\",\n                \"Rejected\"\n              ]\n            }\n          }\n        }\n      }\n    },\n    \"parentId\": {{$node[\"Set\"].json[\"data\"][\"insert_Task_one\"][\"id\"]}}\n\n  }\n}",
+        "operationName": "CreateTask"
+      },
+      "id": "e39d9c25-e862-4c6b-b7e1-24ed4b97f4ab",
+      "name": "createOrgOfficeApproval",
+      "type": "n8n-nodes-base.graphql",
+      "typeVersion": 1,
+      "position": [
+        1120,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "endpoint": "http://10.10.31.80:8080/v1/graphql",
+        "requestFormat": "json",
+        "query": "mutation CreateTask(\n   $data: Task_insert_input!\n  ) {\n    insert_Task_one(\n      object: $data\n    ) {\n        id\n        assigneeId\nparentId\nkey\n    }\n  }",
+        "variables": "={\n  \"data\": {\n    \"values\": {},\n    \"creatorId\": {{ $node[\"Code1\"].json[\"newTask\"][\"creatorId\"] }},\n    \"assigneeId\": {{$node[\"Code4\"].json[\"id\"][3]}},\n    \"dueDate\": \"{{ $node[\"Code1\"].json[\"newTask\"][\"dueDate\"] }}\",\n    \"title\": \"Destination Office Approval\",\n    \"description\": \"\",\n    \"key\": \"DESTINATION_OFFICE_APPROVAL\",\n\"isActive\": false,\n \"state\": \"WAIT_APPROVAL\",\n \"status\": \"PENDING\",\n          \"Form\": {\n      \"data\": {\n        \"name\": \"tintin\",\n        \"values\": {},\n        \"code\": \"Changeofficerequest\",\n        \"description\": \"\",\n        \"config\": {},\n        \"validationConfig\": {},\n        \"schema\": {\n          \"type\": \"object\",\n          \"title\": \"Decision\",\n          \"required\": [\n            \"approval\"\n          ],\n          \"properties\": {\n            \"reason\": {\n              \"type\": \"string\",\n              \"nullable\": true,\n              \"uniforms\": {\n                \"index\": 2\n              }\n            },\n            \"approval\": {\n              \"type\": \"string\",\n              \"label\": \"Approval\",\n              \"nullable\": true,\n              \"uniforms\": {\n                \"index\": 1,\n                \"checkboxes\": true\n              },\n              \"allowedValues\": [\n                \"Approved\",\n                \"Rejected\"\n              ]\n            }\n          }\n        }\n      }\n    },\n  \"parentId\": {{ $node[\"Set\"].json[\"data\"][\"insert_Task_one\"][\"id\"] }}\n  }\n}\n",
+        "operationName": "CreateTask"
+      },
+      "id": "f31de124-853c-4d65-8b4f-9986734dfe60",
+      "name": "createDestOfficeApproval",
+      "type": "n8n-nodes-base.graphql",
+      "typeVersion": 1,
+      "position": [
+        1100,
+        540
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "916501b2-8b90-4d1b-abb7-807d911ff867",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [
+        -280,
+        220
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "e09d4799-5662-4e44-b3de-c3cbb60d3845",
+      "name": "Execute Workflow Trigger",
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1,
+      "position": [
+        -1100,
+        80
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "e98c9aca-ef07-414a-a0b3-3f68eeda2891",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "0788bec8-aeb6-40d1-bbf1-9fc69ee78635",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        -1100,
+        340
+      ],
+      "webhookId": "e98c9aca-ef07-414a-a0b3-3f68eeda2891"
+    },
+    {
+      "parameters": {
+        "values": {
+          "number": [
+            {
+              "name": "taskId",
+              "value": "={{ $json[\"taskId\"] }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "ce7feb8a-3f8b-48a8-bc9e-a0bdceb9ec14",
+      "name": "Set",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        -80,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "resume": "webhook",
+        "httpMethod": "POST",
+        "responseCode": "200",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "bf84ec82-2883-4039-ac26-b561c4d253ef",
+      "name": "Wait",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1,
+      "position": [
+        2260,
+        220
+      ],
+      "webhookId": "9cb97e27-51bf-4e42-97d8-0717b54eb44e"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json[\"data\"][\"Task_by_pk\"][\"status\"] }}",
+              "value2": "DONE"
+            }
+          ]
+        }
+      },
+      "id": "a851a77e-66a6-4a54-be8b-9d0227e26fdf",
+      "name": "IfFinish",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        3000,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "endpoint": "http://10.10.31.80:8080/v1/graphql",
+        "requestFormat": "json",
+        "query": "mutation updateTask($id: Int!, $set: Task_set_input!) {\n  update_Task_by_pk(pk_columns: {id: $id}, _set: $set) {\n    id\n  }\n}\n",
+        "variables": "={\n    \"id\" :{{ $node[\"create task main\"].json[\"data\"][\"insert_Task_one\"][\"id\"] }},\n    \"set\": {\n        \"status\": \"DONE\"\n    }\n}"
+      },
+      "id": "3fa58ea6-4ff8-4501-83ec-a6e10d95b402",
+      "name": "Finalize",
+      "type": "n8n-nodes-base.graphql",
+      "typeVersion": 1,
+      "position": [
+        3220,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "endpoint": "http://10.10.31.80:8080/v1/graphql",
+        "requestFormat": "json",
+        "query": "query MyQuery( $id: Int!) {\n  Task_by_pk(id : $id) {\n    id\n    key\n    status\n    parentId\n    state\n    assigneeId\n    values\n    config\n    title\n  }\n}\n",
+        "variables": "={\n\"id\" :{{ $node[\"create task main\"].json[\"data\"][\"insert_Task_one\"][\"id\"] }}\n}"
+      },
+      "id": "228f93c0-8a23-4c12-bfc5-473d8b90c2d8",
+      "name": "GraphQL2",
+      "type": "n8n-nodes-base.graphql",
+      "typeVersion": 1,
+      "position": [
+        2820,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "workflowId": "5"
+      },
+      "id": "efa689ce-1283-41e3-a1ab-a0f1e8033db3",
+      "name": "Execute Workflow",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1,
+      "position": [
+        2660,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "values": {
+          "number": [
+            {
+              "name": "taskID",
+              "value": "={{ $node[\"createPMApproval\"].json[\"data\"][\"insert_Task_one\"][\"parentId\"] }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "394cc809-42b8-48e4-82a0-4db596dceee4",
+      "name": "Set2",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        2440,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "chooseBranch",
+        "output": "empty"
+      },
+      "id": "0529a1e4-10f9-4d55-b109-f7102f5e654c",
+      "name": "Merge",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2,
+      "position": [
+        1500,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "chooseBranch",
+        "output": "empty"
+      },
+      "id": "7842cb4b-1448-481b-a838-ec4f5677e49f",
+      "name": "Merge1",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2,
+      "position": [
+        1660,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "// Add a new field called 'myNewField' to the\n// JSON of the item\n$input.item.json.id = Buffer.from(JSON.stringify([1, 'public', 'Task', $json[\"data\"][\"insert_Task_one\"][\"id\"]])).toString('base64');\n\nreturn $input.item;"
+      },
+      "id": "955a9163-bbc0-4b35-8508-70cdbb09ef10",
+      "name": "Code",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [
+        -460,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "endpoint": "http://10.10.31.80:8080/v1/graphql",
+        "requestFormat": "json",
+        "query": "mutation updateTask($id: Int!, $set: Task_set_input!) {\n  update_Task_by_pk(pk_columns: {id: $id}, _set: $set) {\n    id\n  }\n}",
+        "variables": "={\n    \"id\": {{ $node[\"create task main\"].json[\"data\"][\"insert_Task_one\"][\"id\"] }},\n    \"set\": {\n            \"state\": \"PM_APPROVAL\",\n            \"status\": \"DOING\",\n             \"title\" : \"Change Office Request - {{ $node[\"GraphQL3\"].json[\"data\"][\"User_by_pk\"][\"fullName\"] }}\"\n    }\n}\n\n",
+        "operationName": "updateTask"
+      },
+      "id": "640ea865-a2c5-4233-b769-f622a87ce87f",
+      "name": "GraphQL1",
+      "type": "n8n-nodes-base.graphql",
+      "typeVersion": 1,
+      "position": [
+        1840,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "endpoint": "http://10.10.31.80:8080/v1/graphql",
+        "requestFormat": "json",
+        "query": "query MyQuery ($id : Int!){\n  User_by_pk(id: $id) {\n    email\n    firstname\n    lastname\n    id\n   fullName\n  }\n}\n",
+        "variables": "={\n\"id\": {{ $json[\"body\"][\"input\"][\"newTask\"][\"creatorId\"] }} }"
+      },
+      "id": "662a6f77-5ded-47a0-bfea-5f89838e5863",
+      "name": "GraphQL3",
+      "type": "n8n-nodes-base.graphql",
+      "typeVersion": 1,
+      "position": [
+        -920,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "url": "=http://10.10.31.80:8081/webhook/6aea5679-b551-479b-9ff1-a3b20cf023cf?office={{ $json[\"data\"][\"node\"][\"code\"] }}",
+        "options": {}
+      },
+      "id": "4c20139b-b0ee-4f62-b140-f69a7d29fd60",
+      "name": "HTTP Request1",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [
+        500,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "url": "=http://project-api.nccsoft.vn/api/services/app/User/GetEmployeeInformation?email={{ $node[\"GraphQL3\"].json[\"data\"][\"User_by_pk\"][\"email\"] }}",
+        "options": {}
+      },
+      "id": "ac1c8c03-0cc4-4724-b96d-ea7fdcbd1ce2",
+      "name": "HTTP Request3",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [
+        480,
+        -180
+      ]
+    },
+    {
+      "parameters": {
+        "url": "=http://10.10.31.80:8081/webhook/6aea5679-b551-479b-9ff1-a3b20cf023cf?office={{ $json[\"data\"][\"node\"][\"code\"] }}",
+        "options": {}
+      },
+      "id": "cac79666-2551-48e0-908b-1f22786d12bf",
+      "name": "HTTP Request",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [
+        500,
+        540
+      ]
+    },
+    {
+      "parameters": {
+        "endpoint": "http://10.10.31.80:8080/v1beta1/relay",
+        "requestFormat": "json",
+        "query": "query MyQuery($_eq: String = \"\") {\n  User_connection(where: {email: {_eq: $_eq}}) {\n    edges {\n      node {\n        email\n        id\n        firstname\n        lastname\n      }\n    }\n  }\n}\n",
+        "variables": "={\n \"_eq\" : \"{{$json[\"result\"][\"projectDtos\"][0][\"pmEmail\"]}}\"\n} "
+      },
+      "id": "36162e67-9ea9-4b26-bb3a-8a8bd02f4847",
+      "name": "GraphQL6",
+      "type": "n8n-nodes-base.graphql",
+      "typeVersion": 1,
+      "position": [
+        740,
+        -180
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "// Loop over input items and add a new field\n// called 'myNewField' to the JSON of each one\n$input.item.json.id = JSON.parse(Buffer.from( JSON.stringify($json[\"data\"][\"User_connection\"][\"edges\"][0][\"node\"][\"id\"]),'base64').toString('ascii'));\n\nreturn $input.item;"
+      },
+      "id": "5061c32d-53c9-436f-b7dc-c0960b78022e",
+      "name": "Code2",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [
+        940,
+        -180
+      ]
+    },
+    {
+      "parameters": {
+        "endpoint": "http://10.10.31.80:8080/v1beta1/relay",
+        "requestFormat": "json",
+        "query": "query MyQuery($_eq: String = \"\") {\n  User_connection(where: {email: {_eq: $_eq}}) {\n    edges {\n      node {\n        email\n        id\n        firstname\n        lastname\n      }\n    }\n  }\n}\n",
+        "variables": "={\n \"_eq\" : \"{{ $json[\"directorEmail\"] }}\"\n}"
+      },
+      "id": "82bcb94b-5daf-4637-8aa7-198d4366343b",
+      "name": "GraphQL11",
+      "type": "n8n-nodes-base.graphql",
+      "typeVersion": 1,
+      "position": [
+        740,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "// Loop over input items and add a new field\n// called 'myNewField' to the JSON of each one\n$input.item.json.id = JSON.parse(Buffer.from( JSON.stringify($json[\"data\"][\"User_connection\"][\"edges\"][0][\"node\"][\"id\"]),'base64').toString('ascii'))[3];\n\nreturn $input.item;"
+      },
+      "id": "46f215b0-6561-48d8-b172-1eb29523d834",
+      "name": "Code3",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [
+        960,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "endpoint": "http://10.10.31.80:8080/v1beta1/relay",
+        "requestFormat": "json",
+        "query": "query MyQuery($_eq: String = \"\") {\n  User_connection(where: {email: {_eq: $_eq}}) {\n    edges {\n      node {\n        email\n        id\n        firstname\n        lastname\n      }\n    }\n  }\n}\n",
+        "variables": "={\n \"_eq\" : \"{{ $json[\"directorEmail\"] }}\"\n}"
+      },
+      "id": "91e6d146-a9d3-49a2-919e-360c4a6dda43",
+      "name": "GraphQL12",
+      "type": "n8n-nodes-base.graphql",
+      "typeVersion": 1,
+      "position": [
+        740,
+        540
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "// Loop over input items and add a new field\n// called 'myNewField' to the JSON of each one\n$input.item.json.id = JSON.parse(Buffer.from( JSON.stringify($json[\"data\"][\"User_connection\"][\"edges\"][0][\"node\"][\"id\"]),'base64').toString('ascii'));\n\nreturn $input.item;"
+      },
+      "id": "bdc41c57-526d-4461-af26-b08e0bc6d200",
+      "name": "Code4",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [
+        920,
+        540
+      ]
+    },
+    {
+      "parameters": {
+        "endpoint": "http://10.10.31.80:8080/v1/graphql",
+        "requestFormat": "json",
+        "query": "mutation MyMutation($data: EventLog_insert_input!) {\n  insert_EventLog_one(object: $data) {\n    id\n  }\n}\n",
+        "variables": "=\n{\n \"data\": {\n    \"taskId\": {{ $node[\"Set\"].json[\"data\"][\"insert_Task_one\"][\"id\"] }},\n    \"content\" : \"PM approval assign to {{ $node[\"Code2\"].json[\"data\"][\"User_connection\"][\"edges\"][0][\"node\"][\"email\"] }}\"\n}\n} "
+      },
+      "id": "aac1bd01-c53c-412c-ae16-4b9d087680e4",
+      "name": "createPMApproval1",
+      "type": "n8n-nodes-base.graphql",
+      "typeVersion": 1,
+      "position": [
+        1540,
+        -360
+      ]
+    },
+    {
+      "parameters": {
+        "endpoint": "http://10.10.31.80:8080/v1/graphql",
+        "requestFormat": "json",
+        "query": "mutation MyMutation($data: EventLog_insert_input!) {\n  insert_EventLog_one(object: $data) {\n    id\n  }\n}\n",
+        "variables": "=\n{\n \"data\": {\n    \"taskId\": {{ $node[\"Set\"].json[\"data\"][\"insert_Task_one\"][\"id\"] }},\n    \"content\" : \"Office approval assign to {{ $node[\"Code3\"].json[\"data\"][\"User_connection\"][\"edges\"][0][\"node\"][\"email\"] }}\"\n}\n} "
+      },
+      "id": "c01fe991-f083-45f4-a4a3-0bbf5eec558a",
+      "name": "createPMApproval2",
+      "type": "n8n-nodes-base.graphql",
+      "typeVersion": 1,
+      "position": [
+        1740,
+        920
+      ]
+    },
+    {
+      "parameters": {
+        "endpoint": "http://10.10.31.80:8080/v1/graphql",
+        "requestFormat": "json",
+        "query": "mutation MyMutation($data: EventLog_insert_input!) {\n  insert_EventLog_one(object: $data) {\n    id\n  }\n}\n",
+        "variables": "=\n{\n \"data\": {\n    \"taskId\": {{ $node[\"Set\"].json[\"data\"][\"insert_Task_one\"][\"id\"] }},\n    \"content\" : \"Destination approval assign to {{ $node[\"Code4\"].json[\"data\"][\"User_connection\"][\"edges\"][0][\"node\"][\"email\"] }}\"\n}\n} "
+      },
+      "id": "3d829a9d-d9ad-4686-ae8d-c3b03d139e8b",
+      "name": "createPMApproval3",
+      "type": "n8n-nodes-base.graphql",
+      "typeVersion": 1,
+      "position": [
+        1240,
+        920
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "headerAuth",
+        "endpoint": "http://10.10.31.80:8080/v1beta1/relay",
+        "requestFormat": "json",
+        "query": "query MyQuery($id: ID!) {\n  node(id: $id) {\n    ... on ResourceItem {\n      id\n      code\n      description\n      name\n    }\n  }\n}\n",
+        "variables": "={\n\"id\": \"{{ $node[\"Code1\"].json[\"newTask\"][\"values\"][\"currentOffice\"] }}\"\n }"
+      },
+      "id": "41708a63-849b-4a15-b575-fc0a22ce1f86",
+      "name": "GraphQL4",
+      "type": "n8n-nodes-base.graphql",
+      "typeVersion": 1,
+      "position": [
+        300,
+        220
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "1",
+          "name": "HRM Auth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "headerAuth",
+        "endpoint": "http://10.10.31.80:8080/v1beta1/relay",
+        "requestFormat": "json",
+        "query": "query MyQuery($id: ID!) {\n  node(id: $id) {\n    ... on ResourceItem {\n      id\n      code\n      description\n      name\n    }\n  }\n}\n",
+        "variables": "={\n\"id\": \"{{ $node[\"Code1\"].json[\"newTask\"][\"values\"][\"destinationOffice\"] }}\"\n }"
+      },
+      "id": "aad035cc-fde4-492e-9955-f80295040776",
+      "name": "GraphQL5",
+      "type": "n8n-nodes-base.graphql",
+      "typeVersion": 1,
+      "position": [
+        240,
+        540
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "1",
+          "name": "HRM Auth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fromEmail": "w2dev@ncc.asia",
+        "toEmail": "={{ $node[\"GraphQL6\"].json[\"data\"][\"User_connection\"][\"edges\"][0][\"node\"][\"email\"] }}",
+        "subject": "[W2 DEV] Change office request created",
+        "text": "Hello\n\n",
+        "html": "=<!DOCTYPE html>\n<html>\n<body>\n<h1 style=\"margin-left:20px;\">[W2][COR] - {{$node[\"Code1\"].json[\"newTask\"][\"title\"]}} PM approval</h1>\n<div style=\"margin-left: 30px\">\n <h3> {{$node[\"Webhook\"].json[\"body\"][\"input\"][\"newTask\"][\"title\"]}} task is assigned to you for approval</h3>\n <ul>\n <li style=\"margin-top: 10px\">Requester {{$node[\"GraphQL3\"].json[\"data\"][\"User_by_pk\"][\"fullName\"]}} ({{ $node[\"GraphQL3\"].json[\"data\"][\"User_by_pk\"][\"email\"] }}).</li>\n <li style=\"margin-top: 10px\"> Current Office: {{ $node[\"GraphQL4\"].json[\"data\"][\"node\"][\"name\"] }} ({{ $node[\"HTTP Request1\"].json[\"directorEmail\"] }}).</li>\n <li style=\"margin-top: 10px\">New Office: {{ $node[\"GraphQL5\"].json[\"data\"][\"node\"][\"name\"] }} ({{ $node[\"HTTP Request\"].json[\"directorEmail\"] }}).</li>\n </ul>\n<p>Please follow the request and report to admin incase something when wrong.</p>\n   <p><a style=\"text-decoration: none\" href=\"http://10.10.35.27:9000/dashboard/taskboard/tasks/{{$node[\"Code\"].json[\"id\"]}}\">[ View Task Detail ]</a></p>\n</div>\n</body>\n</html>\n",
+        "options": {
+          "allowUnauthorizedCerts": true
+        }
+      },
+      "id": "abee5dc5-f783-47ee-9165-5037b14a1a28",
+      "name": "Send Email1",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 1,
+      "position": [
+        1480,
+        -580
+      ],
+      "credentials": {
+        "smtp": {
+          "id": "3",
+          "name": "Prod SMTP account"
+        }
+      },
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "mode": "chooseBranch",
+        "output": "empty"
+      },
+      "id": "622ef4d7-a048-4510-b3d4-a480e41363af",
+      "name": "Merge2",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2,
+      "position": [
+        860,
+        -20
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "chooseBranch",
+        "output": "empty"
+      },
+      "id": "585f4f5f-4018-4005-8322-ee9e2648e899",
+      "name": "Merge3",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2,
+      "position": [
+        1280,
+        -460
+      ]
+    },
+    {
+      "parameters": {
+        "fromEmail": "w2dev@ncc.asia",
+        "toEmail": "={{ $node[\"GraphQL3\"].json[\"data\"][\"User_by_pk\"][\"email\"] }}",
+        "subject": "[W2 DEV] Change office request created",
+        "text": "Hello\n\n",
+        "html": "=<!DOCTYPE html>\n<html>\n<body>\n<h1 style=\"margin-left:20px;\">[W2][COR] - {{$node[\"Code1\"].json[\"newTask\"][\"title\"]}} created</h1>\n<div style=\"margin-left: 30px\">\n <h3> {{$node[\"Webhook\"].json[\"body\"][\"input\"][\"newTask\"][\"title\"]}} that been created</h3>\n <ul>\n <li style=\"margin-top: 10px\">Requester {{$node[\"GraphQL3\"].json['data']['User_by_pk']['fullName']}} ({{ $node[\"GraphQL3\"].json[\"data\"][\"User_by_pk\"][\"email\"] }}).</li>\n <li style=\"margin-top: 10px\"> Current Office: {{ $node[\"GraphQL4\"].json[\"data\"][\"node\"][\"name\"] }} ({{ $node[\"HTTP Request1\"].json[\"directorEmail\"] }}).</li>\n <li style=\"margin-top: 10px\">New Office:  {{ $node[\"GraphQL5\"].json[\"data\"][\"node\"][\"name\"] }} ({{ $node[\"HTTP Request\"].json[\"directorEmail\"] }}).</li>\n </ul>\n<p>Please follow the request and report to admin incase something when wrong.</p>\n   <p><a style=\"text-decoration: none\" href=\"http://10.10.35.27:9000/dashboard/taskboard/tasks/{{$node[\"Code\"].json[\"id\"]}}\">[ View Task Detail ]</a></p>\n</div>\n</body>\n</html>\n",
+        "options": {
+          "allowUnauthorizedCerts": true
+        }
+      },
+      "id": "6d470836-f0e3-4e69-b24d-df995bde46a3",
+      "name": "Send Email2",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 1,
+      "position": [
+        1840,
+        -80
+      ],
+      "credentials": {
+        "smtp": {
+          "id": "3",
+          "name": "Prod SMTP account"
+        }
+      },
+      "continueOnFail": true
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "create task main": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GraphQL": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respond to Webhook": {
+      "main": [
+        [
+          {
+            "node": "Set",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set": {
+      "main": [
+        [
+          {
+            "node": "GraphQL4",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "GraphQL5",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "HTTP Request3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "GraphQL3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Workflow Trigger": {
+      "main": [
+        [
+          {
+            "node": "GraphQL3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Set2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IfFinish": {
+      "main": [
+        [
+          {
+            "node": "Finalize",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GraphQL2": {
+      "main": [
+        [
+          {
+            "node": "IfFinish",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Workflow": {
+      "main": [
+        [
+          {
+            "node": "GraphQL2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set2": {
+      "main": [
+        [
+          {
+            "node": "Execute Workflow",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge1": {
+      "main": [
+        [
+          {
+            "node": "GraphQL1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Send Email2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GraphQL1": {
+      "main": [
+        [
+          {
+            "node": "GraphQL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GraphQL3": {
+      "main": [
+        [
+          {
+            "node": "Code1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code1": {
+      "main": [
+        [
+          {
+            "node": "create task main",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GraphQL6": {
+      "main": [
+        [
+          {
+            "node": "Code2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "createPMApproval": {
+      "main": [
+        [
+          {
+            "node": "createPMApproval1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge3",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Code2": {
+      "main": [
+        [
+          {
+            "node": "createPMApproval",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GraphQL11": {
+      "main": [
+        [
+          {
+            "node": "Code3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GraphQL12": {
+      "main": [
+        [
+          {
+            "node": "Code4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code3": {
+      "main": [
+        [
+          {
+            "node": "createOrgOfficeApproval",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code4": {
+      "main": [
+        [
+          {
+            "node": "createDestOfficeApproval",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "createOrgOfficeApproval": {
+      "main": [
+        [
+          {
+            "node": "createPMApproval2",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "createDestOfficeApproval": {
+      "main": [
+        [
+          {
+            "node": "createPMApproval3",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "GraphQL4": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GraphQL5": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request1": {
+      "main": [
+        [
+          {
+            "node": "GraphQL11",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "GraphQL12",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge2",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "HTTP Request3": {
+      "main": [
+        [
+          {
+            "node": "GraphQL6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge2": {
+      "main": [
+        [
+          {
+            "node": "Merge3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge3": {
+      "main": [
+        [
+          {
+            "node": "Send Email1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "versionId": "8a13199d-0931-4642-83cb-34c6b3b61ab7",
+  "id": "2",
+  "meta": {
+    "instanceId": "5d2cff2214d650b3f0dddfdb919f829a87c69aadd402f249b3441d675f163edf"
+  },
+  "tags": []
+}
